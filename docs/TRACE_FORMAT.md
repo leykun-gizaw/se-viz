@@ -33,27 +33,27 @@ Two rules make this work:
 
 The unit a content module exports and the engine plays.
 
-| Field      | Type             | Notes                                                           |
-| ---------- | ---------------- | -------------------------------------------------------------- |
-| `id`       | `string`         | Stable id, e.g. `"phase0-add"`.                                |
-| `title`    | `string`         | Shown in the UI.                                               |
-| `language` | `'c'`            | Only C is in scope for SE 200 / SE 201.                        |
-| `source`   | `string`         | Full source, `\n`-separated. Line numbers are **1-based**.     |
-| `steps`    | `Step[]`         | Ordered execution steps; `steps[i].index === i`.               |
-| `covers?`  | `string[]`       | Optional curriculum rows covered (see `docs/CURRICULUM.md`).   |
+| Field      | Type       | Notes                                                        |
+| ---------- | ---------- | ------------------------------------------------------------ |
+| `id`       | `string`   | Stable id, e.g. `"phase0-add"`.                              |
+| `title`    | `string`   | Shown in the UI.                                             |
+| `language` | `'c'`      | Only C is in scope for SE 200 / SE 201.                      |
+| `source`   | `string`   | Full source, `\n`-separated. Line numbers are **1-based**.   |
+| `steps`    | `Step[]`   | Ordered execution steps; `steps[i].index === i`.             |
+| `covers?`  | `string[]` | Optional curriculum rows covered (see `docs/CURRICULUM.md`). |
 
 ### `Step`
 
 One point in execution: a complete memory snapshot plus presentation metadata.
 
-| Field             | Type           | Notes                                                                       |
-| ----------------- | -------------- | --------------------------------------------------------------------------- |
-| `id`              | `string`       | Stable, human-readable, unique within the trace, e.g. `"add-call"`.         |
-| `index`           | `number`       | Zero-based; must equal the array index.                                     |
-| `narration`       | `string`       | Plain-language description for the narration panel.                         |
-| `highlightedLines`| `number[]`     | 1-based source line(s) currently executing.                                 |
-| `stack`           | `StackFrame[]` | **Bottom-first**: `stack[0]` = `main`; last element = top of stack.         |
-| `heap`            | `HeapBlock[]`  | Heap allocations live at this step (empty `[]` in Phase 0).                 |
+| Field              | Type           | Notes                                                               |
+| ------------------ | -------------- | ------------------------------------------------------------------- |
+| `id`               | `string`       | Stable, human-readable, unique within the trace, e.g. `"add-call"`. |
+| `index`            | `number`       | Zero-based; must equal the array index.                             |
+| `narration`        | `string`       | Plain-language description for the narration panel.                 |
+| `highlightedLines` | `number[]`     | 1-based source line(s) currently executing.                         |
+| `stack`            | `StackFrame[]` | **Bottom-first**: `stack[0]` = `main`; last element = top of stack. |
+| `heap`             | `HeapBlock[]`  | Heap allocations live at this step (empty `[]` in Phase 0).         |
 
 > **Stack ordering convention:** `stack` is bottom-first. A call **appends** a frame; a return
 > **pops** the last element. The renderer reverses this for display so the most recent call is on
@@ -63,24 +63,24 @@ One point in execution: a complete memory snapshot plus presentation metadata.
 
 One function activation.
 
-| Field       | Type     | Notes                                                                          |
-| ----------- | -------- | ------------------------------------------------------------------------------ |
-| `id`        | `string` | Stable per activation. Recursion → distinct ids (`"factorial#1"`, `"#2"`, …).   |
-| `name`      | `string` | Function name shown in the header.                                              |
-| `callId`    | `number` | Monotonic counter distinguishing invocations of the same function (0, 1, …).    |
-| `variables` | `Cell[]` | Locals + parameters, in declaration order.                                      |
+| Field       | Type     | Notes                                                                         |
+| ----------- | -------- | ----------------------------------------------------------------------------- |
+| `id`        | `string` | Stable per activation. Recursion → distinct ids (`"factorial#1"`, `"#2"`, …). |
+| `name`      | `string` | Function name shown in the header.                                            |
+| `callId`    | `number` | Monotonic counter distinguishing invocations of the same function (0, 1, …).  |
+| `variables` | `Cell[]` | Locals + parameters, in declaration order.                                    |
 
 ### `Cell` (the recursive memory model)
 
 A `Cell` is the unit the engine renders and diffs. It is a discriminated union on `kind`. Every
 variant shares `id`, `name`, `type` (C type label), and optional `address`.
 
-| `kind`      | Extra fields                          | Represents                                  |
-| ----------- | ------------------------------------- | ------------------------------------------- |
-| `'scalar'`  | `value: string \| number \| boolean \| null` | An `int`, `char`, … `null` = uninitialized. |
+| `kind`      | Extra fields                                    | Represents                                  |
+| ----------- | ----------------------------------------------- | ------------------------------------------- |
+| `'scalar'`  | `value: string \| number \| boolean \| null`    | An `int`, `char`, … `null` = uninitialized. |
 | `'pointer'` | `target: CellId \| BlockId \| null`, `display?` | A pointer; `target` drives the drawn arrow. |
-| `'array'`   | `elements: Cell[]`                    | Arrays and C strings (`char[]`).            |
-| `'struct'`  | `fields: Cell[]`                      | `struct`s: linked-list nodes, hash entries. |
+| `'array'`   | `elements: Cell[]`                              | Arrays and C strings (`char[]`).            |
+| `'struct'`  | `fields: Cell[]`                                | `struct`s: linked-list nodes, hash entries. |
 
 **Pointers reference targets by stable id**, never by object reference. `target` is the `id` of
 another cell (`&x`) or a heap block (`malloc`), or `null` for `NULL`. `display` is the optional
@@ -94,7 +94,7 @@ contracts are stable from the start.
 | Field      | Type     | Notes                                              |
 | ---------- | -------- | -------------------------------------------------- |
 | `id`       | `string` | Stable; pointer cells reference this for arrows.   |
-| `label?`   | `string` | e.g. `"node"`, `"malloc(8)"`.                       |
+| `label?`   | `string` | e.g. `"node"`, `"malloc(8)"`.                      |
 | `type?`    | `string` | e.g. `"struct node"`.                              |
 | `address?` | `string` | Displayed base address.                            |
 | `size?`    | `number` | Size in bytes, for display.                        |
@@ -140,16 +140,16 @@ int main(void)             // line 7
 The full trace is [`src/content/phase0/addTrace.ts`](../src/content/phase0/addTrace.ts). Its eight
 steps:
 
-| # | `id`               | Lines  | Stack (bottom→top)                       | What happens                              |
-| - | ------------------ | ------ | ---------------------------------------- | ----------------------------------------- |
-| 0 | `main-enter`       | 7      | `main[]`                                 | `main` frame created.                     |
-| 1 | `decl-x`           | 9      | `main[x=3]`                              | Declare `x = 3`.                          |
-| 2 | `decl-y`           | 10     | `main[x=3, y=4]`                         | Declare `y = 4`.                          |
-| 3 | `add-call`         | 11, 1  | `main[x=3, y=4, z=?]`, `add[a=3, b=4]`   | **Push `add`**; copy args; `z` declared.  |
-| 4 | `add-sum`          | 3      | `main[…]`, `add[a=3, b=4, sum=7]`        | `sum = a + b = 7`.                        |
-| 5 | `add-return`       | 4      | `main[…]`, `add[a=3, b=4, sum=7]`        | `add` returns 7.                          |
-| 6 | `add-pop-assign-z` | 11     | `main[x=3, y=4, z=7]`                    | **Pop `add`**; assign return value to `z`.|
-| 7 | `main-return`      | 12     | `main[x=3, y=4, z=7]`                    | `main` returns 0.                         |
+| #   | `id`               | Lines | Stack (bottom→top)                     | What happens                               |
+| --- | ------------------ | ----- | -------------------------------------- | ------------------------------------------ |
+| 0   | `main-enter`       | 7     | `main[]`                               | `main` frame created.                      |
+| 1   | `decl-x`           | 9     | `main[x=3]`                            | Declare `x = 3`.                           |
+| 2   | `decl-y`           | 10    | `main[x=3, y=4]`                       | Declare `y = 4`.                           |
+| 3   | `add-call`         | 11, 1 | `main[x=3, y=4, z=?]`, `add[a=3, b=4]` | **Push `add`**; copy args; `z` declared.   |
+| 4   | `add-sum`          | 3     | `main[…]`, `add[a=3, b=4, sum=7]`      | `sum = a + b = 7`.                         |
+| 5   | `add-return`       | 4     | `main[…]`, `add[a=3, b=4, sum=7]`      | `add` returns 7.                           |
+| 6   | `add-pop-assign-z` | 11    | `main[x=3, y=4, z=7]`                  | **Pop `add`**; assign return value to `z`. |
+| 7   | `main-return`      | 12    | `main[x=3, y=4, z=7]`                  | `main` returns 0.                          |
 
 A single step, abbreviated, looks like this:
 
@@ -177,3 +177,53 @@ A single step, abbreviated, looks like this:
 Diffing step 2 (`decl-y`) → step 3 (`add-call`) yields `framesPushed: [add#0]` (with cells `a`,
 `b`) and `cellsAdded: ['main.z', 'add.a', 'add.b']` — exactly the animation the renderer plays, and
 exactly what the Vitest test in [`diff.test.ts`](../src/engine/trace/diff.test.ts) locks down.
+
+---
+
+## Phase 1 additions (additive — Phase 0 traces remain valid)
+
+Phase 1 extended the format **additively**: every field below is optional, so existing traces keep
+working unchanged. All are TSDoc'd in [`types.ts`](../src/engine/trace/types.ts).
+
+### Breadcrumb metadata (`Trace`)
+
+| Field         | Type                | Notes                                                                                                          |
+| ------------- | ------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `course?`     | `string`            | Top-bar breadcrumb course. **Source from `docs/CURRICULUM.md`** — never fabricate a code.                      |
+| `topic?`      | `string`            | Breadcrumb topic, e.g. `"Recursion"`.                                                                          |
+| `file?`       | `string`            | Breadcrumb file, e.g. `"factorial.c"`. Also used as the code-panel title.                                      |
+| `heapLayout?` | `'row' \| 'column'` | Data-region layout: `row` = a chain (linked list); `column` = independent allocations (malloc). Default `row`. |
+
+When `course`/`topic`/`file` are absent the chrome falls back to `title`, so Phase 0 traces render.
+
+### Active element + annotations + output (`Step`)
+
+| Field          | Type           | Notes                                                                                                    |
+| -------------- | -------------- | -------------------------------------------------------------------------------------------------------- |
+| `activeId?`    | `string`       | Id of the one "current" element this step → amber ring + badge.                                          |
+| `annotations?` | `Annotation[]` | Labeled connector overlays (pointer arithmetic). See below.                                              |
+| `stdout?`      | `string[]`     | Cumulative `printf` output; renders the console panel.                                                   |
+| `watch?`       | `WatchEntry[]` | Heap-watch diagnostics (`{ level: 'info' \| 'dangling' \| 'leak'; message }`); dangling/leak render red. |
+
+`Annotation = { id, fromId, toId, label }` — draws an azure arc from `fromId` to `toId` (both
+stable ids) with a chip, e.g. `"p + 2 = 0x5004 + 2×4 = 0x500c"`.
+
+### Frames and heap blocks
+
+| Field                 | Type                                               | Notes                                                                |
+| --------------------- | -------------------------------------------------- | -------------------------------------------------------------------- |
+| `StackFrame.address?` | `string`                                           | Displayed frame base address (recursion shows descending addresses). |
+| `HeapBlock.state?`    | `'allocated' \| 'freed' \| 'dangling' \| 'leaked'` | The four allocation states; omit ⇒ `allocated`.                      |
+
+**Derived, not authored:** the green value-changed **pulse**, the pointer-arrow **retarget glide**,
+and the **danger** (red dashed) arrow into a freed/dangling block are all computed from the data —
+`pulsedCellIds` / `retargetedPointerIds` (in [`diff.ts`](../src/engine/trace/diff.ts)) and
+`resolvePointers` (in [`pointers.ts`](../src/engine/pointers.ts)). Content modules never hard-code an
+animation; they just author correct snapshots and `state`s.
+
+### Not yet modeled — concept views (deferred)
+
+Static-library pipelines, preprocessor before→after, and dual-trace debugging are **non-memory**
+views. They are deliberately _not_ bolted on in Phase 1. A later phase will add an additive `view`
+discriminator on `Step`/`Trace` (memory vs concept-diagram vs dual-trace); the `process`-box token
+already exists in the design system for them.

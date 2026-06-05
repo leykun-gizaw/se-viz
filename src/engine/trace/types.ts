@@ -103,13 +103,25 @@ export interface StructCell extends CellBase {
 export type Cell = ScalarCell | PointerCell | ArrayCell | StructCell;
 
 /**
- * A heap allocation (the result of a `malloc`/`calloc`). Empty in Phase 0, but the type exists so
- * the heap region and the diff/renderer contracts are stable from the start.
+ * Allocation lifecycle of a {@link HeapBlock}, rendered as the four visually-distinct states from
+ * the design (PDF screen 04 + legend):
+ * - `allocated` — live, reachable, owned by a pointer (teal).
+ * - `freed` — returned to the allocator, no live references (desaturated + hatched).
+ * - `dangling` — freed, but a pointer still aims at it; reading it is UB (flagged red).
+ * - `leaked` — still allocated but unreachable; no incoming pointer (warning marker, no arrow).
+ *
+ * @remarks Added in Phase 1 (additive; omit to default to `allocated`).
+ */
+export type AllocationState = 'allocated' | 'freed' | 'dangling' | 'leaked';
+
+/**
+ * A heap allocation (the result of a `malloc`/`calloc`). Empty in Phase 0; fully rendered in
+ * Phase 1 with its {@link AllocationState}.
  */
 export interface HeapBlock {
   /** Stable id; pointer cells reference this to draw arrows into the heap. */
   id: BlockId;
-  /** Optional short label, e.g. `"node"`, `"malloc(8)"`. */
+  /** Optional short label, e.g. `"node"`, `"malloc(8)"`, `"32 BYTES"`. */
   label?: string;
   /** Optional C type label, e.g. `"struct node"`, `"int[4]"`. */
   type?: string;
@@ -119,6 +131,11 @@ export interface HeapBlock {
   size?: number;
   /** The cells living inside this block (struct fields, array elements, or a single scalar). */
   cells: Cell[];
+  /**
+   * Allocation lifecycle state. Optional and additive — when omitted the block renders as
+   * `allocated`. Phase 0 traces (no heap) are unaffected.
+   */
+  state?: AllocationState;
 }
 
 /**
@@ -140,6 +157,49 @@ export interface StackFrame {
   callId: number;
   /** Local variables and parameters, in declaration order (top = first declared). */
   variables: Cell[];
+  /**
+   * Optional displayed base address of the frame, shown in its header (e.g. `"0x7ffee540"`). For
+   * recursion, descending addresses per nested call read as the stack growing downward (PDF screen
+   * 01). Optional/additive.
+   *
+   * @remarks Added in Phase 1.
+   */
+  address?: string;
+}
+
+/** Severity of a {@link WatchEntry} line in the console / heap-watch panel. */
+export type WatchLevel = 'info' | 'dangling' | 'leak';
+
+/**
+ * A heap-watch / diagnostic line shown in the console panel (PDF screen 04). Distinct from
+ * {@link Step.stdout} program output: these are the engine's annotations about memory safety.
+ *
+ * @remarks Added in Phase 1 (additive).
+ */
+export interface WatchEntry {
+  /** Severity; `dangling`/`leak` render in the danger hue. */
+  level: WatchLevel;
+  /** Human-readable message, e.g. `"dangling: read through old → 0x9040 was freed at heap.c:5"`. */
+  message: string;
+}
+
+/**
+ * A labeled connector drawn over the memory canvas between two entities (by stable id), used for
+ * the pointer-arithmetic visual (PDF screen 03): an arc from the base element to `*(p + n)` with
+ * the byte-offset annotation. More general than a pointer cell's own arrow, so the same overlay
+ * can host future annotations.
+ *
+ * @remarks Added in Phase 1 (additive).
+ */
+export interface Annotation {
+  /** Stable id for this annotation within the step. */
+  id: string;
+  /** Source anchor: a {@link Cell} or {@link HeapBlock} id. */
+  fromId: string;
+  /** Destination anchor: a {@link Cell} or {@link HeapBlock} id. */
+  toId: string;
+  /** Chip label, e.g. `"p + 2 = 0x5004 + 2×4 = 0x500c"`. */
+  label: string;
 }
 
 /**
@@ -166,6 +226,33 @@ export interface Step {
   stack: StackFrame[];
   /** Heap allocations live at this step. Empty array in Phase 0. */
   heap: HeapBlock[];
+  /**
+   * Id of the single element (frame, cell, or heap block) that is "current" this step — it gets
+   * the amber active ring + badge. Exactly one element is current per step (design law). Optional
+   * and additive; omit for steps with no focal element.
+   *
+   * @remarks Added in Phase 1.
+   */
+  activeId?: string;
+  /**
+   * Labeled connector overlays for this step (e.g. pointer arithmetic). Optional/additive.
+   *
+   * @remarks Added in Phase 1.
+   */
+  annotations?: Annotation[];
+  /**
+   * Cumulative program output (`printf`) visible at this step, one entry per line. Rendered in the
+   * console panel when present. Optional/additive.
+   *
+   * @remarks Added in Phase 1.
+   */
+  stdout?: string[];
+  /**
+   * Heap-watch / diagnostic lines for this step (dangling reads, leaks). Optional/additive.
+   *
+   * @remarks Added in Phase 1.
+   */
+  watch?: WatchEntry[];
 }
 
 /** Supported source languages. Only C is in scope for SE 200 / SE 201. */
@@ -194,4 +281,25 @@ export interface Trace {
    * `["SE200: Functions and Nested Loops"]`. Used for coverage tracking.
    */
   covers?: string[];
+  /**
+   * Breadcrumb metadata for the top bar: `course · topic · file`. **Must be sourced from
+   * `docs/CURRICULUM.md` — never fabricate a course code** (the design exploration wrongly invented
+   * "SE 220"; static libraries is SE 200). Optional/additive; the chrome falls back to {@link
+   * Trace.title} / {@link Trace.id} when absent so Phase 0 traces still render.
+   *
+   * @remarks Added in Phase 1.
+   */
+  course?: string;
+  /** Breadcrumb topic segment, e.g. `"Recursion"`, `"Linked lists"`. */
+  topic?: string;
+  /** Breadcrumb file segment, e.g. `"factorial.c"`. */
+  file?: string;
+  /**
+   * Hint for how the heap / data region lays out its blocks: a horizontal `row` (a linked-list
+   * chain) or a vertical `column` (independent allocations, as in malloc/free). Defaults to `row`.
+   * Optional/additive.
+   *
+   * @remarks Added in Phase 1.
+   */
+  heapLayout?: 'row' | 'column';
 }

@@ -1,7 +1,135 @@
 @import 'tailwindcss';
 
-:root {
+/*
+ * SE-Viz design system — the locked visual language from docs/design/DESIGN_SPEC.md and the
+ * 9-screen PDF. Encoded ONCE here as CSS variables so every content phase inherits it.
+ *
+ * Two layers:
+ *  1. Raw semantic variables (`--se-*`) defined per theme (dark primary, light variant). The theme
+ *     is selected by `data-theme` on <html>.
+ *  2. A Tailwind `@theme inline` block that maps those raw variables into Tailwind tokens, so
+ *     utilities like `bg-surface`, `text-pointer`, `font-mono` exist AND re-theme automatically
+ *     (the `inline` keyword makes the generated utilities reference the live var, not a snapshot).
+ *
+ * Aesthetic rules baked in: flat (no gradients/glow/drop-shadows), hairline borders, 8–12px radii.
+ */
+
+/* ---- Dark theme (primary) ------------------------------------------------ */
+:root,
+:root[data-theme='dark'] {
   color-scheme: dark;
+
+  /* Warm-neutral surfaces */
+  --se-bg: #0d0e11;
+  --se-surface: #16181d;
+  --se-surface-2: #1d2026;
+  --se-surface-3: #24272e;
+
+  /* Hairline borders */
+  --se-border: rgba(255, 255, 255, 0.1);
+  --se-border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --se-text: #e7e9ec;
+  --se-text-muted: #9aa0aa;
+  --se-text-faint: #5f656f;
+
+  /* Semantic — color is meaning (DESIGN_SPEC §"Color = meaning") */
+  --se-pointer: #5b93ff; /* azure: pointer cells, links, every arrow */
+  --se-pointer-soft: rgba(91, 147, 255, 0.14);
+  --se-heap: #2bb6a3; /* teal: heap-allocated blocks/nodes */
+  --se-heap-soft: rgba(43, 182, 163, 0.14);
+  --se-active: #f3b13b; /* amber: the one current element per step */
+  --se-active-soft: rgba(243, 177, 59, 0.16);
+  --se-changed: #43d18a; /* green: value-just-changed pulse */
+  --se-changed-soft: rgba(67, 209, 138, 0.18);
+  --se-danger: #f0586a; /* red: dangling pointer / UB */
+  --se-danger-soft: rgba(240, 88, 106, 0.14);
+
+  /* Code syntax (must read in both themes) */
+  --se-syntax-keyword: #c792ea;
+  --se-syntax-type: #82aaff;
+  --se-syntax-fn: #5bd1c3;
+  --se-syntax-string: #6cc497;
+  --se-syntax-number: #f2a96b;
+  --se-syntax-comment: #6b7280;
+  --se-syntax-punct: #aab1bd;
+
+  --se-line-active: rgba(243, 177, 59, 0.12);
+}
+
+/* ---- Light variant ------------------------------------------------------- */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --se-bg: #f5f4f1;
+  --se-surface: #ffffff;
+  --se-surface-2: #f1efea;
+  --se-surface-3: #e8e6e0;
+
+  --se-border: rgba(20, 22, 28, 0.12);
+  --se-border-strong: rgba(20, 22, 28, 0.2);
+
+  --se-text: #1b1e24;
+  --se-text-muted: #5b616b;
+  --se-text-faint: #9097a1;
+
+  --se-pointer: #2563eb;
+  --se-pointer-soft: rgba(37, 99, 235, 0.12);
+  --se-heap: #0d9488;
+  --se-heap-soft: rgba(13, 148, 136, 0.12);
+  --se-active: #c47d12;
+  --se-active-soft: rgba(196, 125, 18, 0.16);
+  --se-changed: #15a35b;
+  --se-changed-soft: rgba(21, 163, 91, 0.16);
+  --se-danger: #d4313f;
+  --se-danger-soft: rgba(212, 49, 63, 0.12);
+
+  --se-syntax-keyword: #8b3fc4;
+  --se-syntax-type: #1d4ed8;
+  --se-syntax-fn: #0e7c70;
+  --se-syntax-string: #1f8a4c;
+  --se-syntax-number: #b9591a;
+  --se-syntax-comment: #8a909a;
+  --se-syntax-punct: #4b515b;
+
+  --se-line-active: rgba(196, 125, 18, 0.14);
+}
+
+@theme inline {
+  --color-bg: var(--se-bg);
+  --color-surface: var(--se-surface);
+  --color-surface-2: var(--se-surface-2);
+  --color-surface-3: var(--se-surface-3);
+
+  --color-hairline: var(--se-border);
+  --color-hairline-strong: var(--se-border-strong);
+
+  --color-ink: var(--se-text);
+  --color-ink-muted: var(--se-text-muted);
+  --color-ink-faint: var(--se-text-faint);
+
+  --color-pointer: var(--se-pointer);
+  --color-pointer-soft: var(--se-pointer-soft);
+  --color-heap: var(--se-heap);
+  --color-heap-soft: var(--se-heap-soft);
+  --color-active: var(--se-active);
+  --color-active-soft: var(--se-active-soft);
+  --color-changed: var(--se-changed);
+  --color-changed-soft: var(--se-changed-soft);
+  --color-danger: var(--se-danger);
+  --color-danger-soft: var(--se-danger-soft);
+
+  --color-kw: var(--se-syntax-keyword);
+  --color-ty: var(--se-syntax-type);
+  --color-fn: var(--se-syntax-fn);
+  --color-str: var(--se-syntax-string);
+  --color-num: var(--se-syntax-number);
+  --color-comment: var(--se-syntax-comment);
+  --color-punct: var(--se-syntax-punct);
+
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
 }
 
 html,
@@ -12,4 +140,42 @@ body,
 
 body {
   margin: 0;
+  background: var(--se-bg);
+  color: var(--se-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Code panel: ligatures OFF (locked-spec rule). Beginners must see literal `->`, `!=`, `<=`, `++`
+ * — never `→ ≠ ≤`. Belt-and-suspenders: disable both standard ligatures and contextual alternates.
+ */
+.se-code {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+  font-feature-settings:
+    'liga' 0,
+    'clig' 0,
+    'calt' 0;
+}
+
+/* Hatched fill for freed/dangling heap blocks (allocation state) */
+.se-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--se-border) 0,
+    var(--se-border) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

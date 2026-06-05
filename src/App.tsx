@@ -1,67 +1,111 @@
 /**
- * SE-Viz Phase 0 vertical slice. Three synchronized panels (code / memory / narration) plus
- * minimal step controls, driven by the {@link useTrace} player over the hand-authored
- * {@link addTrace}. This is the proof that the traces-first architecture renders end to end.
+ * SE-Viz Phase 1 — the engine workbench. Assembles the chrome (top bar + breadcrumb, transport),
+ * the three synchronized panels, the semantic legend, a light/dark toggle, presentation mode, and a
+ * minimal switcher across the four validation fixtures. Keyboard transport is global.
  */
-import { CodePanel } from './components/CodePanel.tsx';
-import { Controls } from './components/Controls.tsx';
-import { MemoryCanvas } from './components/MemoryCanvas.tsx';
-import { addTrace } from './content/phase0/addTrace.ts';
+import { useCallback, useMemo, useState } from 'react';
+import { FIXTURES } from './content/fixtures/index.ts';
 import { useTrace } from './engine/trace/useTrace.ts';
+import { useKeyboardControls } from './hooks/useKeyboardControls.ts';
+import { useTheme } from './hooks/useTheme.ts';
+import { Legend } from './components/Legend.tsx';
+import { PresentationMode } from './components/PresentationMode.tsx';
+import { Stage } from './components/Stage.tsx';
+import { TopBar } from './components/TopBar.tsx';
 
-export default function App() {
-  const player = useTrace(addTrace);
-  const { step } = player;
+/** The player + chrome for a single trace. Remounted (keyed) when the fixture changes. */
+function Workbench({
+  fixtureIndex,
+  onSelectFixture,
+}: {
+  fixtureIndex: number;
+  onSelectFixture: (i: number) => void;
+}) {
+  const { theme, toggle } = useTheme();
+  const [presenting, setPresenting] = useState(false);
+  const [showLegend, setShowLegend] = useState(false);
+
+  const player = useTrace(FIXTURES[fixtureIndex].trace);
+
+  const handlers = useMemo(
+    () => ({
+      onPrev: player.prev,
+      onNext: player.next,
+      onTogglePlay: player.togglePlay,
+      onHome: () => player.goTo(0),
+      onEnd: () => player.goTo(player.total - 1),
+      onToggleFullscreen: () => setPresenting((p) => !p),
+      onExit: () => setPresenting(false),
+    }),
+    [player],
+  );
+  useKeyboardControls(handlers);
+
+  if (presenting) {
+    return <PresentationMode player={player} onExit={() => setPresenting(false)} />;
+  }
 
   return (
-    <div className="flex h-full flex-col bg-slate-950 text-slate-100">
-      <header className="border-b border-slate-800 px-6 py-4">
-        <h1 className="text-lg font-bold">
-          SE-Viz <span className="font-normal text-slate-400">— {addTrace.title}</span>
-        </h1>
-        <p className="text-xs text-slate-500">Phase 0 vertical slice · traces-first</p>
-      </header>
+    <div className="flex h-full flex-col bg-bg text-ink">
+      <TopBar
+        player={player}
+        theme={theme}
+        onToggleTheme={toggle}
+        onEnterPresentation={() => setPresenting(true)}
+      />
 
-      <main className="grid flex-1 grid-cols-1 gap-4 overflow-auto p-6 lg:grid-cols-2">
-        <section className="flex flex-col">
-          <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Code
-          </h2>
-          <div className="min-h-0 flex-1">
-            <CodePanel trace={player.trace} step={step} />
-          </div>
-        </section>
-
-        <section className="flex flex-col">
-          <h2 className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Memory
-          </h2>
-          <div className="min-h-0 flex-1 rounded-lg border border-slate-800 bg-slate-900/40 p-4">
-            <MemoryCanvas step={step} />
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t border-slate-800 px-6 py-4">
-        <div
-          aria-live="polite"
-          className="mb-4 min-h-[3rem] rounded-lg border border-slate-800 bg-slate-900/60 px-4 py-3 text-sm text-slate-200"
-        >
-          <span className="mr-2 font-mono text-xs uppercase tracking-wide text-sky-400">
-            Narration
-          </span>
-          {step.narration}
+      {/* Fixture switcher + legend toggle (engine validation surface, not a curriculum shell). */}
+      <div className="flex items-center justify-between gap-4 border-b border-hairline bg-surface px-4 py-1.5">
+        <div className="flex items-center gap-1">
+          {FIXTURES.map((f, i) => (
+            <button
+              key={f.trace.id}
+              type="button"
+              onClick={() => onSelectFixture(i)}
+              className={`rounded-md px-3 py-1 font-sans text-xs transition-colors ${
+                i === fixtureIndex
+                  ? 'bg-surface-3 font-semibold text-ink'
+                  : 'text-ink-muted hover:bg-surface-2'
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
-        <Controls
-          index={player.index}
-          total={player.total}
-          canPrev={player.canPrev}
-          canNext={player.canNext}
-          onPrev={player.prev}
-          onNext={player.next}
-          onReset={player.reset}
-        />
+        <button
+          type="button"
+          onClick={() => setShowLegend((s) => !s)}
+          className="rounded-md border border-hairline bg-surface-2 px-3 py-1 font-sans text-xs text-ink-muted hover:bg-surface-3"
+        >
+          {showLegend ? 'Hide legend' : 'Legend'}
+        </button>
+      </div>
+
+      {showLegend ? (
+        <div className="border-b border-hairline bg-surface px-5 py-4">
+          <Legend />
+        </div>
+      ) : null}
+
+      <Stage player={player} />
+
+      <footer className="border-t border-hairline bg-surface px-4 py-1.5">
+        <span className="font-mono text-[10px] text-ink-faint">
+          Keys: ←/→ step · Space play/pause · Home/End ends · f presentation · Esc exit
+        </span>
       </footer>
     </div>
+  );
+}
+
+export default function App() {
+  const [fixtureIndex, setFixtureIndex] = useState(0);
+  const onSelectFixture = useCallback((i: number) => setFixtureIndex(i), []);
+  return (
+    <Workbench
+      key={FIXTURES[fixtureIndex].trace.id}
+      fixtureIndex={fixtureIndex}
+      onSelectFixture={onSelectFixture}
+    />
   );
 }

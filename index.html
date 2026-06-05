@@ -1,9 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SE-Viz — Memory & Algorithm Visualizer</title>
+    <!-- Light first paint (prevents a flash before the bundled CSS loads in dev). -->
+    <style>
+      :root {
+        color-scheme: light;
+        background: #f5f4f1;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

@@ -130,3 +130,28 @@ export function diffSteps(prev: Step | null, next: Step): StepDiff {
     pointersRetargeted,
   };
 }
+
+/**
+ * The set of cell ids that should show the green "value-changed" pulse this step. Driven entirely
+ * by {@link diffSteps} (never hard-coded per fixture) so the pulse is a property of the data, not
+ * the content module.
+ *
+ * @param prev - The earlier step, or `null` for the first step (no pulses).
+ * @param next - The later step.
+ * @returns A set of {@link CellId}s whose scalar value changed from `prev` to `next`.
+ */
+export function pulsedCellIds(prev: Step | null, next: Step): Set<CellId> {
+  return new Set(diffSteps(prev, next).valuesChanged.map((c) => c.id));
+}
+
+/**
+ * The set of pointer cell ids whose target changed this step (the arrowhead should glide). Also
+ * derived from {@link diffSteps}.
+ *
+ * @param prev - The earlier step, or `null` for the first step (no retargets).
+ * @param next - The later step.
+ * @returns A set of {@link CellId}s whose pointer target changed from `prev` to `next`.
+ */
+export function retargetedPointerIds(prev: Step | null, next: Step): Set<CellId> {
+  return new Set(diffSteps(prev, next).pointersRetargeted.map((p) => p.id));
+}
