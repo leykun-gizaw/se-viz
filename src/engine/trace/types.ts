@@ -203,6 +203,20 @@ export interface Annotation {
 }
 
 /**
+ * An evaluated boolean condition shown as a chip alongside the narration (e.g. `i <= n → true`).
+ * Makes branches and loop tests legible: the learner sees the exact expression and its result this
+ * step, rather than inferring it. Optional/additive.
+ *
+ * @remarks Added in Phase 2.
+ */
+export interface StepCondition {
+  /** The condition expression exactly as written in the source, e.g. `"i <= n"`, `"n % 2 == 0"`. */
+  expr: string;
+  /** The expression's evaluated result this step. Renders green when `true`, muted when `false`. */
+  result: boolean;
+}
+
+/**
  * A single point in execution: the **complete** memory snapshot plus presentation metadata.
  * The engine renders exactly this and animates the diff against the previous step.
  */
@@ -253,6 +267,13 @@ export interface Step {
    * @remarks Added in Phase 1.
    */
   watch?: WatchEntry[];
+  /**
+   * An evaluated condition chip (branch test / loop condition) shown beside the narration.
+   * Optional/additive.
+   *
+   * @remarks Added in Phase 2.
+   */
+  condition?: StepCondition;
 }
 
 /** Supported source languages. Only C is in scope for SE 200 / SE 201. */

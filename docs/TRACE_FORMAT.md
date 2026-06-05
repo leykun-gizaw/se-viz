@@ -227,3 +227,34 @@ Static-library pipelines, preprocessor before→after, and dual-trace debugging 
 views. They are deliberately _not_ bolted on in Phase 1. A later phase will add an additive `view`
 discriminator on `Step`/`Trace` (memory vs concept-diagram vs dual-trace); the `process`-box token
 already exists in the design system for them.
+
+---
+
+## Phase 2 additions (additive — Phase 0/1 traces remain valid)
+
+### Condition chip (`Step`)
+
+| Field        | Type            | Notes                                                              |
+| ------------ | --------------- | ------------------------------------------------------------------ |
+| `condition?` | `StepCondition` | A branch/loop test shown as a chip beside the narration. Optional. |
+
+`StepCondition = { expr: string; result: boolean }`. The narration bar renders it as
+`expr → result` — green when `true`, muted when `false` — with ligatures off so operators read
+literally (`i <= n`, not `i ≤ n`), matching the code panel. Used to make `if`/`else` branches and
+`while`/`for` loop tests legible: each pass shows the exact condition and its result this step.
+Example: `{ expr: 'i <= n', result: true }`.
+
+### Validation
+
+`validateTrace(trace)` ([`validate.ts`](../src/engine/trace/validate.ts)) checks the structural
+invariants every trace must hold — `steps[i].index === i`; `highlightedLines` within the source;
+ids unique within a step; `activeId`, pointer `target`s, and annotation `fromId`/`toId` all resolve
+to ids present in that step. A Vitest test runs it over **every** trace in the catalog, so a future
+authoring error fails CI. It validates structure, not arithmetic — authors still hand-verify values.
+
+### Content catalog
+
+Content modules live under `src/content/se<course>/<topic>/…` and are registered in
+[`catalog.ts`](../src/content/catalog.ts), grouped course → topic. `allCatalogTraces()` feeds the
+validation test; the workbench lists modules from the catalog. This is the single source of truth a
+future navigation shell will consume.
