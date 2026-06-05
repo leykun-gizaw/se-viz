@@ -21,6 +21,3 @@ build/
 
 # Test / coverage
 coverage/
-
-reports/
-prompts/
