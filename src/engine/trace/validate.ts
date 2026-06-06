@@ -71,7 +71,10 @@ export function validateTrace(trace: Trace): TraceIssue[] {
   const view = trace.view ?? 'memory';
 
   // Trace-level concept-view invariants (Phase 11).
-  if (view === 'dual-trace' && (trace.leftSource === undefined || trace.rightSource === undefined)) {
+  if (
+    view === 'dual-trace' &&
+    (trace.leftSource === undefined || trace.rightSource === undefined)
+  ) {
     issue(-1, "view 'dual-trace' requires both trace.leftSource and trace.rightSource");
   }
 
@@ -129,6 +132,22 @@ export function validateTrace(trace: Trace): TraceIssue[] {
       }
       if (!idSet.has(ann.toId)) {
         issue(i, `annotation "${ann.id}" toId "${ann.toId}" is not in the step`);
+      }
+    }
+
+    // Coach note (Phase 17): its anchor must resolve, like activeId / annotations. `anchorId` may
+    // point at a memory element or a pipeline node (the activeUniverse); `anchorLine` is 1-based into
+    // the source. No anchor is fine (the bubble falls back to a consistent spot).
+    if (step.coach) {
+      if (step.coach.anchorId !== undefined && !activeUniverse.has(step.coach.anchorId)) {
+        issue(
+          i,
+          `coach anchorId "${step.coach.anchorId}" does not resolve to any element in the step`,
+        );
+      }
+      const cl = step.coach.anchorLine;
+      if (cl !== undefined && (!Number.isInteger(cl) || cl < 1 || cl > lineCount)) {
+        issue(i, `coach anchorLine ${cl} is outside the source (1..${lineCount})`);
       }
     }
 

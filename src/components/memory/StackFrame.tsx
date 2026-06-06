@@ -63,6 +63,7 @@ export function StackFrame({ frame, depth }: StackFrameProps) {
       <Tooltip label={localsLabel || '(no locals)'} placement="top">
         <div
           ref={ref}
+          data-coach-anchor={frame.id}
           className={`min-w-[15rem] rounded-lg border bg-surface p-3 ${
             active ? 'border-active ring-1 ring-active' : 'border-hairline'
           }`}

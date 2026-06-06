@@ -146,6 +146,12 @@ const steps: Step[] = [
     ],
     heap: [],
     activeId: 'fac1',
+    coach: {
+      variant: 'idea',
+      title: 'The base case',
+      body: 'Every recursion needs a base case — an input it answers directly, without calling itself. factorial(1) returns 1 and stops. Without it the calls would never end.',
+      anchorId: 'fac1',
+    },
   },
   {
     id: 'unwind-2',
@@ -155,6 +161,11 @@ const steps: Step[] = [
     stack: [mainFrame(null), facFrame(1, 4, PENDING4), facFrame(2, 3, PENDING3), facFrame(3, 2, 2)],
     heap: [],
     activeId: 'fac2',
+    coach: {
+      variant: 'recap',
+      title: 'Unwinding',
+      body: 'Now the stack unwinds: each frame multiplies its own n by the value returned from below. Watch 1 become 2, then 6, then 24 on the way back up.',
+    },
   },
   {
     id: 'unwind-3',

@@ -85,6 +85,11 @@ const steps: Step[] = [
       left: col(BUGGY_LABEL, 3, '1', '7', '3'),
       right: col(FIXED_LABEL, 3, '1', '7', '3'),
     },
+    coach: {
+      variant: 'watch-out',
+      title: 'First divergence',
+      body: 'Debug by comparison: scan both columns until a row first differs. Here the if test diverges (7 < 3 vs 7 > 3) — line 3’s flipped operator is the bug. Everything below is just downstream of it.',
+    },
   },
   {
     id: 'i1-act',
@@ -189,7 +194,8 @@ export const maxArrayTrace: Trace = {
 const contentModule: ContentModule = {
   trace: maxArrayTrace,
   label: 'Max of array',
-  summary: 'Buggy vs fixed max-of-array side by side; the first divergence (i = 1) localizes the flipped comparison.',
+  summary:
+    'Buggy vs fixed max-of-array side by side; the first divergence (i = 1) localizes the flipped comparison.',
   order: 35,
 };
 export default contentModule;

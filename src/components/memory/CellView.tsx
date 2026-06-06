@@ -70,6 +70,7 @@ function ScalarRow({ cell }: { cell: ScalarCell }) {
   return (
     <div
       ref={ref}
+      data-coach-anchor={cell.id}
       title={`${cell.type} ${cell.name} = ${scalarText(cell.value)}${cell.address ? ` @${cell.address}` : ''}`}
       className={`flex items-center justify-between gap-3 rounded-md border bg-surface-2 px-3 py-1.5 transition-colors ${
         active ? 'border-active ring-1 ring-active' : 'border-hairline'
@@ -100,6 +101,7 @@ function PointerRow({ cell }: { cell: PointerCell }) {
   return (
     <div
       ref={ref}
+      data-coach-anchor={cell.id}
       title={`${cell.type} ${cell.name} → ${held}`}
       className={`flex items-center justify-between gap-3 rounded-md border border-l-2 bg-pointer-soft px-3 py-1.5 ${
         active
@@ -171,6 +173,7 @@ function ArrayElement({
   return (
     <div
       ref={ref}
+      data-coach-anchor={cell.id}
       title={`${cell.type} [${index}]${pointed ? ` ·${targetedBy.join(',')}` : ''} = ${value}${nul ? ' (NUL terminator)' : ''}${address ? ` @${address}` : ''}`}
       className={`flex w-20 flex-col items-center gap-0.5 border px-2 py-2 ${first ? '' : '-ml-px'} ${
         active
@@ -202,6 +205,7 @@ function StructCellView({ cell }: { cell: StructCell }) {
   return (
     <div
       ref={ref}
+      data-coach-anchor={cell.id}
       className={`rounded-lg border bg-surface-2 p-2 ${active ? 'border-active ring-1 ring-active' : 'border-hairline'}`}
     >
       <div className="mb-1 flex items-center gap-1.5 px-1">

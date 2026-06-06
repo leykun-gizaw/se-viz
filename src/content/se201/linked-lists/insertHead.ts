@@ -127,6 +127,12 @@ const steps: Step[] = [
     stack: [frame('n0', ADDR.n0, { target: 'nn', display: ADDR.nn })],
     heap: [...baseNodes, node('nn', ADDR.nn, 2, null, '0x?')],
     activeId: 'nn.value',
+    coach: {
+      variant: 'predict',
+      title: 'Two rewires ahead',
+      body: 'We need to splice this node in with two pointer assignments. Does the order matter — could one ordering lose the rest of the list?',
+      anchorId: 'new',
+    },
   },
   {
     id: 'link-next',
@@ -137,6 +143,12 @@ const steps: Step[] = [
     stack: [frame('n0', ADDR.n0, { target: 'nn', display: ADDR.nn })],
     heap: [node('nn', ADDR.nn, 2, 'n0', ADDR.n0), ...baseNodes],
     activeId: 'nn.next',
+    coach: {
+      variant: 'watch-out',
+      title: 'Order matters',
+      body: 'Link new->next = head FIRST, while head still points at node 7. If you did head = new first, you would overwrite head and lose the address of the rest of the list.',
+      anchorId: 'nn.next',
+    },
   },
   {
     id: 'move-head',

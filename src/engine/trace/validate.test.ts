@@ -185,10 +185,17 @@ describe('validateTrace — concept views (Phase 11)', () => {
         right: { label: 'fixed', line: 1, rows: [] },
       },
     };
-    const missing: Trace = { id: 'd', title: 'd', language: 'c', source: '', view: 'dual-trace', steps: [step] };
-    expect(validateTrace(missing).some((x) => /leftSource and trace.rightSource/.test(x.message))).toBe(
-      true,
-    );
+    const missing: Trace = {
+      id: 'd',
+      title: 'd',
+      language: 'c',
+      source: '',
+      view: 'dual-trace',
+      steps: [step],
+    };
+    expect(
+      validateTrace(missing).some((x) => /leftSource and trace.rightSource/.test(x.message)),
+    ).toBe(true);
 
     const outOfRange: Trace = {
       id: 'd',
@@ -208,7 +215,9 @@ describe('validateTrace — concept views (Phase 11)', () => {
         },
       ],
     };
-    expect(validateTrace(outOfRange).some((x) => /dual-trace left line 9/.test(x.message))).toBe(true);
+    expect(validateTrace(outOfRange).some((x) => /dual-trace left line 9/.test(x.message))).toBe(
+      true,
+    );
   });
 
   it('flags a concept-view step missing its payload', () => {
@@ -221,5 +230,28 @@ describe('validateTrace — concept views (Phase 11)', () => {
       steps: [{ id: 's0', index: 0, narration: 'n', highlightedLines: [], stack: [], heap: [] }],
     };
     expect(validateTrace(t)[0].message).toMatch(/missing its `pipeline` payload/);
+  });
+
+  describe('coach notes (Phase 17)', () => {
+    it('accepts a coach note anchored to a real element', () => {
+      const t = baseTrace();
+      t.steps[0].coach = { variant: 'idea', body: 'b', anchorId: 'x' };
+      expect(validateTrace(t)).toEqual([]);
+    });
+    it('accepts a coach note with no anchor (fallback)', () => {
+      const t = baseTrace();
+      t.steps[0].coach = { variant: 'recap', body: 'b' };
+      expect(validateTrace(t)).toEqual([]);
+    });
+    it('flags a coach anchorId that resolves to nothing', () => {
+      const t = baseTrace();
+      t.steps[0].coach = { variant: 'watch-out', body: 'b', anchorId: 'ghost' };
+      expect(validateTrace(t)[0].message).toMatch(/coach anchorId "ghost"/);
+    });
+    it('flags a coach anchorLine outside the source', () => {
+      const t = baseTrace();
+      t.steps[0].coach = { variant: 'predict', body: 'b', anchorLine: 99 };
+      expect(validateTrace(t)[0].message).toMatch(/coach anchorLine 99/);
+    });
   });
 });
