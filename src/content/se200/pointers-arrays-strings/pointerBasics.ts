@@ -9,6 +9,7 @@
  * Hand-traced: x=5; p=&x; y=*p=5; *p=99 ⇒ x=99 (y still 5). Prints "x=99 y=5".
  */
 import type { Cell, ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -130,3 +131,12 @@ export const pointerBasicsTrace: Trace = {
   steps,
   covers: ['SE200: Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: pointerBasicsTrace,
+  label: 'Pointer basics',
+  summary: '&x, dereference, and writing through a pointer (pulses the target).',
+  order: 50,
+};
+export default contentModule;

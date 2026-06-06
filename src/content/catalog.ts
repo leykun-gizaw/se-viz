@@ -1,37 +1,21 @@
 /**
  * The content catalog — the single source of truth for every visualization module, grouped by
- * course → topic. The workbench lists modules from here; a future navigation shell (a later phase)
- * will consume the same structure. Every later content phase appends to this catalog.
+ * course → topic. The workbench lists modules from here; a future navigation shell consumes the
+ * same structure.
+ *
+ * ## Auto-discovery (Phase 05)
+ * This catalog is **not** hand-maintained. It discovers content modules from the filesystem with
+ * Vite's `import.meta.glob`: any file under `src/content/<course>/<topic>/<module>.ts` (or
+ * `src/content/fixtures/*.ts`) that **default-exports** a {@link ContentModule} is registered
+ * automatically. Adding curriculum content therefore requires **no edit to this file** — that is
+ * what lets several content phases run in parallel without colliding here. See
+ * [`module.ts`](./module.ts), `docs/TRACE_FORMAT.md`, and `docs/CONTENT_AUTHORING.md`.
  *
  * @packageDocumentation
  */
 
 import type { Trace } from '../engine/trace/types.ts';
-
-// SE 200 — C fundamentals (Phase 2 content).
-import { helloWorldTrace } from './se200/hello-world/helloWorld.ts';
-import { controlFlowTrace } from './se200/variables-control-flow/controlFlow.ts';
-import { functionsTrace } from './se200/functions-nested-loops/functions.ts';
-import { nestedLoopsTrace } from './se200/functions-nested-loops/nestedLoops.ts';
-import { areaTableTrace } from './se200/more-functions-loops/areaTable.ts';
-
-// SE 200 — pointers, arrays & strings (Phase 3 content).
-import { pointerBasicsTrace } from './se200/pointers-arrays-strings/pointerBasics.ts';
-import { arrayIndexingTrace } from './se200/pointers-arrays-strings/arrayIndexing.ts';
-import { stringsTrace } from './se200/pointers-arrays-strings/strings.ts';
-import { swapTrace } from './se200/more-pointers-arrays-strings/swap.ts';
-import { strlenTrace } from './se200/more-pointers-arrays-strings/strlen.ts';
-import { pointerToPointerTrace } from './se200/even-more-pointers-arrays-strings/pointerToPointer.ts';
-import { strcpyTrace } from './se200/even-more-pointers-arrays-strings/strcpy.ts';
-
-// SE 200 — recursion (Phase 4 content). factorial was promoted here from the fixtures group.
-import { factorialTrace } from './se200/recursion/factorial.ts';
-import { sumToTrace } from './se200/recursion/sumTo.ts';
-import { reverseStringTrace } from './se200/recursion/reverseString.ts';
-import { fibonacciTrace } from './se200/recursion/fibonacci.ts';
-
-// Phase 0–1 engine validation fixtures (kept available; factorial now lives under Recursion).
-import { linkedListTrace, pointerArithTrace, mallocFreeTrace } from './fixtures/index.ts';
+import type { ContentModule } from './module.ts';
 
 /** One module: its trace plus display metadata for the switcher. */
 export interface CatalogModule {
@@ -58,160 +42,93 @@ export interface CatalogCourse {
   topics: CatalogTopic[];
 }
 
-export const CATALOG: readonly CatalogCourse[] = [
-  {
-    course: 'SE 200',
-    courseTitle: 'C Programming I',
-    topics: [
-      {
-        topic: 'Hello, World',
-        modules: [
-          {
-            label: 'Hello, World',
-            summary: 'A single main frame and the console — the simplest program.',
-            trace: helloWorldTrace,
-          },
-        ],
-      },
-      {
-        topic: 'Variables, if / else, while',
-        modules: [
-          {
-            label: 'Variables & control flow',
-            summary: 'Scalars, an if/else branch, and a while loop that visibly iterates.',
-            trace: controlFlowTrace,
-          },
-        ],
-      },
-      {
-        topic: 'Functions and Nested Loops',
-        modules: [
-          {
-            label: 'Functions: call & return',
-            summary: 'Calling a function: argument copy, return value assigned back.',
-            trace: functionsTrace,
-          },
-          {
-            label: 'Nested loops',
-            summary: 'Distinct outer/inner counters print a multiplication grid.',
-            trace: nestedLoopsTrace,
-          },
-        ],
-      },
-      {
-        topic: 'More Functions, More Nested Loops',
-        modules: [
-          {
-            label: 'Function inside nested loops',
-            summary: 'A helper called for every (row, col) of a nested loop.',
-            trace: areaTableTrace,
-          },
-        ],
-      },
-      {
-        topic: 'Pointers, Arrays and Strings',
-        modules: [
-          {
-            label: 'Pointer basics',
-            summary: '&x, dereference, and writing through a pointer (pulses the target).',
-            trace: pointerBasicsTrace,
-          },
-          {
-            label: 'Array indexing',
-            summary: 'arr[i] and *(arr + i) land on the same element and address.',
-            trace: arrayIndexingTrace,
-          },
-          {
-            label: 'Strings',
-            summary: 'A char array with a visible \\0 terminator; printing stops there.',
-            trace: stringsTrace,
-          },
-        ],
-      },
-      {
-        topic: 'More Pointers, Arrays and Strings',
-        modules: [
-          {
-            label: 'Pass-by-pointer (swap)',
-            summary: "Pointers reach across frames into main; the swap pulses main's x and y.",
-            trace: swapTrace,
-          },
-          {
-            label: 'Walking a string (strlen)',
-            summary: 'A pointer marches to the \\0, arrow gliding, counter pulsing.',
-            trace: strlenTrace,
-          },
-        ],
-      },
-      {
-        topic: 'Even More Pointers, Arrays and Strings',
-        modules: [
-          {
-            label: 'Pointer to pointer',
-            summary: 'Double indirection drawn as a two-hop chain pp → p → x.',
-            trace: pointerToPointerTrace,
-          },
-          {
-            label: 'strcpy (two pointers)',
-            summary: 'src and dst march in lockstep; the \\0 is copied last.',
-            trace: strcpyTrace,
-          },
-        ],
-      },
-      {
-        topic: 'Recursion',
-        modules: [
-          {
-            label: 'factorial(n)',
-            summary: 'The canonical example: nested frames grow to the base case, then unwind.',
-            trace: factorialTrace,
-          },
-          {
-            label: 'sum_to(n)',
-            summary: 'Accumulation: each frame adds its n to the value returned from below.',
-            trace: sumToTrace,
-          },
-          {
-            label: 'Reverse a string',
-            summary: 'Recursion over data: putchar runs on the unwind, printing in reverse.',
-            trace: reverseStringTrace,
-          },
-          {
-            label: 'fibonacci(n)',
-            summary: 'Tree recursion (two calls): depth-first order; fib(2) recomputed.',
-            trace: fibonacciTrace,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    course: 'Engine fixtures',
-    courseTitle: 'Phase 0–1 validation traces',
-    topics: [
-      {
-        topic: 'Renderer primitives',
-        modules: [
-          {
-            label: 'Linked-list traversal',
-            summary: 'Heap nodes, next arrows, current retarget, NULL sink.',
-            trace: linkedListTrace,
-          },
-          {
-            label: 'Pointer arithmetic',
-            summary: 'Contiguous array, *(p + 2) with byte-offset math.',
-            trace: pointerArithTrace,
-          },
-          {
-            label: 'malloc / free',
-            summary: 'The four heap allocation states and the console heap-watch.',
-            trace: mallocFreeTrace,
-          },
-        ],
-      },
-    ],
-  },
-];
+/**
+ * Display title + ordering per course code. Discovery does **not** depend on this map: a course
+ * code missing here still appears (its title falls back to the code, sorted after the known
+ * courses). It only supplies human titles and an explicit course order. Course codes come from
+ * `docs/CURRICULUM.md` — never fabricate one.
+ */
+const COURSE_META: Record<string, { title: string; order: number }> = {
+  'SE 200': { title: 'C Programming I', order: 0 },
+  'SE 201': { title: 'Data Structures and Algorithms I', order: 1 },
+  'Engine fixtures': { title: 'Phase 0–1 validation traces', order: 99 },
+};
+
+const UNRANKED = Number.MAX_SAFE_INTEGER;
+const courseRank = (code: string) => COURSE_META[code]?.order ?? UNRANKED;
+const courseTitle = (code: string) => COURSE_META[code]?.title ?? code;
+
+/**
+ * Eagerly import every content module. The patterns match curriculum content at
+ * `<course>/<topic>/<module>.ts` and the engine fixtures at `fixtures/*.ts`; `*.test.ts` and the
+ * two-segment `phase0/*` scratch traces are excluded.
+ */
+const DISCOVERED = import.meta.glob<{ default: ContentModule }>(
+  ['./*/*/*.ts', './fixtures/*.ts', '!./**/*.test.ts'],
+  { eager: true },
+);
+
+interface RankedModule extends ContentModule {
+  /** Source path, used only for clear error messages. */
+  path: string;
+}
+
+function discoverModules(): RankedModule[] {
+  const modules: RankedModule[] = [];
+  for (const [path, mod] of Object.entries(DISCOVERED)) {
+    const m = mod.default;
+    if (!m || typeof m !== 'object' || !('trace' in m) || !m.trace) {
+      throw new Error(
+        `Content module "${path}" must \`export default\` a ContentModule ({ trace, summary }). ` +
+          `See docs/CONTENT_AUTHORING.md.`,
+      );
+    }
+    modules.push({ ...m, path });
+  }
+  return modules;
+}
+
+function pushInto<K, V>(map: Map<K, V[]>, key: K, value: V): void {
+  const bucket = map.get(key);
+  if (bucket) bucket.push(value);
+  else map.set(key, [value]);
+}
+
+const moduleOrder = (m: ContentModule) => m.order ?? UNRANKED;
+const moduleLabel = (m: ContentModule) => m.label ?? m.trace.title;
+
+/** Group → sort discovered modules into the course→topic tree the sidebar renders. */
+function buildCatalog(): CatalogCourse[] {
+  const byCourse = new Map<string, RankedModule[]>();
+  for (const m of discoverModules()) {
+    pushInto(byCourse, m.course ?? m.trace.course ?? 'Uncategorized', m);
+  }
+
+  return [...byCourse.entries()]
+    .sort(([a], [b]) => courseRank(a) - courseRank(b) || a.localeCompare(b))
+    .map(([course, mods]) => {
+      const byTopic = new Map<string, RankedModule[]>();
+      for (const m of mods) pushInto(byTopic, m.topic ?? m.trace.topic ?? 'Misc', m);
+
+      const topics: CatalogTopic[] = [...byTopic.entries()]
+        .map(([topic, tmods]) => ({
+          topic,
+          topicRank: Math.min(...tmods.map(moduleOrder)),
+          modules: tmods
+            .slice()
+            .sort(
+              (x, y) => moduleOrder(x) - moduleOrder(y) || moduleLabel(x).localeCompare(moduleLabel(y)),
+            )
+            .map((m): CatalogModule => ({ label: moduleLabel(m), summary: m.summary, trace: m.trace })),
+        }))
+        .sort((a, b) => a.topicRank - b.topicRank || a.topic.localeCompare(b.topic))
+        .map(({ topic, modules }) => ({ topic, modules }));
+
+      return { course, courseTitle: courseTitle(course), topics };
+    });
+}
+
+export const CATALOG: readonly CatalogCourse[] = buildCatalog();
 
 /** Every trace in the catalog, flattened — used by the validation test and the workbench index. */
 export function allCatalogTraces(): Trace[] {

@@ -10,6 +10,7 @@
  * count was a known placeholder inconsistency).
  */
 import type { HeapBlock, StackFrame, Step, Trace } from '../../engine/trace/types.ts';
+import type { ContentModule } from '../module.ts';
 
 const SOURCE = `typedef struct node {
     int value;
@@ -209,3 +210,14 @@ export const linkedListTrace: Trace = {
   steps,
   covers: ['SE201: Singly linked lists'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: linkedListTrace,
+  label: 'Linked-list traversal',
+  summary: 'Heap nodes, next arrows, current retarget, NULL sink.',
+  order: 10,
+  course: 'Engine fixtures',
+  topic: 'Renderer primitives',
+};
+export default contentModule;

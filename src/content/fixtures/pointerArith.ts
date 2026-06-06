@@ -9,6 +9,7 @@
  * `sizeof(int) == 4`, so `p + 2` advances 8 bytes from `arr[1]` (0x5004) to `arr[3]` (0x500c) = 40.
  */
 import type { ArrayCell, ScalarCell, StackFrame, Step, Trace } from '../../engine/trace/types.ts';
+import type { ContentModule } from '../module.ts';
 
 const SOURCE = `int arr[5] = {10, 20, 30, 40, 50};
 
@@ -133,3 +134,14 @@ export const pointerArithTrace: Trace = {
   steps,
   covers: ['SE200: More Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: pointerArithTrace,
+  label: 'Pointer arithmetic',
+  summary: 'Contiguous array, *(p + 2) with byte-offset math.',
+  order: 20,
+  course: 'Engine fixtures',
+  topic: 'Renderer primitives',
+};
+export default contentModule;

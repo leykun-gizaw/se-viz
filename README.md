@@ -65,13 +65,15 @@ next phase begin. **Do not start a phase before its prompt exists in `prompts/`.
 | 2 | C fundamentals: variables, if/else/while, functions, nested loops |
 | 3 | Pointers, arrays, strings, pointer arithmetic |
 | 4 | Recursion (call-stack growth/unwind) |
-| 5 | Remaining C: static libraries, argc/argv, preprocessor, debugging |
-| 6 | `malloc`/`free` and the heap model |
-| 7 | Linked lists (singly + doubly), while-loop traversal patterns |
-| 8 | Stacks & queues (LIFO/FIFO) |
-| 9 | Hash tables |
-| 10 | Presentation-mode polish, theming, accessibility |
+| 5 | Catalog refactor — filesystem auto-discovery of content (unblocks parallel waves) |
+| 6–10 | **Wave 1 (content, parallel):** `malloc`/`free` heap · linked lists · stacks & queues · hash tables · argc/argv |
+| 11 | Concept-view model + view renderers (non-memory screens) |
+| 12–14 | **Wave 2 (concept-view content, parallel):** static libraries · preprocessor · debugging dual-trace |
+| 15 | Presentation-mode polish, theming, accessibility |
 | Later | WASM interpreter (auto-generated traces) |
+
+See `docs/PARALLELIZATION.md` for the wave/dependency plan and `docs/CONTENT_AUTHORING.md` for the
+auto-discovery contract every content phase follows.
 
 Trees / tree traversals are intentionally out of scope — they are not in the SE 200/SE 201
 curriculum. The engine remains capable of representing them if a future course needs it.

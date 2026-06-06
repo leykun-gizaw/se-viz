@@ -8,6 +8,7 @@
  * Hand-traced: sum_to(0)=0, sum_to(1)=1, sum_to(2)=3, sum_to(3)=6, sum_to(4)=10 (= 4+3+2+1).
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -243,3 +244,12 @@ export const sumToTrace: Trace = {
   steps,
   covers: ['SE200: Recursion'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: sumToTrace,
+  label: 'sum_to(n)',
+  summary: 'Accumulation: each frame adds its n to the value returned from below.',
+  order: 81,
+};
+export default contentModule;

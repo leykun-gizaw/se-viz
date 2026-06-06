@@ -17,6 +17,7 @@
  * Hand-traced result: fib(4) = 3.
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -303,3 +304,12 @@ export const fibonacciTrace: Trace = {
   steps,
   covers: ['SE200: Recursion'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: fibonacciTrace,
+  label: 'fibonacci(n)',
+  summary: 'Tree recursion (two calls): depth-first order; fib(2) recomputed.',
+  order: 83,
+};
+export default contentModule;

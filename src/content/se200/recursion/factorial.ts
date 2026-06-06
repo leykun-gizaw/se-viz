@@ -13,6 +13,7 @@
  * `pulse.test.ts` exercises the unwind pulse against this trace.
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -215,3 +216,12 @@ export const factorialTrace: Trace = {
   steps,
   covers: ['SE200: Recursion'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: factorialTrace,
+  label: 'factorial(n)',
+  summary: 'The canonical example: nested frames grow to the base case, then unwind.',
+  order: 80,
+};
+export default contentModule;

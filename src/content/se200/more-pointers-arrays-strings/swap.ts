@@ -10,6 +10,7 @@
  * Hand-traced: x=3, y=7; tmp = *a = 3; *a = *b ⇒ x = 7; *b = tmp ⇒ y = 3. Result: x=7, y=3.
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -183,3 +184,12 @@ export const swapTrace: Trace = {
   steps,
   covers: ['SE200: More Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: swapTrace,
+  label: 'Pass-by-pointer (swap)',
+  summary: 'Pointers reach across frames into main; the swap pulses main\'s x and y.',
+  order: 60,
+};
+export default contentModule;

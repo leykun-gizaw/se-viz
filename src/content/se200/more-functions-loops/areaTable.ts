@@ -10,6 +10,7 @@
  *   row 2: product(2,1)=2, product(2,2)=4  → "2 4 "
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -396,3 +397,12 @@ export const areaTableTrace: Trace = {
   steps,
   covers: ['SE200: More Functions, More Nested Loops'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: areaTableTrace,
+  label: 'Function inside nested loops',
+  summary: 'A helper called for every (row, col) of a nested loop.',
+  order: 40,
+};
+export default contentModule;

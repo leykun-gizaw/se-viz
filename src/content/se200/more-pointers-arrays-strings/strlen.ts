@@ -15,6 +15,7 @@ import type {
   Step,
   Trace,
 } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -282,3 +283,12 @@ export const strlenTrace: Trace = {
   steps,
   covers: ['SE200: More Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: strlenTrace,
+  label: 'Walking a string (strlen)',
+  summary: 'A pointer marches to the \\0, arrow gliding, counter pulsing.',
+  order: 61,
+};
+export default contentModule;

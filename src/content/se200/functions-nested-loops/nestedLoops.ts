@@ -10,6 +10,7 @@
  *   row i=2: 2*1=2, 2*2=4  → "2 4 "
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -303,3 +304,12 @@ export const nestedLoopsTrace: Trace = {
   steps,
   covers: ['SE200: Functions and Nested Loops'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: nestedLoopsTrace,
+  label: 'Nested loops',
+  summary: 'Distinct outer/inner counters print a multiplication grid.',
+  order: 31,
+};
+export default contentModule;

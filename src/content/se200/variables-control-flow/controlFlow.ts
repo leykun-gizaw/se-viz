@@ -12,6 +12,7 @@
  *   Final: sum = 1 + 2 + 3 + 4 = 10. Prints "sum = 10".
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -290,3 +291,12 @@ export const controlFlowTrace: Trace = {
   steps,
   covers: ['SE200: Variables, if, else, while'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: controlFlowTrace,
+  label: 'Variables & control flow',
+  summary: 'Scalars, an if/else branch, and a while loop that visibly iterates.',
+  order: 20,
+};
+export default contentModule;

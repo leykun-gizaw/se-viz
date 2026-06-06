@@ -17,6 +17,7 @@ import type {
   Step,
   Trace,
 } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -249,3 +250,12 @@ export const reverseStringTrace: Trace = {
   steps,
   covers: ['SE200: Recursion'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: reverseStringTrace,
+  label: 'Reverse a string',
+  summary: 'Recursion over data: putchar runs on the unwind, printing in reverse.',
+  order: 82,
+};
+export default contentModule;

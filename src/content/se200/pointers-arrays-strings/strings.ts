@@ -14,6 +14,7 @@ import type {
   Step,
   Trace,
 } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -106,3 +107,12 @@ export const stringsTrace: Trace = {
   steps,
   covers: ['SE200: Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: stringsTrace,
+  label: 'Strings',
+  summary: 'A char array with a visible \\0 terminator; printing stops there.',
+  order: 52,
+};
+export default contentModule;

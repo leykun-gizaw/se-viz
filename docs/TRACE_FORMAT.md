@@ -254,10 +254,44 @@ authoring error fails CI. It validates structure, not arithmetic — authors sti
 
 ### Content catalog
 
-Content modules live under `src/content/se<course>/<topic>/…` and are registered in
-[`catalog.ts`](../src/content/catalog.ts), grouped course → topic. `allCatalogTraces()` feeds the
-validation test; the workbench lists modules from the catalog. This is the single source of truth a
-future navigation shell will consume.
+Content modules live under `src/content/<course>/<topic>/…`, grouped course → topic by
+[`catalog.ts`](../src/content/catalog.ts). `allCatalogTraces()` feeds the validation test; the
+workbench lists modules from the catalog. This is the single source of truth a future navigation
+shell will consume.
+
+#### Auto-discovery (Phase 05) — the one rule
+
+The catalog is **not** hand-edited. It auto-discovers modules with Vite `import.meta.glob` (eager)
+over `src/content/<course>/<topic>/<module>.ts` and `src/content/fixtures/*.ts`. **The one rule a
+content file must follow to be registered:** `export default` a
+[`ContentModule`](../src/content/module.ts):
+
+```ts
+import type { Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
+
+export const myTrace: Trace = { /* … course/topic/file set per docs/CURRICULUM.md … */ };
+
+const contentModule: ContentModule = {
+  trace: myTrace,
+  summary: 'One line on what this module teaches.', // required (sidebar tooltip)
+  label: 'Short label',                             // optional; defaults to trace.title
+  order: 70,                                        // optional ordering hint (≈ 10 × week)
+};
+export default contentModule;
+```
+
+- **Grouping** is read from the trace's own `course` / `topic` breadcrumb metadata (so set them
+  from `docs/CURRICULUM.md`). The `ContentModule.course` / `.topic` override fields exist only for
+  the engine-fixtures bucket — curriculum content leaves them unset.
+- **Ordering** is deterministic and independent of glob order: courses by an explicit rank
+  (`COURSE_META` in `catalog.ts`; unknown courses still appear, sorted last), topics by the minimum
+  `order` of their modules, modules by `order` then `label`. `order` is **additive** — Phases 0–4
+  traces (no `order`) remain valid; they just sort last within their topic.
+- **No shared-file edit.** Dropping a conforming file into a topic folder registers it in the
+  sidebar and in the validation test with zero edits to `catalog.ts`, `App.tsx`, `types.ts`, or any
+  test. Any `*.ts` placed in a discovered folder **must** default-export a `ContentModule`, or the
+  catalog throws a clear error at load (put pure helpers outside topic folders).
 
 ---
 

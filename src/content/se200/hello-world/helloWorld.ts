@@ -8,6 +8,7 @@
  * `main` returns 0.
  */
 import type { StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -69,3 +70,12 @@ export const helloWorldTrace: Trace = {
   steps,
   covers: ['SE200: Hello, World'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: helloWorldTrace,
+  label: 'Hello, World',
+  summary: 'A single main frame and the console — the simplest program.',
+  order: 10,
+};
+export default contentModule;

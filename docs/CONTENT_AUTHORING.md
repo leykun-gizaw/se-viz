@@ -25,11 +25,40 @@ location. To add content you ONLY create new files under:
 src/content/<course>/<topic>/<module>.ts      e.g. src/content/se201/linked-lists/traverse.ts
 ```
 
-and export the module in the convention the refactor established (see `src/content/catalog.ts` and
-`docs/TRACE_FORMAT.md`). **Do not edit `catalog.ts`, `types.ts`, `docs/TRACE_FORMAT.md`, or any
-renderer file** — that is what keeps parallel phases conflict-free. If your module won't register
-without editing a shared file, the refactor is incomplete — flag it in your report rather than
-hand-editing the shared file.
+**The one rule:** each module file `export default`s a `ContentModule` (from
+`src/content/module.ts`). That is the entire registration contract — no shared-file edit:
+
+```ts
+import type { Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
+
+export const traverseTrace: Trace = {
+  id: 'se201-traverse',
+  title: 'Traverse a linked list',
+  course: 'SE 201',          // grouping comes from these — set them from docs/CURRICULUM.md
+  topic: 'Linked lists',
+  file: 'traverse.c',
+  language: 'c',
+  source: SOURCE,
+  steps,
+};
+
+const contentModule: ContentModule = {
+  trace: traverseTrace,
+  summary: 'One line on what this module teaches.', // required (sidebar tooltip)
+  label: 'Traverse',                                // optional; defaults to trace.title
+  order: 10,                                        // optional; ≈ 10 × curriculum week
+};
+export default contentModule;
+```
+
+The catalog auto-discovers this by file location and groups it by the trace's `course`/`topic`.
+**Do not edit `catalog.ts`, `module.ts`, `types.ts`, `docs/TRACE_FORMAT.md`, or any renderer file**
+— that is what keeps parallel phases conflict-free. Every `*.ts` you add under a topic folder must
+default-export a `ContentModule` (helpers go elsewhere) or the catalog throws at load. If your
+module won't register without editing a shared file, the refactor is incomplete — flag it in your
+report rather than hand-editing the shared file. See `docs/TRACE_FORMAT.md § Content catalog` for
+the full contract.
 
 ## Authoring quality bar (match these exemplars)
 - `src/content/se200/variables-control-flow/controlFlow.ts` — narration, step granularity, pulses.

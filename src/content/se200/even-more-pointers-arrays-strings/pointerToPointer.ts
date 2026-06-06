@@ -16,6 +16,7 @@ import type {
   Step,
   Trace,
 } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -145,3 +146,12 @@ export const pointerToPointerTrace: Trace = {
   steps,
   covers: ['SE200: Even More Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: pointerToPointerTrace,
+  label: 'Pointer to pointer',
+  summary: 'Double indirection drawn as a two-hop chain pp → p → x.',
+  order: 70,
+};
+export default contentModule;

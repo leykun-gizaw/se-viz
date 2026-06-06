@@ -14,6 +14,7 @@ import type {
   Step,
   Trace,
 } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -133,3 +134,12 @@ export const arrayIndexingTrace: Trace = {
   steps,
   covers: ['SE200: Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: arrayIndexingTrace,
+  label: 'Array indexing',
+  summary: 'arr[i] and *(arr + i) land on the same element and address.',
+  order: 51,
+};
+export default contentModule;

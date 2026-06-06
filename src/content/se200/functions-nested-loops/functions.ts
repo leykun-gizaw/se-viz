@@ -8,6 +8,7 @@
  * Hand-traced: square(4) = 4 * 4 = 16; square(7) = 7 * 7 = 49. Prints "16 49".
  */
 import type { ScalarCell, StackFrame, Step, Trace } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -148,3 +149,12 @@ export const functionsTrace: Trace = {
   steps,
   covers: ['SE200: Functions and Nested Loops'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: functionsTrace,
+  label: 'Functions: call & return',
+  summary: 'Calling a function: argument copy, return value assigned back.',
+  order: 30,
+};
+export default contentModule;

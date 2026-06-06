@@ -17,6 +17,7 @@ import type {
   Step,
   Trace,
 } from '../../../engine/trace/types.ts';
+import type { ContentModule } from '../../module.ts';
 
 const SOURCE = `#include <stdio.h>
 
@@ -282,3 +283,12 @@ export const strcpyTrace: Trace = {
   steps,
   covers: ['SE200: Even More Pointers, Arrays and Strings'],
 };
+
+/** Sidebar registration (auto-discovered by the catalog). */
+const contentModule: ContentModule = {
+  trace: strcpyTrace,
+  label: 'strcpy (two pointers)',
+  summary: 'src and dst march in lockstep; the \\0 is copied last.',
+  order: 71,
+};
+export default contentModule;
