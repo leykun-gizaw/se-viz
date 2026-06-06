@@ -1,8 +1,9 @@
 /**
  * Global keyboard transport. Bindings (documented in the report and the on-screen hint):
- *   ←/→        step back / forward
+ *   ←/→        step back / forward (one beat in two-beat mode)
  *   Space      play / pause
  *   Home/End   jump to first / last step
+ *   b          toggle execute-to-reveal (two-beat) vs single-beat stepping
  *   f          toggle presentation (fullscreen) mode
  *   Esc        exit presentation mode
  *
@@ -16,6 +17,7 @@ export interface KeyboardControlHandlers {
   onTogglePlay: () => void;
   onHome: () => void;
   onEnd: () => void;
+  onToggleStepMode?: () => void;
   onToggleFullscreen?: () => void;
   onExit?: () => void;
 }
@@ -54,6 +56,10 @@ export function useKeyboardControls(handlers: KeyboardControlHandlers): void {
         case 'End':
           e.preventDefault();
           handlers.onEnd();
+          break;
+        case 'b':
+        case 'B':
+          handlers.onToggleStepMode?.();
           break;
         case 'f':
         case 'F':

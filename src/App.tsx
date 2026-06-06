@@ -37,6 +37,7 @@ function Workbench({
       onTogglePlay: player.togglePlay,
       onHome: () => player.goTo(0),
       onEnd: () => player.goTo(player.total - 1),
+      onToggleStepMode: player.toggleMode,
       onToggleFullscreen: () => setPresenting((p) => !p),
       onExit: () => setPresenting(false),
     }),
@@ -77,7 +78,8 @@ function Workbench({
 
       <footer className="border-t border-hairline bg-surface px-4 py-1.5">
         <span className="font-mono text-[10px] text-ink-faint">
-          Keys: ←/→ step · Space play/pause · Home/End ends · f presentation · Esc exit
+          Keys: ←/→ step · Space play/pause · Home/End ends · b reveal mode · f presentation · Esc
+          exit
         </span>
       </footer>
     </div>
@@ -89,7 +91,10 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(modules[0].trace.id);
   const onSelect = useCallback((id: string) => setSelectedId(id), []);
   const { theme, toggle } = useTheme();
-  const [sidebarCollapsed, setSidebarCollapsed] = usePersistentState('se-viz-sidebar-collapsed', false);
+  const [sidebarCollapsed, setSidebarCollapsed] = usePersistentState(
+    'se-viz-sidebar-collapsed',
+    false,
+  );
 
   const selected = modules.find((m) => m.trace.id === selectedId) ?? modules[0];
 

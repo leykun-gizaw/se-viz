@@ -24,18 +24,23 @@ export function Stage({
   player: TracePlayer;
   presenting?: boolean;
 }) {
-  const { trace, step, prevStep } = player;
+  const { trace, step, displayStep, displayPrevStep, beat } = player;
   const view = trace.view ?? 'memory';
   // Persisted, debounced split layout (react-resizable-panels handles the drag perf + a11y).
   const split = useDefaultLayout({ id: 'se-viz-split', storage: localStorage });
 
+  // Re-fires inline / memory pulses on the `apply` beat (and each new step).
+  const pulseKey = `${displayStep.index}:${beat}`;
+
   let main;
   if (view === 'pipeline') {
-    main = <PipelineView step={step} />;
+    // No line-by-line memory: pipeline forces single-beat, so displayStep === the logical step.
+    main = <PipelineView step={displayStep} />;
   } else if (view === 'before-after') {
-    main = <BeforeAfterView step={step} />;
+    main = <BeforeAfterView step={displayStep} />;
   } else if (view === 'dual-trace') {
-    main = <DualTraceView trace={trace} step={step} />;
+    // Dual-trace gets two-beat stepping (pre-state on arrive, revealed on apply) via displayStep.
+    main = <DualTraceView trace={trace} step={displayStep} />;
   } else {
     // Code (left) and visualization (right) share the width via a draggable divider, defaulting to
     // a narrower code panel so the memory canvas gets the room. The divider is disabled (static) in
@@ -47,8 +52,21 @@ export function Stage({
         defaultLayout={split.defaultLayout}
         onLayoutChange={split.onLayoutChange}
       >
-        <Panel id="code" defaultSize="38%" minSize="20%" maxSize="80%" className="h-full min-h-0 min-w-0">
-          <CodePanel trace={trace} step={step} presenting={presenting} />
+        <Panel
+          id="code"
+          defaultSize="38%"
+          minSize="20%"
+          maxSize="80%"
+          className="h-full min-h-0 min-w-0"
+        >
+          <CodePanel
+            trace={trace}
+            step={step}
+            displayStep={displayStep}
+            displayPrevStep={displayPrevStep}
+            pulseKey={pulseKey}
+            presenting={presenting}
+          />
         </Panel>
         <Separator
           disabled={presenting}
@@ -61,9 +79,13 @@ export function Stage({
         <Panel id="viz" minSize="20%" className="h-full min-h-0 min-w-0">
           <div className="flex h-full min-h-0 flex-col gap-4">
             <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-hairline bg-bg p-4">
-              <MemoryCanvas step={step} prevStep={prevStep} heapLayout={trace.heapLayout} />
+              <MemoryCanvas
+                step={displayStep}
+                prevStep={displayPrevStep}
+                heapLayout={trace.heapLayout}
+              />
             </div>
-            <ConsolePanel step={step} />
+            <ConsolePanel step={displayStep} />
           </div>
         </Panel>
       </Group>

@@ -1,51 +1,66 @@
 /**
  * `useTrace` — the trace player store.
  *
- * Phase 0 gave it forward/back/reset/jump navigation. Phase 1 adds the full transport: autoplay
- * (play/pause on a speed-driven timer that stops at the end) and a speed selector. The pure timing
- * logic lives in `../autoplay.ts` so it stays testable; this hook only wires it to React state and
- * an interval effect.
+ * Phase 0–1 gave it step navigation + autoplay (the pure timing lives in `../autoplay.ts`).
+ * **Phase 16** adds execute-to-reveal **beats**: each logical step is split into `arrive` (about to
+ * run; pre-state, no pulse) and `apply` (the reveal; the change pulses). The pure beat model lives
+ * in `./beats.ts` so the advance/reverse sequence is unit-tested; this hook wires it to React state,
+ * persists the stepping mode, and exposes the snapshots each beat should render
+ * (`displayStep`/`displayPrevStep`) alongside the logical `step` (which drives the line highlight,
+ * narration, and counter).
  *
  * @packageDocumentation
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { usePersistentState } from '../../hooks/usePersistentState.ts';
+import { DEFAULT_SPEED_INDEX, PLAYBACK_SPEEDS, type PlaybackSpeed } from '../autoplay.ts';
 import {
-  autoplayTick,
-  DEFAULT_SPEED_INDEX,
-  PLAYBACK_SPEEDS,
-  type PlaybackSpeed,
-} from '../autoplay.ts';
+  advanceBeat,
+  beatLabel,
+  canAdvance,
+  canReverse,
+  clampToMode,
+  EMPTY_STEP,
+  goToStep,
+  initialPosition,
+  resolveBeatRender,
+  reverseBeat,
+  viewSupportsBeats,
+  type Beat,
+  type BeatPosition,
+  type SteppingMode,
+} from './beats.ts';
 import type { Step, Trace } from './types.ts';
 
 /** The reactive state and controls returned by {@link useTrace}. */
 export interface TracePlayer {
   /** The trace being played. */
   trace: Trace;
-  /** Current zero-based step index. */
+  /** Current zero-based **logical** step index. */
   index: number;
-  /** Total number of steps. */
+  /** Total number of logical steps. */
   total: number;
-  /** The current step. */
+  /** The current **logical** step — drives the code-line highlight, narration, condition, counter. */
   step: Step;
-  /** The previous step, or `null` at the first step. Used to compute animation diffs. */
+  /** The previous logical step, or `null` at the first step. */
   prevStep: Step | null;
-  /** Whether {@link TracePlayer.next} would advance. */
+  /** Whether {@link TracePlayer.next} would advance (a beat in two-beat mode, a step in single). */
   canNext: boolean;
   /** Whether {@link TracePlayer.prev} would go back. */
   canPrev: boolean;
-  /** Advance one step (clamped at the last step). Stops autoplay if it was running past the end. */
+  /** Advance one beat (two-beat) or step (single). Clamps at the end. */
   next: () => void;
-  /** Go back one step (clamped at the first step). Pauses autoplay. */
+  /** Reverse one beat/step. Clamps at the start. Pauses autoplay. */
   prev: () => void;
-  /** Jump to an arbitrary index (clamped into range). Pauses autoplay. */
+  /** Jump to a logical step (lands on its applied state). Pauses autoplay. */
   goTo: (index: number) => void;
-  /** Return to the first step. Pauses autoplay. */
+  /** Return to the very first beat/step. Pauses autoplay. */
   reset: () => void;
 
   /** Whether autoplay is currently running. */
   isPlaying: boolean;
-  /** Start autoplay (no-op if already at the end). */
+  /** Start autoplay (restarts from the top if already at the end). */
   play: () => void;
   /** Pause autoplay. */
   pause: () => void;
@@ -60,6 +75,24 @@ export interface TracePlayer {
   speed: PlaybackSpeed;
   /** Select a speed by index (clamped). */
   setSpeedIndex: (index: number) => void;
+
+  // ── Phase 16: execute-to-reveal beats ──────────────────────────────────────────────────────
+  /** The current beat (`arrive` = pre-state / about to run; `apply` = revealed). */
+  beat: Beat;
+  /** The user's stepping preference (persisted). */
+  mode: SteppingMode;
+  /** The mode actually in effect — forced `single` for views that don't support beats. */
+  effectiveMode: SteppingMode;
+  /** Whether this trace's view supports two-beat stepping (memory / dual-trace). */
+  supportsBeats: boolean;
+  /** Toggle between two-beat and single-beat stepping (persisted). */
+  toggleMode: () => void;
+  /** Short label for the current beat (`about to run` / `ran`), empty in single mode. */
+  beatLabel: string;
+  /** The snapshot to render in the memory/console/inline views for the current beat. */
+  displayStep: Step;
+  /** The snapshot to diff `displayStep` against for pulses (`null`/empty ⇒ no pulse). */
+  displayPrevStep: Step | null;
 }
 
 /**
@@ -70,79 +103,106 @@ export interface TracePlayer {
  */
 export function useTrace(trace: Trace): TracePlayer {
   const total = trace.steps.length;
-  const [index, setIndex] = useState(0);
+  const supportsBeats = viewSupportsBeats(trace.view);
+
+  const [mode, setMode] = usePersistentState<SteppingMode>('se-viz-stepping-mode', 'two-beat');
+  const effectiveMode: SteppingMode = supportsBeats ? mode : 'single';
+
+  const [pos, setPos] = useState<BeatPosition>(() => initialPosition(effectiveMode));
   const [isPlaying, setIsPlaying] = useState(false);
   const [speedIndex, setSpeedIndexState] = useState(DEFAULT_SPEED_INDEX);
 
-  const clampedIndex = Math.min(Math.max(index, 0), total - 1);
   const speed = PLAYBACK_SPEEDS[Math.min(Math.max(speedIndex, 0), PLAYBACK_SPEEDS.length - 1)];
+
+  const next = useCallback(() => {
+    setPos((p) => advanceBeat(p, total, effectiveMode));
+  }, [total, effectiveMode]);
+
+  const prev = useCallback(() => {
+    setIsPlaying(false);
+    setPos((p) => reverseBeat(p, effectiveMode));
+  }, [effectiveMode]);
 
   const goTo = useCallback(
     (target: number) => {
       setIsPlaying(false);
-      setIndex(Math.min(Math.max(target, 0), total - 1));
+      setPos(goToStep(target, total));
     },
     [total],
   );
 
-  const next = useCallback(() => {
-    setIndex((i) => Math.min(i + 1, total - 1));
-  }, [total]);
-
-  const prev = useCallback(() => {
-    setIsPlaying(false);
-    setIndex((i) => Math.max(i - 1, 0));
-  }, []);
-
   const reset = useCallback(() => {
     setIsPlaying(false);
-    setIndex(0);
-  }, []);
+    setPos(initialPosition(effectiveMode));
+  }, [effectiveMode]);
 
   const play = useCallback(() => {
-    // Starting at the very end restarts from the top so the play button is never a dead end.
-    setIndex((i) => (i >= total - 1 ? 0 : i));
+    setPos((p) => (canAdvance(p, total, effectiveMode) ? p : initialPosition(effectiveMode)));
     setIsPlaying(true);
-  }, [total]);
+  }, [total, effectiveMode]);
 
   const pause = useCallback(() => setIsPlaying(false), []);
+
   const togglePlay = useCallback(() => {
-    setIsPlaying((p) => {
-      if (!p) {
-        setIndex((i) => (i >= total - 1 ? 0 : i));
+    setIsPlaying((playing) => {
+      if (!playing) {
+        setPos((p) => (canAdvance(p, total, effectiveMode) ? p : initialPosition(effectiveMode)));
       }
-      return !p;
+      return !playing;
     });
-  }, [total]);
+  }, [total, effectiveMode]);
 
   const setSpeedIndex = useCallback((i: number) => {
     setSpeedIndexState(Math.min(Math.max(i, 0), PLAYBACK_SPEEDS.length - 1));
   }, []);
 
-  // Autoplay timer. Re-armed whenever playing/index/speed change; advances one step per tick using
-  // the pure autoplayTick and stops itself at the end.
-  const tickRef = useRef(autoplayTick);
+  const toggleMode = useCallback(() => {
+    setIsPlaying(false);
+    const nextMode: SteppingMode = mode === 'two-beat' ? 'single' : 'two-beat';
+    const nextEffective: SteppingMode = supportsBeats ? nextMode : 'single';
+    setMode(nextMode);
+    setPos((p) => clampToMode(p, nextEffective));
+  }, [mode, supportsBeats, setMode]);
+
+  // Autoplay timer: advance one beat per tick, stopping at the final beat. All state updates happen
+  // inside the async timeout callback (never synchronously in the effect body).
   useEffect(() => {
     if (!isPlaying) return;
     const id = window.setTimeout(() => {
-      const t = tickRef.current(clampedIndex, total);
-      setIndex(t.index);
-      if (!t.playing) setIsPlaying(false);
+      if (!canAdvance(pos, total, effectiveMode)) {
+        setIsPlaying(false);
+        return;
+      }
+      const nextPos = advanceBeat(pos, total, effectiveMode);
+      setPos(nextPos);
+      if (!canAdvance(nextPos, total, effectiveMode)) setIsPlaying(false);
     }, speed.ms);
     return () => window.clearTimeout(id);
-  }, [isPlaying, clampedIndex, total, speed.ms]);
+  }, [isPlaying, pos, total, effectiveMode, speed.ms]);
 
   return useMemo<TracePlayer>(() => {
-    const step = trace.steps[clampedIndex];
-    const prevStep = clampedIndex > 0 ? trace.steps[clampedIndex - 1] : null;
+    const clampedStep = Math.min(Math.max(pos.step, 0), total - 1);
+    const step = trace.steps[clampedStep];
+    const prevStep = clampedStep > 0 ? trace.steps[clampedStep - 1] : null;
+
+    const render = resolveBeatRender(pos, effectiveMode);
+    const displayStep =
+      render.displayIndex < 0 ? EMPTY_STEP : trace.steps[Math.min(render.displayIndex, total - 1)];
+    const displayPrevStep: Step | null =
+      render.diffPrevIndex < 0
+        ? render.displayIndex < 0
+          ? EMPTY_STEP
+          : null
+        : trace.steps[render.diffPrevIndex];
+
     return {
       trace,
-      index: clampedIndex,
+      index: clampedStep,
       total,
       step,
       prevStep,
-      canNext: clampedIndex < total - 1,
-      canPrev: clampedIndex > 0,
+      canNext: canAdvance(pos, total, effectiveMode),
+      canPrev: canReverse(pos, effectiveMode),
       next,
       prev,
       goTo,
@@ -155,11 +215,20 @@ export function useTrace(trace: Trace): TracePlayer {
       speedIndex,
       speed,
       setSpeedIndex,
+      beat: pos.beat,
+      mode,
+      effectiveMode,
+      supportsBeats,
+      toggleMode,
+      beatLabel: beatLabel(pos, effectiveMode),
+      displayStep,
+      displayPrevStep,
     };
   }, [
     trace,
-    clampedIndex,
     total,
+    pos,
+    effectiveMode,
     next,
     prev,
     goTo,
@@ -171,5 +240,8 @@ export function useTrace(trace: Trace): TracePlayer {
     speedIndex,
     speed,
     setSpeedIndex,
+    mode,
+    supportsBeats,
+    toggleMode,
   ]);
 }

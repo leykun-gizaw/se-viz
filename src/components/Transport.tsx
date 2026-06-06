@@ -43,12 +43,13 @@ export interface TransportProps {
 }
 
 export function Transport({ player, compact = false }: TransportProps) {
-  const { index, total, canPrev, canNext, isPlaying } = player;
+  const { index, total, canPrev, canNext, isPlaying, beatLabel, supportsBeats, mode } = player;
 
   return (
     <div className="flex items-center gap-3">
       <span className="font-mono text-xs text-ink-muted">
         Step <span className="font-semibold text-ink">{index + 1}</span> / {total}
+        {beatLabel ? <span className="text-ink-faint"> · {beatLabel}</span> : null}
       </span>
 
       {!compact ? (
@@ -123,6 +124,22 @@ export function Transport({ player, compact = false }: TransportProps) {
           title="Playback speed"
         >
           {player.speed.label}
+        </button>
+      ) : null}
+
+      {!compact && supportsBeats ? (
+        <button
+          type="button"
+          onClick={player.toggleMode}
+          aria-pressed={mode === 'two-beat'}
+          title={`Execute-to-reveal stepping: ${mode === 'two-beat' ? 'on' : 'off'} — split each step into "about to run" then "ran" (b)`}
+          className={`rounded-md border px-2 py-1 font-sans text-xs transition-colors ${
+            mode === 'two-beat'
+              ? 'border-pointer bg-pointer-soft text-pointer'
+              : 'border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3'
+          }`}
+        >
+          Reveal {mode === 'two-beat' ? 'on' : 'off'}
         </button>
       ) : null}
     </div>
