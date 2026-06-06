@@ -24,6 +24,15 @@ function scalarText(value: ScalarCell['value']): string {
   return value === null ? '?' : String(value);
 }
 
+/**
+ * True when a cell's displayed value is the C string NUL terminator (`'\0'`). Array elements that
+ * hold the terminator get a subtle dashed, muted treatment so the end of a string reads clearly —
+ * a minimal additive touch (Phase 3), using existing tokens only.
+ */
+function isNulTerminator(cell: Cell): boolean {
+  return cell.kind === 'scalar' && typeof cell.value === 'string' && cell.value.includes('\\0');
+}
+
 /** The amber "active" badge shown on the one current element per step. */
 function ActiveBadge() {
   return (
@@ -155,23 +164,29 @@ function ArrayElement({
   const value = cell.kind === 'scalar' ? scalarText(cell.value) : '';
   const address = cell.address;
   const pointed = targetedBy.length > 0;
+  const nul = isNulTerminator(cell);
+  const base = nul
+    ? 'border-dashed border-hairline-strong bg-surface'
+    : 'border-hairline bg-surface-2';
   return (
     <div
       ref={ref}
-      title={`${cell.type} [${index}]${pointed ? ` ·${targetedBy.join(',')}` : ''} = ${value}${address ? ` @${address}` : ''}`}
+      title={`${cell.type} [${index}]${pointed ? ` ·${targetedBy.join(',')}` : ''} = ${value}${nul ? ' (NUL terminator)' : ''}${address ? ` @${address}` : ''}`}
       className={`flex w-20 flex-col items-center gap-0.5 border px-2 py-2 ${first ? '' : '-ml-px'} ${
         active
-          ? 'z-10 border-active ring-1 ring-active bg-active-soft'
+          ? 'z-10 border-active bg-active-soft ring-1 ring-active'
           : pointed
             ? 'z-10 border-pointer bg-pointer-soft'
-            : 'border-hairline bg-surface-2'
+            : base
       }`}
     >
       <span className="font-mono text-[10px] text-ink-faint">
         [{index}]{pointed ? <span className="text-pointer"> ·{targetedBy.join(',')}</span> : null}
       </span>
       <span
-        className={`font-mono text-base font-semibold ${pulsing ? 'text-changed' : 'text-ink'}`}
+        className={`font-mono text-base font-semibold ${
+          pulsing ? 'text-changed' : nul ? 'text-ink-muted' : 'text-ink'
+        }`}
       >
         {value}
       </span>

@@ -15,6 +15,15 @@ import { functionsTrace } from './se200/functions-nested-loops/functions.ts';
 import { nestedLoopsTrace } from './se200/functions-nested-loops/nestedLoops.ts';
 import { areaTableTrace } from './se200/more-functions-loops/areaTable.ts';
 
+// SE 200 — pointers, arrays & strings (Phase 3 content).
+import { pointerBasicsTrace } from './se200/pointers-arrays-strings/pointerBasics.ts';
+import { arrayIndexingTrace } from './se200/pointers-arrays-strings/arrayIndexing.ts';
+import { stringsTrace } from './se200/pointers-arrays-strings/strings.ts';
+import { swapTrace } from './se200/more-pointers-arrays-strings/swap.ts';
+import { strlenTrace } from './se200/more-pointers-arrays-strings/strlen.ts';
+import { pointerToPointerTrace } from './se200/even-more-pointers-arrays-strings/pointerToPointer.ts';
+import { strcpyTrace } from './se200/even-more-pointers-arrays-strings/strcpy.ts';
+
 // Phase 0–1 engine validation fixtures (kept available).
 import {
   factorialTrace,
@@ -95,6 +104,56 @@ export const CATALOG: readonly CatalogCourse[] = [
             label: 'Function inside nested loops',
             summary: 'A helper called for every (row, col) of a nested loop.',
             trace: areaTableTrace,
+          },
+        ],
+      },
+      {
+        topic: 'Pointers, Arrays and Strings',
+        modules: [
+          {
+            label: 'Pointer basics',
+            summary: '&x, dereference, and writing through a pointer (pulses the target).',
+            trace: pointerBasicsTrace,
+          },
+          {
+            label: 'Array indexing',
+            summary: 'arr[i] and *(arr + i) land on the same element and address.',
+            trace: arrayIndexingTrace,
+          },
+          {
+            label: 'Strings',
+            summary: 'A char array with a visible \\0 terminator; printing stops there.',
+            trace: stringsTrace,
+          },
+        ],
+      },
+      {
+        topic: 'More Pointers, Arrays and Strings',
+        modules: [
+          {
+            label: 'Pass-by-pointer (swap)',
+            summary: "Pointers reach across frames into main; the swap pulses main's x and y.",
+            trace: swapTrace,
+          },
+          {
+            label: 'Walking a string (strlen)',
+            summary: 'A pointer marches to the \\0, arrow gliding, counter pulsing.',
+            trace: strlenTrace,
+          },
+        ],
+      },
+      {
+        topic: 'Even More Pointers, Arrays and Strings',
+        modules: [
+          {
+            label: 'Pointer to pointer',
+            summary: 'Double indirection drawn as a two-hop chain pp → p → x.',
+            trace: pointerToPointerTrace,
+          },
+          {
+            label: 'strcpy (two pointers)',
+            summary: 'src and dst march in lockstep; the \\0 is copied last.',
+            trace: strcpyTrace,
           },
         ],
       },

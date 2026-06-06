@@ -258,3 +258,22 @@ Content modules live under `src/content/se<course>/<topic>/…` and are register
 [`catalog.ts`](../src/content/catalog.ts), grouped course → topic. `allCatalogTraces()` feeds the
 validation test; the workbench lists modules from the catalog. This is the single source of truth a
 future navigation shell will consume.
+
+---
+
+## Phase 3 notes (no trace-format change)
+
+Phase 3 (pointers, arrays, strings) added **no new trace-format field** — pointers, arrays, the
+pointer-arithmetic `Annotation` arc, cross-frame arrows, and `Step.condition` already covered
+everything. Two authoring conventions and one tiny rendering touch are worth recording:
+
+- **Strings** are authored as `char` `ArrayCell`s whose element values are char literals: `"'h'"`,
+  `"'i'"`, and the terminator `"'\\0'"`. Chars are 1 byte, so element addresses ascend by 1.
+- **NUL-terminator rendering touch** (additive, no token/restyle, no format change): an array
+  element whose displayed value is `'\0'` renders with a dashed border and muted text
+  ([`CellView.tsx`](../src/components/memory/CellView.tsx), `isNulTerminator`) so the end of a string
+  reads clearly. It only affects how a terminator _looks_; the data is an ordinary scalar cell.
+- **Cross-frame & pointer→pointer arrows** need no new mechanism: a pointer cell's `target` is just a
+  stable id, so a parameter in one frame can target a cell in another (e.g. `swap`'s `a` → `main`'s
+  `x`), and a `pp` cell can target a `p` cell that itself targets `x` (a two-hop chain). The overlay
+  resolves all of these by id.
