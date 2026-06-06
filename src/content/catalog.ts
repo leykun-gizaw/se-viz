@@ -64,7 +64,17 @@ const courseTitle = (code: string) => COURSE_META[code]?.title ?? code;
  * two-segment `phase0/*` scratch traces are excluded.
  */
 const DISCOVERED = import.meta.glob<{ default: ContentModule }>(
-  ['./*/*/*.ts', './fixtures/*.ts', '!./**/*.test.ts'],
+  [
+    './*/*/*.ts',
+    './fixtures/*.ts',
+    '!./**/*.test.ts',
+    // linkedList & mallocFree are superseded by the polished SE 201 linked-lists / dynamic-memory
+    // content (Wave 1). They remain in fixtures/ as engine-test fixtures (imported by
+    // pointers.test.ts / pulse.test.ts) but are excluded here so they don't duplicate that content
+    // in the catalog. pointerArith stays as the lone engine-fixtures entry.
+    '!./fixtures/linkedList.ts',
+    '!./fixtures/mallocFree.ts',
+  ],
   { eager: true },
 );
 

@@ -17,7 +17,6 @@ import type {
   Step,
   Trace,
 } from '../../engine/trace/types.ts';
-import type { ContentModule } from '../module.ts';
 
 const SOURCE = `char *buf = malloc(32);
 strcpy(buf, "hello");
@@ -201,14 +200,3 @@ export const mallocFreeTrace: Trace = {
   covers: ['SE201: malloc and free'],
   heapLayout: 'column',
 };
-
-/** Sidebar registration (auto-discovered by the catalog). */
-const contentModule: ContentModule = {
-  trace: mallocFreeTrace,
-  label: 'malloc / free',
-  summary: 'The four heap allocation states and the console heap-watch.',
-  order: 30,
-  course: 'Engine fixtures',
-  topic: 'Renderer primitives',
-};
-export default contentModule;

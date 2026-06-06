@@ -230,6 +230,6 @@ const contentModule: ContentModule = {
   trace: singlyTraverseTrace,
   label: 'Traverse',
   summary: 'Walk current down the next chain to NULL, printing each node.',
-  order: 10,
+  order: 15,
 };
 export default contentModule;
