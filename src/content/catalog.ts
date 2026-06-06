@@ -24,13 +24,14 @@ import { strlenTrace } from './se200/more-pointers-arrays-strings/strlen.ts';
 import { pointerToPointerTrace } from './se200/even-more-pointers-arrays-strings/pointerToPointer.ts';
 import { strcpyTrace } from './se200/even-more-pointers-arrays-strings/strcpy.ts';
 
-// Phase 0–1 engine validation fixtures (kept available).
-import {
-  factorialTrace,
-  linkedListTrace,
-  pointerArithTrace,
-  mallocFreeTrace,
-} from './fixtures/index.ts';
+// SE 200 — recursion (Phase 4 content). factorial was promoted here from the fixtures group.
+import { factorialTrace } from './se200/recursion/factorial.ts';
+import { sumToTrace } from './se200/recursion/sumTo.ts';
+import { reverseStringTrace } from './se200/recursion/reverseString.ts';
+import { fibonacciTrace } from './se200/recursion/fibonacci.ts';
+
+// Phase 0–1 engine validation fixtures (kept available; factorial now lives under Recursion).
+import { linkedListTrace, pointerArithTrace, mallocFreeTrace } from './fixtures/index.ts';
 
 /** One module: its trace plus display metadata for the switcher. */
 export interface CatalogModule {
@@ -157,6 +158,31 @@ export const CATALOG: readonly CatalogCourse[] = [
           },
         ],
       },
+      {
+        topic: 'Recursion',
+        modules: [
+          {
+            label: 'factorial(n)',
+            summary: 'The canonical example: nested frames grow to the base case, then unwind.',
+            trace: factorialTrace,
+          },
+          {
+            label: 'sum_to(n)',
+            summary: 'Accumulation: each frame adds its n to the value returned from below.',
+            trace: sumToTrace,
+          },
+          {
+            label: 'Reverse a string',
+            summary: 'Recursion over data: putchar runs on the unwind, printing in reverse.',
+            trace: reverseStringTrace,
+          },
+          {
+            label: 'fibonacci(n)',
+            summary: 'Tree recursion (two calls): depth-first order; fib(2) recomputed.',
+            trace: fibonacciTrace,
+          },
+        ],
+      },
     ],
   },
   {
@@ -166,11 +192,6 @@ export const CATALOG: readonly CatalogCourse[] = [
       {
         topic: 'Renderer primitives',
         modules: [
-          {
-            label: 'Recursion (factorial)',
-            summary: 'Nested call stack growing and unwinding.',
-            trace: factorialTrace,
-          },
           {
             label: 'Linked-list traversal',
             summary: 'Heap nodes, next arrows, current retarget, NULL sink.',

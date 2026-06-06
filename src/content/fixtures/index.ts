@@ -1,10 +1,12 @@
 /**
  * The Phase 1 validation fixtures — minimal, known-correct traces that together exercise every
  * primitive the renderer supports. These are engine validation artifacts, not polished curriculum
- * modules; the curriculum content lands in later phases.
+ * modules.
+ *
+ * Note: the recursion fixture was promoted to curriculum content in Phase 4 and now lives at
+ * `src/content/se200/recursion/factorial.ts`; it is no longer duplicated here.
  */
 import type { Trace } from '../../engine/trace/types.ts';
-import { factorialTrace } from './factorial.ts';
 import { linkedListTrace } from './linkedList.ts';
 import { pointerArithTrace } from './pointerArith.ts';
 import { mallocFreeTrace } from './mallocFree.ts';
@@ -16,10 +18,9 @@ export interface FixtureEntry {
 }
 
 export const FIXTURES: readonly FixtureEntry[] = [
-  { trace: factorialTrace, label: 'Recursion' },
   { trace: linkedListTrace, label: 'Linked list' },
   { trace: pointerArithTrace, label: 'Pointer arithmetic' },
   { trace: mallocFreeTrace, label: 'malloc / free' },
 ];
 
-export { factorialTrace, linkedListTrace, pointerArithTrace, mallocFreeTrace };
+export { linkedListTrace, pointerArithTrace, mallocFreeTrace };

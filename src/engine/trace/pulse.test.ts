@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { factorialTrace } from '../../content/fixtures/factorial.ts';
+import { factorialTrace } from '../../content/se200/recursion/factorial.ts';
 import { linkedListTrace } from '../../content/fixtures/linkedList.ts';
 import { pulsedCellIds, retargetedPointerIds } from './diff.ts';
 import type { Step } from './types.ts';
