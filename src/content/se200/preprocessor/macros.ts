@@ -132,6 +132,6 @@ const contentModule: ContentModule = {
   label: 'Macro expansion',
   summary:
     'Concept view: cpp runs before the compiler — #include pastes a header, and #define macros are pure textual substitution (SQ(3 + 1) is copied, not evaluated).',
-  order: 70,
+  order: 105,
 };
 export default contentModule;

@@ -190,6 +190,6 @@ const contentModule: ContentModule = {
   trace: maxArrayTrace,
   label: 'Max of array',
   summary: 'Buggy vs fixed max-of-array side by side; the first divergence (i = 1) localizes the flipped comparison.',
-  order: 20,
+  order: 35,
 };
 export default contentModule;

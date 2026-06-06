@@ -147,6 +147,6 @@ const contentModule: ContentModule = {
   trace: staticLibrariesPipelineTrace,
   label: 'Build pipeline',
   summary: 'Concept view: separate compilation and linking — .c → .o → .a → executable (cc / ar / ld).',
-  order: 60,
+  order: 90,
 };
 export default contentModule;
