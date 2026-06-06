@@ -64,7 +64,7 @@ function CanvasBody({ step, heapLayout }: CanvasBodyProps) {
         <section className="min-w-[16rem]">
           <RegionLabel>Heap &amp; data</RegionLabel>
           <div
-            className={`flex gap-4 ${heapLayout === 'column' ? 'flex-col' : 'flex-row flex-wrap items-start'}`}
+            className={`flex gap-4 ${heapLayout === 'column' ? 'flex-col' : 'flex-row items-start'}`}
           >
             <AnimatePresence mode="popLayout" initial={false}>
               {step.heap.map((block) => (

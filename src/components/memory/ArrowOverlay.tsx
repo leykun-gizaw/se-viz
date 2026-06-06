@@ -23,22 +23,28 @@ function center(a: Anchor) {
   return { cx: a.x + a.width / 2, cy: a.y + a.height / 2 };
 }
 
-/** Cubic path between two anchors, exiting/entering on whichever horizontal sides face each other. */
-function arrowPath(from: Anchor, to: Anchor): { d: string; end: { x: number; y: number } } {
+/** True when the arrow travels rightward (target right of source), so it exits the source's right
+ *  side and enters the target's LEFT edge; false means it exits left and enters the target's right. */
+function exitsRight(from: Anchor, to: Anchor): boolean {
+  return center(to).cx >= center(from).cx;
+}
+
+/**
+ * Cubic path from a pointer's facing side to an explicit entry point (`entryY`) on the target's
+ * facing edge. The entry y is supplied by the caller so several arrows reaching the same node can
+ * be fanned out across its edge instead of stacking on the midpoint.
+ */
+function arrowPath(from: Anchor, to: Anchor, entryY: number): string {
   const f = center(from);
-  const t = center(to);
-  const exitRight = t.cx >= f.cx;
+  const exitRight = exitsRight(from, to);
   const sx = exitRight ? from.x + from.width : from.x;
   const sy = f.cy;
-  const ex = t.cx >= f.cx ? to.x : to.x + to.width;
-  const ey = t.cy;
+  const ex = exitRight ? to.x : to.x + to.width;
+  const ey = entryY;
   const dx = Math.max(28, Math.abs(ex - sx) * 0.45);
   const c1x = exitRight ? sx + dx : sx - dx;
-  const c2x = t.cx >= f.cx ? ex - dx : ex + dx;
-  return {
-    d: `M ${sx} ${sy} C ${c1x} ${sy}, ${c2x} ${ey}, ${ex} ${ey}`,
-    end: { x: ex, y: ey },
-  };
+  const c2x = exitRight ? ex - dx : ex + dx;
+  return `M ${sx} ${sy} C ${c1x} ${sy}, ${c2x} ${ey}, ${ex} ${ey}`;
 }
 
 /** Short stub from a pointer toward a NULL sink badge placed just to its lower-right. */
@@ -83,6 +89,17 @@ export function ArrowOverlay({ step }: { step: Step }) {
     const nulls: { id: string; d: string; badge: { x: number; y: number } }[] = [];
     const arcs: { id: string; d: string; label: { x: number; y: number }; text: string }[] = [];
 
+    // Pass 1: resolve each pointer to its source/target anchors and which edge it enters.
+    interface Resolved {
+      id: string;
+      from: Anchor;
+      to: Anchor;
+      target: string;
+      enterRight: boolean; // enters the target's right edge (arrow travels leftward)
+      danger: boolean;
+      glide: boolean;
+    }
+    const resolved: Resolved[] = [];
     for (const p of resolvePointers(step)) {
       const from = getAnchor(p.id);
       if (!from) continue;
@@ -93,11 +110,44 @@ export function ArrowOverlay({ step }: { step: Step }) {
       if (p.target === null) continue;
       const to = getAnchor(p.target);
       if (!to) continue;
-      arrows.push({
+      resolved.push({
         id: p.id,
-        d: arrowPath(from, to).d,
+        from,
+        to,
+        target: p.target,
+        enterRight: !exitsRight(from, to),
         danger: p.danger,
         glide: retargeted.has(p.id),
+      });
+    }
+
+    // Pass 2: fan out arrows that reach the same target edge. Group by (target, edge), order each
+    // group by its source's vertical position (topmost source → topmost slot, which minimizes
+    // crossings), then space the entry points evenly across that edge instead of all hitting the
+    // midpoint. A lone arrow keeps the centered entry it had before.
+    const groups = new Map<string, Resolved[]>();
+    for (const r of resolved) {
+      const key = `${r.target}|${r.enterRight ? 'R' : 'L'}`;
+      const g = groups.get(key);
+      if (g) g.push(r);
+      else groups.set(key, [r]);
+    }
+    const entryY = new Map<string, number>();
+    for (const group of groups.values()) {
+      group.sort((a, b) => center(a.from).cy - center(b.from).cy);
+      const n = group.length;
+      group.forEach((r, i) => {
+        const fraction = n === 1 ? 0.5 : (i + 1) / (n + 1);
+        entryY.set(r.id, r.to.y + r.to.height * fraction);
+      });
+    }
+
+    for (const r of resolved) {
+      arrows.push({
+        id: r.id,
+        d: arrowPath(r.from, r.to, entryY.get(r.id) ?? center(r.to).cy),
+        danger: r.danger,
+        glide: r.glide,
       });
     }
 
