@@ -24,12 +24,11 @@ export function useKeyboardControls(handlers: KeyboardControlHandlers): void {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
-      // Ignore while typing in a form field, or when a control that owns its arrow keys is focused
-      // (e.g. the resizable-panel divider, role="separator", which uses ←/→ to resize).
+      // Ignore while typing in a form field, or when the resizable-panel divider is focused — it
+      // owns ←/→ to resize, so we must not also step the trace.
       if (
         target &&
-        (/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) ||
-          target.getAttribute('role') === 'separator')
+        (/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) || target.closest('[data-separator]'))
       ) {
         return;
       }
