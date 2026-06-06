@@ -10,9 +10,10 @@ import '@fontsource/manrope/700.css';
 import './index.css';
 import App from './App.tsx';
 
-// Light is the default theme; the toggle flips data-theme on <html>.
+// The pre-paint script in index.html resolves the theme (dark primary, persisted) before the
+// bundle loads. This is a defensive fallback for environments where that script didn't run.
 if (!document.documentElement.dataset.theme) {
-  document.documentElement.dataset.theme = 'light';
+  document.documentElement.dataset.theme = 'dark';
 }
 
 const rootElement = document.getElementById('root');

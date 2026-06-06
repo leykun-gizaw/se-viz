@@ -20,8 +20,38 @@ see its address and value).
 
 Target concepts include: stack frames, recursion (stack growth/unwind), pointers and pointer
 arithmetic, arrays and strings, `malloc`/`free` and the heap, singly & doubly linked lists
-and their while-loop traversal patterns, stacks & queues (LIFO/FIFO), and hash tables. See
-[`docs/CURRICULUM.md`](docs/CURRICULUM.md) for the authoritative concept list.
+and their while-loop traversal patterns, stacks & queues (LIFO/FIFO), and hash tables, plus
+three non-memory **concept views** — the static-library build pipeline, preprocessor
+before→after, and dual-trace debugging. See [`docs/CURRICULUM.md`](docs/CURRICULUM.md) for the
+authoritative concept list.
+
+## Presenting in class
+
+Run `npm run dev` and open the workbench. To drive a live session:
+
+1. **Pick a module** from the left sidebar — modules are grouped by course → topic (curriculum
+   order). The selection drives the player on the right.
+2. **Enter presentation mode** with the ⤢ button in the top bar (or press `f`). This hides the
+   editing chrome, enlarges the type for projection, and keeps the breadcrumb, transport, and
+   narration. Press `Esc` (or `f`) to exit.
+3. **Step through** with the keyboard — no mouse needed:
+
+   | Key | Action |
+   |-----|--------|
+   | `→` | Step forward |
+   | `←` | Step back |
+   | `Space` | Play / pause autoplay |
+   | `Home` / `End` | Jump to first / last step |
+   | `f` | Toggle presentation (fullscreen) mode |
+   | `Esc` | Exit presentation mode |
+
+   The transport bar also has reset · step · play/pause · a scrub slider · and a speed selector.
+4. **Theme** — dark is the default (best for a projector); the ☼/☾ button toggles a light variant,
+   and your choice is remembered across reloads. A **Legend** button explains the color semantics
+   (pointers/azure, heap/teal, active/amber, value-changed/green, allocation states).
+
+Every module — memory traces and concept views alike — uses the same chrome and keyboard controls,
+so you can move between topics without changing how you drive the tool.
 
 ## Architecture (traces-first)
 

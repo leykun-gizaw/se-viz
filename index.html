@@ -1,16 +1,28 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SE-Viz — Memory & Algorithm Visualizer</title>
-    <!-- Light first paint (prevents a flash before the bundled CSS loads in dev). -->
-    <style>
-      :root {
-        color-scheme: light;
-        background: #f5f4f1;
-      }
-    </style>
+    <!--
+      Resolve the theme before first paint: dark is primary (locked design rule — projected in
+      classrooms), with the instructor's last choice persisted. Setting data-theme + colorScheme +
+      background here (synchronously, in <head>) means no flash before the bundled CSS/JS loads.
+    -->
+    <script>
+      (function () {
+        var t = 'dark';
+        try {
+          if (localStorage.getItem('se-viz-theme') === 'light') t = 'light';
+        } catch (e) {
+          /* localStorage unavailable — fall back to the dark default */
+        }
+        var root = document.documentElement;
+        root.dataset.theme = t;
+        root.style.colorScheme = t;
+        root.style.background = t === 'light' ? '#f5f4f1' : '#0d0e11';
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
