@@ -8,6 +8,7 @@ import { allCatalogModules, CATALOG } from './content/catalog.ts';
 import type { Trace } from './engine/trace/types.ts';
 import { useTrace } from './engine/trace/useTrace.ts';
 import { useKeyboardControls } from './hooks/useKeyboardControls.ts';
+import { usePersistentState } from './hooks/usePersistentState.ts';
 import { useTheme, type Theme } from './hooks/useTheme.ts';
 import { ContentSidebar } from './components/ContentSidebar.tsx';
 import { Legend } from './components/Legend.tsx';
@@ -88,12 +89,19 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(modules[0].trace.id);
   const onSelect = useCallback((id: string) => setSelectedId(id), []);
   const { theme, toggle } = useTheme();
+  const [sidebarCollapsed, setSidebarCollapsed] = usePersistentState('se-viz-sidebar-collapsed', false);
 
   const selected = modules.find((m) => m.trace.id === selectedId) ?? modules[0];
 
   return (
     <div className="flex h-full bg-bg text-ink">
-      <ContentSidebar courses={CATALOG} selectedId={selected.trace.id} onSelect={onSelect} />
+      <ContentSidebar
+        courses={CATALOG}
+        selectedId={selected.trace.id}
+        onSelect={onSelect}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
+      />
       <Workbench
         key={selected.trace.id}
         trace={selected.trace}

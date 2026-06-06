@@ -9,15 +9,73 @@ export interface ContentSidebarProps {
   courses: readonly CatalogCourse[];
   selectedId: string;
   onSelect: (traceId: string) => void;
+  /** Whether the sidebar is collapsed to a thin rail. */
+  collapsed: boolean;
+  /** Toggle collapsed/expanded. */
+  onToggleCollapse: () => void;
 }
 
-export function ContentSidebar({ courses, selectedId, onSelect }: ContentSidebarProps) {
+/** Chevron pointing left (collapse) or right (expand). */
+function Chevron({ direction }: { direction: 'left' | 'right' }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d={direction === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ContentSidebar({
+  courses,
+  selectedId,
+  onSelect,
+  collapsed,
+  onToggleCollapse,
+}: ContentSidebarProps) {
+  if (collapsed) {
+    return (
+      <aside className="flex w-10 shrink-0 flex-col items-center border-r border-hairline bg-surface py-3">
+        <button
+          type="button"
+          onClick={onToggleCollapse}
+          aria-label="Expand module list"
+          aria-expanded={false}
+          title="Expand module list"
+          className="flex h-7 w-7 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink"
+        >
+          <Chevron direction="right" />
+        </button>
+        <span
+          className="mt-3 font-sans text-[10px] font-semibold uppercase tracking-wider text-ink-faint [writing-mode:vertical-rl]"
+          aria-hidden="true"
+        >
+          Modules
+        </span>
+      </aside>
+    );
+  }
+
   return (
     <aside className="flex w-64 shrink-0 flex-col border-r border-hairline bg-surface">
-      <div className="border-b border-hairline px-4 py-3">
+      <div className="flex items-center justify-between border-b border-hairline px-4 py-3">
         <h2 className="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
           Modules
         </h2>
+        <button
+          type="button"
+          onClick={onToggleCollapse}
+          aria-label="Collapse module list"
+          aria-expanded={true}
+          title="Collapse module list"
+          className="flex h-6 w-6 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink"
+        >
+          <Chevron direction="left" />
+        </button>
       </div>
       <nav className="flex-1 overflow-y-auto px-2 py-3">
         {courses.map((course) => (

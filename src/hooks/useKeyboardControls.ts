@@ -24,7 +24,15 @@ export function useKeyboardControls(handlers: KeyboardControlHandlers): void {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
-      if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return;
+      // Ignore while typing in a form field, or when a control that owns its arrow keys is focused
+      // (e.g. the resizable-panel divider, role="separator", which uses ←/→ to resize).
+      if (
+        target &&
+        (/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) ||
+          target.getAttribute('role') === 'separator')
+      ) {
+        return;
+      }
 
       switch (e.key) {
         case 'ArrowLeft':

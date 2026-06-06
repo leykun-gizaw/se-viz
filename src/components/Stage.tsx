@@ -12,6 +12,7 @@ import { CodePanel } from './CodePanel.tsx';
 import { ConsolePanel } from './ConsolePanel.tsx';
 import { MemoryCanvas } from './memory/MemoryCanvas.tsx';
 import { NarrationBar } from './NarrationBar.tsx';
+import { SplitPane } from './SplitPane.tsx';
 import { BeforeAfterView } from './concept/BeforeAfterView.tsx';
 import { DualTraceView } from './concept/DualTraceView.tsx';
 import { PipelineView } from './concept/PipelineView.tsx';
@@ -34,16 +35,24 @@ export function Stage({
   } else if (view === 'dual-trace') {
     main = <DualTraceView trace={trace} step={step} />;
   } else {
+    // Code (left) and visualization (right) share the width via a draggable divider, defaulting to
+    // a narrower code panel so the memory canvas gets the room. The divider is static (non-draggable)
+    // in presentation mode but still honors the saved ratio.
     main = (
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <CodePanel trace={trace} step={step} presenting={presenting} />
-        <div className="flex min-h-0 flex-col gap-4">
-          <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-hairline bg-bg p-4">
-            <MemoryCanvas step={step} prevStep={prevStep} heapLayout={trace.heapLayout} />
+      <SplitPane
+        storageKey="se-viz-split-ratio"
+        defaultRatio={0.38}
+        interactive={!presenting}
+        left={<CodePanel trace={trace} step={step} presenting={presenting} />}
+        right={
+          <div className="flex h-full min-h-0 flex-col gap-4">
+            <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-hairline bg-bg p-4">
+              <MemoryCanvas step={step} prevStep={prevStep} heapLayout={trace.heapLayout} />
+            </div>
+            <ConsolePanel step={step} />
           </div>
-          <ConsolePanel step={step} />
-        </div>
-      </div>
+        }
+      />
     );
   }
 
