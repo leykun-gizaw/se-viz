@@ -135,7 +135,7 @@ const steps: Step[] = [
       'new->next = head links the new node to the old first node (7) — do this BEFORE moving head, or the rest of the list is lost.',
     highlightedLines: [11],
     stack: [frame('n0', ADDR.n0, { target: 'nn', display: ADDR.nn })],
-    heap: [...baseNodes, node('nn', ADDR.nn, 2, 'n0', ADDR.n0)],
+    heap: [node('nn', ADDR.nn, 2, 'n0', ADDR.n0), ...baseNodes],
     activeId: 'nn.next',
   },
   {
@@ -144,7 +144,7 @@ const steps: Step[] = [
     narration: 'head = new now retargets head to the new node. The list is 2 -> 7 -> 4 -> NULL.',
     highlightedLines: [12],
     stack: [frame('nn', ADDR.nn, { target: 'nn', display: ADDR.nn })],
-    heap: [...baseNodes, node('nn', ADDR.nn, 2, 'n0', ADDR.n0)],
+    heap: [node('nn', ADDR.nn, 2, 'n0', ADDR.n0), ...baseNodes],
     activeId: 'head',
   },
   {
@@ -153,7 +153,7 @@ const steps: Step[] = [
     narration: 'insert_head returns the new head (0x8e0) — the caller’s list now starts at node 2.',
     highlightedLines: [13],
     stack: [frame('nn', ADDR.nn, { target: 'nn', display: ADDR.nn })],
-    heap: [...baseNodes, node('nn', ADDR.nn, 2, 'n0', ADDR.n0)],
+    heap: [node('nn', ADDR.nn, 2, 'n0', ADDR.n0), ...baseNodes],
     activeId: 'head',
   },
 ];

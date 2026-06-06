@@ -110,12 +110,14 @@ function heap(
     nextTarget: string | null;
     nextDisplay: string;
   } | null,
+  /** Place the new node first (leftmost) once it has joined the front of the list, so the chain
+   *  renders left→right as 1 ↔ 2 ↔ 3 instead of the new head sitting at the far right. */
+  nnFirst = false,
 ): HeapBlock[] {
-  const blocks: HeapBlock[] = [dnode('d0', ADDR.d0, 2, d0Prev, d0PrevDisplay, 'd1', ADDR.d1), d1];
-  if (nn) {
-    blocks.push(dnode('nn', ADDR.nn, nn.value, null, nn.prevDisplay, nn.nextTarget, nn.nextDisplay));
-  }
-  return blocks;
+  const d0block = dnode('d0', ADDR.d0, 2, d0Prev, d0PrevDisplay, 'd1', ADDR.d1);
+  if (!nn) return [d0block, d1];
+  const nnBlock = dnode('nn', ADDR.nn, nn.value, null, nn.prevDisplay, nn.nextTarget, nn.nextDisplay);
+  return nnFirst ? [nnBlock, d0block, d1] : [d0block, d1, nnBlock];
 }
 
 const NN = { target: 'nn', display: ADDR.nn };
@@ -178,7 +180,7 @@ const steps: Step[] = [
     narration: 'new->next = head points the new node forward to node 2 (the old head).',
     highlightedLines: [13],
     stack: [frame('d0', ADDR.d0, NN)],
-    heap: heap(null, 'NULL', { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }),
+    heap: heap(null, 'NULL', { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }, true),
     activeId: 'nn.next',
   },
   {
@@ -187,7 +189,7 @@ const steps: Step[] = [
     narration: 'head != NULL is true, so the old head exists and its prev link must be fixed too.',
     highlightedLines: [14],
     stack: [frame('d0', ADDR.d0, NN)],
-    heap: heap(null, 'NULL', { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }),
+    heap: heap(null, 'NULL', { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }, true),
     activeId: 'head',
     condition: { expr: 'head != NULL', result: true },
   },
@@ -198,7 +200,7 @@ const steps: Step[] = [
       'head->prev = new points node 2 back to the new node — the second of the two links. Both directions are now consistent.',
     highlightedLines: [15],
     stack: [frame('d0', ADDR.d0, NN)],
-    heap: heap('nn', ADDR.nn, { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }),
+    heap: heap('nn', ADDR.nn, { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }, true),
     activeId: 'd0.prev',
   },
   {
@@ -207,7 +209,7 @@ const steps: Step[] = [
     narration: 'head = new moves head to the new node. The list is now 1 <-> 2 <-> 3.',
     highlightedLines: [17],
     stack: [frame('nn', ADDR.nn, NN)],
-    heap: heap('nn', ADDR.nn, { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }),
+    heap: heap('nn', ADDR.nn, { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }, true),
     activeId: 'head',
   },
   {
@@ -216,7 +218,7 @@ const steps: Step[] = [
     narration: 'insert_head returns the new head (0xc40). The doubly linked list starts at node 1.',
     highlightedLines: [18],
     stack: [frame('nn', ADDR.nn, NN)],
-    heap: heap('nn', ADDR.nn, { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }),
+    heap: heap('nn', ADDR.nn, { value: 1, prevDisplay: 'NULL', nextTarget: 'd0', nextDisplay: ADDR.d0 }, true),
     activeId: 'head',
   },
 ];
