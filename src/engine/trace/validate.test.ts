@@ -94,3 +94,132 @@ describe('validateTrace', () => {
     expect(validateTrace(t)[0].message).toMatch(/toId "missing"/);
   });
 });
+
+describe('validateTrace — concept views (Phase 11)', () => {
+  it('accepts a well-formed pipeline trace and resolves activeId to a node', () => {
+    const t: Trace = {
+      id: 'p',
+      title: 'p',
+      language: 'c',
+      source: '',
+      view: 'pipeline',
+      steps: [
+        {
+          id: 's0',
+          index: 0,
+          narration: 'n',
+          highlightedLines: [],
+          stack: [],
+          heap: [],
+          activeId: 'cc',
+          pipeline: {
+            nodes: [
+              { id: 'src', kind: 'artifact', label: 'a.c' },
+              { id: 'cc', kind: 'process', label: 'cc' },
+            ],
+            edges: [{ from: 'src', to: 'cc' }],
+          },
+        },
+      ],
+    };
+    expect(validateTrace(t)).toEqual([]);
+  });
+
+  it('flags a pipeline edge referencing a missing node', () => {
+    const t: Trace = {
+      id: 'p',
+      title: 'p',
+      language: 'c',
+      source: '',
+      view: 'pipeline',
+      steps: [
+        {
+          id: 's0',
+          index: 0,
+          narration: 'n',
+          highlightedLines: [],
+          stack: [],
+          heap: [],
+          pipeline: {
+            nodes: [{ id: 'src', kind: 'artifact', label: 'a.c' }],
+            edges: [{ from: 'src', to: 'ghost' }],
+          },
+        },
+      ],
+    };
+    expect(validateTrace(t)[0].message).toMatch(/edge to "ghost"/);
+  });
+
+  it('flags a before-after highlight outside its panel', () => {
+    const t: Trace = {
+      id: 'b',
+      title: 'b',
+      language: 'c',
+      source: '',
+      view: 'before-after',
+      steps: [
+        {
+          id: 's0',
+          index: 0,
+          narration: 'n',
+          highlightedLines: [],
+          stack: [],
+          heap: [],
+          beforeAfter: { before: 'one line', after: 'one line', afterHighlights: [9] },
+        },
+      ],
+    };
+    expect(validateTrace(t)[0].message).toMatch(/afterHighlights entry 9/);
+  });
+
+  it('flags dual-trace missing left/right source, and a line out of range', () => {
+    const step: Step = {
+      id: 's0',
+      index: 0,
+      narration: 'n',
+      highlightedLines: [],
+      stack: [],
+      heap: [],
+      dualTrace: {
+        left: { label: 'buggy', line: 1, rows: [] },
+        right: { label: 'fixed', line: 1, rows: [] },
+      },
+    };
+    const missing: Trace = { id: 'd', title: 'd', language: 'c', source: '', view: 'dual-trace', steps: [step] };
+    expect(validateTrace(missing).some((x) => /leftSource and trace.rightSource/.test(x.message))).toBe(
+      true,
+    );
+
+    const outOfRange: Trace = {
+      id: 'd',
+      title: 'd',
+      language: 'c',
+      source: '',
+      view: 'dual-trace',
+      leftSource: 'a\nb',
+      rightSource: 'a\nb',
+      steps: [
+        {
+          ...step,
+          dualTrace: {
+            left: { label: 'buggy', line: 9, rows: [] },
+            right: { label: 'fixed', line: 1, rows: [] },
+          },
+        },
+      ],
+    };
+    expect(validateTrace(outOfRange).some((x) => /dual-trace left line 9/.test(x.message))).toBe(true);
+  });
+
+  it('flags a concept-view step missing its payload', () => {
+    const t: Trace = {
+      id: 'p',
+      title: 'p',
+      language: 'c',
+      source: '',
+      view: 'pipeline',
+      steps: [{ id: 's0', index: 0, narration: 'n', highlightedLines: [], stack: [], heap: [] }],
+    };
+    expect(validateTrace(t)[0].message).toMatch(/missing its `pipeline` payload/);
+  });
+});

@@ -68,6 +68,12 @@ export function validateTrace(trace: Trace): TraceIssue[] {
     issues.push({ traceId: trace.id, stepIndex, message });
 
   const lineCount = sourceLineCount(trace.source);
+  const view = trace.view ?? 'memory';
+
+  // Trace-level concept-view invariants (Phase 11).
+  if (view === 'dual-trace' && (trace.leftSource === undefined || trace.rightSource === undefined)) {
+    issue(-1, "view 'dual-trace' requires both trace.leftSource and trace.rightSource");
+  }
 
   trace.steps.forEach((step, i) => {
     if (step.index !== i) {
@@ -93,7 +99,10 @@ export function validateTrace(trace: Trace): TraceIssue[] {
       issue(i, `duplicate id(s) within the step: ${[...dupes].join(', ')}`);
     }
 
-    if (step.activeId !== undefined && !idSet.has(step.activeId)) {
+    // activeId may point at a memory element or (in the pipeline view) a pipeline node.
+    const activeUniverse = new Set(idSet);
+    for (const node of step.pipeline?.nodes ?? []) activeUniverse.add(node.id);
+    if (step.activeId !== undefined && !activeUniverse.has(step.activeId)) {
       issue(i, `activeId "${step.activeId}" does not resolve to any element in the step`);
     }
 
@@ -120,6 +129,63 @@ export function validateTrace(trace: Trace): TraceIssue[] {
       }
       if (!idSet.has(ann.toId)) {
         issue(i, `annotation "${ann.id}" toId "${ann.toId}" is not in the step`);
+      }
+    }
+
+    // ── Concept-view payloads (Phase 11) ─────────────────────────────────────────────────────
+    // Each concept view requires the matching per-step payload; pipeline edges must reference
+    // existing nodes; before/after and dual-trace highlight lines must be in range of their source.
+    if (view === 'pipeline') {
+      if (!step.pipeline) {
+        issue(i, "view 'pipeline' step is missing its `pipeline` payload");
+      } else {
+        const nodeIds = step.pipeline.nodes.map((n) => n.id);
+        const nodeIdSet = new Set(nodeIds);
+        if (nodeIdSet.size !== nodeIds.length) {
+          issue(i, 'duplicate pipeline node id(s) within the step');
+        }
+        for (const edge of step.pipeline.edges) {
+          if (!nodeIdSet.has(edge.from)) {
+            issue(i, `pipeline edge from "${edge.from}" references a missing node`);
+          }
+          if (!nodeIdSet.has(edge.to)) {
+            issue(i, `pipeline edge to "${edge.to}" references a missing node`);
+          }
+        }
+      }
+    } else if (view === 'before-after') {
+      if (!step.beforeAfter) {
+        issue(i, "view 'before-after' step is missing its `beforeAfter` payload");
+      } else {
+        const beforeLines = sourceLineCount(step.beforeAfter.before);
+        const afterLines = sourceLineCount(step.beforeAfter.after);
+        for (const l of step.beforeAfter.beforeHighlights ?? []) {
+          if (!Number.isInteger(l) || l < 1 || l > beforeLines) {
+            issue(i, `beforeHighlights entry ${l} is outside before (1..${beforeLines})`);
+          }
+        }
+        for (const l of step.beforeAfter.afterHighlights ?? []) {
+          if (!Number.isInteger(l) || l < 1 || l > afterLines) {
+            issue(i, `afterHighlights entry ${l} is outside after (1..${afterLines})`);
+          }
+        }
+      }
+    } else if (view === 'dual-trace') {
+      if (!step.dualTrace) {
+        issue(i, "view 'dual-trace' step is missing its `dualTrace` payload");
+      } else {
+        const sides = [
+          ['left', step.dualTrace.left, trace.leftSource] as const,
+          ['right', step.dualTrace.right, trace.rightSource] as const,
+        ];
+        for (const [side, col, src] of sides) {
+          if (col.line !== undefined) {
+            const n = src ? sourceLineCount(src) : 0;
+            if (!Number.isInteger(col.line) || col.line < 1 || col.line > n) {
+              issue(i, `dual-trace ${side} line ${col.line} is outside its source (1..${n})`);
+            }
+          }
+        }
       }
     }
   });

@@ -87,3 +87,16 @@ phases run at once without colliding.
 Write `reports/<your-phase>.md` from `reports/TEMPLATE.md`: §3 list each module + the CURRICULUM
 row it covers; §4 show correctness checks; §5 flag deviations; §6 should say "no trace-format
 change" (or, if truly unavoidable, stop and escalate). Do not start another phase.
+
+## Concept-view content (Phases 12–14)
+
+Three concepts are **not** live-memory and use a concept **view** instead of the memory canvas:
+the static-library build pipeline (`view: 'pipeline'`), the preprocessor before→after
+(`view: 'before-after'`), and debugging (`view: 'dual-trace'`). Phase 11 built the renderers; you
+author **data only** — no engine/renderer edits. Set `Trace.view` and give each step the matching
+payload (`pipeline` / `beforeAfter` / `dualTrace`), then `export default` a `ContentModule` exactly
+as for memory modules (auto-discovered by folder). The shared chrome — breadcrumb, transport,
+keyboard, presentation, narration — works unchanged. The exact payload shapes and the copy-from
+fixtures (`src/content/fixtures/{buildPipeline,preprocessor,dualTrace}.ts`) are in
+`docs/TRACE_FORMAT.md § Phase 11 additions — concept views`. Memory concepts are unaffected: omit
+`view` and author as before.

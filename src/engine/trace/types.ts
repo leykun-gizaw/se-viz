@@ -274,6 +274,19 @@ export interface Step {
    * @remarks Added in Phase 2.
    */
   condition?: StepCondition;
+  /**
+   * Concept-view payload for this step (Phase 11, additive). A step carries **at most one**, and
+   * only the kind matching its trace's {@link Trace.view}; memory traces set none of these. The full
+   * per-step snapshot principle still holds — each step restates its view's full state. See
+   * {@link PipelineStep}, {@link BeforeAfterStep}, {@link DualTraceStep}.
+   *
+   * @remarks Added in Phase 11.
+   */
+  pipeline?: PipelineStep;
+  /** Before→after concept-view payload (preprocessor). Set only when `trace.view === 'before-after'`. */
+  beforeAfter?: BeforeAfterStep;
+  /** Dual-trace concept-view payload (debugging). Set only when `trace.view === 'dual-trace'`. */
+  dualTrace?: DualTraceStep;
 }
 
 /** Supported source languages. Only C is in scope for SE 200 / SE 201. */
@@ -323,4 +336,109 @@ export interface Trace {
    * @remarks Added in Phase 1.
    */
   heapLayout?: 'row' | 'column';
+  /**
+   * Which renderer plays this trace (Phase 11, additive). Absent or `'memory'` selects the
+   * live-memory canvas (Phases 0–10), **unchanged**. The other kinds are non-memory "concept views";
+   * each step then carries the matching payload ({@link Step.pipeline} / {@link Step.beforeAfter} /
+   * {@link Step.dualTrace}) and the memory `stack`/`heap` stay empty.
+   *
+   * @remarks Added in Phase 11.
+   */
+  view?: TraceView;
+  /**
+   * For `view: 'dual-trace'` only — the left and right column source code. Each step's
+   * {@link DualColumn.line} highlights a 1-based line into the matching source. Optional/additive.
+   *
+   * @remarks Added in Phase 11.
+   */
+  leftSource?: string;
+  rightSource?: string;
+}
+
+/* ───────────────────────── Concept views (Phase 11, additive) ─────────────────────────
+ * Three non-memory screens that live in the same player/chrome as memory traces: the static-library
+ * build pipeline, the preprocessor before→after, and dual-trace debugging. A trace opts in via
+ * {@link Trace.view}; each step then carries the matching payload below. Memory traces are
+ * unaffected (they leave `view` and these payloads unset).
+ */
+
+/** The renderer a trace selects. `memory` (or absent) is the Phases 0–10 live-memory canvas. */
+export type TraceView = 'memory' | 'pipeline' | 'before-after' | 'dual-trace';
+
+/**
+ * One node in a build-pipeline graph. `artifact` nodes are solid cards (a file: `.c`/`.o`/`.a`/the
+ * linked binary); `process` nodes are dashed boxes (a tool: `cc`/`ar`/`ld`). Reuses the design's
+ * "process box = dashed neutral" treatment.
+ */
+export interface PipelineNode {
+  /** Stable id, referenced by {@link PipelineEdge} endpoints. Unique within the step. */
+  id: string;
+  /** Solid file card vs dashed tool/process box. */
+  kind: 'artifact' | 'process';
+  /** Primary label, e.g. `"main.c"`, `"cc"`, `"libutil.a"`. */
+  label: string;
+  /** Muted secondary label, e.g. `"source"`, `"compile"`, `"archive"`. */
+  sublabel?: string;
+  /** Visual state this step: not-yet (`idle`), the current focus (`active`), or completed (`done`). */
+  state?: 'idle' | 'active' | 'done';
+  /** The final output artifact carries the accent (per the design: only the last artifact is accented). */
+  accent?: boolean;
+}
+
+/** A directed left→right edge between two {@link PipelineNode}s by id. */
+export interface PipelineEdge {
+  from: string;
+  to: string;
+}
+
+/** A build-pipeline snapshot for one step: the nodes (with per-step state) and the edges. */
+export interface PipelineStep {
+  nodes: PipelineNode[];
+  edges: PipelineEdge[];
+}
+
+/**
+ * A before→after snapshot for one step (preprocessor). `before` is the source with directives;
+ * `after` is the translation unit after `cpp`. The highlighted lines (1-based) mark the text
+ * transformed this step, rendered in the value-changed green.
+ */
+export interface BeforeAfterStep {
+  before: string;
+  after: string;
+  /** 1-based line numbers in `before` to highlight this step. */
+  beforeHighlights?: number[];
+  /** 1-based line numbers in `after` to highlight this step. */
+  afterHighlights?: number[];
+  /** The process box label bridging the two panels (default `"cpp"`). */
+  processLabel?: string;
+}
+
+/** One row in a {@link DualColumn} state table: a named value, optionally flagged as just-changed. */
+export interface DualColumnRow {
+  name: string;
+  value: string;
+  /** When true, the row pulses in the value-changed green this step. */
+  changed?: boolean;
+}
+
+/** One side of a dual-trace step: a labeled run with its current line, state rows, and output. */
+export interface DualColumn {
+  /** Column heading, e.g. `"buggy"`, `"fixed"`. */
+  label: string;
+  /** 1-based line to highlight in this column's source ({@link Trace.leftSource}/{@link Trace.rightSource}). */
+  line?: number;
+  /** The column's visible state this step (locals/watch values). */
+  rows: DualColumnRow[];
+  /** Cumulative console output for this column at this step. */
+  stdout?: string[];
+}
+
+/**
+ * A dual-trace snapshot for one step: two synchronized runs side by side. `diverged` is true from
+ * the **first divergent step onward**; that first step is the flagged divergence point.
+ */
+export interface DualTraceStep {
+  left: DualColumn;
+  right: DualColumn;
+  diverged?: boolean;
 }

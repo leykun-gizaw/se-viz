@@ -311,3 +311,51 @@ everything. Two authoring conventions and one tiny rendering touch are worth rec
   stable id, so a parameter in one frame can target a cell in another (e.g. `swap`'s `a` → `main`'s
   `x`), and a `pp` cell can target a `p` cell that itself targets `x` (a two-hop chain). The overlay
   resolves all of these by id.
+
+---
+
+## Phase 11 additions — concept views (additive; memory traces unchanged)
+
+Three curriculum screens are **not** about live memory: the static-library **build pipeline**, the
+preprocessor **before→after**, and **dual-trace** debugging. Phase 11 adds an **additive `view`
+discriminator** so these render in the same player + chrome (top bar, breadcrumb, transport,
+keyboard, presentation) as memory traces. **A trace with no `view` (or `view: 'memory'`) behaves
+exactly as before** — Phases 0–10 are untouched. The `Stage` component switches on `view`; the
+memory canvas keeps its own renderer.
+
+A concept-view trace sets `Trace.view` and each step carries the **one** matching payload (full
+per-step snapshot, same principle as memory steps). `stack`/`heap` stay empty; `highlightedLines` is
+`[]` (the code lives in the payloads). `validateTrace` checks the payloads (edges resolve, highlight
+lines in range, columns present, the matching payload exists on every step).
+
+### `view: 'pipeline'` — build pipeline (screen 07)
+Each step: `Step.pipeline = { nodes, edges }`.
+- `PipelineNode`: `{ id, kind: 'artifact' | 'process', label, sublabel?, state?: 'idle'|'active'|'done', accent? }`.
+  `artifact` = solid file card (`.c`/`.o`/`.a`/binary); `process` = dashed tool box (`cc`/`ar`/`ld`).
+  Set `accent: true` on the **final** output artifact only. `state` drives the per-step reveal
+  (idle → active → done). `Step.activeId` may point at the active node id.
+- `PipelineEdge`: `{ from, to }` (node ids). The renderer draws an azure connector between adjacent
+  declared nodes joined by an edge, so **declare nodes left→right in pipeline order**.
+
+### `view: 'before-after'` — preprocessor (screen 08)
+Each step: `Step.beforeAfter = { before, after, beforeHighlights?, afterHighlights?, processLabel? }`.
+- `before`/`after` are the full source strings (with directives) and the post-`cpp` translation unit;
+  restate them every step. `beforeHighlights`/`afterHighlights` are **1-based line numbers** marked
+  in the value-changed green (the lines substituted this step). `processLabel` defaults to `'cpp'`.
+
+### `view: 'dual-trace'` — debugging (screen 09)
+Trace sets `leftSource` and `rightSource` (the two programs). Each step: `Step.dualTrace = { left,
+right, diverged? }`.
+- `DualColumn`: `{ label, line?, rows: { name, value, changed? }[], stdout? }`. `line` is a 1-based
+  highlight into that column's source; `rows` is the compact state table (set `changed` to pulse a
+  row green); `stdout` is cumulative output.
+- `diverged` is `true` from the **first divergent step onward**; that first step is the flagged
+  divergence point (both columns show a "diverges here" marker). The single steps array drives both
+  columns, so they advance in lockstep.
+
+**Authoring (Wave 2 needs zero engine edits):** create a module under
+`src/content/<course>/<topic>/<module>.ts`, set `view` + per-step payloads as above, and
+`export default` a `ContentModule` like any other. The minimal fixtures
+[`buildPipeline.ts`](../src/content/fixtures/buildPipeline.ts),
+[`preprocessor.ts`](../src/content/fixtures/preprocessor.ts), and
+[`dualTrace.ts`](../src/content/fixtures/dualTrace.ts) are the copy-from exemplars.
