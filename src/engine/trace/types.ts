@@ -216,6 +216,41 @@ export interface StepCondition {
   result: boolean;
 }
 
+/** The four kinds of coach note (à la chess.com move labels), each with its own icon + token color. */
+export type CoachVariant = 'idea' | 'watch-out' | 'predict' | 'recap';
+
+/**
+ * A contextual teaching pop-up for a step (Phase 17, additive) — a "coach" that steps in at a moment
+ * that matters, points at the relevant element, and says one sharp thing. Distinct from the
+ * always-on one-line {@link Step.narration}: a coach note is **occasional** and **typed**.
+ *
+ * Authoring convention (see `docs/CONTENT_AUTHORING.md`): selective (only steps that add insight),
+ * **1–3 sentences, one idea**, the right variant, anchored to what it's about. At most one per step.
+ *
+ * @remarks Added in Phase 17.
+ */
+export interface CoachNote {
+  /** Which kind of note — drives the icon and color. */
+  variant: CoachVariant;
+  /** The explanation, in the voice of a coach. SHORT: 1–3 sentences, one idea. */
+  body: string;
+  /** Optional short heading. */
+  title?: string;
+  /**
+   * A frame / cell / heap-block id (or a pipeline-node id) to point the bubble at. When it resolves
+   * to an on-screen element the bubble anchors to it with a tail; otherwise it falls back.
+   */
+  anchorId?: string;
+  /** Alternatively, anchor to a 1-based source line (mutually exclusive with `anchorId` in practice). */
+  anchorLine?: number;
+  /**
+   * When two-beat stepping (Phase 16) is active, which beat to show the note on: `predict` notes
+   * read naturally on `arrive` ("what will happen here?"), explanations on `apply`. Defaults to
+   * `apply`. Ignored when two-beat stepping is not present (the note shows on the step).
+   */
+  beat?: 'arrive' | 'apply';
+}
+
 /**
  * A single point in execution: the **complete** memory snapshot plus presentation metadata.
  * The engine renders exactly this and animates the diff against the previous step.
@@ -287,6 +322,13 @@ export interface Step {
   beforeAfter?: BeforeAfterStep;
   /** Dual-trace concept-view payload (debugging). Set only when `trace.view === 'dual-trace'`. */
   dualTrace?: DualTraceStep;
+  /**
+   * An optional contextual teaching pop-up for this step (Phase 17). At most one per step; omit on
+   * steps that don't add insight. A step without `coach` behaves exactly as before.
+   *
+   * @remarks Added in Phase 17 (additive).
+   */
+  coach?: CoachNote;
 }
 
 /** Supported source languages. Only C is in scope for SE 200 / SE 201. */

@@ -270,13 +270,15 @@ content file must follow to be registered:** `export default` a
 import type { Trace } from '../../../engine/trace/types.ts';
 import type { ContentModule } from '../../module.ts';
 
-export const myTrace: Trace = { /* … course/topic/file set per docs/CURRICULUM.md … */ };
+export const myTrace: Trace = {
+  /* … course/topic/file set per docs/CURRICULUM.md … */
+};
 
 const contentModule: ContentModule = {
   trace: myTrace,
   summary: 'One line on what this module teaches.', // required (sidebar tooltip)
-  label: 'Short label',                             // optional; defaults to trace.title
-  order: 70,                                        // optional ordering hint (≈ 10 × week)
+  label: 'Short label', // optional; defaults to trace.title
+  order: 70, // optional ordering hint (≈ 10 × week)
 };
 export default contentModule;
 ```
@@ -329,7 +331,9 @@ per-step snapshot, same principle as memory steps). `stack`/`heap` stay empty; `
 lines in range, columns present, the matching payload exists on every step).
 
 ### `view: 'pipeline'` — build pipeline (screen 07)
+
 Each step: `Step.pipeline = { nodes, edges }`.
+
 - `PipelineNode`: `{ id, kind: 'artifact' | 'process', label, sublabel?, state?: 'idle'|'active'|'done', accent? }`.
   `artifact` = solid file card (`.c`/`.o`/`.a`/binary); `process` = dashed tool box (`cc`/`ar`/`ld`).
   Set `accent: true` on the **final** output artifact only. `state` drives the per-step reveal
@@ -338,14 +342,18 @@ Each step: `Step.pipeline = { nodes, edges }`.
   declared nodes joined by an edge, so **declare nodes left→right in pipeline order**.
 
 ### `view: 'before-after'` — preprocessor (screen 08)
+
 Each step: `Step.beforeAfter = { before, after, beforeHighlights?, afterHighlights?, processLabel? }`.
+
 - `before`/`after` are the full source strings (with directives) and the post-`cpp` translation unit;
   restate them every step. `beforeHighlights`/`afterHighlights` are **1-based line numbers** marked
   in the value-changed green (the lines substituted this step). `processLabel` defaults to `'cpp'`.
 
 ### `view: 'dual-trace'` — debugging (screen 09)
+
 Trace sets `leftSource` and `rightSource` (the two programs). Each step: `Step.dualTrace = { left,
 right, diverged? }`.
+
 - `DualColumn`: `{ label, line?, rows: { name, value, changed? }[], stdout? }`. `line` is a 1-based
   highlight into that column's source; `rows` is the compact state table (set `changed` to pulse a
   row green); `stdout` is cumulative output.
@@ -359,3 +367,33 @@ right, diverged? }`.
 [`buildPipeline.ts`](../src/content/fixtures/buildPipeline.ts),
 [`preprocessor.ts`](../src/content/fixtures/preprocessor.ts), and
 [`dualTrace.ts`](../src/content/fixtures/dualTrace.ts) are the copy-from exemplars.
+
+## Phase 17 additions — coach notes (additive)
+
+A step may carry **one** optional `coach` note — a chess.com-style contextual teaching pop-up,
+separate from (and rarer than) the always-on one-line `narration`. A step without `coach` behaves
+exactly as before.
+
+```ts
+type CoachVariant = 'idea' | 'watch-out' | 'predict' | 'recap';
+
+interface CoachNote {
+  variant: CoachVariant; // idea (neutral) · watch-out (amber) · predict (azure) · recap (teal)
+  body: string; // the explanation — SHORT: 1–3 sentences, one idea
+  title?: string; // optional short heading (defaults to the variant label)
+  anchorId?: string; // a frame / cell / heap-block / pipeline-node id to point the bubble at
+  anchorLine?: number; // alternatively, a 1-based source line to point at
+  beat?: 'arrive' | 'apply'; // with two-beat stepping (Phase 16): predict→arrive, explain→apply. Default 'apply'.
+}
+// on Step:  coach?: CoachNote
+```
+
+- The `CoachBubble` overlay (rendered in the stage content box) resolves `anchorId`/`anchorLine` to
+  an on-screen element via `data-coach-anchor` / `data-coach-line` attributes and points a tail at
+  it, **collision-aware** (flips side / clamps to stay in view). With no resolvable anchor it sits in
+  a consistent fallback corner. It auto-appears, is dismissable (close / `Esc` / click-away) without
+  blocking stepping, and reappears on step-back.
+- **Validation** (`validateTrace`, additive): `anchorId` must resolve to an element present in that
+  step (memory id or pipeline node); `anchorLine` must be within the source. No anchor is fine.
+- Works in the memory and dual-trace views; pipeline/before-after show a fallback bubble.
+- Authoring convention: see `docs/CONTENT_AUTHORING.md § Coach notes`.

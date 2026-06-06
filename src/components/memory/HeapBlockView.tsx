@@ -79,7 +79,11 @@ export function HeapBlockView({ block }: { block: HeapBlock }) {
       transition={{ type: 'spring', stiffness: 360, damping: 30 }}
     >
       <Tooltip label={detail} placement="top">
-        <div ref={ref} className={`w-56 rounded-lg border bg-surface ${s.container}`}>
+        <div
+          ref={ref}
+          data-coach-anchor={block.id}
+          className={`w-56 rounded-lg border bg-surface ${s.container}`}
+        >
           <div className="flex items-center justify-between gap-2 border-b border-hairline px-3 py-1.5">
             <span className="font-mono text-[11px] font-semibold tracking-wide text-heap">
               {block.label ?? 'BLOCK'}

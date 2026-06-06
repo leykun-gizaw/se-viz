@@ -48,6 +48,7 @@ export function CodePanel({ trace, step, presenting = false }: CodePanelProps) {
                 <div
                   key={lineNo}
                   data-active={isActive}
+                  data-coach-line={lineNo}
                   className={`flex px-4 ${isActive ? 'bg-(--se-line-active) ring-1 ring-inset ring-active/40' : ''}`}
                 >
                   <span

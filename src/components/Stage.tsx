@@ -7,8 +7,11 @@
  * unchanged. Shared by the normal workbench and presentation mode (the `presenting` flag only bumps
  * type sizes for the memory view).
  */
+import { useRef } from 'react';
 import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panels';
+import { coachVisibleOnBeat } from '../engine/trace/coach.ts';
 import type { TracePlayer } from '../engine/trace/useTrace.ts';
+import { CoachBubble } from './CoachBubble.tsx';
 import { CodePanel } from './CodePanel.tsx';
 import { ConsolePanel } from './ConsolePanel.tsx';
 import { MemoryCanvas } from './memory/MemoryCanvas.tsx';
@@ -26,6 +29,11 @@ export function Stage({
 }) {
   const { trace, step, prevStep } = player;
   const view = trace.view ?? 'memory';
+  // The coach bubble positions itself within (and queries anchors from) this content box.
+  const contentRef = useRef<HTMLDivElement>(null);
+  // The beat is undefined here (no two-beat stepping on this build); the coach helper degrades to
+  // "show on the step". When Phase 16 is present, pass the active beat instead.
+  const coachNote = step.coach && coachVisibleOnBeat(step.coach, undefined) ? step.coach : null;
   // Persisted, debounced split layout (react-resizable-panels handles the drag perf + a11y).
   const split = useDefaultLayout({ id: 'se-viz-split', storage: localStorage });
 
@@ -47,7 +55,13 @@ export function Stage({
         defaultLayout={split.defaultLayout}
         onLayoutChange={split.onLayoutChange}
       >
-        <Panel id="code" defaultSize="38%" minSize="20%" maxSize="80%" className="h-full min-h-0 min-w-0">
+        <Panel
+          id="code"
+          defaultSize="38%"
+          minSize="20%"
+          maxSize="80%"
+          className="h-full min-h-0 min-w-0"
+        >
           <CodePanel trace={trace} step={step} presenting={presenting} />
         </Panel>
         <Separator
@@ -72,7 +86,16 @@ export function Stage({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="flex min-h-0 flex-1 flex-col p-4">{main}</div>
+      <div ref={contentRef} className="relative flex min-h-0 flex-1 flex-col p-4">
+        {main}
+        {coachNote ? (
+          <CoachBubble
+            key={`${trace.id}:${step.index}`}
+            note={coachNote}
+            containerRef={contentRef}
+          />
+        ) : null}
+      </div>
       <NarrationBar player={player} presenting={presenting} />
     </div>
   );

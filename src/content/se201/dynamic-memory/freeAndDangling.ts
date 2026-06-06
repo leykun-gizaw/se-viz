@@ -46,12 +46,22 @@ function block(state: AllocationState, value: number | string | null): HeapBlock
     address: BLOCK_ADDR,
     size: 4,
     state,
-    cells: [{ kind: 'scalar', id: 'p-block.val', name: '*p', type: 'int', value, address: BLOCK_ADDR }],
+    cells: [
+      { kind: 'scalar', id: 'p-block.val', name: '*p', type: 'int', value, address: BLOCK_ADDR },
+    ],
   };
 }
 
 function pPtr(target: string | null, display: string): PointerCell {
-  return { kind: 'pointer', id: 'p', name: 'p', type: 'int *', target, display, address: '0x7ffd2008' };
+  return {
+    kind: 'pointer',
+    id: 'p',
+    name: 'p',
+    type: 'int *',
+    target,
+    display,
+    address: '0x7ffd2008',
+  };
 }
 
 function frame(p: PointerCell): StackFrame {
@@ -94,6 +104,12 @@ const steps: Step[] = [
     heap: [block('allocated', 42)],
     activeId: 'p-block',
     stdout: [SHELL, '42'],
+    coach: {
+      variant: 'predict',
+      title: 'Coming up: free(p)',
+      body: 'The next line frees this block. What happens to p — does it become NULL, or does it keep pointing here?',
+      anchorId: 'p',
+    },
   },
   {
     id: 'free',
@@ -106,6 +122,12 @@ const steps: Step[] = [
     activeId: 'p',
     stdout: [SHELL, '42'],
     watch: [WATCH_DANGLING],
+    coach: {
+      variant: 'watch-out',
+      title: 'Dangling pointer',
+      body: 'free returns the block, but p still holds 0x6100 — a dangling pointer. Dereferencing *p now is undefined behaviour. The fix is p = NULL on the next line.',
+      anchorId: 'p-block',
+    },
   },
   {
     id: 'nullify',
