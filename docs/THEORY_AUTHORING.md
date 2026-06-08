@@ -1,19 +1,13 @@
-# Theory Authoring Conventions (Phase 19)
+# Theory Authoring Conventions (Phase 20: slide decks)
 
 Theory docs are the **read-first** conceptual explanation for a topic — the *telling* that precedes
-SE-Viz's *showing*. A learning session runs **theory → visualization**. This file is the contract a
-later theory-content pass authors against. Theory is a **separate content type from a `Trace`** (it
-is not played by the engine); it does not touch the trace format.
+SE-Viz's *showing*. A session runs **theory → visualization**. Since Phase 20 theory renders as a
+**PowerPoint-style slide deck** (a fixed 16:9 canvas scaled to fit, large type, one slide per
+screen) for live teaching and screen-share. Theory is a **separate content type from a `Trace`** — it
+is not played by the engine and does not touch the trace format. This file is the contract the theory
+content pass authors against.
 
-## Depth expectation
-
-**Write as detailed as the concept deserves — err long.** A theory doc is the lesson a good teacher
-opens with, not a cheat-sheet. The two exemplars
-([`pointers-arrays-strings/theory.md`](../src/content/se200/pointers-arrays-strings/theory.md) and
-[`recursion/theory.md`](../src/content/se200/recursion/theory.md)) set the bar: ~150–250 lines,
-genuinely thorough, accurate C throughout.
-
-## File location & naming
+## File location & naming (unchanged)
 
 One Markdown file per sidebar **topic**, named `theory.md`, in that topic's folder:
 
@@ -21,14 +15,11 @@ One Markdown file per sidebar **topic**, named `theory.md`, in that topic's fold
 src/content/<course>/<topic>/theory.md
 ```
 
-It is discovered automatically (a `?raw` glob in [`src/content/theory.ts`](../src/content/theory.ts))
-and pinned **first** within its topic in the sidebar — above that topic's visualization modules. A
-topic may have a theory doc, modules, or both; a topic with no `theory.md` simply shows no Theory
-entry. No edit to `catalog.ts`, `App.tsx`, or any shared file is needed to add one.
+Auto-discovered (a `?raw` glob in [`src/content/theory.ts`](../src/content/theory.ts)) and pinned
+**first** within its topic in the sidebar. A topic may have a theory doc, modules, or both; no
+`theory.md` simply means no Theory entry. No edit to any shared file is needed to add one.
 
-## Required frontmatter
-
-A YAML-ish frontmatter block (flat `key: value`, optionally quoted) at the very top:
+## Required frontmatter (unchanged)
 
 ```markdown
 ---
@@ -43,44 +34,88 @@ order: 50
 | --- | --- | --- |
 | `course` | yes | Course code — **must match `docs/CURRICULUM.md`** (e.g. `SE 200`). Never fabricate. |
 | `topic` | yes | Topic — **must match the topic its modules use** (the sidebar group string). |
-| `title` | yes | Display title (reading-view heading + sidebar tooltip). |
-| `order` | recommended | Sort hint. Use the topic's module `order` (theory always pins first regardless). |
+| `title` | yes | Deck title — rendered as the **auto title slide** (slide 1). |
+| `order` | recommended | Sort hint. Use the topic's module `order` (theory always pins first). |
 
-`course`/`topic` are validated against the catalog by `src/content/theory.test.ts`; a typo there
-fails the test.
+`course`/`topic` are validated against the catalog by `src/content/theory.test.ts`.
 
-## Recommended document structure
+## Slides: the `---` separator
 
-The body starts after the frontmatter (the `title` is rendered as the page `h1`, so do not repeat
-it). Use `##` for sections, `###` for sub-sections. A strong doc covers, in roughly this order:
+The body is split into slides on a **top-level `---`** (a thematic break on its own line, blank lines
+around it). The `---` is a **slide separator** — never a rendered horizontal rule inside a slide.
+A `---` inside a fenced code block is left alone.
 
-1. **What it is and why it matters** (a short, plain-language opening).
-2. **The mental model** — the picture to hold in your head.
-3. **Syntax and the rules that actually matter.**
-4. **Common patterns.**
-5. **Common pitfalls / misconceptions** (great as `watch-out` callouts).
-6. **A worked example** (a fenced C code block).
-7. **A pointer to the matching visualization** — a "See it run" section; the reading view also shows
-   an automatic **"Continue to the visualization →"** button to the topic's first module.
-8. **A short summary** (a `recap` callout works well).
+```markdown
+## First concept
 
-## Supported Markdown (and only this)
+- a bullet
+- another
 
-Rendered by the small, dependency-free engine in [`src/engine/markdown.ts`](../src/engine/markdown.ts)
-to a typed AST, then to React — **never to an HTML string**, so it is safe by construction (raw HTML
-in the source is shown literally, never executed; do not rely on it).
+---
 
-- Headings `#`–`###`, paragraphs, unordered (`-`) and ordered (`1.`) lists, GFM pipe tables,
-  blockquotes, horizontal rules (`---`).
-- Inline: `**bold**`, `*italic*`, `` `code` ``, `[text](https://…)` links (http/https/mailto/in-page
-  only; other schemes render as plain text).
-- **Underscores are not emphasis** — so C identifiers like `node_t` read literally. Use `*…*` for
-  italics. Wrap all C in backticks/code fences anyway.
+## Next concept
+
+…
+```
+
+- **Slide 1 is auto-generated** from the frontmatter (title + `course · topic`). **Do not** write a
+  title slide — start the body with your first concept slide.
+- A deck needs ≥1 authored slide; empty slides are dropped.
+
+## Per-slide content budget (keep slides light)
+
+Each slide must fit the 16:9 frame at **large type**. Treat one slide as **one idea**:
+
+- a **`##` slide title**, plus **one** of:
+  - ~3–6 short bullets (nesting allowed — see below), **or**
+  - one short code block (≈4–8 lines), **or**
+  - one callout, **or**
+  - a small table (≤6 rows), **or**
+  - 2–3 short sentences.
+
+If a slide feels crowded, split it across two. Short lines beat long paragraphs — this is a slide,
+not a page. (The renderer will internally scroll an over-long slide as a last resort, but author to
+fit.)
+
+## Recommended deck arc
+
+1. **(auto title slide)**
+2. **Why it matters** — the hook, in a few bullets.
+3. **Mental model** — the picture to hold.
+4. **Syntax / the rules that matter** — a table or a short list.
+5. **Common patterns.**
+6. **Pitfalls / misconceptions** — great as `watch-out` callout slides.
+7. **A worked example** — one code-block slide.
+8. **Recap** — a `recap` callout.
+9. **See it run** — name the topic's modules; close with the continue bridge.
+
+## Supported Markdown
+
+Rendered by [`src/engine/markdown.ts`](../src/engine/markdown.ts) → a typed AST → React (**never an
+HTML string**, so it is safe by construction; raw HTML in the source shows literally and is not
+executed).
+
+- Headings `#`–`###` (use `##` for a slide title, `###` for a sub-head), paragraphs, **nested**
+  lists, GFM pipe tables, blockquotes.
+- Inline: `**bold**`, `*italic*`, `` `code` ``, `[text](https://…)` (http/https/mailto/in-page only).
+- **Underscores are not emphasis** — C identifiers like `node_t` read literally. Use `*…*` for
+  italics; wrap C in backticks/fences regardless.
+
+### Nested lists (Phase 20)
+
+Indent **2 spaces** per level. A more-indented run of items becomes a sub-list of the item above it:
+
+```markdown
+- top item
+  - nested item
+  - another nested item
+- second top item
+```
 
 ### Code blocks
 
-Fenced blocks with an info string get **C syntax highlighting** (reuses `highlightC`) and render in
-`.se-code` with **ligatures off** (operators show literally: `->`, `!=`, `<=`, `*p`):
+Fenced blocks with a `c` (also `h`/`cpp`) info string get **C syntax highlighting** in `.se-code`
+with **ligatures off** (`->`, `!=`, `<=`, `*p` render literally). Keep them short for slides:
 
 ````markdown
 ```c
@@ -89,13 +124,11 @@ int *p = &x;   /* p holds the address of x */
 ```
 ````
 
-Use `c` (also `h`/`cpp`) to highlight; any other info string renders as plain monospace.
-
 ### Callouts (shared visual language with in-viz coaching)
 
 A blockquote whose first line is `> [!variant] Optional title` becomes a **callout** styled with the
-**coach variant tokens** (same color + glyph as the in-visualization coach notes). The set is small
-and fixed:
+**coach variant tokens** (same color + glyph as the in-visualization coach notes). Continuation lines
+must each start with `>`. The set is small and fixed:
 
 | Syntax | Use for |
 | --- | --- |
@@ -104,16 +137,17 @@ and fixed:
 | `> [!predict]` | a "what do you think happens?" prompt |
 | `> [!recap]` | a short summary of what to retain |
 
-```markdown
-> [!watch-out] Forgetting the terminator
-> A char buffer without a `\0` is not a string — `strlen` runs past the end.
-```
+An unknown `[!type]` falls back to a plain blockquote.
 
-Every continuation line of a callout (or plain blockquote) must be prefixed with `>`. An unknown
-`[!type]` falls back to a plain blockquote.
+## The visualization bridge
 
-## Link to the visualization
+The deck always shows a persistent **"Continue to the visualization →"** button (it jumps to the
+first module of the same topic — derived from the catalog, not authored). Close the deck with a "See
+it run" slide that names the topic's modules so the hand-off reads naturally.
 
-Always include a "See it run" section naming the topic's modules. The reading view additionally
-renders an automatic **"Continue to the visualization →"** button that jumps to the first module of
-the same topic — you do not author that link; it derives from the catalog.
+## Navigation & presentation (for reference)
+
+The deck renderer ([`src/components/TheoryDeck.tsx`](../src/components/TheoryDeck.tsx)) provides
+`Slide k / N`, prev/next, progress dots, `←/→` (Home/End) keys, and a fullscreen presentation surface
+(`f`, `Esc` to exit) — the primary screen-share view. Works in dark + light; no slide-transition
+animation (reduced-motion safe). Authors don't wire any of this; just write good slides.

@@ -1,18 +1,65 @@
 /**
  * Renders a parsed Markdown {@link Block} AST (from `engine/markdown.ts`) as React, using the design
- * tokens for comfortable reading. **Safe by construction**: every text node goes through React (no
- * `dangerouslySetInnerHTML`), so raw HTML in the source is shown literally, never executed.
+ * tokens. **Safe by construction**: every text node goes through React (no `dangerouslySetInnerHTML`),
+ * so raw HTML in the source is shown literally, never executed.
  *
- * - Headings map to the h1–h3 scale; prose sits at a comfortable measure/line-height (set by the
- *   reading view's column width).
- * - Fenced code blocks are highlighted with `highlightC` and rendered in `.se-code` (ligatures off).
- * - Callouts reuse the coach variant tokens + glyph, so theory and in-viz coaching look alike.
- * - Links are sanitised to http(s)/mailto/in-page targets; anything else renders as plain text.
+ * Two type scales (Phase 20): `reading` (compact) and `slide` (large, for the 16:9 theory deck). The
+ * scale is provided via context so block components stay prop-light. Lists may nest; fenced code
+ * blocks are highlighted with `highlightC` in `.se-code` (ligatures off); callouts reuse the coach
+ * variant tokens + glyph.
  */
+import { createContext, useContext } from 'react';
 import { tokenizeLine, type TokenType } from '../engine/highlightC.ts';
 import type { Block, InlineNode } from '../engine/markdown.ts';
 import { coachVariantMeta } from '../engine/trace/coach.ts';
 import { VariantIcon } from './CoachBubble.tsx';
+
+export type MarkdownScale = 'reading' | 'slide';
+
+interface ScaleStyles {
+  h1: string;
+  h2: string;
+  h3: string;
+  p: string;
+  list: string;
+  code: string;
+  inlineCode: string;
+  calloutLabel: string;
+  calloutBody: string;
+  table: string;
+}
+
+const STYLES: Record<MarkdownScale, ScaleStyles> = {
+  reading: {
+    h1: 'mt-10 mb-4 text-2xl font-bold text-ink',
+    h2: 'mt-9 mb-3 border-b border-hairline pb-1.5 text-xl font-semibold text-ink',
+    h3: 'mt-6 mb-2 text-base font-semibold text-ink',
+    p: 'my-4 text-[15px] leading-7 text-ink',
+    list: 'my-4 space-y-1.5 pl-6 text-[15px] leading-7 text-ink marker:text-ink-faint',
+    code: 'se-code my-5 overflow-x-auto rounded-lg border border-hairline bg-surface px-4 py-3 text-[13px] leading-6 text-ink',
+    inlineCode: 'se-code rounded bg-surface-2 px-1.5 py-0.5 text-[0.85em] text-ink',
+    calloutLabel: 'text-[11px]',
+    calloutBody: 'text-[15px]',
+    table: 'w-full border-collapse text-[14px]',
+  },
+  slide: {
+    h1: 'mb-6 text-[44px] font-bold leading-tight tracking-tight text-ink',
+    h2: 'mb-5 text-[34px] font-semibold leading-snug text-ink',
+    h3: 'mt-5 mb-2 text-[26px] font-semibold text-ink',
+    p: 'my-4 text-[25px] leading-[1.5] text-ink',
+    list: 'my-4 space-y-2.5 pl-8 text-[25px] leading-[1.45] text-ink marker:text-ink-faint',
+    code: 'se-code my-5 overflow-x-auto rounded-xl border border-hairline bg-bg px-6 py-4 text-[21px] leading-[1.55] text-ink',
+    inlineCode: 'se-code rounded bg-surface-2 px-1.5 py-0.5 text-[0.92em] text-ink',
+    calloutLabel: 'text-[15px]',
+    calloutBody: 'text-[23px] leading-snug',
+    table: 'w-full border-collapse text-[22px]',
+  },
+};
+
+const ScaleContext = createContext<MarkdownScale>('reading');
+const useStyles = () => STYLES[useContext(ScaleContext)];
+
+const C_LANGS = new Set(['', 'c', 'h', 'cpp', 'cc']);
 
 const TOKEN_CLASS: Record<TokenType, string> = {
   keyword: 'text-kw',
@@ -26,9 +73,6 @@ const TOKEN_CLASS: Record<TokenType, string> = {
   plain: 'text-ink',
 };
 
-/** Languages we syntax-highlight with the C tokenizer; others render as plain monospace. */
-const C_LANGS = new Set(['', 'c', 'h', 'cpp', 'cc']);
-
 function safeHref(href: string): string | null {
   if (/^(https?:|mailto:)/i.test(href)) return href;
   if (href.startsWith('#') || href.startsWith('/')) return href;
@@ -36,6 +80,7 @@ function safeHref(href: string): string | null {
 }
 
 function Inline({ nodes }: { nodes: InlineNode[] }) {
+  const s = useStyles();
   return (
     <>
       {nodes.map((n, i) => {
@@ -56,10 +101,7 @@ function Inline({ nodes }: { nodes: InlineNode[] }) {
             );
           case 'code':
             return (
-              <code
-                key={i}
-                className="se-code rounded bg-surface-2 px-1.5 py-0.5 text-[0.85em] text-ink"
-              >
+              <code key={i} className={s.inlineCode}>
                 {n.value}
               </code>
             );
@@ -85,10 +127,11 @@ function Inline({ nodes }: { nodes: InlineNode[] }) {
 }
 
 function CodeBlock({ lang, code }: { lang: string; code: string }) {
+  const s = useStyles();
   const highlight = C_LANGS.has(lang.toLowerCase());
   const lines = code.replace(/\n$/, '').split('\n');
   return (
-    <pre className="se-code my-5 overflow-x-auto rounded-lg border border-hairline bg-surface px-4 py-3 text-[13px] leading-6 text-ink">
+    <pre className={s.code}>
       <code>
         {lines.map((line, i) => (
           <div key={i}>
@@ -111,57 +154,57 @@ function CodeBlock({ lang, code }: { lang: string; code: string }) {
 }
 
 function Callout({ block }: { block: Extract<Block, { type: 'callout' }> }) {
+  const s = useStyles();
   const meta = coachVariantMeta(block.variant);
   return (
     <div className={`my-5 rounded-lg border ${meta.accentBorder} ${meta.accentBg} px-4 py-3`}>
       <div
-        className={`mb-1.5 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide ${meta.accentText}`}
+        className={`mb-1.5 flex items-center gap-2 font-semibold uppercase tracking-wide ${s.calloutLabel} ${meta.accentText}`}
       >
-        <span className="flex h-5 w-5 items-center justify-center">
+        <span className="flex items-center justify-center">
           <VariantIcon variant={block.variant} />
         </span>
         {block.title ?? meta.label}
       </div>
-      <div className="text-ink [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
+      <div className={`text-ink ${s.calloutBody} [&>*:first-child]:mt-0 [&>*:last-child]:mb-0`}>
         <Blocks blocks={block.children} />
       </div>
     </div>
   );
 }
 
+function ListView({ block }: { block: Extract<Block, { type: 'list' }> }) {
+  const s = useStyles();
+  const items = block.items.map((item, i) => (
+    <li key={i}>
+      <Inline nodes={item.content} />
+      {item.children.length > 0 ? <Blocks blocks={item.children} /> : null}
+    </li>
+  ));
+  return block.ordered ? (
+    <ol className={`list-decimal ${s.list}`}>{items}</ol>
+  ) : (
+    <ul className={`list-disc ${s.list}`}>{items}</ul>
+  );
+}
+
 function BlockView({ block }: { block: Block }) {
+  const s = useStyles();
   switch (block.type) {
     case 'heading': {
       const inner = <Inline nodes={block.children} />;
-      if (block.level <= 1)
-        return <h1 className="mt-10 mb-4 text-2xl font-bold text-ink">{inner}</h1>;
-      if (block.level === 2)
-        return (
-          <h2 className="mt-9 mb-3 border-b border-hairline pb-1.5 text-xl font-semibold text-ink">
-            {inner}
-          </h2>
-        );
-      return <h3 className="mt-6 mb-2 text-base font-semibold text-ink">{inner}</h3>;
+      if (block.level <= 1) return <h1 className={s.h1}>{inner}</h1>;
+      if (block.level === 2) return <h2 className={s.h2}>{inner}</h2>;
+      return <h3 className={s.h3}>{inner}</h3>;
     }
     case 'paragraph':
       return (
-        <p className="my-4 text-[15px] leading-7 text-ink">
+        <p className={s.p}>
           <Inline nodes={block.children} />
         </p>
       );
-    case 'list': {
-      const cls = 'my-4 space-y-1.5 pl-6 text-[15px] leading-7 text-ink marker:text-ink-faint';
-      const items = block.items.map((item, i) => (
-        <li key={i}>
-          <Inline nodes={item} />
-        </li>
-      ));
-      return block.ordered ? (
-        <ol className={`list-decimal ${cls}`}>{items}</ol>
-      ) : (
-        <ul className={`list-disc ${cls}`}>{items}</ul>
-      );
-    }
+    case 'list':
+      return <ListView block={block} />;
     case 'blockquote':
       return (
         <blockquote className="my-4 border-l-2 border-hairline-strong pl-4 text-ink-muted italic">
@@ -175,7 +218,7 @@ function BlockView({ block }: { block: Block }) {
     case 'table':
       return (
         <div className="my-5 overflow-x-auto">
-          <table className="w-full border-collapse text-[14px]">
+          <table className={s.table}>
             <thead>
               <tr>
                 {block.headers.map((cell, i) => (
@@ -217,7 +260,17 @@ function Blocks({ blocks }: { blocks: Block[] }) {
   );
 }
 
-/** Render a parsed Markdown block list. */
-export function Markdown({ blocks }: { blocks: Block[] }) {
-  return <Blocks blocks={blocks} />;
+/** Render a parsed Markdown block list at the given type scale (`reading` or `slide`). */
+export function Markdown({
+  blocks,
+  scale = 'reading',
+}: {
+  blocks: Block[];
+  scale?: MarkdownScale;
+}) {
+  return (
+    <ScaleContext.Provider value={scale}>
+      <Blocks blocks={blocks} />
+    </ScaleContext.Provider>
+  );
 }

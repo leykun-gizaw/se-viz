@@ -10,9 +10,10 @@ You do **not** change the trace format, the renderer, or the design system. If y
 to, stop — that belongs in an engine/foundation phase, not here.
 
 > **Theory documents** (the read-first prose for a topic) are a **separate content type** — not a
-> trace. They are authored as Markdown (`src/content/<course>/<topic>/theory.md`) and rendered by the
-> reading view. See [`docs/THEORY_AUTHORING.md`](./THEORY_AUTHORING.md) for that contract (location,
-> frontmatter, structure/depth, code + callout conventions, viz link).
+> trace. They are authored as Markdown (`src/content/<course>/<topic>/theory.md`) and rendered as a
+> **slide deck** (the theory reading surface). See [`docs/THEORY_AUTHORING.md`](./THEORY_AUTHORING.md)
+> for that contract (location, frontmatter, slide separator + per-slide budget, deck arc, code +
+> callout conventions, viz link).
 
 ## Hard rules
 

@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { parseFrontmatter, parseInline, parseMarkdown, type Block } from './markdown.ts';
+import {
+  parseFrontmatter,
+  parseInline,
+  parseMarkdown,
+  splitSlides,
+  type Block,
+} from './markdown.ts';
 
 describe('parseFrontmatter', () => {
   it('splits flat key: value frontmatter from the body', () => {
@@ -54,9 +60,28 @@ describe('parseMarkdown', () => {
     if (ul.type === 'list') {
       expect(ul.ordered).toBe(false);
       expect(ul.items).toHaveLength(2);
+      expect(ul.items[0].content).toEqual([{ type: 'text', value: 'one' }]);
+      expect(ul.items[0].children).toEqual([]);
     }
     const ol = parseMarkdown('1. a\n2. b')[0];
     expect(ol.type === 'list' && ol.ordered).toBe(true);
+  });
+
+  it('parses a nested list as children of the item above it', () => {
+    const [list] = parseMarkdown('- top\n  - nested a\n  - nested b\n- second');
+    expect(list.type).toBe('list');
+    if (list.type === 'list') {
+      expect(list.items).toHaveLength(2); // top, second
+      const sub = list.items[0].children[0];
+      expect(sub.type).toBe('list');
+      if (sub.type === 'list') {
+        expect(sub.items.map((it) => it.content)).toEqual([
+          [{ type: 'text', value: 'nested a' }],
+          [{ type: 'text', value: 'nested b' }],
+        ]);
+      }
+      expect(list.items[1].content).toEqual([{ type: 'text', value: 'second' }]);
+    }
   });
 
   it('maps "> [!variant]" blockquotes to coach-variant callouts', () => {
@@ -91,5 +116,22 @@ describe('parseMarkdown', () => {
     if (p.type === 'paragraph') {
       expect(p.children).toEqual([{ type: 'text', value: '<script>alert(1)</script>' }]);
     }
+  });
+});
+
+describe('splitSlides', () => {
+  it('splits on a top-level --- and drops empty/trailing slides', () => {
+    expect(splitSlides('# One\n\n---\n\n# Two\n\n---\n')).toEqual(['# One', '# Two']);
+  });
+
+  it('treats a body with no --- as a single slide', () => {
+    expect(splitSlides('# Only\n\nbody')).toEqual(['# Only\n\nbody']);
+  });
+
+  it('ignores --- inside a fenced code block', () => {
+    const slides = splitSlides('# A\n\n```c\nint x;\n---\nint y;\n```\n\n---\n\n# B');
+    expect(slides).toHaveLength(2);
+    expect(slides[0]).toContain('---'); // the --- inside the fence stayed
+    expect(slides[1]).toBe('# B');
   });
 });

@@ -14,8 +14,8 @@ import { useTheme, type Theme } from './hooks/useTheme.ts';
 import { ContentSidebar } from './components/ContentSidebar.tsx';
 import { Legend } from './components/Legend.tsx';
 import { PresentationMode } from './components/PresentationMode.tsx';
-import { ReadingView } from './components/ReadingView.tsx';
 import { Stage } from './components/Stage.tsx';
+import { TheoryDeck } from './components/TheoryDeck.tsx';
 import { TopBar } from './components/TopBar.tsx';
 
 /** The player + chrome for one module. Remounted (keyed on trace id) when the selection changes. */
@@ -114,7 +114,7 @@ export default function App() {
         onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
       />
       {theoryDoc ? (
-        <ReadingView
+        <TheoryDeck
           key={theoryDoc.id}
           doc={theoryDoc}
           firstModule={firstModule ? { id: firstModule.trace.id, label: firstModule.label } : null}

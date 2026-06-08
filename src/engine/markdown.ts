@@ -25,11 +25,17 @@ export type InlineNode =
   | { type: 'code'; value: string }
   | { type: 'link'; href: string; children: InlineNode[] };
 
+/** One list item: its own inline content plus any nested blocks (e.g. a sub-list). */
+export interface ListItem {
+  content: InlineNode[];
+  children: Block[];
+}
+
 /** Block (paragraph-level) node. */
 export type Block =
   | { type: 'heading'; level: number; children: InlineNode[] }
   | { type: 'paragraph'; children: InlineNode[] }
-  | { type: 'list'; ordered: boolean; items: InlineNode[][] }
+  | { type: 'list'; ordered: boolean; items: ListItem[] }
   | { type: 'blockquote'; children: Block[] }
   | { type: 'callout'; variant: CoachVariant; title: string | null; children: Block[] }
   | { type: 'code'; lang: string; code: string }
@@ -68,6 +74,30 @@ export function parseFrontmatter(raw: string): Frontmatter {
   }
   const body = text.slice(end + 4).replace(/^\n+/, '');
   return { data, body };
+}
+
+/**
+ * Split a theory body into slides on a **top-level `---`** thematic break (Phase 20). The `---` is a
+ * deck separator, never a rendered horizontal rule inside a slide. Separators inside fenced code
+ * blocks are ignored, and empty slides (including trailing ones) are dropped — so a deck has ≥1
+ * slide. A body with no `---` is a single slide.
+ */
+export function splitSlides(src: string): string[] {
+  const lines = src.replace(/\r\n/g, '\n').split('\n');
+  const slides: string[] = [];
+  let current: string[] = [];
+  let inFence = false;
+  for (const line of lines) {
+    if (/^```/.test(line)) inFence = !inFence;
+    if (!inFence && /^---\s*$/.test(line)) {
+      slides.push(current.join('\n'));
+      current = [];
+      continue;
+    }
+    current.push(line);
+  }
+  slides.push(current.join('\n'));
+  return slides.map((s) => s.trim()).filter((s) => s.length > 0);
 }
 
 const CALLOUT_VARIANTS: Record<string, CoachVariant> = {
@@ -185,6 +215,51 @@ function parseQuote(quoteLines: string[]): Block {
   return { type: 'blockquote', children: parseMarkdown(quoteLines.join('\n')) };
 }
 
+/** Leading-whitespace width of a line (spaces; tabs count as one — author with spaces). */
+function indentOf(line: string): number {
+  return line.length - line.trimStart().length;
+}
+
+/**
+ * Parse a list (and any **nested** lists) starting at `start`, by indentation. Items at the list's
+ * base indent are siblings; a more-indented run of items becomes a nested list on the item above it;
+ * a more-indented non-item line is a lazy continuation of the current item. Returns the list block
+ * and the index of the first line after it.
+ */
+function parseListAt(lines: string[], start: number): { block: Block; next: number } {
+  const baseIndent = indentOf(lines[start]);
+  const ordered = /^\s*\d+\.\s+/.test(lines[start]);
+  const items: ListItem[] = [];
+  let i = start;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    if (line.trim() === '') break;
+    const ind = indentOf(line);
+    if (ind !== baseIndent || !LIST_ITEM.test(line)) break;
+
+    const m = line.match(/^\s*(?:[-*+]|\d+\.)\s+(.*)$/);
+    let content = parseInline(m ? m[1] : line);
+    i++;
+    const children: Block[] = [];
+
+    // More-indented following lines belong to this item: nested lists or continuation text.
+    while (i < lines.length && lines[i].trim() !== '' && indentOf(lines[i]) > baseIndent) {
+      if (LIST_ITEM.test(lines[i])) {
+        const sub = parseListAt(lines, i);
+        children.push(sub.block);
+        i = sub.next;
+      } else {
+        content = [...content, { type: 'text', value: ' ' }, ...parseInline(lines[i].trim())];
+        i++;
+      }
+    }
+    items.push({ content, children });
+  }
+
+  return { block: { type: 'list', ordered, items }, next: i };
+}
+
 /**
  * Parse the supported Markdown subset into a {@link Block} list. Pure and side-effect free.
  *
@@ -257,24 +332,9 @@ export function parseMarkdown(src: string): Block[] {
     }
 
     if (LIST_ITEM.test(line)) {
-      const ordered = /^\s*\d+\.\s+/.test(line);
-      const items: InlineNode[][] = [];
-      while (i < lines.length && LIST_ITEM.test(lines[i])) {
-        const m = lines[i].match(/^\s*(?:[-*+]|\d+\.)\s+(.*)$/);
-        items.push(parseInline(m ? m[1] : lines[i]));
-        i++;
-        // Lazy continuation: an indented, non-item line extends the current item.
-        while (i < lines.length && /^\s+\S/.test(lines[i]) && !LIST_ITEM.test(lines[i])) {
-          const last = items[items.length - 1];
-          items[items.length - 1] = [
-            ...last,
-            { type: 'text', value: ' ' },
-            ...parseInline(lines[i].trim()),
-          ];
-          i++;
-        }
-      }
-      blocks.push({ type: 'list', ordered, items });
+      const { block, next } = parseListAt(lines, i);
+      blocks.push(block);
+      i = next;
       continue;
     }
 
