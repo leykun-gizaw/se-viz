@@ -55,6 +55,38 @@ function Caret({ open }: { open: boolean }) {
   );
 }
 
+/**
+ * The collapse-all / expand-all toggle glyph (VS Code "unfold" style): two chevrons pointing **toward**
+ * the center to collapse, **away** from it to expand.
+ */
+function CollapseExpandIcon({ collapse }: { collapse: boolean }) {
+  return (
+    <svg
+      width="15"
+      height="15"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {collapse ? (
+        <>
+          <path d="M8 7L12 11L16 7" />
+          <path d="M8 17L12 13L16 17" />
+        </>
+      ) : (
+        <>
+          <path d="M8 11L12 7L16 11" />
+          <path d="M8 13L12 17L16 13" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 const topicKey = (course: string, topic: string) => `${course}::${topic}`;
 
 /** The read-first Theory entry, pinned at the top of a topic and visually distinct (azure + book). */
@@ -152,6 +184,18 @@ export function ContentSidebar({
     });
   };
 
+  // Open / close every topic in the current course at once.
+  const expandAll = () => {
+    if (!course) return;
+    const keys = course.topics.map((t) => topicKey(course.course, t.topic));
+    setExpanded((prev) => new Set([...prev, ...keys]));
+  };
+  const collapseAll = () => setExpanded(new Set());
+
+  // One toggle: if anything is open, the button collapses all; if all closed, it expands all.
+  const anyOpen =
+    !!course && course.topics.some((t) => expanded.has(topicKey(course.course, t.topic)));
+
   if (collapsed) {
     return (
       <aside className="flex w-10 shrink-0 flex-col items-center border-r border-hairline bg-surface py-3">
@@ -219,6 +263,18 @@ export function ContentSidebar({
               />
             </svg>
           </span>
+        </div>
+        {/* Collapse / expand every topic at once. */}
+        <div className="mt-2 flex justify-end">
+          <button
+            type="button"
+            onClick={anyOpen ? collapseAll : expandAll}
+            aria-label={anyOpen ? 'Collapse all topics' : 'Expand all topics'}
+            title={anyOpen ? 'Collapse all topics' : 'Expand all topics'}
+            className="flex h-6 w-6 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink"
+          >
+            <CollapseExpandIcon collapse={anyOpen} />
+          </button>
         </div>
       </div>
 
