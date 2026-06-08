@@ -31,6 +31,29 @@ export interface ListItem {
   children: Block[];
 }
 
+/** One frame in a `call-stack` diagram (rendered top→bottom in declared order; newest at bottom). */
+export interface CallStackFrame {
+  label: string;
+  fields: string[];
+  active: boolean;
+}
+
+/** One node in a `call-tree` diagram; `repeat` marks a recomputed subproblem (e.g. `fib(2)` twice). */
+export interface CallTreeNode {
+  label: string;
+  repeat: boolean;
+  children: CallTreeNode[];
+}
+
+/**
+ * A declarative, in-house diagram (Phase 22) — parsed from a fenced block (` ```call-stack ` /
+ * ` ```call-tree `) to a typed spec, rendered to **SVG with the design tokens** by the renderer
+ * (never raw HTML). Extend by adding a `kind` here + a case in `parseDiagram` + the renderer.
+ */
+export type Diagram =
+  | { kind: 'call-stack'; caption: string | null; frames: CallStackFrame[] }
+  | { kind: 'call-tree'; caption: string | null; root: CallTreeNode | null };
+
 /** Block (paragraph-level) node. */
 export type Block =
   | { type: 'heading'; level: number; children: InlineNode[] }
@@ -39,6 +62,7 @@ export type Block =
   | { type: 'blockquote'; children: Block[] }
   | { type: 'callout'; variant: CoachVariant; title: string | null; children: Block[] }
   | { type: 'code'; lang: string; code: string }
+  | { type: 'diagram'; diagram: Diagram }
   | { type: 'table'; headers: InlineNode[][]; rows: InlineNode[][][] }
   | { type: 'hr' };
 
@@ -109,7 +133,7 @@ const CALLOUT_VARIANTS: Record<string, CoachVariant> = {
 
 const LIST_ITEM = /^\s*([-*+]|\d+\.)\s+/;
 const HEADING = /^(#{1,6})\s+(.*)$/;
-const FENCE = /^```(\w*)\s*$/;
+const FENCE = /^```([\w-]*)\s*$/;
 const HR = /^(-{3,}|\*{3,}|_{3,})\s*$/;
 
 /** Does a line start a non-paragraph block? Used to stop greedy paragraph gathering. */
@@ -220,6 +244,74 @@ function indentOf(line: string): number {
   return line.length - line.trimStart().length;
 }
 
+/** Fenced info-strings handled as in-house diagrams rather than code (Phase 22). Extend here. */
+export const DIAGRAM_LANGS = new Set(['call-stack', 'call-tree']);
+
+/** Parse a `call-stack` body: an optional `caption:` line, then one `frame` per line. */
+function parseCallStack(body: string): Diagram {
+  let caption: string | null = null;
+  const frames: CallStackFrame[] = [];
+  for (const raw of body.split('\n')) {
+    const line = raw.trim();
+    if (line === '') continue;
+    const cap = line.match(/^caption:\s*(.*)$/i);
+    if (cap) {
+      caption = cap[1].trim();
+      continue;
+    }
+    const parts = line.split('|').map((p) => p.trim());
+    const label = parts[0];
+    if (!label) continue;
+    const fields: string[] = [];
+    let active = false;
+    for (const p of parts.slice(1)) {
+      if (p.toLowerCase() === 'active') active = true;
+      else if (p) fields.push(p);
+    }
+    frames.push({ label, fields, active });
+  }
+  return { kind: 'call-stack', caption, frames };
+}
+
+/** Parse a `call-tree` body: indentation (2 spaces/level) is parent→child; a trailing `*` = repeat. */
+function parseCallTree(body: string): Diagram {
+  let caption: string | null = null;
+  let root: CallTreeNode | null = null;
+  const stack: { node: CallTreeNode; indent: number }[] = [];
+  for (const raw of body.replace(/\t/g, '  ').split('\n')) {
+    if (raw.trim() === '') continue;
+    const cap = raw.trim().match(/^caption:\s*(.*)$/i);
+    if (cap) {
+      caption = cap[1].trim();
+      continue;
+    }
+    const indent = indentOf(raw);
+    let label = raw.trim();
+    const repeat = /\s\*$/.test(label);
+    if (repeat) label = label.replace(/\s*\*$/, '').trim();
+    const node: CallTreeNode = { label, repeat, children: [] };
+    while (stack.length > 0 && stack[stack.length - 1].indent >= indent) stack.pop();
+    if (stack.length === 0) {
+      if (root === null) root = node; // first top-level node is the root
+    } else {
+      stack[stack.length - 1].node.children.push(node);
+    }
+    stack.push({ node, indent });
+  }
+  return { kind: 'call-tree', caption, root };
+}
+
+/** Parse a fenced diagram block by its info-string into a typed {@link Diagram}. */
+export function parseDiagram(lang: string, body: string): Diagram {
+  switch (lang) {
+    case 'call-tree':
+      return parseCallTree(body);
+    case 'call-stack':
+    default:
+      return parseCallStack(body);
+  }
+}
+
 /**
  * Parse a list (and any **nested** lists) starting at `start`, by indentation. Items at the list's
  * base indent are siblings; a more-indented run of items becomes a nested list on the item above it;
@@ -287,7 +379,12 @@ export function parseMarkdown(src: string): Block[] {
         i++;
       }
       i++; // closing fence
-      blocks.push({ type: 'code', lang: fence[1], code: code.join('\n') });
+      const body = code.join('\n');
+      if (DIAGRAM_LANGS.has(fence[1])) {
+        blocks.push({ type: 'diagram', diagram: parseDiagram(fence[1], body) });
+      } else {
+        blocks.push({ type: 'code', lang: fence[1], code: body });
+      }
       continue;
     }
 

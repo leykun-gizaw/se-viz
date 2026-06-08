@@ -119,6 +119,50 @@ describe('parseMarkdown', () => {
   });
 });
 
+describe('diagram blocks', () => {
+  it('parses a call-stack fence into frames (caption, fields, active), not a code block', () => {
+    const [block] = parseMarkdown(
+      [
+        '```call-stack',
+        'caption: deepest point',
+        'main()',
+        'factorial(2) | n = 2 | return = 2 * factorial(1)',
+        'factorial(1) | n = 1 | active',
+        '```',
+      ].join('\n'),
+    );
+    expect(block.type).toBe('diagram');
+    if (block.type === 'diagram' && block.diagram.kind === 'call-stack') {
+      expect(block.diagram.caption).toBe('deepest point');
+      expect(block.diagram.frames).toHaveLength(3);
+      expect(block.diagram.frames[0]).toEqual({ label: 'main()', fields: [], active: false });
+      expect(block.diagram.frames[1]).toEqual({
+        label: 'factorial(2)',
+        fields: ['n = 2', 'return = 2 * factorial(1)'],
+        active: false,
+      });
+      expect(block.diagram.frames[2]).toEqual({
+        label: 'factorial(1)',
+        fields: ['n = 1'],
+        active: true,
+      });
+    }
+  });
+
+  it('parses a call-tree fence by indentation, marking repeated subproblems', () => {
+    const [block] = parseMarkdown('```call-tree\nfib(3)\n  fib(2) *\n    fib(1)\n  fib(1)\n```');
+    expect(block.type).toBe('diagram');
+    if (block.type === 'diagram' && block.diagram.kind === 'call-tree') {
+      const root = block.diagram.root;
+      expect(root?.label).toBe('fib(3)');
+      expect(root?.children.map((c) => c.label)).toEqual(['fib(2)', 'fib(1)']);
+      expect(root?.children[0].repeat).toBe(true); // "fib(2) *"
+      expect(root?.children[0].children.map((c) => c.label)).toEqual(['fib(1)']);
+      expect(root?.children[1].repeat).toBe(false);
+    }
+  });
+});
+
 describe('splitSlides', () => {
   it('splits on a top-level --- and drops empty/trailing slides', () => {
     expect(splitSlides('# One\n\n---\n\n# Two\n\n---\n')).toEqual(['# One', '# Two']);

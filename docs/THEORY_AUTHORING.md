@@ -139,6 +139,45 @@ must each start with `>`. The set is small and fixed:
 
 An unknown `[!type]` falls back to a plain blockquote.
 
+### Diagrams (Phase 22)
+
+Fenced blocks with a **diagram info-string** render to **SVG with the design tokens** (no library, no
+raw HTML; the `call-tree` layout uses the headless `d3-hierarchy`). They scale natively on the slide.
+Two types so far — extend by adding a `kind` in `markdown.ts`'s `Diagram`, a case in `parseDiagram`,
+and a case in `Diagram.tsx`.
+
+**`call-stack`** — a vertical stack of frame boxes (declared top→bottom; put the outermost frame
+first, the deepest last, matching the memory view where the newest frame is at the bottom). One frame
+per line, pipe-separated: `LABEL | field | field | active`. `active` (any position) highlights the
+frame (amber); other parts are field lines. An optional `caption:` line adds a caption.
+
+````markdown
+```call-stack
+caption: factorial(3) at its deepest
+main()
+factorial(3) | n = 3 | return = 3 * factorial(2)
+factorial(2) | n = 2 | return = 2 * factorial(1)
+factorial(1) | n = 1 | base case | active
+```
+````
+
+**`call-tree`** — a tree of calls, **indentation = parent→child** (2 spaces per level; the first line
+is the root). A trailing ` *` marks a **repeated subproblem** (highlighted amber — e.g. `fib(2)`
+computed twice). An optional `caption:` line adds a caption.
+
+````markdown
+```call-tree
+caption: fib(2) is computed twice — naive fib is exponential
+fib(4)
+  fib(3)
+    fib(2) *
+    fib(1)
+  fib(2) *
+```
+````
+
+Keep diagrams light so they fit the 16:9 slide at large size (a handful of frames / a small tree).
+
 ## The visualization bridge
 
 The deck always shows a persistent **"Continue to the visualization →"** button (it jumps to the

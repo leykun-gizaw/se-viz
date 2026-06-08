@@ -13,6 +13,7 @@ import { tokenizeLine, type TokenType } from '../engine/highlightC.ts';
 import type { Block, InlineNode } from '../engine/markdown.ts';
 import { coachVariantMeta } from '../engine/trace/coach.ts';
 import { VariantIcon } from './CoachBubble.tsx';
+import { DiagramView } from './Diagram.tsx';
 
 export type MarkdownScale = 'reading' | 'slide';
 
@@ -215,6 +216,8 @@ function BlockView({ block }: { block: Block }) {
       return <Callout block={block} />;
     case 'code':
       return <CodeBlock lang={block.lang} code={block.code} />;
+    case 'diagram':
+      return <DiagramView diagram={block.diagram} />;
     case 'table':
       return (
         <div className="my-5 overflow-x-auto">
