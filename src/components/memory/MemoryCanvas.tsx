@@ -20,11 +20,31 @@ import { HeapBlockView } from './HeapBlockView.tsx';
 import { MemoryRenderContext, type MemoryRenderState } from './renderContext.ts';
 import { StackFrame } from './StackFrame.tsx';
 
-function RegionLabel({ children }: { children: React.ReactNode }) {
+/**
+ * A labelled memory region — a bounded "tray" so the stack and heap read as distinct areas rather
+ * than just floating labels. The heap's header is tinted teal to match its blocks ("color = meaning"),
+ * the stack's stays neutral; both are a subtle surface fill over the canvas so the cards still pop.
+ */
+function Region({
+  label,
+  tone = 'neutral',
+  children,
+}: {
+  label: string;
+  tone?: 'neutral' | 'heap';
+  children: React.ReactNode;
+}) {
   return (
-    <h3 className="mb-3 font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
+    <section className="min-w-[16rem] self-start rounded-xl border border-hairline bg-surface/25 p-3">
+      <h3
+        className={`mb-3 px-1 font-sans text-[11px] font-semibold uppercase tracking-wider ${
+          tone === 'heap' ? 'text-heap' : 'text-ink-muted'
+        }`}
+      >
+        {label}
+      </h3>
       {children}
-    </h3>
+    </section>
   );
 }
 
@@ -48,9 +68,11 @@ function CanvasBody({ step, heapLayout }: CanvasBodyProps) {
   const hasData = step.heap.length > 0 || arrayCells.length > 0;
 
   return (
-    <div ref={setCanvas} className="relative flex min-h-full flex-wrap gap-x-10 gap-y-8 p-2">
-      <section className="min-w-[16rem]">
-        <RegionLabel>Stack</RegionLabel>
+    <div
+      ref={setCanvas}
+      className="relative flex min-h-full flex-wrap items-start gap-x-10 gap-y-8 p-2"
+    >
+      <Region label="Stack">
         <div className="flex flex-col gap-2">
           <AnimatePresence mode="popLayout" initial={false}>
             {step.stack.map((frame, depth) => (
@@ -58,11 +80,11 @@ function CanvasBody({ step, heapLayout }: CanvasBodyProps) {
             ))}
           </AnimatePresence>
         </div>
-      </section>
+      </Region>
 
-      {hasData ? (
-        <section className="min-w-[16rem]">
-          <RegionLabel>Heap &amp; data</RegionLabel>
+      {/* The heap area is always shown — even empty — so the two memory regions stay legible. */}
+      <Region label="Heap & data" tone="heap">
+        {hasData ? (
           <div
             className={`flex gap-4 ${heapLayout === 'column' ? 'flex-col' : 'flex-row items-start'}`}
           >
@@ -75,8 +97,10 @@ function CanvasBody({ step, heapLayout }: CanvasBodyProps) {
               <CellView key={arr.id} cell={arr} />
             ))}
           </div>
-        </section>
-      ) : null}
+        ) : (
+          <div className="px-1 py-6 font-mono text-xs text-ink-faint">no allocations</div>
+        )}
+      </Region>
 
       <ArrowOverlay step={step} />
     </div>
