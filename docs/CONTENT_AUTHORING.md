@@ -9,6 +9,11 @@ You author hand-written, **verifiably-correct** execution traces that play on th
 You do **not** change the trace format, the renderer, or the design system. If you think you need
 to, stop — that belongs in an engine/foundation phase, not here.
 
+> **Theory documents** (the read-first prose for a topic) are a **separate content type** — not a
+> trace. They are authored as Markdown (`src/content/<course>/<topic>/theory.md`) and rendered by the
+> reading view. See [`docs/THEORY_AUTHORING.md`](./THEORY_AUTHORING.md) for that contract (location,
+> frontmatter, structure/depth, code + callout conventions, viz link).
+
 ## Hard rules
 
 - Frontend only. Traces-first (no interpreter). React + TS (strict). No `any` without justification.

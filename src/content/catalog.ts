@@ -16,6 +16,7 @@
 
 import type { Trace } from '../engine/trace/types.ts';
 import type { ContentModule } from './module.ts';
+import { THEORY_BY_TOPIC, THEORY_DOCS, topicKey, type TheoryDoc } from './theory.ts';
 
 /** One module: its trace plus display metadata for the switcher. */
 export interface CatalogModule {
@@ -30,6 +31,8 @@ export interface CatalogModule {
 /** A topic groups modules within a course (mirrors the `Topic`/week in docs/CURRICULUM.md). */
 export interface CatalogTopic {
   topic: string;
+  /** Optional read-first theory doc for this topic, pinned before the modules (Phase 19). */
+  theory?: TheoryDoc | undefined;
   modules: CatalogModule[];
 }
 
@@ -119,20 +122,38 @@ function buildCatalog(): CatalogCourse[] {
     .map(([course, mods]) => {
       const byTopic = new Map<string, RankedModule[]>();
       for (const m of mods) pushInto(byTopic, m.topic ?? m.trace.topic ?? 'Misc', m);
+      // A topic may have theory, modules, or both — surface theory-only topics too.
+      for (const d of THEORY_DOCS) {
+        if (d.course === course && !byTopic.has(d.topic)) byTopic.set(d.topic, []);
+      }
 
       const topics: CatalogTopic[] = [...byTopic.entries()]
-        .map(([topic, tmods]) => ({
-          topic,
-          topicRank: Math.min(...tmods.map(moduleOrder)),
-          modules: tmods
-            .slice()
-            .sort(
-              (x, y) => moduleOrder(x) - moduleOrder(y) || moduleLabel(x).localeCompare(moduleLabel(y)),
-            )
-            .map((m): CatalogModule => ({ label: moduleLabel(m), summary: m.summary, trace: m.trace })),
-        }))
+        .map(([topic, tmods]) => {
+          const theory = THEORY_BY_TOPIC.get(topicKey(course, topic));
+          const ranks = tmods.map(moduleOrder);
+          if (theory) ranks.push(theory.order);
+          return {
+            topic,
+            theory,
+            // Theory pins first; its order also lets a topic's rank fall back to it.
+            topicRank: ranks.length > 0 ? Math.min(...ranks) : UNRANKED,
+            modules: tmods
+              .slice()
+              .sort(
+                (x, y) =>
+                  moduleOrder(x) - moduleOrder(y) || moduleLabel(x).localeCompare(moduleLabel(y)),
+              )
+              .map(
+                (m): CatalogModule => ({
+                  label: moduleLabel(m),
+                  summary: m.summary,
+                  trace: m.trace,
+                }),
+              ),
+          };
+        })
         .sort((a, b) => a.topicRank - b.topicRank || a.topic.localeCompare(b.topic))
-        .map(({ topic, modules }) => ({ topic, modules }));
+        .map(({ topic, theory, modules }) => ({ topic, theory, modules }));
 
       return { course, courseTitle: courseTitle(course), topics };
     });
@@ -148,4 +169,11 @@ export function allCatalogTraces(): Trace[] {
 /** Every module in the catalog, flattened in display order (for a flat selection index). */
 export function allCatalogModules(): CatalogModule[] {
   return CATALOG.flatMap((c) => c.topics.flatMap((t) => t.modules));
+}
+
+/** The first visualization module of a topic — the target of a theory doc's "continue" link. */
+export function firstModuleOfTopic(course: string, topic: string): CatalogModule | null {
+  const c = CATALOG.find((x) => x.course === course);
+  const t = c?.topics.find((x) => x.topic === topic);
+  return t?.modules[0] ?? null;
 }

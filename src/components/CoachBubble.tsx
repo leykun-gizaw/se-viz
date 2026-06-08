@@ -20,8 +20,9 @@ import {
 } from '../engine/trace/coach.ts';
 import type { CoachNote, CoachVariant } from '../engine/trace/types.ts';
 
-/** Small per-variant glyph, drawn from scratch so it inherits the accent color. */
-function VariantIcon({ variant }: { variant: CoachVariant }) {
+/** Small per-variant glyph, drawn from scratch so it inherits the accent color. Shared with the
+ *  theory reading view's callouts (Phase 19) so coaching and theory speak one visual language. */
+export function VariantIcon({ variant }: { variant: CoachVariant }) {
   const common = { width: 14, height: 14, viewBox: '0 0 24 24', 'aria-hidden': true } as const;
   switch (variant) {
     case 'idea': // lightbulb

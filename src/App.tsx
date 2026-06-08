@@ -4,7 +4,8 @@
  * panels, a legend toggle, light/dark toggle, presentation mode, and global keyboard transport.
  */
 import { useCallback, useMemo, useState } from 'react';
-import { allCatalogModules, CATALOG } from './content/catalog.ts';
+import { allCatalogModules, CATALOG, firstModuleOfTopic } from './content/catalog.ts';
+import { THEORY_BY_ID } from './content/theory.ts';
 import type { Trace } from './engine/trace/types.ts';
 import { useTrace } from './engine/trace/useTrace.ts';
 import { useKeyboardControls } from './hooks/useKeyboardControls.ts';
@@ -13,6 +14,7 @@ import { useTheme, type Theme } from './hooks/useTheme.ts';
 import { ContentSidebar } from './components/ContentSidebar.tsx';
 import { Legend } from './components/Legend.tsx';
 import { PresentationMode } from './components/PresentationMode.tsx';
+import { ReadingView } from './components/ReadingView.tsx';
 import { Stage } from './components/Stage.tsx';
 import { TopBar } from './components/TopBar.tsx';
 
@@ -96,23 +98,38 @@ export default function App() {
     false,
   );
 
-  const selected = modules.find((m) => m.trace.id === selectedId) ?? modules[0];
+  // A selection is either a theory doc (synthetic id) or a module (trace id).
+  const theoryDoc = THEORY_BY_ID.get(selectedId) ?? null;
+  const selectedModule = modules.find((m) => m.trace.id === selectedId) ?? modules[0];
+
+  const firstModule = theoryDoc ? firstModuleOfTopic(theoryDoc.course, theoryDoc.topic) : null;
 
   return (
     <div className="flex h-full bg-bg text-ink">
       <ContentSidebar
         courses={CATALOG}
-        selectedId={selected.trace.id}
+        selectedId={theoryDoc ? theoryDoc.id : selectedModule.trace.id}
         onSelect={onSelect}
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
       />
-      <Workbench
-        key={selected.trace.id}
-        trace={selected.trace}
-        theme={theme}
-        onToggleTheme={toggle}
-      />
+      {theoryDoc ? (
+        <ReadingView
+          key={theoryDoc.id}
+          doc={theoryDoc}
+          firstModule={firstModule ? { id: firstModule.trace.id, label: firstModule.label } : null}
+          theme={theme}
+          onToggleTheme={toggle}
+          onSelect={onSelect}
+        />
+      ) : (
+        <Workbench
+          key={selectedModule.trace.id}
+          trace={selectedModule.trace}
+          theme={theme}
+          onToggleTheme={toggle}
+        />
+      )}
     </div>
   );
 }

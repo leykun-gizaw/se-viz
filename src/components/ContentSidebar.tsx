@@ -6,6 +6,7 @@
  */
 import { useState } from 'react';
 import type { CatalogCourse } from '../content/catalog.ts';
+import type { TheoryDoc } from '../content/theory.ts';
 
 export interface ContentSidebarProps {
   courses: readonly CatalogCourse[];
@@ -55,6 +56,52 @@ function Caret({ open }: { open: boolean }) {
 }
 
 const topicKey = (course: string, topic: string) => `${course}::${topic}`;
+
+/** The read-first Theory entry, pinned at the top of a topic and visually distinct (azure + book). */
+function TheoryEntry({
+  theory,
+  selectedId,
+  onSelect,
+}: {
+  theory: TheoryDoc;
+  selectedId: string;
+  onSelect: (id: string) => void;
+}) {
+  const active = theory.id === selectedId;
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={() => onSelect(theory.id)}
+        title={theory.title}
+        aria-current={active ? 'true' : undefined}
+        className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left font-sans text-xs transition-colors ${
+          active ? 'bg-pointer-soft font-semibold text-pointer' : 'text-pointer hover:bg-surface-2'
+        }`}
+      >
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          className="shrink-0"
+        >
+          <path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z" />
+          <path d="M4 19a2 2 0 0 0 2 2h13" />
+        </svg>
+        <span className="truncate">Theory</span>
+        <span className="ml-auto text-[9px] font-semibold uppercase tracking-wider text-ink-faint">
+          read
+        </span>
+      </button>
+    </li>
+  );
+}
 
 /** Where a module lives in the catalog — drives the initial course + which topic starts open. */
 function findLocation(
@@ -195,6 +242,13 @@ export function ContentSidebar({
               </button>
               {open ? (
                 <ul className="mb-1 flex flex-col gap-0.5 pl-3.5">
+                  {topic.theory ? (
+                    <TheoryEntry
+                      theory={topic.theory}
+                      selectedId={selectedId}
+                      onSelect={onSelect}
+                    />
+                  ) : null}
                   {topic.modules.map((m) => {
                     const active = m.trace.id === selectedId;
                     return (

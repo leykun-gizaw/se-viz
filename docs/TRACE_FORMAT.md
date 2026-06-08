@@ -8,6 +8,10 @@ the shape in prose and works through the Phase 0 example.
 > If you change the format, update both the types and this file, and call it out in your phase
 > report. Later phases and the reviewer depend on this contract.
 
+> **Not a trace:** *theory documents* (Phase 19) are a separate, additive content type — read-first
+> Markdown prose per topic, not played by the engine and not subject to this format. See
+> [`THEORY_AUTHORING.md`](./THEORY_AUTHORING.md).
+
 ---
 
 ## Core idea: one generic engine, every concept is just data
