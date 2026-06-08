@@ -1,5 +1,5 @@
 /**
- * Theme state. Dark is primary; the toggle flips `data-theme` on <html>, which re-resolves every
+ * Theme state. Light is the default; the toggle flips `data-theme` on <html>, which re-resolves every
  * `--se-*` token (see index.css). The choice is persisted to `localStorage` (key `se-viz-theme`) and
  * applied before first paint by the inline script in `index.html`, so an instructor's preference
  * survives reloads with no flash.
@@ -11,7 +11,7 @@ export type Theme = 'dark' | 'light';
 const STORAGE_KEY = 'se-viz-theme';
 
 function currentTheme(): Theme {
-  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 }
 
 /** Apply a theme to <html> and persist it (best-effort; ignores storage failures). */
