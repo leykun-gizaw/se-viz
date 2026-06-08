@@ -93,72 +93,123 @@ function clamp(v: number, lo: number, hi: number): number {
   return Math.min(Math.max(v, lo), Math.max(lo, hi));
 }
 
+/** Area of the intersection between a placed bubble and an obstacle rect (0 if disjoint). */
+function overlapArea(
+  box: { left: number; top: number; width: number; height: number },
+  o: Rect,
+): number {
+  const x = Math.max(0, Math.min(box.left + box.width, o.x + o.width) - Math.max(box.left, o.x));
+  const y = Math.max(0, Math.min(box.top + box.height, o.y + o.height) - Math.max(box.top, o.y));
+  return x * y;
+}
+
+const INSET = 8;
+const TAIL_INSET = 16;
+
+/** Build the placement for one candidate side, clamped inside the container. */
+function sidePlacement(
+  side: TailSide,
+  anchor: Rect,
+  container: { width: number; height: number },
+  bubble: { width: number; height: number },
+  gap: number,
+): BubblePlacement {
+  const cx = anchor.x + anchor.width / 2;
+  const cy = anchor.y + anchor.height / 2;
+  let left: number;
+  let top: number;
+  // `side` is the edge of the bubble the tail sits on, i.e. the side of the anchor it's placed on:
+  // tail 'left' → bubble to the right, 'top' → bubble below, etc.
+  if (side === 'left') {
+    left = anchor.x + anchor.width + gap;
+    top = cy - bubble.height / 2;
+  } else if (side === 'right') {
+    left = anchor.x - gap - bubble.width;
+    top = cy - bubble.height / 2;
+  } else if (side === 'top') {
+    left = cx - bubble.width / 2;
+    top = anchor.y + anchor.height + gap;
+  } else {
+    left = cx - bubble.width / 2;
+    top = anchor.y - gap - bubble.height;
+  }
+  left = clamp(left, INSET, container.width - bubble.width - INSET);
+  top = clamp(top, INSET, container.height - bubble.height - INSET);
+  const tailOffset =
+    side === 'left' || side === 'right'
+      ? clamp(cy - top, TAIL_INSET, bubble.height - TAIL_INSET)
+      : clamp(cx - left, TAIL_INSET, bubble.width - TAIL_INSET);
+  return { left, top, tail: side, tailOffset };
+}
+
 /**
- * Place the bubble adjacent to `anchor` with a tail pointing at it, **collision-aware**: prefer the
- * right of the anchor, then left, then below, then above — whichever fits in `container` without
- * covering the anchor — then clamp the bubble inside the container. The tail offset is positioned at
- * the anchor's center along the chosen edge.
+ * Place the bubble adjacent to `anchor` with a tail pointing at it, **collision-aware against the
+ * whole visualization**: it tries the right of the anchor, then left, then below, then above, and
+ * picks the side that covers the fewest other elements (`obstacles`, in container coords). The anchor
+ * itself is always treated as an obstacle, so the bubble never sits on top of the thing it points at;
+ * ties prefer the earlier side. Each candidate is clamped inside the container.
  *
  * @param anchor - The anchored element's rect (container-local).
  * @param container - The available area (the stage content box).
  * @param bubble - The bubble's measured size.
+ * @param obstacles - Other visual element rects to avoid covering (cells, frames, heap blocks).
  * @param gap - Pixel gap between anchor and bubble.
  */
 export function placeCoachBubble(
   anchor: Rect,
   container: { width: number; height: number },
   bubble: { width: number; height: number },
+  obstacles: Rect[] = [],
   gap = 12,
 ): BubblePlacement {
-  const inset = 8;
-  const tailInset = 16;
-  const cx = anchor.x + anchor.width / 2;
-  const cy = anchor.y + anchor.height / 2;
-
-  const fitsRight = anchor.x + anchor.width + gap + bubble.width <= container.width;
-  const fitsLeft = anchor.x - gap - bubble.width >= 0;
-  const fitsBelow = anchor.y + anchor.height + gap + bubble.height <= container.height;
-
-  let tail: TailSide;
-  let left: number;
-  let top: number;
-  if (fitsRight) {
-    tail = 'left';
-    left = anchor.x + anchor.width + gap;
-    top = cy - bubble.height / 2;
-  } else if (fitsLeft) {
-    tail = 'right';
-    left = anchor.x - gap - bubble.width;
-    top = cy - bubble.height / 2;
-  } else if (fitsBelow) {
-    tail = 'top';
-    left = cx - bubble.width / 2;
-    top = anchor.y + anchor.height + gap;
-  } else {
-    tail = 'bottom';
-    left = cx - bubble.width / 2;
-    top = anchor.y - gap - bubble.height;
+  const all: Rect[] = [
+    { x: anchor.x, y: anchor.y, width: anchor.width, height: anchor.height },
+    ...obstacles,
+  ];
+  const sides: TailSide[] = ['left', 'right', 'top', 'bottom']; // right · left · below · above
+  let best: BubblePlacement | null = null;
+  let bestScore = Infinity;
+  for (const side of sides) {
+    const p = sidePlacement(side, anchor, container, bubble, gap);
+    const box = { left: p.left, top: p.top, width: bubble.width, height: bubble.height };
+    let score = 0;
+    for (const o of all) score += overlapArea(box, o);
+    if (score < bestScore) {
+      bestScore = score;
+      best = p;
+    }
   }
-
-  left = clamp(left, inset, container.width - bubble.width - inset);
-  top = clamp(top, inset, container.height - bubble.height - inset);
-
-  const tailOffset =
-    tail === 'left' || tail === 'right'
-      ? clamp(cy - top, tailInset, bubble.height - tailInset)
-      : clamp(cx - left, tailInset, bubble.width - tailInset);
-
-  return { left, top, tail, tailOffset };
+  return best ?? sidePlacement('left', anchor, container, bubble, gap);
 }
 
-/** Consistent fallback spot (top-right, beside the canvas) when there is no anchor. */
+/**
+ * Fallback spot when there is no anchor: the corner (preferring top-right) that covers the fewest
+ * obstacles, so a fallback bubble doesn't sit on top of the view either.
+ */
 export function fallbackPlacement(
   container: { width: number; height: number },
   bubble: { width: number; height: number },
+  obstacles: Rect[] = [],
   inset = 16,
 ): { left: number; top: number } {
-  return {
-    left: Math.max(inset, container.width - bubble.width - inset),
-    top: inset,
-  };
+  const right = Math.max(inset, container.width - bubble.width - inset);
+  const bottom = Math.max(inset, container.height - bubble.height - inset);
+  const corners = [
+    { left: right, top: inset },
+    { left: inset, top: inset },
+    { left: right, top: bottom },
+    { left: inset, top: bottom },
+  ];
+  let best = corners[0];
+  let bestScore = Infinity;
+  for (const c of corners) {
+    const box = { left: c.left, top: c.top, width: bubble.width, height: bubble.height };
+    let score = 0;
+    for (const o of obstacles) score += overlapArea(box, o);
+    if (score < bestScore) {
+      bestScore = score;
+      best = c;
+    }
+  }
+  return best;
 }

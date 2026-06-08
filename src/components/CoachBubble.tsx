@@ -15,6 +15,7 @@ import {
   coachVariantMeta,
   fallbackPlacement,
   placeCoachBubble,
+  type Rect,
   type TailSide,
 } from '../engine/trace/coach.ts';
 import type { CoachNote, CoachVariant } from '../engine/trace/types.ts';
@@ -108,6 +109,21 @@ export function CoachBubble({ note, containerRef }: CoachBubbleProps) {
       anchorEl = findByAttr(container, 'data-coach-line', String(note.anchorLine));
     }
 
+    // Every visual element the bubble must not cover: memory boxes (cells / frames / heap blocks)
+    // and code lines, in container-local coords. The anchor itself is excluded (the placement keeps
+    // the bubble off it via its tail).
+    const obstacles: Rect[] = [];
+    for (const el of container.querySelectorAll('[data-coach-anchor], [data-coach-line]')) {
+      if (el === anchorEl) continue;
+      const r = el.getBoundingClientRect();
+      obstacles.push({
+        x: r.left - cRect.left,
+        y: r.top - cRect.top,
+        width: r.width,
+        height: r.height,
+      });
+    }
+
     if (anchorEl) {
       const a = anchorEl.getBoundingClientRect();
       const anchor = {
@@ -116,9 +132,9 @@ export function CoachBubble({ note, containerRef }: CoachBubbleProps) {
         width: a.width,
         height: a.height,
       };
-      setPlacement(placeCoachBubble(anchor, size, bubble));
+      setPlacement(placeCoachBubble(anchor, size, bubble, obstacles));
     } else {
-      const fb = fallbackPlacement(size, bubble);
+      const fb = fallbackPlacement(size, bubble, obstacles);
       setPlacement({ left: fb.left, top: fb.top, tail: null, tailOffset: 0 });
     }
   }, [containerRef, note.anchorId, note.anchorLine]);

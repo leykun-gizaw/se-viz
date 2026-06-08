@@ -79,6 +79,14 @@ describe('placeCoachBubble — collision-aware', () => {
     expect(p.tailOffset).toBeGreaterThanOrEqual(16);
     expect(p.tailOffset).toBeLessThanOrEqual(bubble.height - 16);
   });
+
+  it('avoids covering another element: a box to the right pushes the bubble below', () => {
+    const anchor: Rect = { x: 100, y: 250, width: 100, height: 40 };
+    // A sibling node just to the right, where the default right placement would land.
+    const sibling: Rect = { x: 215, y: 240, width: 200, height: 55 };
+    const p = placeCoachBubble(anchor, container, bubble, [sibling]);
+    expect(p.tail).toBe('top'); // tail on top ⇒ bubble sits below the anchor, clear of the sibling
+  });
 });
 
 describe('fallbackPlacement', () => {
