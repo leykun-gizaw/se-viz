@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { linkedListTrace } from '../content/fixtures/linkedList.ts';
 import { mallocFreeTrace } from '../content/fixtures/mallocFree.ts';
-import { classifyTarget, indexStep, pointersByTarget, resolvePointers } from './pointers.ts';
+import {
+  ARROW_PALETTE_SIZE,
+  arrowColorSlots,
+  classifyTarget,
+  indexStep,
+  pointersByTarget,
+  resolvePointers,
+} from './pointers.ts';
 import type { Step } from './trace/types.ts';
 
 function step(trace: { steps: Step[] }, id: string): Step {
@@ -47,5 +54,45 @@ describe('pointer target resolution', () => {
     const targeted = pointersByTarget(s);
     // Both head and current aim at n0 initially.
     expect(targeted.get('n0')).toEqual(expect.arrayContaining(['head', 'current']));
+  });
+});
+
+describe('arrowColorSlots (per-arrow hues)', () => {
+  it('gives every id a distinct slot while ids fit the palette', () => {
+    const ids = ['head', 'n0.next', 'n1.next', 'n2.next', 'walk'];
+    expect(ids.length).toBeLessThanOrEqual(ARROW_PALETTE_SIZE);
+    const slots = arrowColorSlots(ids);
+    expect(new Set(slots.values()).size).toBe(ids.length);
+    for (const slot of slots.values()) {
+      expect(slot).toBeGreaterThanOrEqual(0);
+      expect(slot).toBeLessThan(ARROW_PALETTE_SIZE);
+    }
+  });
+
+  it('is deterministic and order-independent (same set → same assignment)', () => {
+    const a = arrowColorSlots(['head', 'p', 'n0.next']);
+    const b = arrowColorSlots(['n0.next', 'head', 'p']);
+    expect(a).toEqual(b);
+  });
+
+  it('keeps an id on its hash slot across steps when no collision forces a probe', () => {
+    // An id alone always sits on its raw hash slot, so its color is stable as other,
+    // non-colliding arrows come and go between steps.
+    const alone = arrowColorSlots(['head']).get('head');
+    const together = arrowColorSlots(['head', 'zzz-unrelated']).get('head');
+    expect(alone).toBe(together);
+  });
+
+  it('handles more ids than palette slots without looping or going out of range', () => {
+    const ids = Array.from({ length: ARROW_PALETTE_SIZE + 4 }, (_, i) => `ptr-${i}`);
+    const slots = arrowColorSlots(ids);
+    expect(slots.size).toBe(ids.length);
+    for (const slot of slots.values()) {
+      expect(slot).toBeGreaterThanOrEqual(0);
+      expect(slot).toBeLessThan(ARROW_PALETTE_SIZE);
+    }
+    // The first PALETTE_SIZE ids (canonical order) still cover every hue exactly once.
+    const first = [...ids].sort().slice(0, ARROW_PALETTE_SIZE);
+    expect(new Set(first.map((id) => slots.get(id))).size).toBe(ARROW_PALETTE_SIZE);
   });
 });

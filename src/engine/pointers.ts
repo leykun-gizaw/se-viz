@@ -99,6 +99,49 @@ export function resolvePointers(step: Step): ResolvedPointer[] {
   });
 }
 
+/** Number of hues in the arrow palette (`--se-arrow-0 … --se-arrow-{N-1}` in index.css). */
+export const ARROW_PALETTE_SIZE = 5;
+
+/** Deterministic 32-bit string hash (FNV-style) — no randomness, so colors never flicker. */
+function hashId(id: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) {
+    h = ((h ^ id.charCodeAt(i)) * 16777619) >>> 0;
+  }
+  return h;
+}
+
+/**
+ * Assign each arrow id a palette slot so simultaneous arrows are individually traceable.
+ *
+ * Goals, in priority order:
+ * 1. **Distinct within a step** — whenever there are ≤ {@link ARROW_PALETTE_SIZE} arrows, no two
+ *    share a hue (the linked-list "several identical `next` arrows" problem).
+ * 2. **Stable across steps** — the slot is derived from a hash of the pointer's stable id, so an
+ *    arrow keeps its hue while it retargets/animates between steps. Collisions are resolved by
+ *    probing in canonical (sorted) id order, so a given set of ids always resolves the same way;
+ *    an id only shifts hue when a *colliding* id appears or disappears.
+ *
+ * With more arrows than palette slots, later ids fall back to their raw hash slot (reuse).
+ *
+ * @param ids - The arrow ids visible this step (danger/NULL arrows excluded by the caller).
+ * @returns Map of id → palette slot (`0 .. ARROW_PALETTE_SIZE-1`).
+ */
+export function arrowColorSlots(ids: readonly string[]): Map<string, number> {
+  const slots = new Map<string, number>();
+  const taken = new Set<number>();
+  for (const id of [...new Set(ids)].sort()) {
+    const want = hashId(id) % ARROW_PALETTE_SIZE;
+    let slot = want;
+    if (taken.size < ARROW_PALETTE_SIZE) {
+      while (taken.has(slot)) slot = (slot + 1) % ARROW_PALETTE_SIZE;
+    }
+    slots.set(id, slot);
+    taken.add(slot);
+  }
+  return slots;
+}
+
 /**
  * Build a map from each target id to the names of pointer cells aimed at it. Used to label array
  * elements like `[1]·p` (PDF screen 03).

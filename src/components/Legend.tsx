@@ -38,14 +38,16 @@ export function Legend() {
       <Group label="Entities">
         <SwatchRow
           swatch={
-            <span className="flex h-5 w-9 items-center justify-center rounded-md bg-pointer">
-              <svg width="18" height="8" viewBox="0 0 18 8" aria-hidden="true">
-                <path d="M0 4h14M11 1l4 3-4 3" stroke="white" strokeWidth="1.5" fill="none" />
-              </svg>
+            <span className="flex h-5 w-9 flex-col items-center justify-center gap-0.75 rounded-md border border-hairline bg-surface-2">
+              {['var(--se-arrow-0)', 'var(--se-arrow-1)', 'var(--se-arrow-2)'].map((c) => (
+                <svg key={c} width="22" height="4" viewBox="0 0 22 4" aria-hidden="true">
+                  <path d="M0 2h17M15 0l4 2-4 2" stroke={c} strokeWidth="1.5" fill="none" />
+                </svg>
+              ))}
             </span>
           }
           title="Pointer · address · arrow"
-          desc="Pointer cells, next/prev links, every connector — azure."
+          desc="Pointer cells are azure; each arrow keeps its own hue so parallel links stay traceable."
         />
         <SwatchRow
           swatch={<span className="h-5 w-9 rounded-md border border-heap bg-heap-soft" />}

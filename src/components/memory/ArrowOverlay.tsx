@@ -7,7 +7,9 @@
  * polyline of axis-aligned segments — no curves — so it reads as straight lines that don't tangle.
  *
  * Behaviour:
- * - Azure arrows from pointer cells to their target cell/block (resolved by stable id).
+ * - Arrows from pointer cells to their target cell/block (resolved by stable id). Each pointer
+ *   gets its own hue from the `--se-arrow-*` palette (stable across steps, distinct within a
+ *   step — see `arrowColorSlots`), so parallel links (a list's several `next`s) stay traceable.
  *   - **In-row neighbours** (a node's `next`/`prev` to the node beside it) become a straight
  *     horizontal line entering at the source cell's own height; because `next` cells sit lower than
  *     `prev` cells, forward and backward arrows land on separate levels and never overlap.
@@ -24,7 +26,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAnchors, type Anchor } from '../../engine/anchorContext.ts';
-import { resolvePointers } from '../../engine/pointers.ts';
+import { ARROW_PALETTE_SIZE, arrowColorSlots, resolvePointers } from '../../engine/pointers.ts';
 import type { Step } from '../../engine/trace/types.ts';
 import { useMemoryRender } from './renderContext.ts';
 
@@ -73,6 +75,8 @@ export function ArrowOverlay({ step }: { step: Step }) {
       d: string;
       danger: boolean;
       glide: boolean;
+      /** Palette slot (`--se-arrow-N`); ignored for danger arrows (always red). */
+      slot: number;
     }[] = [];
     const nulls: { id: string; d: string; badge: { x: number; y: number } }[] = [];
     const arcs: { id: string; d: string; label: { x: number; y: number }; text: string }[] = [];
@@ -181,6 +185,9 @@ export function ArrowOverlay({ step }: { step: Step }) {
         : r.to.y + r.to.height + CHANNEL_GAP + k * CHANNEL_STEP;
     });
 
+    // Per-pointer hue: stable across steps, distinct within the step (danger arrows stay red).
+    const slots = arrowColorSlots(resolved.filter((r) => !r.danger).map((r) => r.id));
+
     for (const r of resolved) {
       const sy = center(r.from).cy;
       if (r.kind === 'row') {
@@ -192,6 +199,7 @@ export function ArrowOverlay({ step }: { step: Step }) {
           d: `M ${sx} ${sy} L ${midX} ${sy} L ${midX} ${r.ey} L ${ex} ${r.ey}`,
           danger: r.danger,
           glide: r.glide,
+          slot: slots.get(r.id) ?? 0,
         });
       } else {
         // Rail: out of the source column, down/up the drop column, along the band, onto the edge.
@@ -206,6 +214,7 @@ export function ArrowOverlay({ step }: { step: Step }) {
           d: `M ${sx} ${sy} L ${dropX} ${sy} L ${dropX} ${r.bandY} L ${r.entryX} ${r.bandY} L ${r.entryX} ${ty}`,
           danger: r.danger,
           glide: r.glide,
+          slot: slots.get(r.id) ?? 0,
         });
       }
     }
@@ -244,6 +253,21 @@ export function ArrowOverlay({ step }: { step: Step }) {
           >
             <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--se-pointer)" />
           </marker>
+          {/* One arrowhead per palette hue (SVG markers can't inherit the path's stroke color). */}
+          {Array.from({ length: ARROW_PALETTE_SIZE }, (_, i) => (
+            <marker
+              key={i}
+              id={`se-arrowhead-${i}`}
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="7"
+              markerHeight="7"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 0 L 10 5 L 0 10 z" fill={`var(--se-arrow-${i})`} />
+            </marker>
+          ))}
           <marker
             id="se-arrow-danger"
             viewBox="0 0 10 10"
@@ -267,9 +291,9 @@ export function ArrowOverlay({ step }: { step: Step }) {
             strokeWidth={2}
             strokeLinejoin="round"
             strokeLinecap="round"
-            stroke={a.danger ? 'var(--se-danger)' : 'var(--se-pointer)'}
+            stroke={a.danger ? 'var(--se-danger)' : `var(--se-arrow-${a.slot})`}
             strokeDasharray={a.danger ? '5 4' : undefined}
-            markerEnd={`url(#${a.danger ? 'se-arrow-danger' : 'se-arrow-azure'})`}
+            markerEnd={`url(#${a.danger ? 'se-arrow-danger' : `se-arrowhead-${a.slot}`})`}
           />
         ))}
 

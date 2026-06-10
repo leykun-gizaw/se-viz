@@ -46,6 +46,19 @@
   --se-danger: #f0586a; /* red: dangling pointer / UB */
   --se-danger-soft: rgba(240, 88, 106, 0.14);
 
+  /*
+   * Arrow palette — pointer arrows cycle these hues (stable per pointer) so parallel arrows stay
+   * individually traceable (e.g. a linked list's several `next` links). A deliberate amendment to
+   * the original "every arrow azure" rule: azure remains the family anchor (slot 0) and pointer
+   * CELLS stay azure; the added hues avoid the semantic colors (amber/green/red = active/changed/
+   * danger). Danger arrows ignore the palette (always red, dashed).
+   */
+  --se-arrow-0: var(--se-pointer);
+  --se-arrow-1: #e879f9; /* fuchsia */
+  --se-arrow-2: #22d3ee; /* cyan */
+  --se-arrow-3: #a78bfa; /* violet */
+  --se-arrow-4: #94a3b8; /* slate */
+
   /* Code syntax (must read in both themes) */
   --se-syntax-keyword: #c792ea;
   --se-syntax-type: #82aaff;
@@ -84,6 +97,12 @@
   --se-changed-soft: rgba(21, 163, 91, 0.16);
   --se-danger: #d4313f;
   --se-danger-soft: rgba(212, 49, 63, 0.12);
+
+  /* Arrow palette, darkened for light surfaces (slot 0 tracks --se-pointer automatically). */
+  --se-arrow-1: #c026d3;
+  --se-arrow-2: #0891b2;
+  --se-arrow-3: #7c3aed;
+  --se-arrow-4: #64748b;
 
   --se-syntax-keyword: #8b3fc4;
   --se-syntax-type: #1d4ed8;
