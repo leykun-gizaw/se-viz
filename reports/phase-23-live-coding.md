@@ -148,8 +148,16 @@ The trace format is **unchanged**. New shared surface (frontend-internal):
   Persisting to `localStorage` à la `usePersistentState` would be a small follow-up if instructors
   want it.
 - `VITE_TRACER_TOKEN` is wired but untestable against the real backend until its auth phase lands.
-- When CORS arrives backend-side (its Phase 04), no frontend change should be needed (plain
-  `fetch` + JSON header), but the local guide should be re-verified then.
+- **CORS (verified against the real backend post-merge):** the backend indeed has no CORS yet, so
+  a browser cannot call `http://localhost:8080` directly. Added a Vite dev-server proxy
+  (`/tracer-api` → `localhost:8080`, target overridable via `TRACER_PROXY_TARGET`); the local
+  guide now says `VITE_TRACER_URL=/tracer-api`. Dev-only; once the backend ships CORS, an
+  absolute URL works unchanged.
+- **Backend contract deviations observed live** (tracer-side follow-ups, not frontend bugs): an
+  infinite loop (`while (1)`, empty or busy body) returns a short 200 trace with **no `timeout`
+  error and no `truncated` marker**, instead of the contract's 408 / truncation. The frontend
+  plays what it gets; the mocked tests prove the 408/truncated paths are ready when the backend
+  honors them.
 
 ## 8. File map
 

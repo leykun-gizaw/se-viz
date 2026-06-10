@@ -11,7 +11,9 @@ afterEach(() => {
 
 describe('tracerConfig', () => {
   it('is null (feature hidden) when VITE_TRACER_URL is unset — the production default', () => {
-    expect(import.meta.env.VITE_TRACER_URL).toBeUndefined();
+    // Stub to undefined explicitly: the dev machine may have a .env.local (vitest runs through
+    // Vite and loads it), and this test must describe the no-var production build regardless.
+    vi.stubEnv('VITE_TRACER_URL', undefined);
     expect(tracerConfig()).toBeNull();
   });
 
