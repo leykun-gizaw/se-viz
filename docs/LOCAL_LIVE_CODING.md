@@ -47,12 +47,12 @@ Quick backend sanity check, if you want one before touching the UI:
    same player the curriculum modules use.
 2. **A syntax error shows the gcc message.** Delete a semicolon and Run. You get a console-style
    "Compiler output" panel containing the actual gcc diagnostics — not a generic failure.
-3. **An infinite loop comes back cleanly — the UI must not hang.** Change the program to
-   `while (1) { }` in `main` and Run. Per the API contract you get the `timeout` error ("Your
-   program ran too long (likely an infinite loop)."). *Observed with the current backend build:*
-   it instead returns a short trace (it stops recording silently, with no `timeout` error and no
-   `truncated` marker) — the UI plays it fine, but that's a backend deviation from its
-   `docs/API.md` worth flagging on the tracer side.
+3. **An infinite loop comes back cleanly — the UI must not hang.** Per the API contract you get
+   the `timeout` error ("Your program ran too long (likely an infinite loop)."). *Observed with
+   the current backend build:* a **multi-line** busy loop correctly returns a truncated trace
+   (amber banner), but a loop pinned to one source line (`while (1) { }` or a one-liner) returns
+   a tiny 200 trace with no marker — see `docs/ISSUE-same-line-infinite-loop.md` in the tracer
+   repo. The UI plays it without hanging either way.
 4. **Stopping the tracer degrades gracefully.** Kill `npm run serve` and Run again: "The
    visualizer service is unavailable." No crash, no spinner forever.
 
