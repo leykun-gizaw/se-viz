@@ -159,6 +159,12 @@ The trace format is **unchanged**. New shared surface (frontend-internal):
   the tracer repo; fixed there in `88eacf2` (raw-step-cap signal → 408 `timeout`; multi-line
   runaways still 200 + `truncated: step_limit`). Re-verified live against the running backend:
   all loop shapes now produce either the timeout message or the truncation banner in this UI.
+- **Second tracer issue (found in instructor use, filed, fixed — verified 2026-06-11):** live
+  traces highlighted the line *about to* execute (the recorder's OPT semantics) instead of the
+  line that *produced* the step's state, so the visualization read one line behind the highlight
+  everywhere. Mapper fix in tracer `447059b` (call steps now also highlight call site + entered
+  signature, like the authored traces). Verified via API step-dump and in this UI; authored
+  modules were never affected.
 
 ## 8. File map
 
