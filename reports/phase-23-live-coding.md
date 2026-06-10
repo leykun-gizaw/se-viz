@@ -153,13 +153,12 @@ The trace format is **unchanged**. New shared surface (frontend-internal):
   (`/tracer-api` → `localhost:8080`, target overridable via `TRACER_PROXY_TARGET`); the local
   guide now says `VITE_TRACER_URL=/tracer-api`. Dev-only; once the backend ships CORS, an
   absolute URL works unchanged.
-- **Backend contract deviation observed live** (tracer-side follow-up, not a frontend bug):
-  an infinite loop that never changes source line (`while (1) { }`, or a busy one-liner) returns
-  a tiny 2–3-step 200 trace with **no `timeout` error and no `truncated` marker** — the recorder
-  self-caps on raw debugger steps but only flags truncation off emitted steps. Multi-line busy
-  loops truncate correctly (`step_limit` + banner). Filed as
-  `docs/ISSUE-same-line-infinite-loop.md` in the tracer repo with repro + suggested fixes; the
-  frontend's mocked tests prove both fix shapes (408 or truncated) render correctly today.
+- ~~Backend contract deviation observed live~~ **(found, filed, fixed — verified 2026-06-11):**
+  an infinite loop pinned to one source line (`while (1) { }`, a busy one-liner) used to return a
+  tiny 2–3-step 200 trace with no `timeout` error and no `truncated` marker. Filed as an issue in
+  the tracer repo; fixed there in `88eacf2` (raw-step-cap signal → 408 `timeout`; multi-line
+  runaways still 200 + `truncated: step_limit`). Re-verified live against the running backend:
+  all loop shapes now produce either the timeout message or the truncation banner in this UI.
 
 ## 8. File map
 
