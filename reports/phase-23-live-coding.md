@@ -46,8 +46,8 @@ exact one-machine end-to-end steps.
   `src/hooks/useKeyboardControls.ts`: the global key handler now also ignores
   **contenteditable** targets (CodeMirror), so typing in the editor can't step the player;
   `src/vite-env.d.ts`: typed the two env vars.
-- **Tests** — `src/live/tracerClient.test.ts` (16), `src/live/runState.test.ts` (8),
-  `src/live/config.test.ts` (4) — all against mocked `fetch` / stubbed env; no backend.
+- **Tests** — `src/live/tracerClient.test.ts` (19), `src/live/runState.test.ts` (8),
+  `src/live/config.test.ts` (4) — 31 in total, all against mocked `fetch` / stubbed env; no backend.
 - **Docs** — `.env.example` (both vars), `docs/LOCAL_LIVE_CODING.md` (the one-machine guide).
 
 ## 3. Acceptance criteria — self-assessment
