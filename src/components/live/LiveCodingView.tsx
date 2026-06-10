@@ -11,6 +11,7 @@
  * machine itself is pure and lives in `src/live/runState.ts`.
  */
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react';
+import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panels';
 import type { Trace } from '../../engine/trace/types.ts';
 import { useTrace } from '../../engine/trace/useTrace.ts';
 import { useKeyboardControls } from '../../hooks/useKeyboardControls.ts';
@@ -112,6 +113,8 @@ export function LiveCodingView({ theme, onToggleTheme }: LiveCodingViewProps) {
 
   const { status } = state;
   const loading = status.phase === 'loading';
+  // Persisted, draggable editor↕result split (same mechanism as the Stage's code/memory split).
+  const split = useDefaultLayout({ id: 'se-viz-live-split', storage: localStorage });
 
   const run = useCallback(async () => {
     if (inflightRef.current) return;
@@ -135,77 +138,102 @@ export function LiveCodingView({ theme, onToggleTheme }: LiveCodingViewProps) {
         <ThemeToggle theme={theme} onToggle={onToggleTheme} />
       </header>
 
-      <section className="border-b border-hairline bg-surface">
-        <div className="flex flex-wrap items-center gap-3 border-b border-hairline px-4 py-2">
-          <span className="font-mono text-[11px] text-ink-faint">&lt;/&gt;</span>
-          <span className="font-mono text-[11px] uppercase tracking-wide text-ink-muted">
-            live.c
-          </span>
-          <div className="ml-auto flex items-center gap-3">
-            <label className="flex items-center gap-1.5 font-sans text-xs text-ink-muted">
-              stdin
-              <input
-                type="text"
-                value={stdin}
-                onChange={(e) => setStdin(e.target.value)}
-                placeholder="(optional)"
-                className="w-44 rounded-md border border-hairline bg-surface-2 px-2 py-1 font-mono text-xs text-ink placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-pointer"
+      <Group
+        orientation="vertical"
+        className="flex min-h-0 flex-1 flex-col"
+        defaultLayout={split.defaultLayout}
+        onLayoutChange={split.onLayoutChange}
+      >
+        <Panel id="editor" defaultSize="42%" minSize="15%" maxSize="85%" className="min-h-0">
+          <section className="flex h-full min-h-0 flex-col bg-surface">
+            <div className="flex flex-wrap items-center gap-3 border-b border-hairline px-4 py-2">
+              <span className="font-mono text-[11px] text-ink-faint">&lt;/&gt;</span>
+              <span className="font-mono text-[11px] uppercase tracking-wide text-ink-muted">
+                live.c
+              </span>
+              <div className="ml-auto flex items-center gap-3">
+                <label className="flex items-center gap-1.5 font-sans text-xs text-ink-muted">
+                  stdin
+                  <input
+                    type="text"
+                    value={stdin}
+                    onChange={(e) => setStdin(e.target.value)}
+                    placeholder="(optional)"
+                    className="w-44 rounded-md border border-hairline bg-surface-2 px-2 py-1 font-mono text-xs text-ink placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-pointer"
+                  />
+                </label>
+                <button
+                  type="button"
+                  onClick={run}
+                  disabled={loading}
+                  title="Run (⌘/Ctrl+Enter)"
+                  className="flex items-center gap-1.5 rounded-md border border-pointer bg-pointer px-3.5 py-1 font-sans text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {loading ? (
+                    'Running…'
+                  ) : (
+                    <>
+                      <svg
+                        width="11"
+                        height="11"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M7 5l12 7-12 7V5z" />
+                      </svg>
+                      Run
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+            <div className="min-h-0 flex-1">
+              <CodeEditor
+                initialDoc={DEFAULT_PROGRAM}
+                onChange={(doc) => (sourceRef.current = doc)}
+                onRun={run}
               />
-            </label>
-            <button
-              type="button"
-              onClick={run}
-              disabled={loading}
-              title="Run (⌘/Ctrl+Enter)"
-              className="flex items-center gap-1.5 rounded-md border border-pointer bg-pointer px-3.5 py-1 font-sans text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {loading ? (
-                'Running…'
-              ) : (
-                <>
-                  <svg
-                    width="11"
-                    height="11"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 5l12 7-12 7V5z" />
-                  </svg>
-                  Run
-                </>
-              )}
-            </button>
+            </div>
+          </section>
+        </Panel>
+
+        <Separator
+          aria-label="Resize the editor and result panels"
+          className="group relative flex h-2 items-center justify-center"
+        >
+          <div className="h-px w-full bg-hairline transition-colors group-hover:bg-pointer group-focus-visible:bg-pointer" />
+          <div className="pointer-events-none absolute h-1 w-8 rounded-full bg-hairline-strong transition-colors group-hover:bg-pointer" />
+        </Separator>
+
+        <Panel id="result" minSize="15%" className="min-h-0">
+          <div className="flex h-full min-h-0 flex-col">
+            {status.phase === 'error' ? (
+              <div className="px-4 pt-4">
+                <ErrorPanel error={status.error} />
+              </div>
+            ) : null}
+
+            {status.phase === 'success' && status.truncated ? (
+              <div className="border-b border-hairline bg-active-soft px-4 py-2 font-sans text-xs text-ink">
+                ⚠ {truncationBanner(status.truncated)}
+              </div>
+            ) : null}
+
+            {status.phase === 'success' ? (
+              <LivePlayer key={state.seq} trace={status.trace} />
+            ) : status.phase === 'error' ? (
+              <div className="flex-1" />
+            ) : (
+              <div className="flex flex-1 items-center justify-center p-8 text-center font-sans text-sm text-ink-muted">
+                {loading
+                  ? 'Compiling and running your program…'
+                  : 'Write a C program above and press Run (⌘/Ctrl+Enter) to watch it execute step by step.'}
+              </div>
+            )}
           </div>
-        </div>
-        <div className="h-64">
-          <CodeEditor initialDoc={DEFAULT_PROGRAM} onChange={(doc) => (sourceRef.current = doc)} onRun={run} />
-        </div>
-      </section>
-
-      {status.phase === 'error' ? (
-        <div className="px-4 pt-4">
-          <ErrorPanel error={status.error} />
-        </div>
-      ) : null}
-
-      {status.phase === 'success' && status.truncated ? (
-        <div className="border-b border-hairline bg-active-soft px-4 py-2 font-sans text-xs text-ink">
-          ⚠ {truncationBanner(status.truncated)}
-        </div>
-      ) : null}
-
-      {status.phase === 'success' ? (
-        <LivePlayer key={state.seq} trace={status.trace} />
-      ) : status.phase === 'error' ? (
-        <div className="flex-1" />
-      ) : (
-        <div className="flex flex-1 items-center justify-center p-8 text-center font-sans text-sm text-ink-muted">
-          {loading
-            ? 'Compiling and running your program…'
-            : 'Write a C program above and press Run (⌘/Ctrl+Enter) to watch it execute step by step.'}
-        </div>
-      )}
+        </Panel>
+      </Group>
     </div>
   );
 }
