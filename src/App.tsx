@@ -3,7 +3,7 @@
  * right column is the player for the selected module — top bar + breadcrumb, the three synchronized
  * panels, a legend toggle, light/dark toggle, presentation mode, and global keyboard transport.
  */
-import { useCallback, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useMemo, useState } from 'react';
 import { allCatalogModules, CATALOG, firstModuleOfTopic } from './content/catalog.ts';
 import { THEORY_BY_ID } from './content/theory.ts';
 import type { Trace } from './engine/trace/types.ts';
@@ -11,12 +11,21 @@ import { useTrace } from './engine/trace/useTrace.ts';
 import { useKeyboardControls } from './hooks/useKeyboardControls.ts';
 import { usePersistentState } from './hooks/usePersistentState.ts';
 import { useTheme, type Theme } from './hooks/useTheme.ts';
+import { LIVE_CODING_ID, tracerConfig } from './live/config.ts';
 import { ContentSidebar } from './components/ContentSidebar.tsx';
 import { Legend } from './components/Legend.tsx';
 import { PresentationMode } from './components/PresentationMode.tsx';
 import { Stage } from './components/Stage.tsx';
 import { TheoryDeck } from './components/TheoryDeck.tsx';
 import { TopBar } from './components/TopBar.tsx';
+
+/**
+ * Lazy: Live Coding (and its CodeMirror dependency) loads only when the mode is opened, so the
+ * production bundle — where the mode doesn't even exist (no `VITE_TRACER_URL`) — never pays for it.
+ */
+const LiveCodingView = lazy(() =>
+  import('./components/live/LiveCodingView.tsx').then((m) => ({ default: m.LiveCodingView })),
+);
 
 /** The player + chrome for one module. Remounted (keyed on trace id) when the selection changes. */
 function Workbench({
@@ -98,8 +107,13 @@ export default function App() {
     false,
   );
 
-  // A selection is either a theory doc (synthetic id) or a module (trace id).
-  const theoryDoc = THEORY_BY_ID.get(selectedId) ?? null;
+  // Live Coding (Phase 23) exists only when a tracer backend is configured — production today has
+  // none, so the entry (and the whole mode) is hidden there rather than shipping a dead feature.
+  const liveCodingEnabled = useMemo(() => tracerConfig() !== null, []);
+  const liveCoding = liveCodingEnabled && selectedId === LIVE_CODING_ID;
+
+  // A selection is the live-coding mode, a theory doc (synthetic id), or a module (trace id).
+  const theoryDoc = liveCoding ? null : (THEORY_BY_ID.get(selectedId) ?? null);
   const selectedModule = modules.find((m) => m.trace.id === selectedId) ?? modules[0];
 
   const firstModule = theoryDoc ? firstModuleOfTopic(theoryDoc.course, theoryDoc.topic) : null;
@@ -108,12 +122,23 @@ export default function App() {
     <div className="flex h-full bg-bg text-ink">
       <ContentSidebar
         courses={CATALOG}
-        selectedId={theoryDoc ? theoryDoc.id : selectedModule.trace.id}
+        selectedId={liveCoding ? LIVE_CODING_ID : theoryDoc ? theoryDoc.id : selectedModule.trace.id}
         onSelect={onSelect}
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
+        liveCodingEnabled={liveCodingEnabled}
       />
-      {theoryDoc ? (
+      {liveCoding ? (
+        <Suspense
+          fallback={
+            <div className="flex flex-1 items-center justify-center font-sans text-sm text-ink-muted">
+              Loading the live editor…
+            </div>
+          }
+        >
+          <LiveCodingView theme={theme} onToggleTheme={toggle} />
+        </Suspense>
+      ) : theoryDoc ? (
         <TheoryDeck
           key={theoryDoc.id}
           doc={theoryDoc}

@@ -26,11 +26,14 @@ export function useKeyboardControls(handlers: KeyboardControlHandlers): void {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
-      // Ignore while typing in a form field, or when the resizable-panel divider is focused — it
-      // owns ←/→ to resize, so we must not also step the trace.
+      // Ignore while typing in a form field or an editable region (the Live Coding editor is
+      // contenteditable), or when the resizable-panel divider is focused — it owns ←/→ to resize,
+      // so we must not also step the trace.
       if (
         target &&
-        (/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) || target.closest('[data-separator]'))
+        (/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) ||
+          target.isContentEditable ||
+          target.closest('[data-separator]'))
       ) {
         return;
       }

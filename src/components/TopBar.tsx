@@ -10,7 +10,8 @@ import type { TracePlayer } from '../engine/trace/useTrace.ts';
 import type { Theme } from '../hooks/useTheme.ts';
 import { Transport } from './Transport.tsx';
 
-function Mark() {
+/** The SE-Viz brand mark. Exported for surfaces that need a header without a player (Live Coding). */
+export function Mark() {
   return (
     <div className="flex items-center gap-2">
       <span className="flex h-6 w-6 items-center justify-center rounded-md bg-pointer text-white">
@@ -39,6 +40,41 @@ function Breadcrumb({ player }: { player: TracePlayer }) {
   );
 }
 
+/** The ☼/☾ theme switch. Exported for surfaces that need it without the full top bar (Live Coding). */
+export function ThemeToggle({ theme, onToggle }: { theme: Theme; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+      title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+      className="flex h-8 w-8 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink hover:bg-surface-3"
+    >
+      {theme === 'dark' ? (
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 109.8 9.8z" />
+        </svg>
+      ) : (
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"
+            strokeLinecap="round"
+          />
+        </svg>
+      )}
+    </button>
+  );
+}
+
 export interface TopBarProps {
   player: TracePlayer;
   theme: Theme;
@@ -57,35 +93,7 @@ export function TopBar({ player, theme, onToggleTheme, onEnterPresentation }: To
       <div className="flex items-center gap-3">
         <Transport player={player} />
         <span className="h-4 w-px bg-hairline" />
-        <button
-          type="button"
-          onClick={onToggleTheme}
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-          className="flex h-8 w-8 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink hover:bg-surface-3"
-        >
-          {theme === 'dark' ? (
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 109.8 9.8z" />
-            </svg>
-          ) : (
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="4" />
-              <path
-                d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"
-                strokeLinecap="round"
-              />
-            </svg>
-          )}
-        </button>
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         <button
           type="button"
           onClick={onEnterPresentation}
