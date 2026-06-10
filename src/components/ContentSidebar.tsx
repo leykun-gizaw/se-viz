@@ -7,6 +7,7 @@
 import { useState } from 'react';
 import type { CatalogCourse } from '../content/catalog.ts';
 import type { TheoryDoc } from '../content/theory.ts';
+import { LIVE_CODING_ID } from '../live/config.ts';
 
 export interface ContentSidebarProps {
   courses: readonly CatalogCourse[];
@@ -16,6 +17,32 @@ export interface ContentSidebarProps {
   collapsed: boolean;
   /** Toggle collapsed/expanded. */
   onToggleCollapse: () => void;
+  /**
+   * Show the Live Coding entry (Phase 23) — a separate pinned section, not part of the curriculum
+   * tree. Set only when a tracer backend is configured (`VITE_TRACER_URL`), so production without
+   * one never shows a dead feature.
+   */
+  liveCodingEnabled?: boolean;
+}
+
+/** Terminal-prompt glyph for the Live Coding entry. */
+function LiveIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path d="M5 7l5 5-5 5M12 17h7" />
+    </svg>
+  );
 }
 
 /** Chevron pointing left (collapse) or right (expand) — for the whole-sidebar rail toggle. */
@@ -153,6 +180,7 @@ export function ContentSidebar({
   onSelect,
   collapsed,
   onToggleCollapse,
+  liveCodingEnabled = false,
 }: ContentSidebarProps) {
   // Initialise (once) from where the active module lives: show its course, open its topic.
   const [courseCode, setCourseCode] = useState(
@@ -215,6 +243,22 @@ export function ContentSidebar({
         >
           Modules
         </span>
+        {liveCodingEnabled ? (
+          <button
+            type="button"
+            onClick={() => onSelect(LIVE_CODING_ID)}
+            aria-label="Live coding"
+            aria-current={selectedId === LIVE_CODING_ID ? 'true' : undefined}
+            title="Live coding — run your own C"
+            className={`mt-auto flex h-7 w-7 items-center justify-center rounded-md border ${
+              selectedId === LIVE_CODING_ID
+                ? 'border-pointer bg-pointer-soft text-pointer'
+                : 'border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink'
+            }`}
+          >
+            <LiveIcon />
+          </button>
+        ) : null}
       </aside>
     );
   }
@@ -331,6 +375,29 @@ export function ContentSidebar({
           );
         })}
       </nav>
+
+      {/* Live coding — its own pinned section, deliberately outside the curriculum tree. */}
+      {liveCodingEnabled ? (
+        <div className="border-t border-hairline p-2">
+          <button
+            type="button"
+            onClick={() => onSelect(LIVE_CODING_ID)}
+            aria-current={selectedId === LIVE_CODING_ID ? 'true' : undefined}
+            title="Run your own C program in the visualizer"
+            className={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left font-sans text-xs transition-colors ${
+              selectedId === LIVE_CODING_ID
+                ? 'bg-pointer-soft font-semibold text-pointer'
+                : 'text-pointer hover:bg-surface-2'
+            }`}
+          >
+            <LiveIcon />
+            <span className="truncate">Live coding</span>
+            <span className="ml-auto text-[9px] font-semibold uppercase tracking-wider text-ink-faint">
+              run C
+            </span>
+          </button>
+        </div>
+      ) : null}
     </aside>
   );
 }
