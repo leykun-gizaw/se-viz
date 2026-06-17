@@ -85,6 +85,11 @@ function tableCell(heads: Record<number, string | null>): ArrayCell {
   };
 }
 
+/**
+ * The file-scope bucket array `table[N]`. It is authored here as a synthetic `globals` frame for
+ * convenience, then **lifted into the static `.bss` segment** by {@link liftGlobalsToStatic} (Phase
+ * 24): `table` is a zero-initialized global, so it lives in `.bss`, not on the stack.
+ */
 function globalsFrame(): StackFrame {
   return {
     id: 'globals',
@@ -92,6 +97,20 @@ function globalsFrame(): StackFrame {
     callId: 0,
     address: '0x601000',
     variables: [tableCell({ 0: 'e_cat', 2: 'e_owl' })],
+  };
+}
+
+/**
+ * Move the synthetic `globals` frame's variables out of the stack and into the static segment's
+ * `.bss` (a zero-initialized global). Keeps every authored per-step snapshot otherwise identical.
+ */
+function liftGlobalsToStatic(step: Step): Step {
+  const globals = step.stack.find((f) => f.id === 'globals');
+  if (!globals) return step;
+  return {
+    ...step,
+    stack: step.stack.filter((f) => f.id !== 'globals'),
+    staticData: { data: [], bss: globals.variables, rodata: [] },
   };
 }
 
@@ -153,7 +172,7 @@ function getFrame(i: number | null, eTarget: string | null): StackFrame {
 
 const STRCMP = 'strcmp(e->key, key) == 0';
 
-const steps: Step[] = [
+const rawSteps: Step[] = [
   {
     id: 'start',
     index: 0,
@@ -254,6 +273,9 @@ const steps: Step[] = [
     activeId: 'e_dog.value',
   },
 ];
+
+/** Globals (the bucket array) live in the static `.bss` segment, not on the stack (Phase 24). */
+const steps: Step[] = rawSteps.map(liftGlobalsToStatic);
 
 export const hashLookupTrace: Trace = {
   id: 'se201-hash-lookup',

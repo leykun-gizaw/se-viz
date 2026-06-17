@@ -89,7 +89,11 @@ function tableCell(heads: Record<number, string | null>): ArrayCell {
   };
 }
 
-/** The base "globals" frame that owns the file-scope bucket array. */
+/**
+ * The file-scope bucket array `table[N]`, authored as a synthetic `globals` frame for convenience
+ * and then **lifted into the static `.bss` segment** by {@link liftGlobalsToStatic} (Phase 24):
+ * `table` is a zero-initialized global, so it lives in `.bss`, not on the stack.
+ */
 function globalsFrame(heads: Record<number, string | null>): StackFrame {
   return {
     id: 'globals',
@@ -97,6 +101,20 @@ function globalsFrame(heads: Record<number, string | null>): StackFrame {
     callId: 0,
     address: '0x601000',
     variables: [tableCell(heads)],
+  };
+}
+
+/**
+ * Move the synthetic `globals` frame's variables out of the stack and into the static segment's
+ * `.bss` (a zero-initialized global). Keeps every authored per-step snapshot otherwise identical.
+ */
+function liftGlobalsToStatic(step: Step): Step {
+  const globals = step.stack.find((f) => f.id === 'globals');
+  if (!globals) return step;
+  return {
+    ...step,
+    stack: step.stack.filter((f) => f.id !== 'globals'),
+    staticData: { data: [], bss: globals.variables, rodata: [] },
   };
 }
 
@@ -166,7 +184,7 @@ function putFrame(
   };
 }
 
-const steps: Step[] = [
+const rawSteps: Step[] = [
   {
     id: 'init',
     index: 0,
@@ -342,6 +360,9 @@ const steps: Step[] = [
     activeId: 'table',
   },
 ];
+
+/** Globals (the bucket array) live in the static `.bss` segment, not on the stack (Phase 24). */
+const steps: Step[] = rawSteps.map(liftGlobalsToStatic);
 
 export const hashInsertTrace: Trace = {
   id: 'se201-hash-insert',
