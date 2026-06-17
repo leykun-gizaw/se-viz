@@ -139,6 +139,36 @@ export interface HeapBlock {
 }
 
 /**
+ * The static / data segment — a C program's static storage, split into the three textbook
+ * sub-segments. It sits alongside the {@link Step.stack | stack} and {@link Step.heap | heap} as a
+ * distinct memory region: globals and `static`s live here for the **whole program**, not on the
+ * stack. A *local* array is therefore stack memory, while a *global* array is static memory.
+ *
+ * - `data`   — initialized, **nonzero** globals & `static`s (`.data`).
+ * - `bss`    — **zero / uninitialized** globals & `static`s (`.bss`); zeroed at load.
+ * - `rodata` — **read-only** data (`.rodata`): string literals and `const` values.
+ *
+ * Each sub-segment is a list of ordinary {@link Cell}s, reusing the full scalar/pointer/array/struct
+ * union — so a `.data` global can be a `struct`, a `.rodata` entry a string `ArrayCell`, and a
+ * pointer (on the stack or in `.data`) can target a `.rodata` string. Like frames and heap blocks,
+ * every cell keeps a **stable id across steps** (e.g. `g@<addr>` / `s@<name>`), unique across the
+ * whole step (frames + heap + static together) so arrows and animations follow it.
+ *
+ * @remarks Added in Phase 24 (additive). A step without {@link Step.staticData} is unchanged — the
+ * static region simply isn't drawn, so existing traces render identically. The **canonical mirror**
+ * in `se-viz-tracer` `docs/trace-contract.ts`, plus the tracer mapper/oracle that will populate
+ * these segments for live-coding, must be synced in the **backend phase** (not edited here).
+ */
+export interface StaticSegment {
+  /** `.data` — initialized nonzero globals & statics. */
+  data: Cell[];
+  /** `.bss` — zero / uninitialized globals & statics. */
+  bss: Cell[];
+  /** `.rodata` — read-only: string literals and `const` data. */
+  rodata: Cell[];
+}
+
+/**
  * One stack frame (one function activation). The engine treats {@link StackFrame.stack | the
  * stack} as an ordered array; see {@link Step.stack} for the ordering convention.
  */
@@ -276,6 +306,17 @@ export interface Step {
   /** Heap allocations live at this step. Empty array in Phase 0. */
   heap: HeapBlock[];
   /**
+   * The static / data segment for this step (Phase 24, additive): file-scope globals and `static`s,
+   * split into `.data` / `.bss` / `.rodata` (see {@link StaticSegment}). Globals/statics live here
+   * for the program's whole lifetime, **not** on the stack — so a *local* array reads as stack and a
+   * *global* reads as static. Omit for traces with no statics; the static region is then not drawn
+   * and the step renders exactly as before.
+   *
+   * @remarks Added in Phase 24. The `se-viz-tracer` contract mirror + mapper + oracle are synced in
+   * the backend phase.
+   */
+  staticData?: StaticSegment;
+  /**
    * Id of the single element (frame, cell, or heap block) that is "current" this step — it gets
    * the amber active ring + badge. Exactly one element is current per step (design law). Optional
    * and additive; omit for steps with no focal element.
@@ -378,6 +419,15 @@ export interface Trace {
    * @remarks Added in Phase 1.
    */
   heapLayout?: 'row' | 'column';
+  /**
+   * Hint for the static / data region (Phase 24): `'full'` shows all three sub-trays —
+   * `.data`/`.bss`/`.rodata` — **even when empty**, so a *memory-layout lesson* can teach the
+   * complete map. Absent or `'auto'` shows only the non-empty sub-trays (and the whole static
+   * region is hidden when a step has no {@link Step.staticData}). Optional/additive.
+   *
+   * @remarks Added in Phase 24.
+   */
+  staticLayout?: 'auto' | 'full';
   /**
    * Which renderer plays this trace (Phase 11, additive). Absent or `'memory'` selects the
    * live-memory canvas (Phases 0–10), **unchanged**. The other kinds are non-memory "concept views";

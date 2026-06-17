@@ -17,6 +17,12 @@ function walkCells(cells: Cell[], visit: (cell: Cell) => void): void {
   }
 }
 
+/** The static segment's cells (`.data` + `.bss` + `.rodata`), or `[]` when absent (Phase 24). */
+function staticCells(step: Step): Cell[] {
+  const s = step.staticData;
+  return s ? [...s.data, ...s.bss, ...s.rodata] : [];
+}
+
 /** Index a step's cells and heap blocks by id for O(1) target lookup. */
 export interface StepIndex {
   cells: Map<string, Cell>;
@@ -34,6 +40,9 @@ export function indexStep(step: Step): StepIndex {
     blocks.set(block.id, block);
     walkCells(block.cells, (c) => cells.set(c.id, c));
   }
+  // Static-segment cells join the lookup so a pointer can resolve to (or live in) `.data`/`.bss`/
+  // `.rodata` — e.g. a stack pointer onto a `.rodata` string, or a `.bss` array of head pointers.
+  walkCells(staticCells(step), (c) => cells.set(c.id, c));
   return { cells, blocks };
 }
 
@@ -45,6 +54,7 @@ export function collectPointerCells(step: Step): PointerCell[] {
   };
   for (const frame of step.stack) walkCells(frame.variables, push);
   for (const block of step.heap) walkCells(block.cells, push);
+  walkCells(staticCells(step), push); // pointers living in `.data`/`.bss` (e.g. a bucket array)
   return out;
 }
 

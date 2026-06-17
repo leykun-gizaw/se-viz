@@ -51,3 +51,36 @@ describe('diffSteps on the Phase 0 add trace', () => {
     expect(diff.valuesChanged).toContainEqual({ id: 'main.z', from: null, to: 7 });
   });
 });
+
+describe('diff includes static-segment cells (Phase 24)', () => {
+  const withTotal = (index: number, total: number): import('./types.ts').Step => ({
+    id: `s${index}`,
+    index,
+    narration: '',
+    highlightedLines: [],
+    stack: [],
+    heap: [],
+    staticData: {
+      data: [],
+      bss: [{ kind: 'scalar', id: 'g.total', name: 'total', type: 'int', value: total }],
+      rodata: [],
+    },
+  });
+
+  it('detects a .bss scalar value change as a pulse (so static globals animate)', () => {
+    const diff = diffSteps(withTotal(0, 0), withTotal(1, 16));
+    expect(diff.valuesChanged).toContainEqual({ id: 'g.total', from: 0, to: 16 });
+  });
+
+  it('treats an appearing static cell as added', () => {
+    const prev: import('./types.ts').Step = {
+      id: 's0',
+      index: 0,
+      narration: '',
+      highlightedLines: [],
+      stack: [],
+      heap: [],
+    };
+    expect(diffSteps(prev, withTotal(1, 0)).cellsAdded).toContain('g.total');
+  });
+});

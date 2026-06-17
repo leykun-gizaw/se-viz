@@ -66,7 +66,7 @@ function collectCells(cells: Cell[], into: Map<CellId, Cell>): void {
   }
 }
 
-/** Build the full `id -> Cell` map for a step, across every frame and heap block. */
+/** Build the full `id -> Cell` map for a step, across every frame, heap block, and static segment. */
 function indexStepCells(step: Step): Map<CellId, Cell> {
   const map = new Map<CellId, Cell>();
   for (const frame of step.stack) {
@@ -74,6 +74,14 @@ function indexStepCells(step: Step): Map<CellId, Cell> {
   }
   for (const block of step.heap as HeapBlock[]) {
     collectCells(block.cells, map);
+  }
+  // Static-segment cells diff like any other (Phase 24): a `.bss` global pulsing as it's written,
+  // a `.data` pointer retargeting, a static cell appearing — all derived here, not authored.
+  const s = step.staticData;
+  if (s) {
+    collectCells(s.data, map);
+    collectCells(s.bss, map);
+    collectCells(s.rodata, map);
   }
   return map;
 }

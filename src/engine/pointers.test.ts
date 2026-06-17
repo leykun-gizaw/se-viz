@@ -96,3 +96,40 @@ describe('arrowColorSlots (per-arrow hues)', () => {
     expect(new Set(first.map((id) => slots.get(id))).size).toBe(ARROW_PALETTE_SIZE);
   });
 });
+
+describe('static segment participates in resolution (Phase 24)', () => {
+  const s: Step = {
+    id: 's',
+    index: 0,
+    narration: '',
+    highlightedLines: [],
+    stack: [
+      {
+        id: 'main',
+        name: 'main',
+        callId: 0,
+        variables: [{ kind: 'pointer', id: 'p', name: 'p', type: 'const char *', target: 'ro.msg' }],
+      },
+    ],
+    heap: [{ id: 'blk', label: 'b', cells: [], state: 'allocated' }],
+    staticData: {
+      data: [{ kind: 'pointer', id: 'g.table', name: 'table', type: 'void *', target: 'blk' }],
+      bss: [],
+      rodata: [{ kind: 'scalar', id: 'ro.msg', name: 'msg', type: 'const char[3]', value: '"hi"' }],
+    },
+  };
+
+  it('resolves a pointer that lives in .data (→ heap block) and a stack pointer into .rodata', () => {
+    const r = new Map(resolvePointers(s).map((x) => [x.id, x]));
+    expect(r.get('g.table')?.targetKind).toBe('block'); // a static .data pointer → heap
+    expect(r.get('p')?.targetKind).toBe('cell'); // a stack pointer → a .rodata cell
+  });
+
+  it('indexStep includes static cells so they are resolvable targets', () => {
+    expect(indexStep(s).cells.has('ro.msg')).toBe(true);
+  });
+
+  it('pointersByTarget includes pointers that live in the static segment', () => {
+    expect(pointersByTarget(s).get('blk')).toContain('table');
+  });
+});

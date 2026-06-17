@@ -232,6 +232,87 @@ describe('validateTrace — concept views (Phase 11)', () => {
     expect(validateTrace(t)[0].message).toMatch(/missing its `pipeline` payload/);
   });
 
+  describe('static segment (Phase 24)', () => {
+    /** A trace with a full static segment plus a stack pointer that targets a `.rodata` string. */
+    function staticTrace(): Trace {
+      return {
+        id: 'st',
+        title: 'st',
+        language: 'c',
+        source: 'int g = 1;\nint main(void){ return 0; }\n',
+        staticLayout: 'full',
+        steps: [
+          {
+            id: 's0',
+            index: 0,
+            narration: 'n',
+            highlightedLines: [1],
+            stack: [
+              {
+                id: 'main',
+                name: 'main',
+                callId: 0,
+                variables: [
+                  { kind: 'pointer', id: 'main.p', name: 'p', type: 'const char *', target: 'ro.msg' },
+                ],
+              },
+            ],
+            heap: [],
+            staticData: {
+              data: [
+                { kind: 'scalar', id: 'd.counter', name: 'counter', type: 'int', value: 7 },
+                // a `.data` pointer that targets a `.rodata` string (cross-sub-segment)
+                { kind: 'pointer', id: 'd.label', name: 'label', type: 'const char *', target: 'ro.msg' },
+              ],
+              bss: [{ kind: 'scalar', id: 'b.total', name: 'total', type: 'int', value: 0 }],
+              rodata: [{ kind: 'scalar', id: 'ro.msg', name: '"hi"', type: 'const char[3]', value: '"hi"' }],
+            },
+            activeId: 'd.counter',
+          },
+        ],
+      };
+    }
+
+    it('accepts a well-formed static segment, incl. stack→rodata and data→rodata pointers', () => {
+      expect(validateTrace(staticTrace())).toEqual([]);
+    });
+
+    it('resolves activeId into the static segment', () => {
+      const t = staticTrace();
+      t.steps[0].activeId = 'b.total';
+      expect(validateTrace(t)).toEqual([]);
+    });
+
+    it('flags a static id that duplicates a frame id (cross-region uniqueness)', () => {
+      const t = staticTrace();
+      t.steps[0].staticData!.bss.push({ kind: 'scalar', id: 'main', name: 'x', type: 'int', value: 0 });
+      expect(validateTrace(t)[0].message).toMatch(/duplicate id/);
+    });
+
+    it('flags a pointer in .data whose target is missing', () => {
+      const t = staticTrace();
+      const label = t.steps[0].staticData!.data[1];
+      if (label.kind === 'pointer') label.target = 'ghost';
+      expect(validateTrace(t).some((x) => /targets "ghost"/.test(x.message))).toBe(true);
+    });
+
+    it('flags a stack pointer whose static target was removed', () => {
+      const t = staticTrace();
+      t.steps[0].staticData!.rodata = [];
+      // both main.p and d.label now point at the missing ro.msg
+      expect(validateTrace(t).some((x) => /targets "ro.msg"/.test(x.message))).toBe(true);
+    });
+
+    it('leaves a staticData-less trace unaffected', () => {
+      const t = staticTrace();
+      delete t.steps[0].staticData;
+      // remove the now-unresolvable pointers so the only change under test is the absence of staticData
+      t.steps[0].stack[0].variables = [];
+      t.steps[0].activeId = 'main';
+      expect(validateTrace(t)).toEqual([]);
+    });
+  });
+
   describe('coach notes (Phase 17)', () => {
     it('accepts a coach note anchored to a real element', () => {
       const t = baseTrace();

@@ -31,7 +31,18 @@ function collectCellIds(cells: Cell[], out: string[]): void {
   }
 }
 
-/** Every id declared in a step (frames, all cells, heap blocks), in declaration order with dupes. */
+/** The three static sub-segments flattened into one cell list (empty when `staticData` is absent). */
+function staticCells(step: Step): Cell[] {
+  const s = step.staticData;
+  if (!s) return [];
+  return [...s.data, ...s.bss, ...s.rodata];
+}
+
+/**
+ * Every id declared in a step (frames, all cells, heap blocks, static segment), in declaration
+ * order with dupes. The static cells join the same id universe (Phase 24) so cross-region
+ * uniqueness is enforced and pointers may target static cells.
+ */
 function allIdsInStep(step: Step): string[] {
   const ids: string[] = [];
   for (const frame of step.stack) {
@@ -42,6 +53,7 @@ function allIdsInStep(step: Step): string[] {
     ids.push(block.id);
     collectCellIds(block.cells, ids);
   }
+  collectCellIds(staticCells(step), ids);
   return ids;
 }
 
@@ -54,9 +66,10 @@ function sourceLineCount(source: string): number {
  * Validate a single trace against the structural invariants:
  * - `steps[i].index === i`;
  * - every `highlightedLines` entry is within `1..sourceLineCount`;
- * - ids (frames, cells, heap blocks) are unique within a step;
+ * - ids (frames, cells, heap blocks, and static-segment cells) are unique within a step;
  * - `activeId` (when present) resolves to an id present in that step;
- * - every non-null pointer `target` resolves to an id present in that step;
+ * - every non-null pointer `target` (on the stack, heap, or in the static segment) resolves to an
+ *   id present in that step — including targets that land in `.data` / `.bss` / `.rodata`;
  * - every annotation `fromId` / `toId` resolves to an id present in that step.
  *
  * @param trace - The trace to validate.
@@ -125,6 +138,9 @@ export function validateTrace(trace: Trace): TraceIssue[] {
     };
     step.stack.forEach((f) => checkPointerTargets(f.variables));
     step.heap.forEach((b) => checkPointerTargets(b.cells));
+    // Static-segment pointers resolve against the same id universe — a `.data`/`.bss` global may
+    // point into `.rodata`, the heap, or the stack, and a stack/heap pointer may point into static.
+    checkPointerTargets(staticCells(step));
 
     for (const ann of step.annotations ?? []) {
       if (!idSet.has(ann.fromId)) {
