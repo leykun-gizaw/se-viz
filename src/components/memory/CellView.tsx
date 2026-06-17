@@ -120,14 +120,24 @@ function PointerRow({ cell }: { cell: PointerCell }) {
 }
 
 function ArrayCellView({ cell }: { cell: ArrayCell }) {
-  // The container does NOT claim `cell.id` as an anchor — the array's summary row in the stack
-  // frame owns that id. Here only the element ids register, so pointer arrows resolve to elements.
+  // The array renders in exactly one place (its owning frame, the static segment, or a heap block),
+  // so the container claims `cell.id` as its anchor and shows the active ring; the elements register
+  // their own ids too, so pointer arrows / pointer-arithmetic arcs resolve to individual elements.
+  const ref = useAnchorRef(cell.id);
   const { activeId, targetedBy, pulsing } = useMemoryRender();
+  const active = activeId === cell.id;
   return (
-    <div className="inline-flex flex-col gap-1">
+    <div
+      ref={ref}
+      data-coach-anchor={cell.id}
+      className={`inline-flex flex-col gap-1 rounded-md ${
+        active ? 'p-1 ring-1 ring-active' : ''
+      }`}
+    >
       {cell.name ? (
-        <span className="font-mono text-[11px] text-ink-muted">
+        <span className="flex items-baseline gap-1.5 font-mono text-[11px] text-ink-muted">
           {cell.name} <span className="text-ink-faint">{cell.type}</span>
+          {active ? <ActiveBadge /> : null}
         </span>
       ) : null}
       <div className="flex">

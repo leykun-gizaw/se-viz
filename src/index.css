@@ -45,6 +45,8 @@
   --se-changed-soft: rgba(67, 209, 138, 0.18);
   --se-danger: #f0586a; /* red: dangling pointer / UB */
   --se-danger-soft: rgba(240, 88, 106, 0.14);
+  --se-static: #b388f5; /* violet: static/data segment (.data/.bss/.rodata) — globals & statics */
+  --se-static-soft: rgba(179, 136, 245, 0.14);
 
   /*
    * Arrow palette — pointer arrows cycle these hues (stable per pointer) so parallel arrows stay
@@ -97,6 +99,8 @@
   --se-changed-soft: rgba(21, 163, 91, 0.16);
   --se-danger: #d4313f;
   --se-danger-soft: rgba(212, 49, 63, 0.12);
+  --se-static: #7c4fd0; /* violet, darkened for light surfaces */
+  --se-static-soft: rgba(124, 79, 208, 0.12);
 
   /* Arrow palette, darkened for light surfaces (slot 0 tracks --se-pointer automatically). */
   --se-arrow-1: #c026d3;
@@ -138,6 +142,8 @@
   --color-changed-soft: var(--se-changed-soft);
   --color-danger: var(--se-danger);
   --color-danger-soft: var(--se-danger-soft);
+  --color-static: var(--se-static);
+  --color-static-soft: var(--se-static-soft);
 
   --color-kw: var(--se-syntax-keyword);
   --color-ty: var(--se-syntax-type);

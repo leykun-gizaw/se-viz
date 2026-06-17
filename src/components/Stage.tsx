@@ -91,6 +91,7 @@ export function Stage({
                 step={displayStep}
                 prevStep={displayPrevStep}
                 heapLayout={trace.heapLayout}
+                staticLayout={trace.staticLayout}
               />
             </div>
             <ConsolePanel step={displayStep} />

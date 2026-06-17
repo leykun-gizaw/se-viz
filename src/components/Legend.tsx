@@ -60,6 +60,11 @@ export function Legend() {
           desc="Neutral / desaturated, so it recedes."
         />
         <SwatchRow
+          swatch={<span className="h-5 w-9 rounded-md border border-static bg-static-soft" />}
+          title="Static / global data"
+          desc=".data · .bss · .rodata — globals & statics that live for the whole program; violet."
+        />
+        <SwatchRow
           swatch={
             <span className="h-5 w-9 rounded-md border border-dashed border-hairline-strong" />
           }
