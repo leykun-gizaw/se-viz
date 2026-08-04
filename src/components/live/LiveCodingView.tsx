@@ -15,13 +15,22 @@ import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panel
 import type { Trace } from '../../engine/trace/types.ts';
 import { useTrace } from '../../engine/trace/useTrace.ts';
 import { useKeyboardControls } from '../../hooks/useKeyboardControls.ts';
+import { usePersistentState } from '../../hooks/usePersistentState.ts';
 import type { Theme } from '../../hooks/useTheme.ts';
+import {
+  COMPILE_FLAGS_KEY,
+  DEFAULT_FLAGS,
+  parseStoredFlags,
+  type CompileFlag,
+} from '../../live/compileOptions.ts';
 import { DEFAULT_PROGRAM } from '../../live/defaultProgram.ts';
 import {
   errorHeadline,
   INITIAL_RUN_STATE,
   runReducer,
   truncationBanner,
+  warningsHeadline,
+  werrorExplanation,
 } from '../../live/runState.ts';
 import { postTrace, type LiveError } from '../../live/tracerClient.ts';
 import { PresentationMode } from '../PresentationMode.tsx';
@@ -29,10 +38,19 @@ import { Stage } from '../Stage.tsx';
 import { Mark, ThemeToggle } from '../TopBar.tsx';
 import { Transport } from '../Transport.tsx';
 import { CodeEditor } from './CodeEditor.tsx';
+import { CompileOptions } from './CompileOptions.tsx';
 
-/** Console-style failure panel. Only compile errors expose the raw backend details (gcc output). */
-function ErrorPanel({ error }: { error: LiveError }) {
+/**
+ * Console-style failure panel. Only compile errors expose the raw backend details (gcc output).
+ *
+ * When `-Werror` was on, an explanation goes **above** the gcc output: otherwise a student reads
+ * "your program did not compile" over what is only a warning and concludes the tool is broken.
+ * `invalid_request` shows the backend's own message — the UI can only produce allowlisted flag
+ * combinations, so seeing one means the two allowlists have drifted, and that must be diagnosable.
+ */
+function ErrorPanel({ error, flags }: { error: LiveError; flags: readonly CompileFlag[] }) {
   const isCompile = error.code === 'compile_error';
+  const werror = werrorExplanation(error.code, flags);
   return (
     <div className="flex max-h-52 flex-col overflow-hidden rounded-lg border border-danger/40 bg-surface">
       <div className="border-b border-hairline px-4 py-1.5">
@@ -42,12 +60,64 @@ function ErrorPanel({ error }: { error: LiveError }) {
       </div>
       <div className="flex min-h-0 flex-col gap-1.5 overflow-auto px-4 py-2.5">
         <span className="font-sans text-sm text-ink">{errorHeadline(error.code)}</span>
+        {werror ? (
+          <span className="font-sans text-xs text-ink-muted">
+            <code className="se-code text-ink">-Werror</code>
+            {werror.replace('-Werror', '')}
+          </span>
+        ) : null}
+        {error.code === 'invalid_request' ? (
+          <span className="font-sans text-xs text-ink-muted">{error.message}</span>
+        ) : null}
         {isCompile && error.details ? (
           <pre className="se-code whitespace-pre-wrap text-xs leading-5 text-danger">
             {error.details}
           </pre>
         ) : null}
       </div>
+    </div>
+  );
+}
+
+/**
+ * The non-fatal counterpart to {@link ErrorPanel}: the program compiled and ran, but gcc had
+ * something to say. This is what makes the `-Wall`/`-Wextra` defaults observable — without it,
+ * ticking the default boxes changes nothing a student can see.
+ *
+ * A native `<details>`, **open by default**: the header and count are visible without interaction
+ * (the spec's requirement), and the text itself is too, because a warning a student has to click
+ * to discover is a warning they will not read. They can collapse it.
+ */
+function WarningsPanel({ warnings }: { warnings: string }) {
+  return (
+    <details
+      open
+      className="flex max-h-44 flex-col overflow-hidden rounded-lg border border-active/50 bg-surface"
+    >
+      <summary className="cursor-pointer list-none border-b border-hairline px-4 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-wider text-active">
+        ⚠ {warningsHeadline(warnings)}
+      </summary>
+      <div className="max-h-32 overflow-auto px-4 py-2.5">
+        <pre className="se-code whitespace-pre-wrap text-xs leading-5 text-ink-muted">
+          {warnings}
+        </pre>
+      </div>
+    </details>
+  );
+}
+
+/** The compile command the run actually used — teaching surface, not chrome. */
+function CompiledWith({ flags }: { flags: readonly string[] }) {
+  return (
+    <div className="flex items-center gap-2 border-b border-hairline bg-surface px-4 py-1">
+      {/* Not "Compiled with" — that is the warnings panel's header, and the two sit one above the
+          other when a run warns. */}
+      <span className="font-sans text-[10px] uppercase tracking-wider text-ink-faint">
+        Compile command
+      </span>
+      <code className="se-code truncate text-[11px] text-ink-muted">
+        gcc {flags.join(' ')} …
+      </code>
     </div>
   );
 }
@@ -111,19 +181,40 @@ export function LiveCodingView({ theme, onToggleTheme }: LiveCodingViewProps) {
   const inflightRef = useRef(false);
   const [stdin, setStdin] = useState('');
 
+  // The student's flag selection, remembered across reloads. `usePersistentState` returns whatever
+  // JSON was in storage, so it is typed `unknown` and re-validated here on every read: a stale key
+  // from an older build or a hand-edited value falls back to the defaults rather than posting a
+  // flag the backend would reject.
+  const [storedFlags, setStoredFlags] = usePersistentState<unknown>(COMPILE_FLAGS_KEY, [
+    ...DEFAULT_FLAGS,
+  ]);
+  const flags = useMemo(() => parseStoredFlags(storedFlags), [storedFlags]);
+
   const { status } = state;
   const loading = status.phase === 'loading';
   // Persisted, draggable editor↕result split (same mechanism as the Stage's code/memory split).
   const split = useDefaultLayout({ id: 'se-viz-live-split', storage: localStorage });
 
+  // `flags` is a dependency, so each render's `run` closes over the selection as it stands at click
+  // time. Changing the picker mid-run cannot relabel the result: the launched flags were already
+  // handed to the reducer, and `state.flags` — not this variable — is what the result is labelled
+  // with. (CodeEditor keeps ⌘/Ctrl+Enter pointed at the latest `run` via its own effect-synced ref.)
   const run = useCallback(async () => {
     if (inflightRef.current) return;
     inflightRef.current = true;
-    dispatch({ type: 'run' });
-    const result = await postTrace(sourceRef.current, stdin === '' ? {} : { stdin });
+    dispatch({ type: 'run', flags });
+    const result = await postTrace(sourceRef.current, {
+      ...(stdin === '' ? {} : { stdin }),
+      flags,
+    });
     inflightRef.current = false;
     dispatch({ type: 'settled', result });
-  }, [stdin]);
+  }, [stdin, flags]);
+
+  // What to print in "Compiled with": the backend's echo when it sent one, else what we sent.
+  const shownFlags =
+    status.phase === 'success' ? (status.appliedFlags ?? state.flags) : state.flags;
+  const settled = status.phase === 'success' || status.phase === 'error';
 
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-bg">
@@ -152,6 +243,11 @@ export function LiveCodingView({ theme, onToggleTheme }: LiveCodingViewProps) {
                 live.c
               </span>
               <div className="ml-auto flex items-center gap-3">
+                <CompileOptions
+                  flags={flags}
+                  onChange={(next) => setStoredFlags(next)}
+                  disabled={loading}
+                />
                 <label className="flex items-center gap-1.5 font-sans text-xs text-ink-muted">
                   stdin
                   <input
@@ -208,9 +304,17 @@ export function LiveCodingView({ theme, onToggleTheme }: LiveCodingViewProps) {
 
         <Panel id="result" minSize="15%" className="min-h-0">
           <div className="flex h-full min-h-0 flex-col">
+            {settled ? <CompiledWith flags={shownFlags} /> : null}
+
             {status.phase === 'error' ? (
               <div className="px-4 pt-4">
-                <ErrorPanel error={status.error} />
+                <ErrorPanel error={status.error} flags={state.flags} />
+              </div>
+            ) : null}
+
+            {status.phase === 'success' && status.warnings !== undefined ? (
+              <div className="px-4 pt-3">
+                <WarningsPanel warnings={status.warnings} />
               </div>
             ) : null}
 
