@@ -50,14 +50,32 @@ export interface LiveError {
   details?: string;
 }
 
-/** The outcome of {@link postTrace}: a validated trace (maybe truncated) or a typed error. */
+/**
+ * The outcome of {@link postTrace}: a validated trace (maybe truncated) or a typed error.
+ *
+ * `flags` and `warnings` are both **optional on purpose** — a tracer older than its Phase 08 sends
+ * neither, and the deployed backend may lag this frontend.
+ */
 export type PostTraceResult =
-  | { ok: true; trace: Trace; truncated?: Truncation }
+  | {
+      ok: true;
+      trace: Trace;
+      truncated?: Truncation;
+      /** The flags the backend says it actually compiled with (de-duplicated, canonical order). */
+      flags?: string[];
+      /** gcc's warnings from a build that compiled anyway — what makes `-Wall`/`-Wextra` visible. */
+      warnings?: string;
+    }
   | { ok: false; error: LiveError };
 
 export interface PostTraceOptions {
   /** Text piped to the program's stdin. Omitted from the request body when undefined. */
   stdin?: string;
+  /**
+   * Allowlisted compile flags (see `src/live/compileOptions.ts`). Omitted from the request body
+   * when empty, so a caller that never sets them sends byte-for-byte the pre-Phase-25 request.
+   */
+  flags?: readonly string[];
   /** Override the env-derived config (tests). `postTrace` fails as `unavailable` when both are null. */
   config?: TracerConfig | null;
   /** Client-side abort timeout. Generous: the backend kills runaway programs itself (408). */
@@ -107,6 +125,13 @@ function extractTruncation(v: unknown): Truncation | null {
   return { reasons, originalSteps: v.originalSteps };
 }
 
+/** Narrow the echoed `flags`; anything malformed is dropped rather than failing the run. */
+function extractFlags(v: unknown): string[] | null {
+  if (!Array.isArray(v)) return null;
+  const entries: unknown[] = v;
+  return entries.every((f) => typeof f === 'string') ? (entries as string[]) : null;
+}
+
 /**
  * Minimal structural gate before handing the payload to {@link validateTrace} (which assumes a
  * well-formed `Trace` and would throw on junk). Field-level invariants are then validateTrace's job.
@@ -145,7 +170,11 @@ export async function postTrace(
         'Content-Type': 'application/json',
         ...(config.token ? { Authorization: `Bearer ${config.token}` } : {}),
       },
-      body: JSON.stringify({ source, ...(options.stdin !== undefined ? { stdin: options.stdin } : {}) }),
+      body: JSON.stringify({
+        source,
+        ...(options.stdin !== undefined ? { stdin: options.stdin } : {}),
+        ...(options.flags && options.flags.length > 0 ? { flags: [...options.flags] } : {}),
+      }),
       signal: controller.signal,
     });
   } catch {
@@ -186,5 +215,15 @@ export async function postTrace(
   }
 
   const truncated = extractTruncation(body.truncated);
-  return { ok: true, trace, ...(truncated ? { truncated } : {}) };
+  const flags = extractFlags(body.flags);
+  // A blank/whitespace-only warnings string is treated as absent, so the UI never renders an
+  // empty "Compiled with warnings" panel.
+  const warnings = typeof body.warnings === 'string' && body.warnings.trim() ? body.warnings : null;
+  return {
+    ok: true,
+    trace,
+    ...(truncated ? { truncated } : {}),
+    ...(flags ? { flags } : {}),
+    ...(warnings !== null ? { warnings } : {}),
+  };
 }

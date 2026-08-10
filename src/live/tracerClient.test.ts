@@ -75,6 +75,30 @@ describe('postTrace — request shape', () => {
     expect(init?.headers).toMatchObject({ Authorization: 'Bearer sekret' });
   });
 
+  it('includes flags in the body when non-empty', async () => {
+    const fetchMock = mockFetch(async () => jsonResponse({ trace: validTrace() }));
+    await postTrace('src', { flags: ['-Wall', '-Wextra', '-std=c11'], config: CONFIG });
+
+    const [, init] = fetchMock.mock.calls[0];
+    expect(JSON.parse(String(init?.body))).toEqual({
+      source: 'src',
+      flags: ['-Wall', '-Wextra', '-std=c11'],
+    });
+  });
+
+  it('omits the flags KEY entirely when empty or absent (byte-for-byte the old request)', async () => {
+    const fetchMock = mockFetch(async () => jsonResponse({ trace: validTrace() }));
+
+    await postTrace('src', { flags: [], config: CONFIG });
+    const empty = JSON.parse(String(fetchMock.mock.calls[0][1]?.body)) as Record<string, unknown>;
+    expect('flags' in empty).toBe(false);
+    expect(empty).toEqual({ source: 'src' });
+
+    await postTrace('src', { config: CONFIG });
+    const absent = JSON.parse(String(fetchMock.mock.calls[1][1]?.body)) as Record<string, unknown>;
+    expect('flags' in absent).toBe(false);
+  });
+
   it('fails as unavailable (without fetching) when no tracer is configured', async () => {
     const fetchMock = mockFetch(async () => jsonResponse({ trace: validTrace() }));
     const result = await postTrace('src', { config: null });
@@ -109,6 +133,48 @@ describe('postTrace — success shapes', () => {
         originalSteps: 5000,
       });
     }
+  });
+
+  it('threads the echoed flags and warnings through', async () => {
+    const gcc = "u.c:4:9: warning: unused variable 'x' [-Wunused-variable]";
+    mockFetch(async () =>
+      jsonResponse({ trace: validTrace(), flags: ['-Wall', '-std=c11'], warnings: gcc }),
+    );
+    const result = await postTrace('src', { config: CONFIG });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.flags).toEqual(['-Wall', '-std=c11']);
+      expect(result.warnings).toBe(gcc);
+    }
+  });
+
+  it('tolerates a success WITHOUT the echoed flags or warnings (an older tracer)', async () => {
+    mockFetch(async () => jsonResponse({ trace: validTrace() }));
+    const result = await postTrace('src', { config: CONFIG });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.flags).toBeUndefined();
+      expect(result.warnings).toBeUndefined();
+    }
+  });
+
+  it('drops malformed flags/warnings rather than failing the run', async () => {
+    mockFetch(async () =>
+      jsonResponse({ trace: validTrace(), flags: 'not-an-array', warnings: 42 }),
+    );
+    const result = await postTrace('src', { config: CONFIG });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.flags).toBeUndefined();
+      expect(result.warnings).toBeUndefined();
+    }
+  });
+
+  it('treats a blank warnings string as absent (no empty panel)', async () => {
+    mockFetch(async () => jsonResponse({ trace: validTrace(), warnings: '   \n ' }));
+    const result = await postTrace('src', { config: CONFIG });
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.warnings).toBeUndefined();
   });
 
   it('rejects a 200 whose trace fails validateTrace (never feed the renderer bad data)', async () => {
