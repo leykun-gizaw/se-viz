@@ -46,13 +46,70 @@ export interface CallTreeNode {
 }
 
 /**
+ * One node in a `pipeline` diagram (Phase 26). Echoes the Phase 11/12 Build-pipeline view: an
+ * `artifact` is a file on disk (`main.c`, `libshapes.a`), a `process` is a tool run (`cc -c`, `ar`).
+ * `stage` picks the column; `highlight` paints the node and its outgoing edges amber; `accent` is the
+ * final-product teal the visualization gives `app`.
+ */
+export interface PipelineDiagramNode {
+  id: string;
+  kind: 'artifact' | 'process';
+  label: string;
+  sublabel: string | null;
+  stage: number;
+  highlight: boolean;
+  accent: boolean;
+}
+
+/** A directed `pipeline` edge between two declared node ids. */
+export interface PipelineDiagramEdge {
+  from: string;
+  to: string;
+}
+
+/** One symbol in a `symbol-table` section; `unresolved` (needs only) renders in the danger style. */
+export interface SymbolEntry {
+  name: string;
+  unresolved: boolean;
+}
+
+/** One file box in a `symbol-table` diagram: its name, column, and two symbol sections. */
+export interface SymbolFile {
+  name: string;
+  column: number;
+  defines: SymbolEntry[];
+  needs: SymbolEntry[];
+}
+
+/** A symbol reference `file:symbol`. */
+export interface SymbolRef {
+  file: string;
+  symbol: string;
+}
+
+/** A resolve edge from a `needs` entry to a `defines` entry; `failed` draws it broken (danger, dashed). */
+export interface SymbolEdge {
+  from: SymbolRef;
+  to: SymbolRef;
+  failed: boolean;
+}
+
+/**
  * A declarative, in-house diagram (Phase 22) — parsed from a fenced block (` ```call-stack ` /
- * ` ```call-tree `) to a typed spec, rendered to **SVG with the design tokens** by the renderer
- * (never raw HTML). Extend by adding a `kind` here + a case in `parseDiagram` + the renderer.
+ * ` ```call-tree ` / ` ```pipeline ` / ` ```symbol-table `) to a typed spec, rendered to **SVG with
+ * the design tokens** by the renderer (never raw HTML). Extend by adding a `kind` here + a case in
+ * `parseDiagram` + the renderer.
  */
 export type Diagram =
   | { kind: 'call-stack'; caption: string | null; frames: CallStackFrame[] }
-  | { kind: 'call-tree'; caption: string | null; root: CallTreeNode | null };
+  | { kind: 'call-tree'; caption: string | null; root: CallTreeNode | null }
+  | {
+      kind: 'pipeline';
+      caption: string | null;
+      nodes: PipelineDiagramNode[];
+      edges: PipelineDiagramEdge[];
+    }
+  | { kind: 'symbol-table'; caption: string | null; files: SymbolFile[]; edges: SymbolEdge[] };
 
 /** Block (paragraph-level) node. */
 export type Block =
@@ -245,7 +302,9 @@ function indentOf(line: string): number {
 }
 
 /** Fenced info-strings handled as in-house diagrams rather than code (Phase 22). Extend here. */
-export const DIAGRAM_LANGS = new Set(['call-stack', 'call-tree']);
+export const DIAGRAM_LANGS = new Set(['call-stack', 'call-tree', 'pipeline', 'symbol-table']);
+
+const CAPTION = /^caption:\s*(.*)$/i;
 
 /** Parse a `call-stack` body: an optional `caption:` line, then one `frame` per line. */
 function parseCallStack(body: string): Diagram {
@@ -301,9 +360,160 @@ function parseCallTree(body: string): Diagram {
   return { kind: 'call-tree', caption, root };
 }
 
-/** Parse a fenced diagram block by its info-string into a typed {@link Diagram}. */
-export function parseDiagram(lang: string, body: string): Diagram {
+/**
+ * Parse a `pipeline` body (Phase 26). Line types, in any order:
+ * - `caption: …`
+ * - a **node** (has a `|`): `ID[: LABEL] | part | part …`, where each part is a keyword — `artifact`
+ *   (default) / `process`, `@N` (the stage/column, required), `highlight`, `accent` — or at most one
+ *   free-text sublabel. `LABEL` defaults to `ID`.
+ * - an **edge** chain: `a -> b` (or `a -> b -> c`), between declared ids.
+ *
+ * Strict: any unrecognized line, a missing stage, a duplicate id, or an edge to an unknown id makes
+ * the whole block malformed (`null`), so it falls back to a visible code block for the author to fix.
+ */
+function parsePipeline(body: string): Diagram | null {
+  let caption: string | null = null;
+  const nodes: PipelineDiagramNode[] = [];
+  const edges: PipelineDiagramEdge[] = [];
+  for (const raw of body.split('\n')) {
+    const line = raw.trim();
+    if (line === '') continue;
+    const cap = line.match(CAPTION);
+    if (cap) {
+      caption = cap[1].trim();
+      continue;
+    }
+    if (line.includes('|')) {
+      const [head, ...parts] = line.split('|').map((p) => p.trim());
+      const named = head.match(/^(\S+?):\s+(.+)$/);
+      const id = named ? named[1] : head;
+      if (!id || /\s/.test(id)) return null;
+      const node: PipelineDiagramNode = {
+        id,
+        kind: 'artifact',
+        label: named ? named[2].trim() : id,
+        sublabel: null,
+        stage: -1,
+        highlight: false,
+        accent: false,
+      };
+      for (const part of parts) {
+        const key = part.toLowerCase();
+        const stage = part.match(/^@(\d+)$/);
+        if (key === 'artifact' || key === 'process') node.kind = key;
+        else if (stage) node.stage = Number(stage[1]);
+        else if (key === 'highlight') node.highlight = true;
+        else if (key === 'accent') node.accent = true;
+        else if (part === '') continue;
+        else if (node.sublabel === null) node.sublabel = part;
+        else return null; // two free-text parts: ambiguous
+      }
+      if (node.stage < 0) return null;
+      nodes.push(node);
+      continue;
+    }
+    if (line.includes('->')) {
+      const ids = line.split('->').map((p) => p.trim());
+      if (ids.some((p) => p === '')) return null;
+      for (let k = 0; k + 1 < ids.length; k++) edges.push({ from: ids[k], to: ids[k + 1] });
+      continue;
+    }
+    return null;
+  }
+  const ids = new Set(nodes.map((n) => n.id));
+  if (nodes.length === 0 || ids.size !== nodes.length) return null;
+  if (edges.some((e) => !ids.has(e.from) || !ids.has(e.to))) return null;
+  return { kind: 'pipeline', caption, nodes, edges };
+}
+
+/** Split `file:symbol` at the **last** colon (file names like `libshapes.a(circle.o)` have none). */
+function parseSymbolRef(text: string): SymbolRef | null {
+  const at = text.lastIndexOf(':');
+  if (at <= 0 || at === text.length - 1) return null;
+  return { file: text.slice(0, at).trim(), symbol: text.slice(at + 1).trim() };
+}
+
+/**
+ * Parse a `symbol-table` body (Phase 26). Line types:
+ * - `caption: …`
+ * - `file NAME [@N]` — starts a file box; `@N` is its column (default: its declaration index), and
+ *   boxes sharing a column stack vertically.
+ * - `defines: a, b` / `needs: a, b!` — that box's symbols; a trailing `!` marks an **unresolved**
+ *   need (danger style). Only `needs` entries may be unresolved.
+ * - `FILE:SYM -> FILE:SYM` — a resolve edge, from a `needs` entry to another box's `defines` entry;
+ *   `-x` instead of `->` draws it **failed** (dashed danger, crossed out).
+ *
+ * Strict like {@link parsePipeline}: anything unrecognized or dangling makes the block `null`.
+ */
+function parseSymbolTable(body: string): Diagram | null {
+  let caption: string | null = null;
+  const files: SymbolFile[] = [];
+  const edges: SymbolEdge[] = [];
+  for (const raw of body.split('\n')) {
+    const line = raw.trim();
+    if (line === '') continue;
+    const cap = line.match(CAPTION);
+    if (cap) {
+      caption = cap[1].trim();
+      continue;
+    }
+    const file = line.match(/^file\s+(\S+)(?:\s+@(\d+))?$/);
+    if (file) {
+      files.push({
+        name: file[1],
+        column: file[2] !== undefined ? Number(file[2]) : files.length,
+        defines: [],
+        needs: [],
+      });
+      continue;
+    }
+    const section = line.match(/^(defines|needs):\s*(.*)$/i);
+    if (section) {
+      const current = files[files.length - 1];
+      if (!current) return null;
+      const isNeeds = section[1].toLowerCase() === 'needs';
+      for (const item of section[2].split(',').map((s) => s.trim())) {
+        if (item === '') continue;
+        const unresolved = item.endsWith('!');
+        const name = unresolved ? item.slice(0, -1).trim() : item;
+        if (!name || /\s/.test(name) || (unresolved && !isNeeds)) return null;
+        (isNeeds ? current.needs : current.defines).push({ name, unresolved });
+      }
+      continue;
+    }
+    const edge = line.match(/^(\S+)\s+-(>|x)\s+(\S+)$/);
+    if (edge) {
+      const from = parseSymbolRef(edge[1]);
+      const to = parseSymbolRef(edge[3]);
+      if (!from || !to) return null;
+      edges.push({ from, to, failed: edge[2] === 'x' });
+      continue;
+    }
+    return null;
+  }
+  const byName = new Map(files.map((f) => [f.name, f]));
+  if (files.length === 0 || byName.size !== files.length) return null;
+  for (const e of edges) {
+    const src = byName.get(e.from.file);
+    const dst = byName.get(e.to.file);
+    if (!src || !dst || src === dst) return null;
+    if (!src.needs.some((s) => s.name === e.from.symbol)) return null;
+    if (!dst.defines.some((s) => s.name === e.to.symbol)) return null;
+  }
+  return { kind: 'symbol-table', caption, files, edges };
+}
+
+/**
+ * Parse a fenced diagram block by its info-string into a typed {@link Diagram}. Returns `null` when a
+ * strict (Phase 26) kind is malformed — the caller then keeps the fence as a plain code block. The
+ * Phase 22 kinds are lenient and never return `null`.
+ */
+export function parseDiagram(lang: string, body: string): Diagram | null {
   switch (lang) {
+    case 'pipeline':
+      return parsePipeline(body);
+    case 'symbol-table':
+      return parseSymbolTable(body);
     case 'call-tree':
       return parseCallTree(body);
     case 'call-stack':
@@ -380,8 +590,9 @@ export function parseMarkdown(src: string): Block[] {
       }
       i++; // closing fence
       const body = code.join('\n');
-      if (DIAGRAM_LANGS.has(fence[1])) {
-        blocks.push({ type: 'diagram', diagram: parseDiagram(fence[1], body) });
+      const diagram = DIAGRAM_LANGS.has(fence[1]) ? parseDiagram(fence[1], body) : null;
+      if (diagram) {
+        blocks.push({ type: 'diagram', diagram });
       } else {
         blocks.push({ type: 'code', lang: fence[1], code: body });
       }

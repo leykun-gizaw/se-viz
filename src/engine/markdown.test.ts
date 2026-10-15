@@ -163,6 +163,137 @@ describe('diagram blocks', () => {
   });
 });
 
+/** Parse one fenced block and return it (diagram or fallback code block). */
+function fence(lang: string, ...lines: string[]): Block {
+  return parseMarkdown(['```' + lang, ...lines, '```'].join('\n'))[0];
+}
+
+describe('pipeline diagrams (Phase 26)', () => {
+  it('parses nodes (id, label override, kind, stage, sublabel, markers) and chained edges', () => {
+    const block = fence(
+      'pipeline',
+      'caption: one file',
+      'main.c | source | @0 | highlight',
+      'cc1: cc -c | process | compile | @1',
+      'app | @2 | accent',
+      'main.c -> cc1 -> app',
+    );
+    expect(block.type).toBe('diagram');
+    if (block.type !== 'diagram' || block.diagram.kind !== 'pipeline') return;
+    expect(block.diagram.caption).toBe('one file');
+    expect(block.diagram.nodes).toEqual([
+      {
+        id: 'main.c',
+        kind: 'artifact',
+        label: 'main.c',
+        sublabel: 'source',
+        stage: 0,
+        highlight: true,
+        accent: false,
+      },
+      {
+        id: 'cc1',
+        kind: 'process',
+        label: 'cc -c',
+        sublabel: 'compile',
+        stage: 1,
+        highlight: false,
+        accent: false,
+      },
+      {
+        id: 'app',
+        kind: 'artifact',
+        label: 'app',
+        sublabel: null,
+        stage: 2,
+        highlight: false,
+        accent: true,
+      },
+    ]);
+    expect(block.diagram.edges).toEqual([
+      { from: 'main.c', to: 'cc1' },
+      { from: 'cc1', to: 'app' },
+    ]);
+  });
+
+  it.each([
+    ['an unrecognized line', ['a.c | @0', 'this is not a node or edge']],
+    ['a node without a stage', ['a.c | source']],
+    ['an edge to an undeclared id', ['a.c | @0', 'a.c -> b.o']],
+    ['a duplicate id', ['a.c | @0', 'a.c | @1']],
+    ['two free-text sublabels', ['a.c | source | extra | @0']],
+    ['an empty edge endpoint', ['a.c | @0', 'a.c ->']],
+    ['no nodes at all', ['caption: nothing here']],
+  ])('falls back to a plain code block on %s', (_why, lines) => {
+    const block = fence('pipeline', ...lines);
+    expect(block).toEqual({ type: 'code', lang: 'pipeline', code: lines.join('\n') });
+  });
+});
+
+describe('symbol-table diagrams (Phase 26)', () => {
+  it('parses files (default + explicit columns), sections, unresolved needs, and edges', () => {
+    const block = fence(
+      'symbol-table',
+      'caption: linking',
+      'file main.o',
+      '  defines: main',
+      '  needs: area_circle, area_triangle!',
+      'file libshapes.a(circle.o) @3',
+      '  defines: area_circle',
+      'main.o:area_circle -> libshapes.a(circle.o):area_circle',
+      'main.o:area_triangle -x libshapes.a(circle.o):area_circle',
+    );
+    expect(block.type).toBe('diagram');
+    if (block.type !== 'diagram' || block.diagram.kind !== 'symbol-table') return;
+    expect(block.diagram.caption).toBe('linking');
+    expect(block.diagram.files).toEqual([
+      {
+        name: 'main.o',
+        column: 0,
+        defines: [{ name: 'main', unresolved: false }],
+        needs: [
+          { name: 'area_circle', unresolved: false },
+          { name: 'area_triangle', unresolved: true },
+        ],
+      },
+      {
+        name: 'libshapes.a(circle.o)',
+        column: 3,
+        defines: [{ name: 'area_circle', unresolved: false }],
+        needs: [],
+      },
+    ]);
+    expect(block.diagram.edges).toEqual([
+      {
+        from: { file: 'main.o', symbol: 'area_circle' },
+        to: { file: 'libshapes.a(circle.o)', symbol: 'area_circle' },
+        failed: false,
+      },
+      {
+        from: { file: 'main.o', symbol: 'area_triangle' },
+        to: { file: 'libshapes.a(circle.o)', symbol: 'area_circle' },
+        failed: true,
+      },
+    ]);
+  });
+
+  const base = ['file main.o', 'needs: f', 'file lib.o', 'defines: f'];
+  it.each([
+    ['a section before any file', ['defines: f', 'file main.o']],
+    ['an unrecognized line', [...base, 'main.o needs f']],
+    ['an edge from a defines entry', [...base, 'lib.o:f -> main.o:f']],
+    ['an edge to a symbol the target does not define', [...base, 'main.o:f -> lib.o:g']],
+    ['an edge to an unknown file', [...base, 'main.o:f -> other.o:f']],
+    ['an edge within one file', ['file a.o', 'defines: f', 'needs: f', 'a.o:f -> a.o:f']],
+    ['an unresolved marker on a definition', ['file a.o', 'defines: f!']],
+    ['a duplicate file', ['file a.o', 'file a.o']],
+    ['an edge endpoint without a symbol', [...base, 'main.o -> lib.o:f']],
+  ])('falls back to a plain code block on %s', (_why, lines) => {
+    const block = fence('symbol-table', ...lines);
+    expect(block).toEqual({ type: 'code', lang: 'symbol-table', code: lines.join('\n') });
+  });
+});
+
 describe('splitSlides', () => {
   it('splits on a top-level --- and drops empty/trailing slides', () => {
     expect(splitSlides('# One\n\n---\n\n# Two\n\n---\n')).toEqual(['# One', '# Two']);
