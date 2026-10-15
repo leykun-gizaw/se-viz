@@ -17,10 +17,20 @@ describe('Static Libraries theory deck (Phase 26)', () => {
     expect(doc).toBeDefined();
   });
 
-  it('has ~18–22 slides including the auto title slide', () => {
+  // Phase 26 set ~18–22; adding the example program's code (shapes.h, the library sources, main.c,
+  // a full build session) grew it deliberately. Keep it from sprawling further.
+  it('has ~18–26 slides including the auto title slide', () => {
     const total = slides.length + 1;
     expect(total).toBeGreaterThanOrEqual(18);
-    expect(total).toBeLessThanOrEqual(22);
+    expect(total).toBeLessThanOrEqual(26);
+  });
+
+  it('shows the example program as real C code', () => {
+    const c = blocks.flatMap((b) => (b.type === 'code' && b.lang === 'c' ? [b.code] : []));
+    expect(c.some((s) => s.includes('double area_circle(double r);'))).toBe(true); // shapes.h
+    expect(c.some((s) => s.includes('return 3.14159 * r * r;'))).toBe(true); // circle.c
+    expect(c.some((s) => s.includes('int main(void)'))).toBe(true); // main.c
+    expect(c.some((s) => s.includes('area_triangle(3.0, 4.0)'))).toBe(true); // the link error
   });
 
   it('contains no ASCII-art diagrams', () => {
