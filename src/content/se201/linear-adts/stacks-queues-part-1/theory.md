@@ -53,6 +53,24 @@ int front = 0, rear = 0, count = 0;
 
 ---
 
+## Empty, partial, full
+
+`count` alone decides the state — **Empty** is `count == 0`, **Full** is `count == CAP` — and
+each end state has one operation that must be **refused**. Every other move is a safe step:
+
+```mermaid
+%% caption: refused — dequeue on Empty (underflow), enqueue on Full (overflow)
+stateDiagram-v2
+  direction LR
+  [*] --> Empty
+  Empty --> Partial: enqueue
+  Partial --> Empty: dequeue (last item)
+  Partial --> Full: enqueue (last slot)
+  Full --> Partial: dequeue
+```
+
+---
+
 ## Wrapping around
 
 > [!idea] Modulo makes the array a ring

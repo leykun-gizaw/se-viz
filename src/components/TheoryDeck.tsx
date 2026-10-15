@@ -88,7 +88,7 @@ function TitleSlide({ doc }: { doc: TheoryDoc }) {
 }
 
 /** The 1280×720 slide, scaled to fit its own container and letterboxed. Self-measuring. */
-function SlideStage({ slide, doc }: { slide: Slide; doc: TheoryDoc }) {
+function SlideStage({ slide, doc, place }: { slide: Slide; doc: TheoryDoc; place: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const scale = useFitScale(ref);
   return (
@@ -105,7 +105,7 @@ function SlideStage({ slide, doc }: { slide: Slide; doc: TheoryDoc }) {
             <TitleSlide doc={doc} />
           ) : (
             <div className="[&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
-              <Markdown blocks={slide.blocks} scale="slide" />
+              <Markdown blocks={slide.blocks} scale="slide" place={place} />
             </div>
           )}
         </div>
@@ -229,6 +229,7 @@ export function TheoryDeck({ doc, firstModule, theme, onToggleTheme, onSelect }:
   }, [next, prev, go, total]);
 
   const slide = slides[current];
+  const place = `"${doc.title}" slide ${current + 1}`;
 
   const continueButton = firstModule ? (
     <button
@@ -278,7 +279,7 @@ export function TheoryDeck({ doc, firstModule, theme, onToggleTheme, onSelect }:
   if (presenting) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col bg-bg">
-        <SlideStage slide={slide} doc={doc} />
+        <SlideStage slide={slide} doc={doc} place={place} />
         <div className="flex items-center justify-between gap-4 border-t border-hairline bg-surface px-6 py-3">
           {transport}
           <div className="flex items-center gap-2">
@@ -389,7 +390,7 @@ export function TheoryDeck({ doc, firstModule, theme, onToggleTheme, onSelect }:
         </div>
       </header>
 
-      <SlideStage slide={slide} doc={doc} />
+      <SlideStage slide={slide} doc={doc} place={place} />
 
       <footer className="flex items-center justify-between gap-4 border-t border-hairline bg-surface px-4 py-2.5">
         {transport}

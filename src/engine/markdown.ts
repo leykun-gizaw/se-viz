@@ -95,10 +95,14 @@ export interface SymbolEdge {
 }
 
 /**
- * A declarative, in-house diagram (Phase 22) — parsed from a fenced block (` ```call-stack ` /
- * ` ```call-tree ` / ` ```pipeline ` / ` ```symbol-table `) to a typed spec, rendered to **SVG with
- * the design tokens** by the renderer (never raw HTML). Extend by adding a `kind` here + a case in
- * `parseDiagram` + the renderer.
+ * A declarative diagram parsed from a fenced block. The four **in-house** kinds (Phases 22 & 26 —
+ * ` ```call-stack ` / ` ```call-tree ` / ` ```pipeline ` / ` ```symbol-table `) parse to a typed spec
+ * that the renderer draws as **SVG with the design tokens** (never raw HTML). Extend by adding a
+ * `kind` here + a case in `parseDiagram` + the renderer.
+ *
+ * `mermaid` (Phase 27) is the general-purpose escape hatch: the engine keeps the source **verbatim**
+ * and does no Mermaid work at all (it stays synchronous and dependency-free); the renderer lazily
+ * loads Mermaid and falls back to a code block if the source doesn't render.
  */
 export type Diagram =
   | { kind: 'call-stack'; caption: string | null; frames: CallStackFrame[] }
@@ -109,7 +113,8 @@ export type Diagram =
       nodes: PipelineDiagramNode[];
       edges: PipelineDiagramEdge[];
     }
-  | { kind: 'symbol-table'; caption: string | null; files: SymbolFile[]; edges: SymbolEdge[] };
+  | { kind: 'symbol-table'; caption: string | null; files: SymbolFile[]; edges: SymbolEdge[] }
+  | { kind: 'mermaid'; caption: string | null; source: string };
 
 /** Block (paragraph-level) node. */
 export type Block =
@@ -301,8 +306,14 @@ function indentOf(line: string): number {
   return line.length - line.trimStart().length;
 }
 
-/** Fenced info-strings handled as in-house diagrams rather than code (Phase 22). Extend here. */
-export const DIAGRAM_LANGS = new Set(['call-stack', 'call-tree', 'pipeline', 'symbol-table']);
+/** Fenced info-strings handled as diagrams rather than code (Phases 22, 26, 27). Extend here. */
+export const DIAGRAM_LANGS = new Set([
+  'call-stack',
+  'call-tree',
+  'pipeline',
+  'symbol-table',
+  'mermaid',
+]);
 
 const CAPTION = /^caption:\s*(.*)$/i;
 
@@ -503,10 +514,36 @@ function parseSymbolTable(body: string): Diagram | null {
   return { kind: 'symbol-table', caption, files, edges };
 }
 
+const MERMAID_CAPTION = /^%%\s*caption:\s*(.*)$/i;
+
+/** Drop leading/trailing blank lines but keep every other character (incl. first-line indent). */
+function trimBlankLines(text: string): string {
+  return text.replace(/^\s*\n/, '').trimEnd();
+}
+
+/**
+ * Parse a ` ```mermaid ` body (Phase 27). If the **first non-blank line** is a Mermaid comment of the
+ * form `%% caption: …`, it becomes the caption and is dropped from the source; every other line is
+ * kept verbatim for Mermaid. Never returns `null` — whether the source is valid Mermaid is only
+ * known at render time, where a failure falls back to a code block.
+ */
+function parseMermaid(body: string): Diagram {
+  const lines = body.split('\n');
+  const first = lines.findIndex((l) => l.trim() !== '');
+  const cap = first === -1 ? null : lines[first].trim().match(MERMAID_CAPTION);
+  if (!cap) return { kind: 'mermaid', caption: null, source: trimBlankLines(body) };
+  const caption = cap[1].trim();
+  return {
+    kind: 'mermaid',
+    caption: caption.length > 0 ? caption : null,
+    source: trimBlankLines(lines.slice(first + 1).join('\n')),
+  };
+}
+
 /**
  * Parse a fenced diagram block by its info-string into a typed {@link Diagram}. Returns `null` when a
  * strict (Phase 26) kind is malformed — the caller then keeps the fence as a plain code block. The
- * Phase 22 kinds are lenient and never return `null`.
+ * Phase 22 kinds and `mermaid` (Phase 27) are lenient and never return `null`.
  */
 export function parseDiagram(lang: string, body: string): Diagram | null {
   switch (lang) {
@@ -514,6 +551,8 @@ export function parseDiagram(lang: string, body: string): Diagram | null {
       return parsePipeline(body);
     case 'symbol-table':
       return parseSymbolTable(body);
+    case 'mermaid':
+      return parseMermaid(body);
     case 'call-tree':
       return parseCallTree(body);
     case 'call-stack':

@@ -29,6 +29,23 @@ Work it like a scientist, not by random edits:
 
 ---
 
+## The method is a loop
+
+Once the bug **reproduces**, the rest is a loop. A wrong guess isn't a failure — it sends you back
+with a **narrower** search:
+
+```mermaid
+%% caption: every pass through the loop shrinks where the bug can hide
+flowchart LR
+  L[Localize] --> H[Hypothesize] --> T{Test}
+  T -- wrong --> H
+  T --> F[Fix] --> V{Verify}
+  V -- still broken --> L
+  V --> D([Done])
+```
+
+---
+
 ## Read like the machine
 
 The cause of most bugs is an **assumption**: "this loop obviously stops at..." Don't assume — trace

@@ -294,6 +294,54 @@ describe('symbol-table diagrams (Phase 26)', () => {
   });
 });
 
+describe('mermaid diagrams (Phase 27)', () => {
+  it('keeps the source verbatim as a mermaid diagram, not a code block', () => {
+    const lines = ['stateDiagram-v2', '  [*] --> Empty', '  Empty --> Partial: enqueue'];
+    expect(fence('mermaid', ...lines)).toEqual({
+      type: 'diagram',
+      diagram: { kind: 'mermaid', caption: null, source: lines.join('\n') },
+    });
+  });
+
+  it('lifts a first-line `%% caption:` comment into the caption and out of the source', () => {
+    expect(
+      fence('mermaid', '', '%% caption: the debugging loop', 'flowchart LR', '  A --> B'),
+    ).toEqual({
+      type: 'diagram',
+      diagram: {
+        kind: 'mermaid',
+        caption: 'the debugging loop',
+        source: 'flowchart LR\n  A --> B',
+      },
+    });
+  });
+
+  it('only treats the FIRST non-blank line as a caption; other %% comments stay in the source', () => {
+    const block = fence('mermaid', 'flowchart LR', '%% caption: not a caption', '  A --> B');
+    expect(block).toMatchObject({ type: 'diagram', diagram: { kind: 'mermaid', caption: null } });
+    if (block.type === 'diagram' && block.diagram.kind === 'mermaid') {
+      expect(block.diagram.source).toContain('%% caption: not a caption');
+    }
+  });
+
+  it('never falls back at parse time — even invalid or empty Mermaid is a mermaid diagram', () => {
+    for (const body of [['this is not mermaid ((('], [], ['%% caption: only a caption']]) {
+      const block = fence('mermaid', ...body);
+      expect(block.type).toBe('diagram');
+      expect(block.type === 'diagram' && block.diagram.kind).toBe('mermaid');
+    }
+  });
+
+  it('keeps Mermaid frontmatter (`---`) inside the fence and on one slide', () => {
+    const deck = ['## A', '', '```mermaid', '---', 'title: t', '---', 'flowchart LR', '```'];
+    expect(splitSlides(deck.join('\n'))).toHaveLength(1);
+    expect(parseMarkdown(deck.join('\n'))[1]).toMatchObject({
+      type: 'diagram',
+      diagram: { kind: 'mermaid', source: '---\ntitle: t\n---\nflowchart LR' },
+    });
+  });
+});
+
 describe('splitSlides', () => {
   it('splits on a top-level --- and drops empty/trailing slides', () => {
     expect(splitSlides('# One\n\n---\n\n# Two\n\n---\n')).toEqual(['# One', '# Two']);
