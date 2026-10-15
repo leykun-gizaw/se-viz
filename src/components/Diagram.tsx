@@ -15,6 +15,9 @@
  *   columnar layout — no layout library.
  * - `symbol-table` (Phase 26) — file boxes with `defines` / `needs` sections and resolve arrows from
  *   one box's need to another's definition; `unresolved` needs and `failed` edges use the danger token.
+ *
+ * `mermaid` (Phase 27) is not drawn here: it is delegated to {@link MermaidDiagram}, which lazily
+ * loads Mermaid. The four in-house renderers above are untouched by it.
  */
 import { hierarchy, tree } from 'd3-hierarchy';
 import type {
@@ -26,6 +29,7 @@ import type {
   SymbolEdge,
   SymbolFile,
 } from '../engine/markdown.ts';
+import { MermaidDiagram } from './MermaidDiagram.tsx';
 
 const MONO = 'font-mono';
 
@@ -706,5 +710,7 @@ export function DiagramView({ diagram }: { diagram: Diagram }) {
       return (
         <SymbolTableDiagram files={diagram.files} edges={diagram.edges} caption={diagram.caption} />
       );
+    case 'mermaid':
+      return <MermaidDiagram diagram={diagram} />;
   }
 }

@@ -139,12 +139,14 @@ must each start with `>`. The set is small and fixed:
 
 An unknown `[!type]` falls back to a plain blockquote.
 
-### Diagrams (Phases 22 & 26)
+### Diagrams (Phases 22, 26 & 27)
 
 Fenced blocks with a **diagram info-string** render to **SVG with the design tokens** (no library, no
 raw HTML; the `call-tree` layout uses the headless `d3-hierarchy`). They scale natively on the slide.
-Four types — `call-stack`, `call-tree`, `pipeline`, `symbol-table` — extend by adding a `kind` in
-`markdown.ts`'s `Diagram`, a case in `parseDiagram`, and a case in `Diagram.tsx`.
+Four in-house types — `call-stack`, `call-tree`, `pipeline`, `symbol-table` — extend by adding a
+`kind` in `markdown.ts`'s `Diagram`, a case in `parseDiagram`, and a case in `Diagram.tsx`. A fifth,
+` ```mermaid `, is the general-purpose escape hatch. See
+[When to use which diagram](#when-to-use-which-diagram-phase-27).
 
 **`call-stack`** — a vertical stack of frame boxes (declared top→bottom; put the outermost frame
 first, the deepest last, matching the memory view where the newest frame is at the bottom). One frame
@@ -239,6 +241,66 @@ plain code block, so a typo shows up as raw text on the slide rather than as a q
 
 Keep diagrams light so they fit the 16:9 slide at large size (a handful of frames / a small tree /
 ≤ 7 pipeline stages / ≤ 4 symbol boxes).
+
+### When to use which diagram (Phase 27)
+
+Two families, one rule: **if an in-house kind can draw it, use the in-house kind.**
+
+| Picture | Use |
+| --- | --- |
+| Memory: stack frames, a call at its deepest | `call-stack` |
+| Calls: a recursion tree, repeated subproblems | `call-tree` |
+| Builds: `.c → .o → .a → app`, what re-runs | `pipeline` |
+| Symbols: defines / needs, link errors, link order | `symbol-table` |
+| **Everything else** — a decision flow, a state machine, a `fork`/`wait` sequence, a struct relationship sketch | `mermaid` |
+
+The in-house kinds are the core teaching pictures. They speak the visualization's visual language
+(frame boxes, amber = current, teal = heap, danger red) and cost nothing to load. Mermaid is the
+general-purpose escape hatch for the long tail, so a one-off picture doesn't need an engine phase.
+Mermaid is **never** a replacement for an in-house kind.
+
+**` ```mermaid `** — standard [Mermaid](https://mermaid.js.org) source. If the first non-blank line
+is a Mermaid comment `%% caption: …`, it becomes the slide caption, as on the other kinds:
+
+````markdown
+```mermaid
+%% caption: every pass through the loop shrinks where the bug can hide
+flowchart LR
+  L[Localize] --> H[Hypothesize] --> T{Test}
+  T -- wrong --> H
+  T --> F[Fix] --> V{Verify}
+  V -- still broken --> L
+  V --> D([Done])
+```
+````
+
+**Supported subset:** `flowchart`, `sequenceDiagram`, `stateDiagram-v2`, `classDiagram` and
+`erDiagram`. Mermaid can parse other kinds too, but only these five are the authoring contract;
+anything else is unsupported, even if it happens to render.
+
+**How it renders:**
+
+- **Themed from the design tokens.** Shapes use the neutral surfaces with hairline borders, text is
+  Manrope at slide size, and every line and arrow is azure. The diagram re-renders live when the
+  theme flips. Don't add colors: no `style`/`classDef` fills and no `%%{init}%%` themes. The theme
+  and security keys are locked anyway, so a diagram's own directive can't change them.
+- **Strict security:** `securityLevel: 'strict'`, so there are **no click callbacks** and no links
+  out of the diagram. **No HTML labels** (`htmlLabels: false`): labels are plain SVG text, so `<b>`,
+  `<i>`, `<br>` and Markdown inside labels are not a feature. Write short plain labels instead.
+- **Layout is dagre,** the classic Mermaid layout. Mermaid 12's default ELK engine is a separate
+  ~1.4 MB download, so it is switched off. A diagram may opt back in with frontmatter
+  (`config: layout: elk`), but treat that as a last resort.
+- **Loaded lazily.** Mermaid is fetched the first time a slide with a Mermaid block opens, about
+  230 kB gzipped. Decks without one never download it.
+- **Strict at render time.** Invalid Mermaid shows its **source as a plain code block** on the slide,
+  and the browser console names the deck and slide. Like the strict in-house kinds, a typo shows up
+  as raw text rather than as a quietly wrong picture.
+
+**Fitting the slide:** a Mermaid diagram is drawn at its natural size and shrinks to the 1120 px
+slide column if it is wider. Each extra column costs legibility, so aim for **≤ 6 nodes in a row**.
+Labels on forward edges add width, so label only the edges that need it (usually the back edges).
+Self-loops in `stateDiagram-v2` lay out poorly under dagre, so put a refused or no-op transition in
+the caption or the prose instead. Check the slide in presentation mode (`f`).
 
 ## The visualization bridge
 

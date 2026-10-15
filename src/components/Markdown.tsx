@@ -14,6 +14,7 @@ import type { Block, InlineNode } from '../engine/markdown.ts';
 import { coachVariantMeta } from '../engine/trace/coach.ts';
 import { VariantIcon } from './CoachBubble.tsx';
 import { DiagramView } from './Diagram.tsx';
+import { MermaidDiagram } from './MermaidDiagram.tsx';
 
 export type MarkdownScale = 'reading' | 'slide';
 
@@ -59,6 +60,9 @@ const STYLES: Record<MarkdownScale, ScaleStyles> = {
 
 const ScaleContext = createContext<MarkdownScale>('reading');
 const useStyles = () => STYLES[useContext(ScaleContext)];
+
+/** Where the blocks live (e.g. `"Debugging" slide 4`) — names the slide in diagram warnings. */
+const PlaceContext = createContext<string | undefined>(undefined);
 
 const C_LANGS = new Set(['', 'c', 'h', 'cpp', 'cc']);
 
@@ -191,6 +195,7 @@ function ListView({ block }: { block: Extract<Block, { type: 'list' }> }) {
 
 function BlockView({ block }: { block: Block }) {
   const s = useStyles();
+  const place = useContext(PlaceContext);
   switch (block.type) {
     case 'heading': {
       const inner = <Inline nodes={block.children} />;
@@ -217,7 +222,16 @@ function BlockView({ block }: { block: Block }) {
     case 'code':
       return <CodeBlock lang={block.lang} code={block.code} />;
     case 'diagram':
-      return <DiagramView diagram={block.diagram} />;
+      // Mermaid falls back to the scale-styled code block; the in-house kinds never fail here.
+      return block.diagram.kind === 'mermaid' ? (
+        <MermaidDiagram
+          diagram={block.diagram}
+          {...(place !== undefined ? { context: place } : {})}
+          fallback={<CodeBlock lang="mermaid" code={block.diagram.source} />}
+        />
+      ) : (
+        <DiagramView diagram={block.diagram} />
+      );
     case 'table':
       return (
         <div className="my-5 overflow-x-auto">
@@ -263,17 +277,24 @@ function Blocks({ blocks }: { blocks: Block[] }) {
   );
 }
 
-/** Render a parsed Markdown block list at the given type scale (`reading` or `slide`). */
+/**
+ * Render a parsed Markdown block list at the given type scale (`reading` or `slide`). `place`
+ * optionally names where it is shown (e.g. `"Debugging" slide 4`) for render-failure warnings.
+ */
 export function Markdown({
   blocks,
   scale = 'reading',
+  place,
 }: {
   blocks: Block[];
   scale?: MarkdownScale;
+  place?: string;
 }) {
   return (
     <ScaleContext.Provider value={scale}>
-      <Blocks blocks={blocks} />
+      <PlaceContext.Provider value={place}>
+        <Blocks blocks={blocks} />
+      </PlaceContext.Provider>
     </ScaleContext.Provider>
   );
 }
