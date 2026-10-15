@@ -17,6 +17,60 @@ This is about how source becomes a runnable program — the build, not the runti
 
 ---
 
+## Our example: a tiny shapes library
+
+Every file that uses the library includes its header. The header only **declares** the functions —
+name, parameter types, return type — with **no code**:
+
+```c
+/* shapes.h — the library's interface */
+/* the #ifndef guard stops double inclusion — see Preprocessor */
+#ifndef SHAPES_H
+#define SHAPES_H
+
+double area_circle(double r);
+double area_square(double s);
+
+#endif
+```
+
+---
+
+## The library's code
+
+Each library file **defines** one function — the actual code. These two files become the library:
+
+```c
+/* circle.c */
+#include "shapes.h"
+double area_circle(double r) { return 3.14159 * r * r; }
+
+/* square.c */
+#include "shapes.h"
+double area_square(double s) { return s * s; }
+```
+
+---
+
+## The program that uses it
+
+`main.c` calls both functions but contains **neither** — it only has their declarations:
+
+```c
+#include <stdio.h>
+#include "shapes.h"
+
+int main(void) {
+    printf("%.2f\n", area_circle(1.0));   /* 3.14 */
+    printf("%.2f\n", area_square(2.0));   /* 4.00 */
+    return 0;
+}
+```
+
+How does a call reach code that lives in another file? That is the whole story of this deck.
+
+---
+
 ## Separate compilation
 
 Each `.c` file is compiled **on its own** into an **object file** (`.o`) with `cc -c`:
@@ -45,6 +99,8 @@ An object file holds two things:
 
 - **machine code** for the functions in that one `.c`
 - a **symbol table**: the names it **defines**, and the names it **needs** from elsewhere
+
+Every call in `main.c` to a function it doesn't define becomes a **need**:
 
 ```symbol-table
 caption: main.o defines main — and needs three functions it never saw the code for
@@ -168,10 +224,33 @@ The two archive members are **copied into `app`**. `printf` comes from the share
 
 ---
 
+## The whole build, start to finish
+
+Three tools, four commands — then run it:
+
+```text
+$ cc -c main.c circle.c square.c          # compile: three .o files
+$ ar rcs libshapes.a circle.o square.o    # archive
+$ cc main.o -L. -lshapes -o app           # link
+$ ./app
+3.14
+4.00
+```
+
+`cc -c` with several files still compiles each one **separately**: one `.o` per `.c`.
+
+---
+
 ## A link error you will see
 
-Say `main.c` also calls `area_triangle(3.0, 4.0)`. `shapes.h` declares it, so **compiling works**.
-But no `.c` file defines it, so **linking fails**:
+Add a declaration to `shapes.h`, and a call to `main.c` — but **no** `.c` file that defines it:
+
+```c
+double area_triangle(double b, double h);      /* shapes.h */
+printf("%.2f\n", area_triangle(3.0, 4.0));     /* main.c */
+```
+
+`cc -c main.c` compiles cleanly — the declaration is enough. **Linking** fails:
 
 ```text
 $ cc main.o -L. -lshapes -o app
@@ -256,16 +335,24 @@ libshapes.a -> ld
 ld -> app
 ```
 
-You need **both**: the header to compile `main.c`, the library to link `app`.
+You need **both**: the header's `double area_circle(double r);` to compile `main.c`, and the
+library's **definition** of it to link `app`.
 
 ---
 
 ## Why "static"
 
-"Static" means the library's code is **copied into the executable at link time**. So:
+"Static" means the library's code is **copied into the executable at link time** — so `app` no
+longer needs `libshapes.a` at all:
 
-- the finished `app` **does not need** `libshapes.a` to run — it's all inside
-- the trade-off: every program that links it gets its own copy (bigger binaries)
+```text
+$ rm libshapes.a
+$ ./app
+3.14
+4.00
+```
+
+The trade-off: every program that links it carries its **own copy** of that code (bigger binaries).
 
 ---
 
