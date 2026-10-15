@@ -130,8 +130,8 @@ caption: …
   - Undefined reference: slides 10–11. Link order: slide 12, screenshot below.
 - [x] **4. Every command, symbol name, and error message is real and internally consistent with the
   `main.c`/`circle.c`/`square.c` → `libshapes.a` → `app` example.**
-  - See §4.2. The structure was verified with a real compiler session. The Linux-specific *text* is
-    desk-checked, and I mark exactly which lines that applies to.
+  - **Executed** in Ubuntu 22.04 with gcc 11.4.0 and GNU ld 2.38. Every command, symbol and error
+    line in the deck matches the real output. Transcript in §4.2.
 - [x] **5. Diagrams legible at slide scale in both themes (dark primary) and in presentation mode.**
   - Every slide was checked in the browser, programmatically. All 20 have `scrollHeight ==
     clientHeight` on the 1280×720 canvas (no overflow), and every diagram fence rendered as an SVG
@@ -159,39 +159,57 @@ npm run dev   # → sidebar: SE 200 › Static Libraries › Theory  (f = presen
 
 ### 4.2 How the commands and symbol stories were verified
 
-**I verified the structure with a real compiler session, and desk-checked the GNU-specific text.** I
-said I'd mark which parts are which, so here they are.
+**Executed, not desk-checked.** I ran the deck's exact program through every command it shows in a
+throwaway **Ubuntu 22.04** container, using the Ubuntu toolchain students use: **gcc 11.4.0** and
+**GNU ld (Binutils) 2.38**. There were 5 files: `shapes.h`, `main.c` (calls `area_circle(1.0)` and
+`area_square(2.0)` with `printf`), `circle.c`, `square.c`, and an `area_triangle` variant of `main.c`
+plus `shapes.h`. Verbatim results:
 
-The **real session** ran on macOS (Apple clang 21) using this deck's exact program: `shapes.h`,
-`main.c` calling `area_circle(1.0)` and `area_square(2.0)` with `printf`, `circle.c` and `square.c`.
-It confirmed:
+```console
+$ nm main.o                                  # slides 4–5
+                 U area_circle
+                 U area_square
+0000000000000000 T main
+                 U printf
+$ ar rcs libshapes.a circle.o square.o && ar t libshapes.a      # slides 7, 18
+circle.o
+square.o
+$ nm -s libshapes.a                          # slide 8 (the deck shows the index part)
+Archive index:
+area_circle in circle.o
+area_square in square.o
+…
+$ cc main.o -L. -lshapes -o app && ./app     # slide 9
+3.14
+4.00
+$ nm app | grep area                         # copied in
+0000000000000790 T area_circle
+00000000000007b8 T area_square
+$ ldd app | grep libc; nm app | grep printf  # printf is NOT copied in — slides 9, 15
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000ffffbc7d0000)
+                 U printf@GLIBC_2.17
+$ cc -L. -lshapes main.o -o app2             # slide 12, wrong order
+/usr/bin/ld: main.o: in function `main':
+main.c:(.text+0xc): undefined reference to `area_circle'
+/usr/bin/ld: main.c:(.text+0x20): undefined reference to `area_square'
+collect2: error: ld returned 1 exit status
+$ cc -c main.c && cc main.o -L. -lshapes -o app   # slide 10, area_triangle variant — compile OK
+/usr/bin/ld: main.o: in function `main':
+main.c:(.text+0x38): undefined reference to `area_triangle'
+collect2: error: ld returned 1 exit status
+$ cc -c circle.c && ar rcs libshapes.a circle.o && ar t libshapes.a   # slide 16: r replaces
+circle.o
+square.o
+```
 
-- `cc -c` × 3 → `main.o`, `circle.o`, `square.o`.
-- `nm main.o`: `U area_circle`, `U area_square`, `T main`, `U printf`. This is the slide 4/5 symbol
-  table. Mach-O adds a leading `_` to each symbol; ELF doesn't, so the deck drops it.
-- `ar rcs libshapes.a circle.o square.o`, then `ar t` → `circle.o`, `square.o`. Apple `ar` also lists
-  its `__.SYMDEF SORTED` index member; GNU `ar t` doesn't.
-- `cc main.o -L. -lshapes -o app` links. `./app` prints `3.14` and `4.00`. `nm app` shows
-  `area_circle` and `area_square` as `T`, i.e. copied in.
-- Calling an undefined `area_triangle` fails at **link** time, after a clean compile.
+Every line the deck shows matches, character for character. The one exception is deliberate: the
+`.text` offset, which the deck shows as `0x…` because the real number depends on the code and the
+architecture. The container ran on **arm64** (Apple Silicon host). The message format and symbol
+tables are architecture-independent, but on a typical x86-64 laptop the offsets will differ.
 
-**Desk-checked (GNU/Linux specifics, which the macOS toolchain can't reproduce):**
-
-- The exact error wording, slide 10:
-  `/usr/bin/ld: main.o: in function `main':` / ``main.c:(.text+0x…): undefined reference to `area_triangle'`` /
-  `collect2: error: ld returned 1 exit status`. This is binutils ≥ 2.26 + gcc formatting. **The
-  `.text` offset is elided as `0x…` on purpose**, because the real number depends on the code.
-- Link order, slide 12: GNU ld (BFD), the Ubuntu default, scans archives once, at their position on
-  the command line, so `cc -L. -lshapes main.o -o app` → undefined reference. **Apple's ld64 does not
-  care about order**, so this couldn't be reproduced locally. LLVM `lld` doesn't care either.
-- `nm -s libshapes.a` → `Archive index:` / `area_circle in circle.o` / `area_square in square.o`
-  (GNU `nm --print-armap`), slide 8.
-- `printf` resolves to the shared `libc.so.6` on a default glibc system, slides 9 and 15.
-
-The recorder image (gcc 4.9, Linux) would have let me check all of these for real, but Docker
-Desktop's daemon wasn't responding during this phase. **A 2-minute check in any Ubuntu shell (or the
-recorder container) would close this:** compile the three files, run `nm main.o` and
-`nm -s libshapes.a`, link in both orders, and link the `area_triangle` variant.
+Earlier in the phase, the same program also ran through macOS (Apple clang 21) and showed the same
+structure. Mach-O prefixes `_` to each symbol, and Apple's ld64 **ignores link order**, which is why
+the Linux run was needed to confirm slide 12.
 
 ## 5. Key decisions & deviations
 
@@ -235,8 +253,7 @@ recorder container) would close this:** compile the three files, run `nm main.o`
 
 ## 7. Known issues / follow-ups
 
-- **GNU text and link order are desk-checked, not executed** (§4.2). This is the one thing I'd close
-  before merging.
+- ~~GNU text and link order desk-checked only~~: **closed**. Executed in Ubuntu 22.04 (§4.2).
 - Text widths are *estimated* from character counts, the same approach Phase 22 used. That's fine for
   JetBrains Mono, but a very long sans caption could get clipped. None in the deck are.
 - `pipeline` layout is columns only. Edges that go backwards (target stage ≤ source stage) render, but
