@@ -19,51 +19,244 @@ This is about how source becomes a runnable program — the build, not the runti
 
 ## Separate compilation
 
-> [!idea] Each `.c` becomes a `.o` independently
-> The compiler turns one source file into one **object file** (`.o`) of machine code with a table of
-> symbols it defines and ones it still needs. Change one `.c`, recompile just that one — not the rest.
+Each `.c` file is compiled **on its own** into an **object file** (`.o`) with `cc -c`:
 
-```text
-cc -c main.c      ->  main.o
-cc -c circle.c    ->  circle.o
-cc -c square.c    ->  square.o
+```pipeline
+caption: cc -c main.c · cc -c circle.c · cc -c square.c — three independent runs
+main.c | source | @0
+circle.c | source | @0
+square.c | source | @0
+cc1: cc -c | process | compile | @1
+cc2: cc -c | process | compile | @1
+cc3: cc -c | process | compile | @1
+main.o | object | @2
+circle.o | object | @2
+square.o | object | @2
+main.c -> cc1 -> main.o
+circle.c -> cc2 -> circle.o
+square.c -> cc3 -> square.o
 ```
 
 ---
 
-## The build pipeline
+## What is inside a `.o`
 
-Source flows left to right through tools into one executable:
+An object file holds two things:
 
-```text
-main.c   ┐                  ┌→ main.o ───────────────┐
-circle.c ├→ cc -c (compile) ┼→ circle.o ┐            ├→ ld → app
-square.c ┘                  └→ square.o ┴→ ar → .a ──┘
+- **machine code** for the functions in that one `.c`
+- a **symbol table**: the names it **defines**, and the names it **needs** from elsewhere
+
+```symbol-table
+caption: main.o defines main — and needs three functions it never saw the code for
+file main.o
+defines: main
+needs: area_circle, area_square, printf
 ```
-
-Each stage consumes files and produces the next: `.c` → `.o` → `.a` → executable.
 
 ---
 
-## Archiving a static library
+## Unresolved symbols are normal
 
-The `ar` tool bundles object files into a single **archive** — a `.a` static library:
+`nm` lists an object's symbol table. `T` = defined here (in the code section); `U` = **undefined** here:
+
+```text
+$ nm main.o
+                 U area_circle
+                 U area_square
+0000000000000000 T main
+                 U printf
+```
+
+> [!idea] A `.o` is allowed to have holes
+> `main.c` only needed the **declarations** in `shapes.h` to compile. Filling the holes with real
+> code is a different tool's job: the **linker**.
+
+---
+
+## The full build pipeline
+
+Source flows left to right through three tools into one executable:
+
+```pipeline
+caption: .c → .o → .a → executable — compile, archive, link
+main.c | source | @0
+circle.c | library source | @0
+square.c | library source | @0
+cc: cc -c | process | compile | @1
+main.o | object | @2
+circle.o | object | @2
+square.o | object | @2
+ar: ar rcs | process | archive | @3
+libshapes.a | static library | @4
+ld | process | link | @5
+app | executable | @6 | accent
+main.c -> cc
+circle.c -> cc
+square.c -> cc
+cc -> main.o
+cc -> circle.o
+cc -> square.o
+circle.o -> ar
+square.o -> ar
+ar -> libshapes.a
+main.o -> ld
+libshapes.a -> ld
+ld -> app
+```
+
+---
+
+## Archiving with `ar`
+
+`ar` bundles object files into one **archive** — a `.a` static library:
 
 ```text
 ar rcs libshapes.a circle.o square.o
 ```
 
-`libshapes.a` is just a container holding `circle.o` and `square.o` (plus an index). It's the reusable
-unit you can drop into other projects.
+```pipeline
+circle.o | object | @0
+square.o | object | @0
+ar: ar rcs | process | archive | @1
+libshapes.a | 2 members + index | @2
+circle.o -> ar
+square.o -> ar
+ar -> libshapes.a
+```
+
+`r` inserts (or replaces) members · `c` creates the archive · `s` writes the symbol index.
 
 ---
 
-## Linking
+## The archive index
 
-> [!idea] The linker copies in the code it needs
-> `ld` (the linker) takes `main.o`, finds its **unresolved symbols** (functions it calls but doesn't
-> define), and resolves them against `libshapes.a` — **copying** the needed object code into one
-> self-contained executable, `app`.
+The `s` in `ar rcs` writes an **index**: which member defines which symbol. `nm -s` prints it:
+
+```text
+$ nm -s libshapes.a
+Archive index:
+area_circle in circle.o
+area_square in square.o
+```
+
+The linker looks a needed symbol up in this index to find the member to pull — no scanning every
+member. (`ranlib libshapes.a` writes the same index for an archive made without `s`.)
+
+---
+
+## Linking, drawn
+
+`cc main.o -L. -lshapes -o app` hands the objects to the linker `ld`, which matches every **need**
+to a **definition**:
+
+```symbol-table
+file main.o @0
+defines: main
+needs: area_circle, area_square, printf
+file libshapes.a(circle.o) @1
+defines: area_circle
+file libshapes.a(square.o) @1
+defines: area_square
+file libc.so.6 @1
+defines: printf
+main.o:area_circle -> libshapes.a(circle.o):area_circle
+main.o:area_square -> libshapes.a(square.o):area_square
+main.o:printf -> libc.so.6:printf
+```
+
+The two archive members are **copied into `app`**. `printf` comes from the shared C library instead.
+
+---
+
+## A link error you will see
+
+Say `main.c` also calls `area_triangle(3.0, 4.0)`. `shapes.h` declares it, so **compiling works**.
+But no `.c` file defines it, so **linking fails**:
+
+```text
+$ cc main.o -L. -lshapes -o app
+/usr/bin/ld: main.o: in function `main':
+main.c:(.text+0x…): undefined reference to `area_triangle'
+collect2: error: ld returned 1 exit status
+```
+
+`ld` is complaining, not the compiler: `main.c` itself is fine.
+
+---
+
+## "undefined reference", drawn
+
+```symbol-table
+caption: every need found a home — except area_triangle
+file main.o @0
+defines: main
+needs: area_circle, area_square, area_triangle!, printf
+file libshapes.a(circle.o) @1
+defines: area_circle
+file libshapes.a(square.o) @1
+defines: area_square
+file libc.so.6 @1
+defines: printf
+main.o:area_circle -> libshapes.a(circle.o):area_circle
+main.o:area_square -> libshapes.a(square.o):area_square
+main.o:printf -> libc.so.6:printf
+```
+
+No box defines `area_triangle`, so `ld` has nothing to point it at: *undefined reference*.
+
+---
+
+## Link order
+
+`ld` reads inputs **left to right**, pulling archive members only for symbols **already needed**.
+
+✓ `cc main.o -L. -lshapes -o app`
+
+```symbol-table
+caption: main.o's needs are known by the time libshapes.a is read
+file main.o
+needs: area_circle, area_square
+file libshapes.a
+defines: area_circle, area_square
+main.o:area_circle -> libshapes.a:area_circle
+main.o:area_square -> libshapes.a:area_square
+```
+
+✗ `cc -L. -lshapes main.o -o app` → *undefined reference to `area_circle'*
+
+```symbol-table
+caption: libshapes.a was read before anything needed it — nothing was pulled
+file libshapes.a
+defines: area_circle, area_square
+file main.o
+needs: area_circle!, area_square!
+main.o:area_circle -x libshapes.a:area_circle
+main.o:area_square -x libshapes.a:area_square
+```
+
+---
+
+## Header vs library
+
+The `.h` and the `.a` answer different questions, at different times:
+
+```pipeline
+main.c | source | @0
+shapes.h | declares · compile time | @0
+cc: cc -c | process | compile | @1
+main.o | object | @2
+libshapes.a | defines · link time | @2
+ld | process | link | @3
+app | executable | @4 | accent
+main.c -> cc
+shapes.h -> cc
+cc -> main.o
+main.o -> ld
+libshapes.a -> ld
+ld -> app
+```
+
+You need **both**: the header to compile `main.c`, the library to link `app`.
 
 ---
 
@@ -74,25 +267,88 @@ unit you can drop into other projects.
 - the finished `app` **does not need** `libshapes.a` to run — it's all inside
 - the trade-off: every program that links it gets its own copy (bigger binaries)
 
-(A *shared* / dynamic library, by contrast, is loaded at run time — a topic for later.)
+---
+
+## Static vs dynamic
+
+| | Static library (`.a`) | Shared library (`.so`) |
+| --- | --- | --- |
+| Code joins the program | at **link time** — copied into `app` | at **run time** — loaded when `app` starts |
+| Needed to run `app`? | no | yes — the `.so` must be found |
+| Binary size | bigger (its own copy) | smaller (one copy, shared) |
+| Library bug fix | relink every program | replace the `.so` once |
+
+Shared libraries are a topic for later. The `printf` in our `app` already comes from one.
+
+---
+
+## Incremental rebuild
+
+Change `circle.c`, and only **its** path re-runs. `main.o` and `square.o` are reused as they are:
+
+```pipeline
+caption: amber = re-runs after editing circle.c · everything else is reused
+main.c | source | @0
+circle.c | source | @0 | highlight
+square.c | source | @0
+cc1: cc -c | process | compile | @1
+cc2: cc -c | process | compile | @1 | highlight
+cc3: cc -c | process | compile | @1
+main.o | object | @2
+circle.o | object | @2 | highlight
+square.o | object | @2
+ar: ar rcs | process | archive | @3 | highlight
+libshapes.a | static library | @4 | highlight
+ld | process | link | @5 | highlight
+app | executable | @6 | highlight
+main.c -> cc1 -> main.o
+circle.c -> cc2 -> circle.o
+square.c -> cc3 -> square.o
+circle.o -> ar
+square.o -> ar
+ar -> libshapes.a
+main.o -> ld
+libshapes.a -> ld
+ld -> app
+```
+
+```text
+cc -c circle.c  &&  ar rcs libshapes.a circle.o  &&  cc main.o -L. -lshapes -o app
+```
 
 ---
 
 ## Common pitfalls
 
 > [!watch-out] Build & link traps
-> - **"undefined reference to ..."** — you compiled but forgot to **link** the library that defines it.
-> - **Link order** — archives go **after** the objects that use them (`cc main.o -lshapes`, not before).
+> - **"undefined reference to ..."** — a need nothing defines: a missing `.c`, or a library you
+>   forgot to link (*"undefined reference", drawn*).
+> - **Link order** — archives go **after** the objects that use them (*Link order*).
 > - **Header vs library** — the `.h` only **declares**; the `.a` **defines**. You need both.
-> - **Recompiling everything** — change one `.c`, rebuild only its `.o`, then relink.
+> - **Recompiling everything** — change one `.c`, rebuild only its `.o`, then relink (*Incremental
+>   rebuild*).
+
+---
+
+## Commands recap
+
+| Command | Stage | Result |
+| --- | --- | --- |
+| `cc -c circle.c` | compile | `circle.o` (likewise `main.o`, `square.o`) |
+| `ar rcs libshapes.a circle.o square.o` | archive | `libshapes.a` with an index |
+| `ar t libshapes.a` | inspect | lists `circle.o`, `square.o` |
+| `cc main.o -L. -lshapes -o app` | link | `app` |
+
+`-L.` adds the current directory to the library search path; `-lshapes` means `libshapes.a`.
 
 ---
 
 ## Recap
 
 > [!recap] What to hold onto
-> Compile each `.c` to a `.o` independently. Bundle reusable objects into a `.a` archive with `ar`.
-> Link your program's objects against the archive with `ld` — it **copies** the needed code into a
+> Compile each `.c` to a `.o` independently — its symbol table records what it defines and what it
+> still needs. Bundle reusable objects into a `.a` with `ar rcs`. Link your objects **before** the
+> archive; `ld` matches every need to a definition and **copies** the archive members it uses into a
 > self-contained executable. Static = copied in at link time, so the binary stands alone.
 
 ---

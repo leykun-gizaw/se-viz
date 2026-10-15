@@ -139,12 +139,12 @@ must each start with `>`. The set is small and fixed:
 
 An unknown `[!type]` falls back to a plain blockquote.
 
-### Diagrams (Phase 22)
+### Diagrams (Phases 22 & 26)
 
 Fenced blocks with a **diagram info-string** render to **SVG with the design tokens** (no library, no
 raw HTML; the `call-tree` layout uses the headless `d3-hierarchy`). They scale natively on the slide.
-Two types so far — extend by adding a `kind` in `markdown.ts`'s `Diagram`, a case in `parseDiagram`,
-and a case in `Diagram.tsx`.
+Four types — `call-stack`, `call-tree`, `pipeline`, `symbol-table` — extend by adding a `kind` in
+`markdown.ts`'s `Diagram`, a case in `parseDiagram`, and a case in `Diagram.tsx`.
 
 **`call-stack`** — a vertical stack of frame boxes (declared top→bottom; put the outermost frame
 first, the deepest last, matching the memory view where the newest frame is at the bottom). One frame
@@ -176,7 +176,69 @@ fib(4)
 ```
 ````
 
-Keep diagrams light so they fit the 16:9 slide at large size (a handful of frames / a small tree).
+**`pipeline`** (Phase 26) — a left→right staged build flow, in the same visual language as the
+Build-pipeline visualization: **artifacts** (files) are solid cards with a folded corner, **processes**
+(tool runs) are dashed pills, edges are azure arrows. One item per line:
+
+- **Node** — any line containing `|`: `ID[: LABEL] | part | part …`. The label defaults to the ID; use
+  `ID: LABEL` when two nodes share a label (three `cc -c` runs → `cc1: cc -c`, `cc2: cc -c`, …). Each
+  part is one of:
+  - `@N` — the **stage**, i.e. the column (required). Columns are ordered by `N`; gaps are closed up.
+  - `artifact` (default) or `process` — the shape.
+  - `highlight` — amber node and amber **outgoing** edges. Highlight several nodes to draw a path;
+    when anything is highlighted, everything else is **dimmed**.
+  - `accent` — the teal final-product treatment the visualization gives `app`.
+  - any other text — the small uppercase **sublabel** (at most one).
+- **Edge** — `a -> b`, or a chain `a -> b -> c`, between declared IDs. An edge that skips columns runs
+  level at its source's row and bends only before its target.
+- `caption: …` — optional.
+
+````markdown
+```pipeline
+caption: amber = re-runs after editing circle.c
+circle.c | source | @0 | highlight
+cc: cc -c | process | compile | @1 | highlight
+circle.o | object | @2 | highlight
+main.o | object | @2
+ld | process | link | @3 | highlight
+app | executable | @4 | highlight
+circle.c -> cc -> circle.o -> ld -> app
+main.o -> ld
+```
+````
+
+**`symbol-table`** (Phase 26) — file boxes listing the symbols each **defines** and **needs**, with
+resolve arrows from a need to the definition that satisfies it. Boxes sit side by side; boxes that
+share a column stack vertically.
+
+- `file NAME [@N]` — starts a box. `@N` is its column (default: its position in the list). Names have
+  no spaces (`libshapes.a(circle.o)` is fine).
+- `defines: a, b` / `needs: c, d!` — the box's symbols, comma-separated. A trailing `!` marks a need
+  as **unresolved** (danger style, with an `UNRESOLVED` tag) — needs only.
+- `FILE:SYM -> FILE:SYM` — a **resolve edge**, from a `needs` entry to another box's `defines` entry
+  (split at the last `:`). Write `-x` instead of `->` for a **failed** edge: dashed danger, crossed
+  out, no arrowhead (link order gone wrong).
+- `caption: …` — optional.
+
+````markdown
+```symbol-table
+caption: every need found a home — except area_triangle
+file main.o @0
+defines: main
+needs: area_circle, area_triangle!
+file libshapes.a(circle.o) @1
+defines: area_circle
+main.o:area_circle -> libshapes.a(circle.o):area_circle
+```
+````
+
+**`pipeline` and `symbol-table` are strict.** An unrecognized line, a node without a stage, a
+duplicate ID or file, or an edge to something that isn't declared makes the whole block fall back to a
+plain code block, so a typo shows up as raw text on the slide rather than as a quietly wrong picture.
+(`call-stack` and `call-tree` are lenient, as they were in Phase 22.)
+
+Keep diagrams light so they fit the 16:9 slide at large size (a handful of frames / a small tree /
+≤ 7 pipeline stages / ≤ 4 symbol boxes).
 
 ## The visualization bridge
 
