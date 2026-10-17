@@ -17,6 +17,14 @@
 import { createContext, useContext } from 'react';
 import { arraysIn, isArray, sharedCells, writeThrough } from '../../engine/trace/ndarray.ts';
 import { diffObjects, type PyEvent } from '../../engine/trace/objectDiff.ts';
+import {
+  cellAt,
+  columnId,
+  columnKeys,
+  isTable,
+  rowId,
+  type Derivation,
+} from '../../engine/trace/pandas.ts';
 import type { Cell, Step } from '../../engine/trace/types.ts';
 
 /** What the canvas showed, and how it got there. */
@@ -111,6 +119,20 @@ export function advanceMotion(state: MotionState, step: Step): MotionState {
   };
 }
 
+/**
+ * How a new pandas table enters (Phase 35), when it was made from a table on screen a step ago:
+ * - `filter`: it first shows its source's rows, the dropped ones marked, which then fade out while
+ *   the kept rows close up (`rows` is the source's captured rows in its order, `kept` or not, with
+ *   the values shown for this table's columns, then any kept rows past a capped source's window);
+ * - `sort`: its rows start in their source order (`start`, by row key) and move to their new places.
+ */
+export type TableEntrance =
+  | {
+      kind: 'filter';
+      rows: { key: string; label: string; kept: boolean; cells: (Cell | undefined)[] }[];
+    }
+  | { kind: 'sort'; start: string[] };
+
 /** The per-element animation cues a render needs, derived from a {@link MotionState}. */
 export interface MotionCues {
   /** Play motion this render (one step away, and the user hasn't asked for reduced motion). */
@@ -141,6 +163,8 @@ export interface MotionCues {
    * existing array holding the same element, which it animates from.
    */
   flights: Map<string, string>;
+  /** pandas (Phase 35): how each new table made from a table on screen enters ({@link TableEntrance}). */
+  tables: Map<string, TableEntrance>;
 }
 
 /** `o12` → 12: object ids are numbered in first-seen order. */
@@ -179,7 +203,83 @@ function viewFlights(events: readonly PyEvent[], from: Step, step: Step): Map<st
   return flights;
 }
 
-export function motionCues(state: MotionState, reduce: boolean): MotionCues {
+/**
+ * The entrances of the new tables made this step from a table shown the step before (Phase 35), and
+ * the cues that go with them: a new column slides in (`columns-added`), a filled value cross-fades
+ * from the one it replaced (`values`). Forwards only: stepping back over it just removes the table.
+ */
+function tableEntrances(
+  state: MotionState,
+  derived: ReadonlyMap<string, Derivation>,
+  entering: Set<string>,
+  changed: Map<string, Cell>,
+): Map<string, TableEntrance> {
+  const out = new Map<string, TableEntrance>();
+  if (!state.adjacent || state.shown.index < state.fromIndex) return out;
+  for (const e of state.events) {
+    if (e.kind !== 'object-created') continue;
+    const d = derived.get(e.objectId);
+    if (!d || d.step !== state.shown.index) continue;
+    const made = state.shown.heap.find((b) => b.id === e.objectId);
+    const src = state.from.heap.find((b) => b.id === d.source);
+    if (!isTable(made) || !isTable(src)) continue;
+    const mine = made.table.rowKeys;
+    const inSource = new Set(src.table.rowKeys);
+    const all = mine.every((k) => inSource.has(k));
+    const r = d.relation;
+    if (r.kind === 'filter') {
+      const kept = new Set(mine);
+      const dropped = new Set(r.dropped);
+      const cols = columnKeys(made);
+      const sameKind = made.table.kind === src.table.kind;
+      const madeLabels = new Map(mine.map((k, i) => [k, made.table.rowLabels[i] ?? k]));
+      out.set(made.id, {
+        kind: 'filter',
+        rows: [
+          // The source's captured rows, in its order: the kept ones and the dropped ones.
+          ...src.table.rowKeys
+            .map((key, i) => ({ key, i }))
+            .filter(({ key }) => kept.has(key) || dropped.has(key))
+            .map(({ key, i }) => ({
+              key,
+              label: src.table.rowLabels[i] ?? key,
+              kept: kept.has(key),
+              cells: cols.map((c) =>
+                kept.has(key) ? cellAt(made, key, c) : sameKind ? cellAt(src, key, c) : undefined,
+              ),
+            })),
+          // Kept rows past the source's captured ones (a capped source) follow.
+          ...mine
+            .filter((k) => !inSource.has(k))
+            .map((key) => ({
+              key,
+              label: madeLabels.get(key) ?? key,
+              kept: true,
+              cells: cols.map((c) => cellAt(made, key, c)),
+            })),
+        ],
+      });
+    } else if (r.kind === 'sort' && all) {
+      const at = new Map(src.table.rowKeys.map((k, i) => [k, i]));
+      out.set(made.id, { kind: 'sort', start: [...mine].sort((a, b) => at.get(a)! - at.get(b)!) });
+    } else if (r.kind === 'columns-added') {
+      for (const key of r.added) entering.add(columnId(made.id, key));
+    } else if (r.kind === 'values') {
+      const cells = new Map(src.cells.map((c) => [c.id, c]));
+      for (const [m, s] of r.changed) {
+        const was = cells.get(s);
+        if (was) changed.set(m, was);
+      }
+    }
+  }
+  return out;
+}
+
+export function motionCues(
+  state: MotionState,
+  reduce: boolean,
+  derived: ReadonlyMap<string, Derivation> = new Map(),
+): MotionCues {
   const entering = new Set<string>();
   const changed = new Map<string, Cell>();
   const retargeted = new Set<string>();
@@ -213,13 +313,21 @@ export function motionCues(state: MotionState, reduce: boolean): MotionCues {
         retargeted.add(e.cellId);
         break;
       case 'array-reshaped':
+      case 'rows-reordered':
         restructured.add(e.objectId);
+        break;
+      case 'column-added':
+        entering.add(columnId(e.objectId, e.key));
+        break;
+      case 'row-added':
+        entering.add(rowId(e.objectId, e.key));
         break;
       default:
         // Pops, releases, unbinds and removals animate as exits of elements no longer rendered.
         break;
     }
   }
+  const tables = tableEntrances(state, derived, entering, changed);
   const shared = new Set<string>();
   if (state.adjacent) {
     const written = new Set<string>();
@@ -241,6 +349,7 @@ export function motionCues(state: MotionState, reduce: boolean): MotionCues {
     arrowsKey: reduce ? `r${state.shown.index}` : `j${state.jumps}`,
     shared,
     flights: state.adjacent ? viewFlights(state.events, state.from, state.shown) : new Map(),
+    tables,
   };
 }
 
@@ -257,6 +366,7 @@ export const NO_CUES: MotionCues = {
   arrowsKey: '',
   shared: new Set(),
   flights: new Map(),
+  tables: new Map(),
 };
 
 /** The current render's cues, for the frame, object and value views. */

@@ -28,11 +28,14 @@ function ValueContent({
   cell,
   anchored,
   format,
+  textClass,
 }: {
   cell: Cell;
   anchored: boolean;
   /** How a primitive's text is shown (Phase 34: long floats in array cells are shortened). */
   format?: ((text: string) => string) | undefined;
+  /** The primitive's text classes (Phase 35: table cells are smaller and not bold). */
+  textClass?: string | undefined;
 }) {
   if (cell.kind === 'pointer') {
     if (cell.target === null) {
@@ -50,7 +53,10 @@ function ValueContent({
   const raw = cell.kind === 'scalar' ? (cell.value === null ? '?' : String(cell.value)) : cell.type;
   const text = format ? format(raw) : raw;
   return (
-    <span title={cell.type} className="whitespace-pre font-mono text-[13px] font-semibold text-ink">
+    <span
+      title={cell.type}
+      className={textClass ?? 'whitespace-pre font-mono text-[13px] font-semibold text-ink'}
+    >
       {text}
     </span>
   );
@@ -60,13 +66,15 @@ function ValueContent({
 export function SlotValue({
   cell,
   format,
+  textClass,
 }: {
   cell: Cell;
   format?: ((text: string) => string) | undefined;
+  textClass?: string | undefined;
 }) {
   const cues = useMotionCues();
   const was = cues.changed.get(cell.id);
-  const now = <ValueContent cell={cell} anchored format={format} />;
+  const now = <ValueContent cell={cell} anchored format={format} textClass={textClass} />;
   if (!was) return now;
   if (!cues.animate) {
     // Reduced motion: no fade, but the change is still marked for this step.
@@ -85,7 +93,7 @@ export function SlotValue({
           animate={{ opacity: 0 }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
         >
-          <ValueContent cell={was} anchored={false} format={format} />
+          <ValueContent cell={was} anchored={false} format={format} textClass={textClass} />
         </motion.span>
         <motion.span
           key={`now:${cues.transition}`}

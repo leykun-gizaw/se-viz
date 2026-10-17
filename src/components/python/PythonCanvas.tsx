@@ -15,6 +15,8 @@
  *   nothing with `prefers-reduced-motion`.
  * - **NumPy arrays** (Phase 34, `NdarrayView.tsx`): grids of cells, and a dashed "view of" link from
  *   each view to its base; arrays made by arithmetic sit beside their operands.
+ * - **pandas tables** (Phase 35, `TableView.tsx`): DataFrames, Series and GroupBys; a table made from
+ *   another sits beside it with a dashed "from" link.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
@@ -26,9 +28,12 @@ import { ArrowOverlay } from '../memory/ArrowOverlay.tsx';
 import { MemoryRenderContext, type MemoryRenderState } from '../memory/renderContext.ts';
 import { ViewLinks } from './NdarrayView.tsx';
 import { CanvasElementContext } from './ndLayout.ts';
+import { derivedTables } from '../../engine/trace/pandas.ts';
 import { besideOperands, firstAppearance, layoutObjects } from './pyLayout.ts';
 import { advanceMotion, initialMotion, motionCues, MotionCuesContext } from './pyMotion.ts';
 import { FrameView, ObjectTree, Presence, Region } from './PyViews.tsx';
+import { FromLinks } from './TableView.tsx';
+import { DerivedContext, useDerived } from './tableLayout.ts';
 
 function Body({ trace, step, arrowsKey }: { trace: Trace; step: Step; arrowsKey: string }) {
   const { setCanvas, pulse } = useAnchors();
@@ -41,16 +46,27 @@ function Body({ trace, step, arrowsKey }: { trace: Trace; step: Step; arrowsKey:
   const beside = useMemo(() => besideOperands(trace), [trace]);
   const rows = useMemo(() => layoutObjects(step, rank, beside), [step, rank, beside]);
   const blocks = useMemo(() => new Map(step.heap.map((b) => [b.id, b])), [step]);
-  // Room on the right for the "view of" links' channels (NumPy views only).
-  const views = step.heap.some((b) => b.ndarray?.base != null);
+  // Room on the right for the "view of" links' channels (NumPy views), and for the "from" links'
+  // (Phase 35: pandas objects made from another one on screen).
+  const derived = useDerived();
+  const here = new Set(step.heap.map((b) => b.id));
+  const views =
+    step.heap.some((b) => b.ndarray?.base != null) ||
+    step.heap.some((b) => here.has(derived.get(b.id)?.source ?? ''));
   // Room between frames and objects for every arrow's own drop column (ArrowOverlay gives each one
-  // its own, 11 px apart): NumPy programs bind a name per array. Only on steps showing arrays, so
-  // the Phase 30 layout of other programs is unchanged.
+  // its own, 11 px apart): NumPy and pandas programs bind a name per array or table. Only on steps
+  // showing arrays or tables, so the Phase 30 layout of other programs is unchanged.
   const refs = step.stack.reduce(
     (n, f) => n + f.variables.filter((v) => v.kind === 'pointer' && v.target !== null).length,
     0,
   );
-  const arrays = step.heap.some((b) => b.objectKind === 'ndarray');
+  const arrays = step.heap.some(
+    (b) =>
+      b.objectKind === 'ndarray' ||
+      b.objectKind === 'dataframe' ||
+      b.objectKind === 'series' ||
+      b.objectKind === 'groupby',
+  );
   const gutter = arrays ? Math.max(0, 14 + refs * 11 + 8 - 50) : 0;
 
   const canvas = useRef<HTMLDivElement | null>(null);
@@ -96,6 +112,7 @@ function Body({ trace, step, arrowsKey }: { trace: Trace; step: Step; arrowsKey:
         </Region>
         <ArrowOverlay key={arrowsKey} step={step} bandPerTarget />
         <ViewLinks step={step} />
+        <FromLinks step={step} />
       </div>
     </CanvasElementContext.Provider>
   );
@@ -114,7 +131,8 @@ export default function PythonCanvas({ trace, step }: PythonCanvasProps) {
   const motion = advanceMotion(state, step);
   if (motion !== state) setState(motion);
 
-  const cues = useMemo(() => motionCues(motion, reduce), [motion, reduce]);
+  const derived = useMemo(() => derivedTables(trace), [trace]);
+  const cues = useMemo(() => motionCues(motion, reduce, derived), [motion, reduce, derived]);
   const renderState = useMemo<MemoryRenderState>(
     () => ({
       pulsing: new Set(cues.changed.keys()),
@@ -129,9 +147,11 @@ export default function PythonCanvas({ trace, step }: PythonCanvasProps) {
   return (
     <MemoryRenderContext.Provider value={renderState}>
       <MotionCuesContext.Provider value={cues}>
-        <AnchorProvider>
-          <Body trace={trace} step={step} arrowsKey={cues.arrowsKey} />
-        </AnchorProvider>
+        <DerivedContext.Provider value={derived}>
+          <AnchorProvider>
+            <Body trace={trace} step={step} arrowsKey={cues.arrowsKey} />
+          </AnchorProvider>
+        </DerivedContext.Provider>
       </MotionCuesContext.Provider>
     </MemoryRenderContext.Provider>
   );
