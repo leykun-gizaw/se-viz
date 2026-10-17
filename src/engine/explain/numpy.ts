@@ -165,6 +165,13 @@ function whichCells(block: ArrayBlock, idx: readonly number[][]): string {
     if (sameRow && idx.length === cols && cols > 1) return `row ${idx[0][0]}`;
     if (sameCol && idx.length === rows && rows > 1) return `column ${idx[0][1]}`;
   }
+  if (
+    shape.length === 3 &&
+    idx.length === shape[1] * shape[2] &&
+    idx.every((i) => i[0] === idx[0][0])
+  ) {
+    return `the slice ${code(`[${idx[0][0]}, :, :]`)}`;
+  }
   if (idx.length === 1) return `the element at ${code(`[${idx[0].join(', ')}]`)}`;
   if (idx.length <= 6) return `the elements ${list(idx.map((i) => code(`[${i.join(', ')}]`)))}`;
   return count(idx.length, 'element');
@@ -893,42 +900,72 @@ export function numpyStatement(ctx: NpCtx, stmt: PyStatement | null): NumpyDid |
   if (madeArr && ctx.pre.heap.some((b) => b.id === madeArr.id)) return null;
   if (!madeArr && npDtype(stored) === null) return null;
 
-  if (v.type === 'call') {
-    const fn = numpyFunction(ctx, v);
-    if (fn !== null) {
-      const first = arrayAt(ctx.pre, ctx.frame, v.args[0]);
-      if (first && AGGREGATES[fn]) return aggregate(ctx, fn, first, v, 1, t.id, stored, prefer);
-      if (!madeArr) return null;
-      if (first && fn === 'reshape')
-        return restructure(ctx, 'reshape', first, t.id, madeArr, prefer);
-      if (first && fn === 'transpose')
-        return restructure(ctx, 'transpose', first, t.id, madeArr, prefer);
-      if (first && fn === 'copy') return restructure(ctx, 'copy', first, t.id, madeArr, prefer);
-      return creation(ctx, fn, v, t.id, madeArr);
+  const specific = ((): NumpyDid | null => {
+    if (v.type === 'call') {
+      const fn = numpyFunction(ctx, v);
+      if (fn !== null) {
+        const first = arrayAt(ctx.pre, ctx.frame, v.args[0]);
+        if (first && AGGREGATES[fn]) return aggregate(ctx, fn, first, v, 1, t.id, stored, prefer);
+        if (!madeArr) return null;
+        if (first && fn === 'reshape')
+          return restructure(ctx, 'reshape', first, t.id, madeArr, prefer);
+        if (first && fn === 'transpose')
+          return restructure(ctx, 'transpose', first, t.id, madeArr, prefer);
+        if (first && fn === 'copy') return restructure(ctx, 'copy', first, t.id, madeArr, prefer);
+        return creation(ctx, fn, v, t.id, madeArr);
+      }
+      if (v.func.type === 'attribute') {
+        const owner = arrayAt(ctx.pre, ctx.frame, v.func.value);
+        if (!owner) return null;
+        const m = v.func.attr;
+        if (AGGREGATES[m]) return aggregate(ctx, m, owner, v, 0, t.id, stored, prefer);
+        if (!madeArr) return null;
+        if (m === 'reshape') return restructure(ctx, 'reshape', owner, t.id, madeArr, prefer);
+        if (m === 'transpose') return restructure(ctx, 'transpose', owner, t.id, madeArr, prefer);
+        if (m === 'copy') return restructure(ctx, 'copy', owner, t.id, madeArr, prefer);
+      }
+      return null;
     }
-    if (v.func.type === 'attribute') {
-      const owner = arrayAt(ctx.pre, ctx.frame, v.func.value);
-      if (!owner) return null;
-      const m = v.func.attr;
-      if (AGGREGATES[m]) return aggregate(ctx, m, owner, v, 0, t.id, stored, prefer);
-      if (!madeArr) return null;
-      if (m === 'reshape') return restructure(ctx, 'reshape', owner, t.id, madeArr, prefer);
-      if (m === 'transpose') return restructure(ctx, 'transpose', owner, t.id, madeArr, prefer);
-      if (m === 'copy') return restructure(ctx, 'copy', owner, t.id, madeArr, prefer);
+    if (v.type === 'attribute' && v.attr === 'T') {
+      const owner = arrayAt(ctx.pre, ctx.frame, v.value);
+      return owner && madeArr ? restructure(ctx, 'transpose', owner, t.id, madeArr, prefer) : null;
     }
+    if (v.type === 'subscript') {
+      const source = arrayAt(ctx.pre, ctx.frame, v.value);
+      if (!source) return null;
+      if (!madeArr) return elementRead(ctx, source, v.index, t.id, stored, prefer);
+      return subscriptArray(ctx, source, v, t.id, madeArr, prefer);
+    }
+    if ((v.type === 'binop' || v.type === 'compare') && madeArr)
+      return elementwise(ctx, v, t.id, madeArr, false);
     return null;
-  }
-  if (v.type === 'attribute' && v.attr === 'T') {
-    const owner = arrayAt(ctx.pre, ctx.frame, v.value);
-    return owner && madeArr ? restructure(ctx, 'transpose', owner, t.id, madeArr, prefer) : null;
-  }
-  if (v.type === 'subscript') {
-    const source = arrayAt(ctx.pre, ctx.frame, v.value);
-    if (!source) return null;
-    if (!madeArr) return elementRead(ctx, source, v.index, t.id, stored, prefer);
-    return subscriptArray(ctx, source, v, t.id, madeArr, prefer);
-  }
-  if ((v.type === 'binop' || v.type === 'compare') && madeArr)
-    return elementwise(ctx, v, t.id, madeArr, false);
-  return null;
+  })();
+  return specific ?? (madeArr ? newArray(ctx, v, t.id, madeArr, prefer) : null);
+}
+
+/**
+ * Any other line that made a new array (`np.arange(12).reshape(3, 4)`, `a + np.array([…])`,
+ * `np.sqrt(a)`): its shape and dtype, and whose memory it uses — nothing about how it was computed.
+ */
+function newArray(
+  ctx: NpCtx,
+  v: PyExpr,
+  target: string,
+  made: ArrayBlock,
+  prefer: ReadonlySet<string>,
+): NumpyDid {
+  const src = exprText(v);
+  const name = code(target);
+  const lead =
+    `${src ? `${code(src)} made` : 'Made'} a new ${dims(made.ndarray.shape)} ndarray of shape ` +
+    `${shp(made.ndarray.shape)}, dtype ${code(made.ndarray.dtype)}: ${name} now refers to it.`;
+  const base = made.ndarray.base;
+  const owner = base === null ? undefined : ctx.step.heap.find((b) => b.id === base);
+  const memory =
+    base === null
+      ? null
+      : namesFor(ctx.step, base).length > 0 && isArray(owner)
+        ? `${name} is a view of ${arrayName(ctx.step, owner, prefer)}: it uses that array's memory.`
+        : hiddenBase(ctx, made);
+  return { did: [lead, memory ?? ''], lead, concept: 'np-create' };
 }

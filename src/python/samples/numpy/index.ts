@@ -31,4 +31,5 @@ export const NUMPY_SAMPLES: NumpySample[] = [
   sample('reshape', 'NumPy: reshape and transpose'),
   sample('masks', 'NumPy: boolean masks'),
   sample('capped', 'NumPy: a large array (capped) and a 4-D array'),
+  sample('mixed', 'NumPy: chained calls, views of an unnamed array, a 3-D slice'),
 ];

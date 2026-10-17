@@ -6,6 +6,7 @@
 import { describe, expect, it } from 'vitest';
 import { explainBeat } from '../trace/explain.ts';
 import type { Trace } from '../trace/types.ts';
+import { NUMPY_SAMPLES } from '../../python/samples/numpy/index.ts';
 import { broadcastSentence } from './numpy.ts';
 import './python.ts';
 import { sampleTrace } from './testTraces.ts';
@@ -105,17 +106,17 @@ describe('NumPy steps on the recorded samples', () => {
     expect(did(tr, 4)[0]).toBe('Summed all 6 elements of `m`: `21`.');
   });
 
+  it('a chained call that makes a view of an unnamed array says so; a 3-D slice is named', () => {
+    const tr = sampleTrace('numpy/mixed');
+    expect(did(tr, 3)).toEqual([
+      '`np.arange(12).reshape(3, 4)` made a new 2-D ndarray of shape `(3, 4)`, dtype `int32`: `grid` now refers to it.',
+      'It is a view of ndarray o2, an array NumPy made along the way that no name refers to.',
+    ]);
+    expect(did(tr, 13)[0]).toBe('Stored `7` in the slice `[1, :, :]` of `cube`.');
+  });
+
   it('every NumPy step of every sample has a derived "What this step did"', () => {
-    for (const name of [
-      'create',
-      'index-slice',
-      'views',
-      'arithmetic',
-      'aggregate',
-      'reshape',
-      'masks',
-      'capped',
-    ]) {
+    for (const name of NUMPY_SAMPLES.map((x) => x.name)) {
       const tr = sampleTrace(`numpy/${name}`);
       tr.steps.forEach((_, k) => {
         const d = explainBeat(tr, k, 'apply', 'two-beat').did;

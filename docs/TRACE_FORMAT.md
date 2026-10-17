@@ -616,7 +616,7 @@ interface NdarrayInfo {
   view has a dashed teal "view of" link to its base. Motion: a changed cell pulses; a write through
   a view outlines the shared cells in both arrays (dashed teal, also under reduced motion); a new
   view's cells fly in from the elements they share; an in-place reshape slides each element to its
-  new place; an array made by arithmetic on arrays sits beside its last array operand.
+  new place; an array made by arithmetic on arrays sits beside its first array operand.
 - **Derived explanations** (`src/engine/explain/numpy.ts`, in the lazy Python deriver chunk):
   creation (`np.array`, `arange`, `zeros`, `ones`, `linspace`), element reads, slices (which cells,
   view or copy), boolean masks (which cells are `True`), elementwise arithmetic and broadcasting

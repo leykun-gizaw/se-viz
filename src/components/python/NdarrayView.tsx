@@ -61,13 +61,14 @@ function NdCell({
   index,
   row,
   col,
-  glide,
+  shapeKey,
 }: {
   cell: Cell;
   index: number[];
   row: number;
   col: number;
-  glide: boolean;
+  /** The array's shape: the cell glides to its new place exactly when this changes. */
+  shapeKey: string;
 }) {
   const cues = useMotionCues();
   const canvas = useContext(CanvasElementContext);
@@ -97,8 +98,12 @@ function NdCell({
   const value = cell.kind === 'scalar' ? String(cell.value) : '';
   return (
     <motion.div
-      layout={glide ? 'position' : false}
-      transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+      // Layout tracking stays on (switching it on in the render that moves the cell would be too
+      // late to measure where it was); only a shape change triggers it, and it is instant unless
+      // motion plays (a jump or reduced motion moves the cell at once).
+      layout={cues.reduce ? false : 'position'}
+      layoutDependency={shapeKey}
+      transition={cues.animate ? { type: 'spring', stiffness: 260, damping: 28 } : { duration: 0 }}
       style={{ gridRow: row, gridColumn: col }}
       className="flex"
     >
@@ -107,7 +112,7 @@ function NdCell({
         data-np-cell={cell.id}
         title={`[${index.join(', ')}] = ${value}${shared ? ' (memory shared with another array)' : ''}`}
         className={`flex w-full items-center justify-center rounded-sm border border-hairline bg-surface-2 px-1.5 py-0.5 ${
-          shared ? 'outline-2 outline-offset-1 outline-heap outline-dashed' : ''
+          shared ? 'outline-2 outline-offset-0 outline-heap outline-dashed' : ''
         }`}
       >
         <SlotValue cell={cell} format={cellText} />
@@ -118,19 +123,18 @@ function NdCell({
 
 /** A 0-, 1-, 2- or 3-D array within the cap, as a grid of its elements. */
 function ArrayGrid({ block }: { block: ArrayBlock }) {
-  const cues = useMotionCues();
   const { shape } = block.ndarray;
   const plan = useMemo(() => gridPlan(shape), [shape]);
   const cells = elementCells(block);
   const positions = bytePositions(block);
   const unique = positions !== null && new Set(positions).size === positions.length;
-  const glide = cues.animate && cues.restructured.has(block.id);
+  const shapeKey = shape.join('x');
   if (cells.length === 0) {
     return <div className="px-2.5 py-1.5 font-mono text-xs text-ink-faint">empty array</div>;
   }
   return (
     <div className="overflow-x-auto p-2">
-      <div className="grid w-max gap-0.5" style={{ gridTemplateColumns: plan.columns }}>
+      <div className="grid w-max gap-x-0.5 gap-y-1" style={{ gridTemplateColumns: plan.columns }}>
         {plan.labels.map((l) => (
           <span
             key={l.key}
@@ -138,7 +142,7 @@ function ArrayGrid({ block }: { block: ArrayBlock }) {
             className={
               l.kind === 'slice'
                 ? 'pt-1 font-mono text-[10px] font-semibold text-ink-muted'
-                : `self-center font-mono text-[10px] text-ink-faint ${l.kind === 'col' ? 'text-center' : 'pr-1 text-right'}`
+                : `self-center font-mono text-[10px] text-ink-faint ${l.kind === 'col' ? 'pb-0.5 text-center' : 'pr-1 text-right'}`
             }
           >
             {l.text}
@@ -154,7 +158,7 @@ function ArrayGrid({ block }: { block: ArrayBlock }) {
               index={index}
               row={row}
               col={col}
-              glide={glide}
+              shapeKey={shapeKey}
             />
           );
         })}
@@ -259,26 +263,32 @@ export function ViewLinks({ step }: { step: Step }) {
         </marker>
       </defs>
       {links.map((l) => (
-        <g key={l.id}>
-          <path
-            d={l.d}
-            fill="none"
-            stroke="var(--se-heap)"
-            strokeWidth={1.5}
-            strokeDasharray="5 4"
-            markerEnd="url(#se-view-of)"
-          />
-          <text
-            x={l.label.x}
-            y={l.label.y}
-            fill="var(--se-heap)"
-            fontSize={10}
-            fontFamily="var(--font-mono, monospace)"
-            dominantBaseline="middle"
-          >
-            view of
-          </text>
-        </g>
+        <path
+          key={l.id}
+          d={l.d}
+          fill="none"
+          stroke="var(--se-heap)"
+          strokeWidth={1.5}
+          strokeDasharray="5 4"
+          markerEnd="url(#se-view-of)"
+        />
+      ))}
+      {/* Labels last, with a halo in the page colour, so another link's channel passes under them. */}
+      {links.map((l) => (
+        <text
+          key={`${l.id}-label`}
+          x={l.label.x}
+          y={l.label.y}
+          fill="var(--se-heap)"
+          stroke="var(--se-bg)"
+          strokeWidth={4}
+          paintOrder="stroke"
+          fontSize={10}
+          fontFamily="var(--font-mono, monospace)"
+          dominantBaseline="middle"
+        >
+          view of
+        </text>
       ))}
     </svg>
   );

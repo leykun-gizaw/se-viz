@@ -9,7 +9,7 @@
  *   own row, and gets two arrows.
  * - Anything left (only reachable through a cycle of inner objects) starts a row of its own.
  * - **NumPy (Phase 34):** a new array made by arithmetic on arrays (`c = a + b`, `mask = a > 2`)
- *   sits next to its last array operand, to its right, instead of starting a row at the bottom.
+ *   sits next to its first array operand, to its right, instead of starting a row at the bottom.
  *
  * @packageDocumentation
  */
@@ -55,7 +55,7 @@ function targetOf(step: Step, name: string): string | null {
 }
 
 /**
- * For each NumPy array made by arithmetic on other arrays, the array it is drawn beside: the last
+ * For each NumPy array made by arithmetic on other arrays, the array it is drawn beside: the first
  * array operand of the statement that made it (Phase 34). Worked out once per trace, from the step
  * where the new array first appears and the statement on its line.
  */
@@ -78,8 +78,9 @@ export function besideOperands(trace: Trace): Map<string, string> {
           const b = id === null ? undefined : prev.heap.find((x) => x.id === id);
           return b?.objectKind === 'ndarray' && id !== block.id;
         });
-      const last = arrays[arrays.length - 1];
-      if (last !== undefined) out.set(block.id, last);
+      // The first array operand: `m + a` sits by `m`, not by the row `a` broadcast into it.
+      const first = arrays[0];
+      if (first !== undefined) out.set(block.id, first);
     }
   });
   return out;
