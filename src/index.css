@@ -275,3 +275,23 @@ body {
     transform: translateX(100%);
   }
 }
+
+/*
+ * matplotlib figures (Phase 36). A figure keeps matplotlib's own colours, so it sits on a white
+ * surface in both themes. Its SVG fills the width of its box (the root's size attributes are
+ * removed by the sanitizer; the viewBox keeps the aspect ratio). matplotlib's SVG carries a
+ * `*{stroke-linejoin: round; stroke-linecap: butt}` <style> element, which the sanitizer drops (a
+ * <style> would apply to the whole page); the same default is applied here, scoped to figures.
+ */
+.se-figure-surface {
+  background: #ffffff;
+}
+.se-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.se-figure svg * {
+  stroke-linejoin: round;
+  stroke-linecap: butt;
+}

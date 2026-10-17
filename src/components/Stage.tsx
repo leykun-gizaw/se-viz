@@ -9,9 +9,10 @@
  * (under the concept view for concept traces) and the timeline runs along the bottom. Presentation
  * mode (`presenting`) is unchanged: bigger type, a static divider, and the full-width narration bar.
  */
-import { lazy, Suspense, useRef } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panels';
 import { coachVisibleOnBeat } from '../engine/trace/coach.ts';
+import { figuresAt } from '../engine/trace/figures.ts';
 import type { TracePlayer } from '../engine/trace/useTrace.ts';
 import { CoachBubble } from './CoachBubble.tsx';
 import { CodePanel } from './CodePanel.tsx';
@@ -26,6 +27,13 @@ import { PipelineView } from './concept/PipelineView.tsx';
 
 /** The Python memory panel (Phase 30), split out so C traces never load it. */
 const PythonCanvas = lazy(() => import('./python/PythonCanvas.tsx'));
+/** matplotlib figure output (Phase 36): loaded only for a trace that has figures. */
+const FigureStrip = lazy(() =>
+  import('./python/figure/FigureOutput.tsx').then((m) => ({ default: m.FigureStrip })),
+);
+const FigureViewer = lazy(() =>
+  import('./python/figure/FigureOutput.tsx').then((m) => ({ default: m.FigureViewer })),
+);
 
 export function Stage({
   player,
@@ -46,6 +54,16 @@ export function Stage({
 
   // Re-fires inline / memory pulses on the `apply` beat (and each new step).
   const pulseKey = `${displayStep.index}:${beat}`;
+
+  // Phase 36: the figures shown at this step (cumulative like stdout: stepping back hides later
+  // ones), and the one open in the large view. A figure stepped back past closes its view.
+  const figures = figuresAt(trace.figures, displayStep.index);
+  const hasFigures = (trace.figures?.length ?? 0) > 0;
+  const [openFigure, setOpenFigure] = useState<{ trace: string; id: string } | null>(null);
+  const open =
+    openFigure && openFigure.trace === trace.id
+      ? (figures.find((f) => f.id === openFigure.id) ?? null)
+      : null;
 
   let main;
   let concept = null;
@@ -110,25 +128,67 @@ export function Stage({
         </Separator>
         <Panel id="viz" minSize="20%" className="h-full min-h-0 min-w-0">
           <div className="flex h-full min-h-0 flex-col gap-4">
-            <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-hairline bg-bg p-4">
-              {trace.language === 'python' ? (
-                <Suspense
-                  fallback={<span className="font-mono text-xs text-ink-faint">Loading…</span>}
-                >
-                  <PythonCanvas key={trace.id} trace={trace} step={displayStep} />
-                </Suspense>
-              ) : (
-                <MemoryCanvas
-                  step={displayStep}
-                  prevStep={displayPrevStep}
-                  heapLayout={trace.heapLayout}
-                  staticLayout={trace.staticLayout}
-                />
-              )}
-            </div>
+            {hasFigures ? (
+              // A trace with figures: the large figure view lies over the canvas (Phase 36).
+              <div className="relative flex min-h-0 flex-1 flex-col">
+                <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-hairline bg-bg p-4">
+                  <Suspense
+                    fallback={<span className="font-mono text-xs text-ink-faint">Loading…</span>}
+                  >
+                    <PythonCanvas key={trace.id} trace={trace} step={displayStep} />
+                  </Suspense>
+                </div>
+                {open ? (
+                  <Suspense fallback={null}>
+                    <FigureViewer
+                      figure={open}
+                      total={figures.length}
+                      onClose={() => setOpenFigure(null)}
+                    />
+                  </Suspense>
+                ) : null}
+              </div>
+            ) : (
+              <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-hairline bg-bg p-4">
+                {trace.language === 'python' ? (
+                  <Suspense
+                    fallback={<span className="font-mono text-xs text-ink-faint">Loading…</span>}
+                  >
+                    <PythonCanvas key={trace.id} trace={trace} step={displayStep} />
+                  </Suspense>
+                ) : (
+                  <MemoryCanvas
+                    step={displayStep}
+                    prevStep={displayPrevStep}
+                    heapLayout={trace.heapLayout}
+                    staticLayout={trace.staticLayout}
+                  />
+                )}
+              </div>
+            )}
             <ConsolePanel
               step={displayStep}
-              {...(trace.language === 'python' ? { title: 'Output', preserveWhitespace: true } : {})}
+              {...(trace.language === 'python'
+                ? { title: 'Output', preserveWhitespace: true }
+                : {})}
+              figures={
+                figures.length > 0 ? (
+                  <Suspense
+                    fallback={
+                      <span className="px-4 py-2 font-mono text-xs text-ink-faint">
+                        Loading figures…
+                      </span>
+                    }
+                  >
+                    <FigureStrip
+                      figures={figures}
+                      current={displayStep.index}
+                      openId={open?.id ?? null}
+                      onOpen={(id) => setOpenFigure({ trace: trace.id, id })}
+                    />
+                  </Suspense>
+                ) : null
+              }
             />
           </div>
         </Panel>

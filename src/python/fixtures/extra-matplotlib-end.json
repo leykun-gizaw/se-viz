@@ -1,0 +1,1413 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "plt"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 2,
+    "end": 4,
+    "name": "draw",
+    "params": [
+     "values"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "name",
+        "id": "fig"
+       },
+       {
+        "type": "display",
+        "of": "tuple",
+        "items": [
+         {
+          "type": "name",
+          "id": "left"
+         },
+         {
+          "type": "name",
+          "id": "right"
+         }
+        ],
+        "src": "(left, right)"
+       }
+      ],
+      "src": "fig, (left, right)"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "subplots",
+      "src": "plt.subplots"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "1"
+      },
+      {
+       "type": "const",
+       "repr": "2"
+      }
+     ],
+     "src": "plt.subplots(1, 2)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 6,
+    "end": 6,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "left"
+      },
+      "attr": "plot",
+      "src": "left.plot"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "1"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        }
+       ],
+       "src": "[1, 2]"
+      }
+     ],
+     "src": "left.plot([1, 2])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 7,
+    "end": 7,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "left"
+      },
+      "attr": "legend",
+      "src": "left.legend"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "'rain'",
+         "src": "\"rain\""
+        }
+       ],
+       "src": "[\"rain\"]"
+      }
+     ],
+     "src": "left.legend([\"rain\"])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 8,
+    "end": 8,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "right"
+      },
+      "attr": "pie",
+      "src": "right.pie"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "1"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        }
+       ],
+       "src": "[1, 2]"
+      }
+     ],
+     "src": "right.pie([1, 2])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 9,
+    "end": 9,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "fig"
+      },
+      "attr": "suptitle",
+      "src": "fig.suptitle"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Two charts'",
+       "src": "\"Two charts\""
+      }
+     ],
+     "src": "fig.suptitle(\"Two charts\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 10,
+    "end": 10,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "draw"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "3"
+        },
+        {
+         "type": "const",
+         "repr": "4"
+        }
+       ],
+       "src": "[3, 4]"
+      }
+     ],
+     "src": "draw([3, 4])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "draw",
+     "line": 2,
+     "vars": [
+      {
+       "name": "values",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "draw",
+    "args": [
+     {
+      "name": "values",
+      "value": {
+       "kind": "ref",
+       "id": "o5"
+      }
+     }
+    ],
+    "scope": "function"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "draw",
+     "line": 3,
+     "vars": [
+      {
+       "name": "values",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 3,
+    "end": 3,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "bar",
+      "src": "plt.bar"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "'a'",
+         "src": "\"a\""
+        },
+        {
+         "type": "const",
+         "repr": "'b'",
+         "src": "\"b\""
+        }
+       ],
+       "src": "[\"a\", \"b\"]"
+      },
+      {
+       "type": "name",
+       "id": "values"
+      }
+     ],
+     "src": "plt.bar([\"a\", \"b\"], values)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "draw",
+     "line": 4,
+     "vars": [
+      {
+       "name": "values",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 4,
+    "end": 4,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "ylabel",
+      "src": "plt.ylabel"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'kg'",
+       "src": "\"kg\""
+      }
+     ],
+     "src": "plt.ylabel(\"kg\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "draw",
+     "line": 4,
+     "vars": [
+      {
+       "name": "values",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "draw",
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 11,
+    "end": 11,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "figure",
+      "src": "plt.figure"
+     },
+     "args": [],
+     "src": "plt.figure()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 12,
+    "end": 12,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "bar",
+      "src": "plt.bar"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "'c'",
+         "src": "\"c\""
+        }
+       ],
+       "src": "[\"c\"]"
+      },
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "5"
+        }
+       ],
+       "src": "[5]"
+      }
+     ],
+     "src": "plt.bar([\"c\"], [5])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "draw",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "left",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "right",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "draw",
+     "params": [
+      "values"
+     ]
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig1",
+     "number": 1,
+     "trigger": "end",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "plot",
+        "bar"
+       ],
+       "ylabel": "kg",
+       "legend": [
+        "rain"
+       ]
+      },
+      {
+       "kinds": [
+        "pie"
+       ]
+      }
+     ],
+     "title": "Two charts",
+     "format": "svg",
+     "bytes": 600,
+     "data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 345\"><rect width=\"4\" height=\"4\"/><!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--></svg>"
+    },
+    {
+     "id": "fig2",
+     "number": 2,
+     "trigger": "end",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "bar"
+       ]
+      }
+     ],
+     "format": "svg",
+     "bytes": 600,
+     "data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 345\"><rect width=\"4\" height=\"4\"/><!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--></svg>"
+    }
+   ]
+  }
+ ],
+ "stdout": ""
+}
