@@ -115,6 +115,15 @@ fixtures (`src/content/fixtures/{buildPipeline,preprocessor,dualTrace}.ts`) are 
 `docs/TRACE_FORMAT.md § Phase 11 additions — concept views`. Memory concepts are unaffected: omit
 `view` and author as before.
 
+## Generated concept views (Phase 37)
+
+Search and sort (`view: 'bars'`), Big O growth (`'growth'`) and sampling distributions / hypothesis
+tests (`'distribution'`) are **generated** by the seeded generators in `src/engine/concept/`, which
+write each step's explanation from their own state. To add one, call a generator from a top-level
+`src/content/fixtures/*.ts` file (or, later, a course folder) and `export default` the result of
+`conceptModule(meta, steps)`; never hand-edit generated text. Payload shapes and the p-value rule are
+in `docs/TRACE_FORMAT.md § Phase 37 additions`.
+
 ## Coach notes (Phase 17+)
 
 Coach notes are the **occasional teaching layer** — a coach that steps in at the moments that

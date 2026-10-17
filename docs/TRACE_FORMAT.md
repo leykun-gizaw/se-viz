@@ -739,3 +739,74 @@ interface TraceFigure {
   the large view over the visualization panel, both from the lazy `FigureOutput` chunk. SVG is
   sanitized (`src/components/python/figure/sanitizeSvg.ts`) and inserted with `DOMParser` +
   `importNode` (`svgDom.ts`); never `innerHTML` / `dangerouslySetInnerHTML`.
+
+## Phase 37 additions — algorithm and statistics concept views (additive; other traces unchanged)
+
+Three more concept views for DS 210 ideas that are not "watch memory change". `TraceView` gains
+`'bars'`, `'growth'` and `'distribution'`; each step carries the **one** matching payload
+(`Step.bars` / `Step.growth` / `Step.distribution`), restated in full every step. As for the Phase 11
+views, `source` is `''`, `highlightedLines` is `[]`, and `stack` / `heap` stay empty. All three are
+**single-beat** (`viewSupportsBeats` is `false`, like `pipeline`). The renderers are lazy chunks
+(`BarsView`, `GrowthView`, `DistributionView` in `src/components/concept/`).
+
+These traces are **generated**, not recorded or hand-authored: deterministic, seeded TypeScript
+generators in `src/engine/concept/` (`bars.ts`, `growth.ts`, `distribution.ts`, `random.ts` =
+mulberry32) build every step's state and write its `explain.did` (and the narration, the same text
+without code spans) from that state. Registered as top-level fixtures
+(`src/content/fixtures/concept*.ts`, via `conceptModule()` in `src/engine/concept/trace.ts`):
+trace `course: 'DS 210'`, `language: 'python'`, grouped in the sidebar under Engine fixtures until
+the DS 210 content phase places them.
+
+```ts
+// view: 'bars' — search and sort. Indices are 0-based.
+Step.bars = {
+  values: number[];
+  keys?: string[];                    // stable identity per element: bars slide on swaps / merge writes
+  compared?: number[];                // amber
+  swapped?: number[];                 // green (swapped, written, or found); wins over compared
+  sorted?: number[];                  // teal: final places, or insertion sort's sorted part
+  range?: { from: number; to: number };    // inclusive; bars outside are dimmed (search, merge)
+  pointers?: { label: string; index: number }[];  // index may be -1 or values.length
+  found?: number; target?: number;    // searches
+  segments?: { from; to; depth; state: 'idle'|'split'|'active'|'merged' }[];  // merge sort split tree
+  counters: { comparisons: number; swaps?: number; writes?: number };          // so far
+};
+
+// view: 'growth' — Big O.
+Step.growth = {
+  ns: number[];                                     // x samples, ascending, positive
+  curves: { id: string; label: string; counts: number[] }[];   // counts[k] at ns[k], slowest first
+  n: number;                                        // current n, one of ns
+  yMax: number;                                     // larger counts are clipped (arrow + count shown)
+  compare?: [string, string]; caption?: string;     // the two curves the caption compares
+};
+
+// view: 'distribution' — sampling distributions and hypothesis tests.
+Step.distribution = {
+  mode: 'sampling' | 'hypothesis';
+  xLabel: string;
+  bins: { from: number; to: number; count: number }[];   // contiguous [from, to), fixed per trace
+  draws: number;                                         // = sum of the bin counts
+  latest?: number[];                                     // values added this step (≤ 5)
+  stats?: { mean; sd; skewness };                        // generators set it from 10 draws on
+  population?: { xLabel; bins; size; mean; sd; skewness; sample?: number[] };   // sampling
+  sampleSize?: number; normal?: { mean: number; sd: number };                  // sampling
+  groups?: { label: string; values: number[]; mean: number }[];               // hypothesis
+  test?: { observed; tail: 'left'|'right'|'two'; center; extreme; pValue; alpha };  // hypothesis
+};
+```
+
+- **p-value:** `test.pValue === test.extreme / draws`, where `extreme` counts the simulated values
+  at least as extreme as `observed` (`>=` for `right`, `<=` for `left`, `|x − center| >= |observed −
+  center|` for `two`). The permutation generator compares in whole units (tenths of a centimetre
+  × group size), so ties are exact, and its bins are closed on their outer side with ±observed on
+  bin edges, so the shaded tail bins hold exactly the `extreme` values.
+- **Validation:** the matching payload exists; bars indices are in range (pointers may sit one past
+  either end), keys unique, range and segments inside the array, counters whole numbers that never
+  go down; growth `n` is one of `ns`, one count per n, compared ids exist; distribution bins are
+  contiguous with whole counts adding up to `draws` (and the population's to its `size`), a sampling
+  step has a population, a hypothesis step has a test whose `pValue` is `extreme / draws`.
+- **Explanation panel:** "What this step did" is the generator's text. "What changed" is authored by
+  the growth and distribution generators; for `bars` the panel shows a note pointing at the
+  highlighted bars, pointers and counters (as for `pipeline`). Goldens of every generated module:
+  `src/engine/explain/golden/concept-*.md` (each step with a one-line state).
