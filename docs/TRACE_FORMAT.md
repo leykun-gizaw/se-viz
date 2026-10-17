@@ -401,3 +401,45 @@ interface CoachNote {
   step (memory id or pipeline node); `anchorLine` must be within the source. No anchor is fine.
 - Works in the memory and dual-trace views; pipeline/before-after show a fallback bubble.
 - Authoring convention: see `docs/CONTENT_AUTHORING.md § Coach notes`.
+
+## Phase 28 additions — step explanations (additive)
+
+A step may carry an optional `explain` object with authored content for the Studio's **step
+explanation panel**. Both fields are optional; a step without `explain` behaves exactly as before.
+
+```ts
+interface StepExplanation {
+  did?: string[]; // "What this step did": an ordered breakdown, one short sentence per entry
+  concept?: string; // "Concept": the idea this step illustrates (section hidden when absent)
+}
+// on Step:  explain?: StepExplanation
+```
+
+- Strings may use **inline Markdown only** (`` `code` ``, `**bold**`, `*italic*`, `[link](…)`), the
+  same inline subset as theory decks.
+- **Authored text always wins.** Without `explain.did` (or with an empty list) the panel shows the
+  step's `narration`. Without `explain.concept` the Concept section is hidden.
+- Everything else in the panel is **derived** (`src/engine/trace/explain.ts`, `explainBeat`):
+  - the header: step number, highlighted line(s) and their source text;
+  - "What changed": from `diffSteps(prev, step)` — values (old → new), pointer retargets, frames
+    pushed / popped (labelled `factorial(3)` when every parameter is a known scalar, see
+    `labels.ts`), new variables in an existing frame, heap blocks allocated / freed / leaked, and new
+    `stdout` lines. The first step has nothing to compare against and says so. Concept views:
+    pipeline node state changes, dual-trace rows flagged `changed`; before-after points at its
+    panels;
+  - "Previous step" / "Coming next": the neighbouring steps' lines and narration.
+- **Two-beat stepping:** on an `arrive` beat the step hasn't run, so `did`, "What changed" and the
+  next step's narration are withheld until `apply`.
+- **Validation** (`validateTrace`, additive): an empty `explain.did` entry or an empty
+  `explain.concept` string is flagged.
+- Exemplars: `se200/recursion/factorial.ts` and `se201/linked-lists/insertHead.ts` (every step).
+
+### Timeline markers (derived, no format change)
+
+The timeline under the stage shows labeled event markers computed by `deriveTimelineMarkers`
+(`src/engine/trace/timeline.ts`): a frame pushed or popped (`factorial(3) called`,
+`factorial(1) returns`) and a loop back-edge — execution jumping backwards to a `for` / `while`
+header in the same frame, on a step that carries the loop's `condition` (`loop iteration k`, or
+`loop exits` when it is false). No marker is shown when the label can't be derived reliably (no
+condition on the back-edge, concept views). There is no authored marker field: the Phase 16
+"beats" are the arrive / apply halves of every step, not events.
