@@ -4,6 +4,7 @@
  */
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { int, pyStep, ref, set, str, tuple } from '../../engine/trace/pythonTestKit.ts';
 import type { Trace } from '../../engine/trace/types.ts';
 import PythonCanvas from './PythonCanvas.tsx';
 
@@ -76,6 +77,23 @@ describe('PythonCanvas', () => {
     const html = render('harvest', t.steps.length - 1);
     for (const key of ['corn', 'wheat', 'beans']) expect(html).toContain(`&#x27;${key}&#x27;`);
     expect(html).toContain('>dict</span>');
+  });
+
+  it('tuple, set and NumPy / pandas summaries (placeholders for Phases 34–35)', () => {
+    const step = pyStep(0, [['f1', '<module>', { t: ref('o1'), s: ref('o2'), g: ref('o3') }]], {
+      o1: tuple(int(1), int(2)),
+      o2: set(str('a'), str('b')),
+      o3: { kind: 'summary', type: 'ndarray', library: 'numpy', shape: [2, 3], dtype: 'float64' },
+    });
+    const t: Trace = { id: 't', title: 't', language: 'python', source: 'pass\n', steps: [step] };
+    const html = renderToStaticMarkup(<PythonCanvas trace={t} step={step} />);
+    expect(html).toContain('>tuple</span>');
+    expect(html).toContain('immutable');
+    expect(html).toContain('unordered');
+    expect(html).toContain('>numpy ndarray</span>');
+    expect(html).toContain('>(2, 3)</span>');
+    expect(html).toContain('>float64</span>');
+    expect(html).toContain('summary only');
   });
 
   it('every step of every recording renders', () => {
