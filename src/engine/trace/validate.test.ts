@@ -335,4 +335,30 @@ describe('validateTrace — concept views (Phase 11)', () => {
       expect(validateTrace(t)[0].message).toMatch(/coach anchorLine 99/);
     });
   });
+
+  describe('step explanation (Phase 28)', () => {
+    it('accepts authored did + concept', () => {
+      const t = baseTrace();
+      t.steps[0].explain = {
+        did: ['Declares `x`.', 'Stores 0.'],
+        concept: 'Locals live on the stack.',
+      };
+      expect(validateTrace(t)).toEqual([]);
+    });
+    it('accepts an explain with only one field (both are optional)', () => {
+      const t = baseTrace();
+      t.steps[0].explain = { concept: 'c' };
+      t.steps[1].explain = {};
+      expect(validateTrace(t)).toEqual([]);
+    });
+    it('flags an empty did entry and an empty concept', () => {
+      const t = baseTrace();
+      t.steps[1].explain = { did: ['ok', '  '], concept: '' };
+      const messages = validateTrace(t).map((x) => x.message);
+      expect(messages).toEqual([
+        'explain.did[1] is empty',
+        'explain.concept is empty (omit it instead)',
+      ]);
+    });
+  });
 });

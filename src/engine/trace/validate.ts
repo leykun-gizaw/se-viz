@@ -167,6 +167,20 @@ export function validateTrace(trace: Trace): TraceIssue[] {
       }
     }
 
+    // Step explanation (Phase 28): authored strings must carry text, or the panel would show an
+    // empty bullet / an empty Concept section instead of its fallback.
+    if (step.explain) {
+      (step.explain.did ?? []).forEach((d, k) => {
+        if (typeof d !== 'string' || d.trim() === '') {
+          issue(i, `explain.did[${k}] is empty`);
+        }
+      });
+      const concept = step.explain.concept;
+      if (concept !== undefined && (typeof concept !== 'string' || concept.trim() === '')) {
+        issue(i, 'explain.concept is empty (omit it instead)');
+      }
+    }
+
     // ── Concept-view payloads (Phase 11) ─────────────────────────────────────────────────────
     // Each concept view requires the matching per-step payload; pipeline edges must reference
     // existing nodes; before/after and dual-trace highlight lines must be in range of their source.

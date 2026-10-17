@@ -282,6 +282,30 @@ export interface CoachNote {
 }
 
 /**
+ * Authored content for the step explanation panel (Phase 28, additive). Every field is optional;
+ * the panel falls back to data it can derive from the trace (the step's {@link Step.narration} for
+ * "What this step did", the step diff for "What changed"). Authored text always wins over a
+ * fallback.
+ *
+ * Strings may use **inline Markdown** only: `` `code` ``, `**bold**`, `*italic*` and `[links](…)`
+ * (the same inline subset as theory decks). No block Markdown (lists, headings, fences).
+ *
+ * @remarks Added in Phase 28.
+ */
+export interface StepExplanation {
+  /**
+   * "What this step did", as an ordered breakdown (one short sentence or clause per entry, in the
+   * order it happens). When absent or empty the panel shows the step's `narration` instead.
+   */
+  did?: string[];
+  /**
+   * The idea this step illustrates, shown in the panel's "Concept" section (closed by default).
+   * When absent the section is hidden.
+   */
+  concept?: string;
+}
+
+/**
  * A single point in execution: the **complete** memory snapshot plus presentation metadata.
  * The engine renders exactly this and animates the diff against the previous step.
  */
@@ -370,6 +394,14 @@ export interface Step {
    * @remarks Added in Phase 17 (additive).
    */
   coach?: CoachNote;
+  /**
+   * Optional authored content for the step explanation panel (Phase 28). A step without `explain`
+   * renders exactly as before; the panel falls back to the narration and the derived diff. See
+   * {@link StepExplanation}.
+   *
+   * @remarks Added in Phase 28 (additive).
+   */
+  explain?: StepExplanation;
 }
 
 /** Supported source languages. Only C is in scope for SE 200 / SE 201. */
