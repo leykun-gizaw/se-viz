@@ -9,7 +9,7 @@
  * (under the concept view for concept traces) and the timeline runs along the bottom. Presentation
  * mode (`presenting`) is unchanged: bigger type, a static divider, and the full-width narration bar.
  */
-import { useRef } from 'react';
+import { lazy, Suspense, useRef } from 'react';
 import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panels';
 import { coachVisibleOnBeat } from '../engine/trace/coach.ts';
 import type { TracePlayer } from '../engine/trace/useTrace.ts';
@@ -23,6 +23,9 @@ import { Timeline } from './studio/Timeline.tsx';
 import { BeforeAfterView } from './concept/BeforeAfterView.tsx';
 import { DualTraceView } from './concept/DualTraceView.tsx';
 import { PipelineView } from './concept/PipelineView.tsx';
+
+/** The Python memory panel (Phase 30), split out so C traces never load it. */
+const PythonCanvas = lazy(() => import('./python/PythonCanvas.tsx'));
 
 export function Stage({
   player,
@@ -108,14 +111,25 @@ export function Stage({
         <Panel id="viz" minSize="20%" className="h-full min-h-0 min-w-0">
           <div className="flex h-full min-h-0 flex-col gap-4">
             <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-hairline bg-bg p-4">
-              <MemoryCanvas
-                step={displayStep}
-                prevStep={displayPrevStep}
-                heapLayout={trace.heapLayout}
-                staticLayout={trace.staticLayout}
-              />
+              {trace.language === 'python' ? (
+                <Suspense
+                  fallback={<span className="font-mono text-xs text-ink-faint">Loading…</span>}
+                >
+                  <PythonCanvas key={trace.id} trace={trace} step={displayStep} />
+                </Suspense>
+              ) : (
+                <MemoryCanvas
+                  step={displayStep}
+                  prevStep={displayPrevStep}
+                  heapLayout={trace.heapLayout}
+                  staticLayout={trace.staticLayout}
+                />
+              )}
             </div>
-            <ConsolePanel step={displayStep} />
+            <ConsolePanel
+              step={displayStep}
+              {...(trace.language === 'python' ? { title: 'Output' } : {})}
+            />
           </div>
         </Panel>
       </Group>

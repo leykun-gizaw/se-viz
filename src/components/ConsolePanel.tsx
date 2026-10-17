@@ -5,7 +5,13 @@
  */
 import type { Step } from '../engine/trace/types.ts';
 
-export function ConsolePanel({ step }: { step: Step }) {
+export function ConsolePanel({
+  step,
+  title = 'Output · heap watch',
+}: {
+  step: Step;
+  title?: string;
+}) {
   const stdout = step.stdout ?? [];
   const watch = step.watch ?? [];
   if (stdout.length === 0 && watch.length === 0) return null;
@@ -14,7 +20,7 @@ export function ConsolePanel({ step }: { step: Step }) {
     <div className="flex max-h-40 flex-col overflow-auto rounded-lg border border-hairline bg-surface">
       <div className="border-b border-hairline px-4 py-1.5">
         <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
-          Output · heap watch
+          {title}
         </span>
       </div>
       <div className="se-code flex flex-col gap-0.5 px-4 py-2 text-xs">
