@@ -1,0 +1,401 @@
+{
+ "id": "python-mutation-through-argument",
+ "title": "Mutation through a function argument",
+ "file": "mutation-through-argument.py",
+ "language": "python",
+ "source": "def add_crop(basket, crop):\n    basket.append(crop)\n\nbasket = [\"corn\"]\nadd_crop(basket, \"wheat\")\nprint(basket)\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Line 1 ran.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.add_crop",
+       "name": "add_crop",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function add_crop(basket, crop)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Line 4 ran.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.add_crop",
+       "name": "add_crop",
+       "type": "function",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.basket",
+       "name": "basket",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function add_crop(basket, crop)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Line 5 calls add_crop(basket=…, crop='wheat').",
+   "highlightedLines": [
+    5
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.add_crop",
+       "name": "add_crop",
+       "type": "function",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.basket",
+       "name": "basket",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "add_crop",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f2.basket",
+       "name": "basket",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f2.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function add_crop(basket, crop)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "add_crop returns None.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.add_crop",
+       "name": "add_crop",
+       "type": "function",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.basket",
+       "name": "basket",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "add_crop",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f2.basket",
+       "name": "basket",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f2.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "f2.return",
+       "name": "return",
+       "type": "NoneType",
+       "value": "None"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function add_crop(basket, crop)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Back in <module>: line 5 finishes.",
+   "highlightedLines": [
+    5
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.add_crop",
+       "name": "add_crop",
+       "type": "function",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.basket",
+       "name": "basket",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function add_crop(basket, crop)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "The program finished.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [
+    "['corn', 'wheat']"
+   ],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.add_crop",
+       "name": "add_crop",
+       "type": "function",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.basket",
+       "name": "basket",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function add_crop(basket, crop)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  }
+ ]
+}

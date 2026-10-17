@@ -1,0 +1,1062 @@
+{
+ "id": "python-infinite-loop",
+ "title": "Infinite loop (step limit)",
+ "file": "infinite-loop.py",
+ "language": "python",
+ "source": "day = 0\nwhile True:\n    day = day + 1\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Line 1 ran.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "0"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "0"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "1"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "1"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-6",
+   "index": 6,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-7",
+   "index": 7,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-8",
+   "index": 8,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-9",
+   "index": 9,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-10",
+   "index": 10,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "5"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-11",
+   "index": 11,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "5"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-12",
+   "index": 12,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "6"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-13",
+   "index": 13,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "6"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-14",
+   "index": 14,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "7"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-15",
+   "index": 15,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "7"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-16",
+   "index": 16,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "8"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-17",
+   "index": 17,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "8"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-18",
+   "index": 18,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "9"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-19",
+   "index": 19,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "9"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-20",
+   "index": 20,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "10"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-21",
+   "index": 21,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "10"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-22",
+   "index": 22,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "11"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-23",
+   "index": 23,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "11"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-24",
+   "index": 24,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "12"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-25",
+   "index": 25,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "12"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-26",
+   "index": 26,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "13"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-27",
+   "index": 27,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "13"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-28",
+   "index": 28,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "14"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-29",
+   "index": 29,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "14"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-30",
+   "index": 30,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "15"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-31",
+   "index": 31,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "15"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-32",
+   "index": 32,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "16"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-33",
+   "index": 33,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "16"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-34",
+   "index": 34,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "17"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-35",
+   "index": 35,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "17"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-36",
+   "index": 36,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "18"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-37",
+   "index": 37,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "18"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-38",
+   "index": 38,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f1.day",
+       "name": "day",
+       "type": "int",
+       "value": "19"
+      }
+     ]
+    }
+   ],
+   "heap": []
+  }
+ ]
+}

@@ -26,6 +26,13 @@ export interface PointerRetarget {
   to: PointerTarget;
 }
 
+/** A cell whose {@link Cell.kind} changed between two steps, for the same {@link CellId} (Phase 30). */
+export interface KindChange {
+  id: CellId;
+  from: Cell;
+  to: Cell;
+}
+
 /**
  * The structural delta between step `prev` and step `next`. Arrays are empty (never `undefined`)
  * when nothing of that category changed, so consumers can iterate without guards.
@@ -43,6 +50,12 @@ export interface StepDiff {
   valuesChanged: ValueChange[];
   /** Pointer retargets for pointer cells present in both steps. */
   pointersRetargeted: PointerRetarget[];
+  /**
+   * Cells present in both steps whose kind changed (a Python name rebound from a primitive to a
+   * reference or back, e.g. `x = 1` then `x = [x]`). Always empty for C traces, whose cells never
+   * change kind. Phase 30, additive.
+   */
+  kindsChanged: KindChange[];
 }
 
 /**
@@ -108,6 +121,7 @@ export function diffSteps(prev: Step | null, next: Step): StepDiff {
   const cellsRemoved: CellId[] = [];
   const valuesChanged: ValueChange[] = [];
   const pointersRetargeted: PointerRetarget[] = [];
+  const kindsChanged: KindChange[] = [];
 
   for (const [id, cell] of nextCells) {
     const before = prevCells.get(id);
@@ -115,6 +129,7 @@ export function diffSteps(prev: Step | null, next: Step): StepDiff {
       cellsAdded.push(id);
       continue;
     }
+    if (cell.kind !== before.kind) kindsChanged.push({ id, from: before, to: cell });
     if (cell.kind === 'scalar' && before.kind === 'scalar' && cell.value !== before.value) {
       valuesChanged.push({ id, from: before.value, to: cell.value });
     }
@@ -136,6 +151,7 @@ export function diffSteps(prev: Step | null, next: Step): StepDiff {
     cellsRemoved,
     valuesChanged,
     pointersRetargeted,
+    kindsChanged,
   };
 }
 

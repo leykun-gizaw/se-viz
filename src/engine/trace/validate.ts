@@ -70,7 +70,8 @@ function sourceLineCount(source: string): number {
  * - `activeId` (when present) resolves to an id present in that step;
  * - every non-null pointer `target` (on the stack, heap, or in the static segment) resolves to an
  *   id present in that step — including targets that land in `.data` / `.bss` / `.rodata`;
- * - every annotation `fromId` / `toId` resolves to an id present in that step.
+ * - every annotation `fromId` / `toId` resolves to an id present in that step;
+ * - Python traces (Phase 30) follow the extra rules in {@link validatePython}.
  *
  * @param trace - The trace to validate.
  * @returns A list of {@link TraceIssue}s; empty means the trace is structurally valid.
@@ -91,7 +92,18 @@ export function validateTrace(trace: Trace): TraceIssue[] {
     issue(-1, "view 'dual-trace' requires both trace.leftSource and trace.rightSource");
   }
 
+  if (trace.language === 'python') validatePython(trace, issue);
+
   trace.steps.forEach((step, i) => {
+    // `objectKind` marks a Python object; a C trace never sets it (Phase 30).
+    if (trace.language !== 'python') {
+      for (const block of step.heap) {
+        if (block.objectKind !== undefined) {
+          issue(i, `heap block "${block.id}" has objectKind but the trace is not Python`);
+        }
+      }
+    }
+
     if (step.index !== i) {
       issue(i, `step.index is ${step.index} but its array position is ${i}`);
     }
@@ -240,6 +252,61 @@ export function validateTrace(trace: Trace): TraceIssue[] {
   });
 
   return issues;
+}
+
+/**
+ * The extra invariants of a Python trace (Phase 30, `docs/PYTHON_TRACE_FORMAT.md`), on top of the
+ * shared ones (step indices, unique ids, every pointer target resolving within its step):
+ * - every heap block is a Python object: it has an `objectKind`;
+ * - a reference names an **object**: a non-null pointer target is a heap block id, never a cell;
+ * - ids are stable: an object id keeps its `objectKind`, a frame id keeps its function name, for
+ *   the whole trace. (A frame id may leave and come back: a generator's frame is suspended at
+ *   each `yield` and resumed as the same activation.)
+ */
+function validatePython(trace: Trace, issue: (stepIndex: number, message: string) => void): void {
+  const kindOf = new Map<string, string>();
+  const frameName = new Map<string, string>();
+
+  trace.steps.forEach((step, i) => {
+    const blocks = new Set(step.heap.map((b) => b.id));
+    for (const block of step.heap) {
+      if (block.objectKind === undefined) {
+        issue(i, `Python object "${block.id}" has no objectKind`);
+        continue;
+      }
+      const was = kindOf.get(block.id);
+      if (was !== undefined && was !== block.objectKind) {
+        issue(i, `object "${block.id}" changed kind from ${was} to ${block.objectKind}`);
+      }
+      kindOf.set(block.id, block.objectKind);
+    }
+
+    // A target missing from the step altogether is already flagged by the shared check.
+    const ids = new Set(allIdsInStep(step));
+    const checkRefs = (cells: Cell[]) => {
+      for (const cell of cells) {
+        if (
+          cell.kind === 'pointer' &&
+          cell.target !== null &&
+          ids.has(cell.target) &&
+          !blocks.has(cell.target)
+        ) {
+          issue(i, `reference "${cell.id}" targets "${cell.target}", which is not an object`);
+        } else if (cell.kind === 'array') checkRefs(cell.elements);
+        else if (cell.kind === 'struct') checkRefs(cell.fields);
+      }
+    };
+    step.stack.forEach((f) => checkRefs(f.variables));
+    step.heap.forEach((b) => checkRefs(b.cells));
+
+    for (const frame of step.stack) {
+      const name = frameName.get(frame.id);
+      if (name !== undefined && name !== frame.name) {
+        issue(i, `frame "${frame.id}" changed name from ${name} to ${frame.name}`);
+      }
+      frameName.set(frame.id, frame.name);
+    }
+  });
 }
 
 /** Convenience: validate many traces and return all issues flattened. */

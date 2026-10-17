@@ -136,7 +136,35 @@ export interface HeapBlock {
    * `allocated`. Phase 0 traces (no heap) are unaffected.
    */
   state?: AllocationState;
+  /**
+   * The Python object this block shows (Phase 30, additive; see `docs/PYTHON_TRACE_FORMAT.md`).
+   * Present only on Python traces (`trace.language === 'python'`), where every object is a block
+   * whose id is the object's stable id (`o1`, `o2`, ...). A block with `objectKind` renders as a
+   * Python object (no allocation-state badge), not as a malloc block. Absent on C traces.
+   *
+   * @remarks Added in Phase 30.
+   */
+  objectKind?: PyObjectKind;
 }
+
+/**
+ * The kind of Python object a {@link HeapBlock} shows (Phase 30, additive). Present only on Python
+ * traces. `summary` is a NumPy / pandas object shown as type, shape and dtype, until Phases 34–35
+ * add `'ndarray'` / `'dataframe'` / `'series'`. `other` is any object shown by its `repr`.
+ *
+ * @remarks Added in Phase 30.
+ */
+export type PyObjectKind =
+  | 'list'
+  | 'tuple'
+  | 'set'
+  | 'frozenset'
+  | 'dict'
+  | 'instance'
+  | 'function'
+  | 'class'
+  | 'summary'
+  | 'other';
 
 /**
  * The static / data segment — a C program's static storage, split into the three textbook
@@ -404,8 +432,12 @@ export interface Step {
   explain?: StepExplanation;
 }
 
-/** Supported source languages. Only C is in scope for SE 200 / SE 201. */
-export type TraceLanguage = 'c';
+/**
+ * Supported source languages. C is SE 200 / SE 201; Python (Phase 30, additive) maps a recorded
+ * run onto the same model: names are cells, every object is a {@link HeapBlock} tagged with
+ * {@link HeapBlock.objectKind} (see `docs/PYTHON_TRACE_FORMAT.md`).
+ */
+export type TraceLanguage = 'c' | 'python';
 
 /**
  * A complete, self-contained visualization: source code plus the ordered steps that walk through

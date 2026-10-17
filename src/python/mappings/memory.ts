@@ -5,7 +5,7 @@
  * - A name is a cell: `scalar` for a primitive (its `repr` is the value), `pointer` for a reference
  *   (the target is the object's stable id, so aliasing is two arrows into one box).
  * - Every Python object is a {@link HeapBlock} whose id is the object's stable id (`o1`, ...), plus an
- *   additive {@link PyHeapBlock.objectKind | objectKind} tag. Its cells: list/tuple items by index,
+ *   additive {@link HeapBlock.objectKind | objectKind} tag. Its cells: list/tuple items by index,
  *   dict entries named by the key's `repr`, set members, instance attributes, or a summary.
  *
  * Cell ids are derived from the owner and the position or key, so the same logical slot keeps its
@@ -17,14 +17,14 @@
  *
  * @packageDocumentation
  */
-import type { Cell, HeapBlock, StackFrame } from '../../engine/trace/types.ts';
+import type { Cell, HeapBlock, PyObjectKind, StackFrame } from '../../engine/trace/types.ts';
 import type { PyFrame, PyObject, PyValue } from '../protocol.ts';
 
-/** The additive kind tag candidate A puts on a Python object's block (Phase 30: `HeapBlock.objectKind?`). */
-export type PyObjectKind = PyObject['kind'];
-
-/** A {@link HeapBlock} carrying the Python object kind. */
-export type PyHeapBlock = HeapBlock & { objectKind: PyObjectKind };
+// Phase 30: `PyObjectKind` and `HeapBlock.objectKind` live in the shared trace types now. The
+// recorder's object kinds and the trace's must stay the same set; this fails to compile if not.
+type SameKinds<A, B> = [A] extends [B] ? ([B] extends [A] ? true : never) : never;
+const KINDS_MATCH: SameKinds<PyObject['kind'], PyObjectKind> = true;
+void KINDS_MATCH;
 
 /** The frames + objects part of a snapshot (or of candidate B's payload). */
 export interface PythonState {
@@ -95,7 +95,7 @@ export function objectToBlock(
   id: string,
   obj: PyObject,
   objects: Record<string, PyObject>,
-): PyHeapBlock {
+): HeapBlock {
   let cells: Cell[];
   switch (obj.kind) {
     case 'list':
@@ -149,7 +149,7 @@ export function objectToBlock(
 export function stateToMemory(
   state: PythonState,
   callIds: Map<string, number>,
-): { stack: StackFrame[]; heap: PyHeapBlock[] } {
+): { stack: StackFrame[]; heap: HeapBlock[] } {
   const last = state.frames.length - 1;
   const stack = state.frames.map((frame, depth): StackFrame => {
     const variables = frame.vars.map((v) =>

@@ -1,0 +1,1212 @@
+{
+ "id": "python-class-instances",
+ "title": "A class with two instances",
+ "file": "class-instances.py",
+ "language": "python",
+ "source": "class Tractor:\n    def __init__(self, name, fuel):\n        self.name = name\n        self.fuel = fuel\n\n    def drive(self, hours):\n        self.fuel = self.fuel - 10 * hours\n\nred = Tractor(\"Red\", 100)\nblue = Tractor(\"Blue\", 80)\nred.drive(3)\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Line 1 calls Tractor().",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Line 1 ran.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Tractor finishes.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f2.drive",
+       "name": "drive",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function Tractor.drive(self, hours)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Back in <module>: line 1 finishes.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "Line 9 calls __init__(self=…, name='Red', fuel=100).",
+   "highlightedLines": [
+    9
+   ],
+   "stdout": [],
+   "activeId": "f3",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "__init__",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f3.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-6",
+   "index": 6,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f3",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "__init__",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f3.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-7",
+   "index": 7,
+   "narration": "__init__ returns None.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f3",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "__init__",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f3.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.return",
+       "name": "return",
+       "type": "NoneType",
+       "value": "None"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-8",
+   "index": 8,
+   "narration": "Back in <module>: line 9 finishes.",
+   "highlightedLines": [
+    9
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-9",
+   "index": 9,
+   "narration": "Line 10 calls __init__(self=…, name='Blue', fuel=80).",
+   "highlightedLines": [
+    10
+   ],
+   "stdout": [],
+   "activeId": "f4",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f4.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o4"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ],
+     "objectKind": "instance"
+    },
+    {
+     "id": "o4",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-10",
+   "index": 10,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f4",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f4.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o4"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ],
+     "objectKind": "instance"
+    },
+    {
+     "id": "o4",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-11",
+   "index": 11,
+   "narration": "__init__ returns None.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f4",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f4.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o4"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.return",
+       "name": "return",
+       "type": "NoneType",
+       "value": "None"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ],
+     "objectKind": "instance"
+    },
+    {
+     "id": "o4",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-12",
+   "index": 12,
+   "narration": "Back in <module>: line 10 finishes.",
+   "highlightedLines": [
+    10
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.blue",
+       "name": "blue",
+       "type": "Tractor",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ],
+     "objectKind": "instance"
+    },
+    {
+     "id": "o4",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-13",
+   "index": 13,
+   "narration": "Line 11 calls drive(self=…, hours=3).",
+   "highlightedLines": [
+    11
+   ],
+   "stdout": [],
+   "activeId": "f5",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.blue",
+       "name": "blue",
+       "type": "Tractor",
+       "target": "o4"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "drive",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f5.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f5.hours",
+       "name": "hours",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "100"
+      }
+     ],
+     "objectKind": "instance"
+    },
+    {
+     "id": "o4",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-14",
+   "index": 14,
+   "narration": "drive returns None.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f5",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.blue",
+       "name": "blue",
+       "type": "Tractor",
+       "target": "o4"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "drive",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f5.self",
+       "name": "self",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f5.hours",
+       "name": "hours",
+       "type": "int",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f5.return",
+       "name": "return",
+       "type": "NoneType",
+       "value": "None"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "70"
+      }
+     ],
+     "objectKind": "instance"
+    },
+    {
+     "id": "o4",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  },
+  {
+   "id": "py-15",
+   "index": 15,
+   "narration": "The program finished.",
+   "highlightedLines": [
+    11
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.Tractor",
+       "name": "Tractor",
+       "type": "type",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.red",
+       "name": "red",
+       "type": "Tractor",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.blue",
+       "name": "blue",
+       "type": "Tractor",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o2",
+     "label": "class Tractor",
+     "type": "type",
+     "cells": [],
+     "objectKind": "class"
+    },
+    {
+     "id": "o3",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Red'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "70"
+      }
+     ],
+     "objectKind": "instance"
+    },
+    {
+     "id": "o4",
+     "label": "Tractor",
+     "type": "Tractor",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.name",
+       "name": "name",
+       "type": "str",
+       "value": "'Blue'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4.fuel",
+       "name": "fuel",
+       "type": "int",
+       "value": "80"
+      }
+     ],
+     "objectKind": "instance"
+    }
+   ]
+  }
+ ]
+}
