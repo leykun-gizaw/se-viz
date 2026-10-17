@@ -40,19 +40,24 @@ export interface TransportProps {
   player: TracePlayer;
   /** Hide the scrub + speed (compact mode, e.g. presentation). */
   compact?: boolean;
+  /**
+   * Show the scrub range (default). The Studio top bar turns it off because the timeline under the
+   * stage is the step bar there (Phase 28).
+   */
+  showScrub?: boolean;
 }
 
-export function Transport({ player, compact = false }: TransportProps) {
+export function Transport({ player, compact = false, showScrub = true }: TransportProps) {
   const { index, total, canPrev, canNext, isPlaying, beatLabel, supportsBeats, mode } = player;
 
   return (
-    <div className="flex items-center gap-3">
-      <span className="font-mono text-xs text-ink-muted">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+      <span className="whitespace-nowrap font-mono text-xs text-ink-muted">
         Step <span className="font-semibold text-ink">{index + 1}</span> / {total}
         {beatLabel ? <span className="text-ink-faint"> · {beatLabel}</span> : null}
       </span>
 
-      {!compact ? (
+      {!compact && showScrub ? (
         <input
           type="range"
           min={0}
@@ -133,7 +138,7 @@ export function Transport({ player, compact = false }: TransportProps) {
           onClick={player.toggleMode}
           aria-pressed={mode === 'two-beat'}
           title={`Execute-to-reveal stepping: ${mode === 'two-beat' ? 'on' : 'off'} — split each step into "about to run" then "ran" (b)`}
-          className={`rounded-md border px-2 py-1 font-sans text-xs transition-colors ${
+          className={`whitespace-nowrap rounded-md border px-2 py-1 font-sans text-xs transition-colors ${
             mode === 'two-beat'
               ? 'border-pointer bg-pointer-soft text-pointer'
               : 'border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3'

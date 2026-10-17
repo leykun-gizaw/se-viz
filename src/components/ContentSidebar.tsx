@@ -1,28 +1,40 @@
 /**
- * The content navigator. A course **dropdown** picks which course is shown (so the list isn't one
- * giant concatenated scroll of every course), and each topic within the chosen course is a
- * **collapsible** accordion section — collapsed by default except the topic holding the active
- * module — so reaching any example is a short hop, not a long scroll.
+ * The content navigator — the Studio's **course map** (Phase 28: it lives in a resizable,
+ * collapsible panel; see `studio/StudioLayout.tsx`). A course **dropdown** picks which course is
+ * shown (so the list isn't one giant concatenated scroll of every course), and each topic within the
+ * chosen course is a **collapsible** accordion section — collapsed by default except the topic
+ * holding the active module — so reaching any example is a short hop, not a long scroll.
+ *
+ * Labels are sentence case and wrap rather than truncate; the current item carries an azure bar.
+ * Collapsed, the panel is a rail with only an expand button. The component stays mounted while
+ * collapsed, so the open topics survive a collapse and restore.
  */
-import { useState } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import type { CatalogCourse } from '../content/catalog.ts';
 import type { TheoryDoc } from '../content/theory.ts';
 import { LIVE_CODING_ID } from '../live/config.ts';
+import { sentenceCase } from './studio/sentenceCase.ts';
+import { RailButton } from './studio/StudioLayout.tsx';
+import { topicKey, type CourseMapNav } from './studio/useCourseMapNav.ts';
 
 export interface ContentSidebarProps {
   courses: readonly CatalogCourse[];
   selectedId: string;
   onSelect: (traceId: string) => void;
-  /** Whether the sidebar is collapsed to a thin rail. */
+  /** Whether the course map is collapsed to its rail. */
   collapsed: boolean;
-  /** Toggle collapsed/expanded. */
-  onToggleCollapse: () => void;
+  /** Collapse to the rail. */
+  onCollapse: () => void;
+  /** Restore from the rail. */
+  onExpand: () => void;
   /**
    * Show the Live Coding entry (Phase 23) — a separate pinned section, not part of the curriculum
    * tree. Set only when a tracer backend is configured (`VITE_TRACER_URL`), so production without
    * one never shows a dead feature.
    */
   liveCodingEnabled?: boolean;
+  /** Navigation state held by the caller, so it survives a remount (see `useCourseMapNav`). */
+  nav: CourseMapNav;
 }
 
 /** Terminal-prompt glyph for the Live Coding entry. */
@@ -41,21 +53,6 @@ function LiveIcon() {
       className="shrink-0"
     >
       <path d="M5 7l5 5-5 5M12 17h7" />
-    </svg>
-  );
-}
-
-/** Chevron pointing left (collapse) or right (expand) — for the whole-sidebar rail toggle. */
-function Chevron({ direction }: { direction: 'left' | 'right' }) {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d={direction === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
     </svg>
   );
 }
@@ -114,8 +111,6 @@ function CollapseExpandIcon({ collapse }: { collapse: boolean }) {
   );
 }
 
-const topicKey = (course: string, topic: string) => `${course}::${topic}`;
-
 /** The read-first Theory entry, pinned at the top of a topic and visually distinct (azure + book). */
 function TheoryEntry({
   theory,
@@ -134,8 +129,10 @@ function TheoryEntry({
         onClick={() => onSelect(theory.id)}
         title={theory.title}
         aria-current={active ? 'true' : undefined}
-        className={`flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left font-sans text-xs transition-colors ${
-          active ? 'bg-pointer-soft font-semibold text-pointer' : 'text-pointer hover:bg-surface-2'
+        className={`relative flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left font-sans text-[13px] transition-colors ${
+          active
+            ? 'bg-pointer-soft font-semibold text-pointer before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-full before:bg-pointer'
+            : 'text-pointer hover:bg-surface-2'
         }`}
       >
         <svg
@@ -153,25 +150,11 @@ function TheoryEntry({
           <path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z" />
           <path d="M4 19a2 2 0 0 0 2 2h13" />
         </svg>
-        <span className="truncate">Theory</span>
-        <span className="ml-auto text-[9px] font-semibold uppercase tracking-wider text-ink-faint">
-          read
-        </span>
+        <span>Theory</span>
+        <span className="ml-auto text-[11px] text-ink-faint">read first</span>
       </button>
     </li>
   );
-}
-
-/** Where a module lives in the catalog — drives the initial course + which topic starts open. */
-function findLocation(
-  courses: readonly CatalogCourse[],
-  traceId: string,
-): { course: string; topic: string } | null {
-  for (const c of courses) {
-    const t = c.topics.find((t) => t.modules.some((m) => m.trace.id === traceId));
-    if (t) return { course: c.course, topic: t.topic };
-  }
-  return null;
 }
 
 export function ContentSidebar({
@@ -179,17 +162,17 @@ export function ContentSidebar({
   selectedId,
   onSelect,
   collapsed,
-  onToggleCollapse,
+  onCollapse,
+  onExpand,
   liveCodingEnabled = false,
+  nav,
 }: ContentSidebarProps) {
-  // Initialise (once) from where the active module lives: show its course, open its topic.
-  const [courseCode, setCourseCode] = useState(
-    () => findLocation(courses, selectedId)?.course ?? courses[0]?.course ?? '',
-  );
-  const [expanded, setExpanded] = useState<Set<string>>(() => {
-    const loc = findLocation(courses, selectedId);
-    return loc ? new Set([topicKey(loc.course, loc.topic)]) : new Set();
-  });
+  const { courseCode, setCourseCode, expanded, setExpanded, scrollTopRef } = nav;
+  // Restore the list's scroll offset when the course map remounts (or returns from its rail).
+  const navRef = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
+    if (navRef.current) navRef.current.scrollTop = scrollTopRef.current;
+  }, [collapsed, scrollTopRef]);
 
   const course = courses.find((c) => c.course === courseCode) ?? courses[0];
 
@@ -218,7 +201,7 @@ export function ContentSidebar({
     const keys = course.topics.map((t) => topicKey(course.course, t.topic));
     setExpanded((prev) => new Set([...prev, ...keys]));
   };
-  const collapseAll = () => setExpanded(new Set());
+  const collapseAll = () => setExpanded(() => new Set());
 
   // One toggle: if anything is open, the button collapses all; if all closed, it expands all.
   const anyOpen =
@@ -226,59 +209,30 @@ export function ContentSidebar({
 
   if (collapsed) {
     return (
-      <aside className="flex w-10 shrink-0 flex-col items-center border-r border-hairline bg-surface py-3">
-        <button
-          type="button"
-          onClick={onToggleCollapse}
-          aria-label="Expand module list"
-          aria-expanded={false}
-          title="Expand module list"
-          className="flex h-7 w-7 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink"
-        >
-          <Chevron direction="right" />
-        </button>
-        <span
-          className="mt-3 font-sans text-[10px] font-semibold uppercase tracking-wider text-ink-faint [writing-mode:vertical-rl]"
-          aria-hidden="true"
-        >
-          Modules
-        </span>
-        {liveCodingEnabled ? (
-          <button
-            type="button"
-            onClick={() => onSelect(LIVE_CODING_ID)}
-            aria-label="Live coding"
-            aria-current={selectedId === LIVE_CODING_ID ? 'true' : undefined}
-            title="Live coding — run your own C"
-            className={`mt-auto flex h-7 w-7 items-center justify-center rounded-md border ${
-              selectedId === LIVE_CODING_ID
-                ? 'border-pointer bg-pointer-soft text-pointer'
-                : 'border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink'
-            }`}
-          >
-            <LiveIcon />
-          </button>
-        ) : null}
+      <aside
+        aria-label="Course map"
+        className="flex h-full w-full flex-col items-center bg-surface py-3"
+      >
+        <RailButton
+          label="Expand the course map"
+          direction="right"
+          expanded={false}
+          onClick={onExpand}
+        />
       </aside>
     );
   }
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-hairline bg-surface">
-      <div className="flex items-center justify-between border-b border-hairline px-4 py-3">
-        <h2 className="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
-          Modules
-        </h2>
-        <button
-          type="button"
-          onClick={onToggleCollapse}
-          aria-label="Collapse module list"
-          aria-expanded={true}
-          title="Collapse module list"
-          className="flex h-6 w-6 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink"
-        >
-          <Chevron direction="left" />
-        </button>
+    <aside aria-label="Course map" className="flex h-full w-full flex-col bg-surface">
+      <div className="flex items-center justify-between border-b border-hairline px-4 py-2.5">
+        <h2 className="font-sans text-sm font-semibold text-ink">Course map</h2>
+        <RailButton
+          label="Collapse the course map"
+          direction="left"
+          expanded={true}
+          onClick={onCollapse}
+        />
       </div>
 
       {/* Course picker — swap which course's topics are listed. */}
@@ -288,7 +242,7 @@ export function ContentSidebar({
             aria-label="Course"
             value={course?.course ?? ''}
             onChange={(e) => onCourseChange(e.target.value)}
-            className="w-full cursor-pointer appearance-none rounded-md border border-hairline bg-surface-2 py-1.5 pl-2.5 pr-8 font-sans text-xs font-semibold text-ink hover:bg-surface-3 focus:outline-none focus:ring-1 focus:ring-pointer"
+            className="w-full cursor-pointer appearance-none rounded-md border border-hairline bg-surface-2 py-1.5 pl-2.5 pr-8 font-sans text-[13px] font-semibold text-ink hover:bg-surface-3 focus:outline-none focus:ring-1 focus:ring-pointer"
           >
             {courses.map((c) => (
               <option key={c.course} value={c.course}>
@@ -322,7 +276,13 @@ export function ContentSidebar({
         </div>
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-2 py-2">
+      <nav
+        ref={navRef}
+        onScroll={(e) => {
+          scrollTopRef.current = e.currentTarget.scrollTop;
+        }}
+        className="flex-1 overflow-y-auto px-2 py-2"
+      >
         {course?.topics.map((topic) => {
           const key = topicKey(course.course, topic.topic);
           const open = expanded.has(key);
@@ -332,11 +292,13 @@ export function ContentSidebar({
                 type="button"
                 onClick={() => toggleTopic(key)}
                 aria-expanded={open}
-                className="flex w-full items-center gap-1.5 rounded-md px-1.5 py-1.5 text-left font-sans text-[10px] font-semibold uppercase tracking-wide text-ink-faint transition-colors hover:bg-surface-2 hover:text-ink-muted"
+                className="flex w-full items-start gap-1.5 rounded-md px-1.5 py-1.5 text-left font-sans text-[13px] font-semibold leading-snug text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink"
               >
-                <Caret open={open} />
-                <span className="min-w-0 flex-1 truncate">{topic.topic}</span>
-                <span className="font-mono text-[10px] font-normal tabular-nums text-ink-faint">
+                <span className="mt-[3px]">
+                  <Caret open={open} />
+                </span>
+                <span className="min-w-0 flex-1 break-words">{sentenceCase(topic.topic)}</span>
+                <span className="mt-px font-mono text-[11px] font-normal tabular-nums text-ink-faint">
                   {topic.modules.length}
                 </span>
               </button>
@@ -358,13 +320,13 @@ export function ContentSidebar({
                           onClick={() => onSelect(m.trace.id)}
                           title={m.summary}
                           aria-current={active ? 'true' : undefined}
-                          className={`w-full rounded-md px-2 py-1.5 text-left font-sans text-xs transition-colors ${
+                          className={`relative w-full break-words rounded-md px-2.5 py-1.5 text-left font-sans text-[13px] leading-snug transition-colors ${
                             active
-                              ? 'bg-surface-3 font-semibold text-ink'
-                              : 'text-ink-muted hover:bg-surface-2'
+                              ? 'bg-pointer-soft font-semibold text-ink before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-full before:bg-pointer'
+                              : 'text-ink-muted hover:bg-surface-2 hover:text-ink'
                           }`}
                         >
-                          {m.label}
+                          {sentenceCase(m.label)}
                         </button>
                       </li>
                     );
@@ -384,17 +346,15 @@ export function ContentSidebar({
             onClick={() => onSelect(LIVE_CODING_ID)}
             aria-current={selectedId === LIVE_CODING_ID ? 'true' : undefined}
             title="Run your own C program in the visualizer"
-            className={`flex w-full items-center gap-2 rounded-md px-2 py-2 text-left font-sans text-xs transition-colors ${
+            className={`flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left font-sans text-[13px] transition-colors ${
               selectedId === LIVE_CODING_ID
                 ? 'bg-pointer-soft font-semibold text-pointer'
                 : 'text-pointer hover:bg-surface-2'
             }`}
           >
             <LiveIcon />
-            <span className="truncate">Live coding</span>
-            <span className="ml-auto text-[9px] font-semibold uppercase tracking-wider text-ink-faint">
-              run C
-            </span>
+            <span>Live coding</span>
+            <span className="ml-auto text-[11px] text-ink-faint">run C</span>
           </button>
         </div>
       ) : null}

@@ -215,3 +215,43 @@ body {
   outline-offset: 2px;
   border-radius: 6px;
 }
+
+/*
+ * Studio timeline step bar (Phase 28): a native range input drawn over our own track, fill and
+ * event ticks (see components/studio/Timeline.tsx). Only the thumb is visible — the amber "current"
+ * hue. Its 14px diameter must match `THUMB` in Timeline.tsx so the ticks line up.
+ */
+.se-timeline {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+.se-timeline::-webkit-slider-runnable-track {
+  height: 24px;
+  background: transparent;
+}
+.se-timeline::-moz-range-track {
+  height: 24px;
+  background: transparent;
+}
+.se-timeline::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  margin-top: 5px;
+  border: 2px solid var(--se-surface);
+  border-radius: 9999px;
+  background: var(--se-active);
+}
+.se-timeline::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--se-surface);
+  border-radius: 9999px;
+  background: var(--se-active);
+}

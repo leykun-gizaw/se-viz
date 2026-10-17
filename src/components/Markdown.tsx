@@ -10,7 +10,7 @@
  */
 import { createContext, useContext } from 'react';
 import { tokenizeLine, type TokenType } from '../engine/highlightC.ts';
-import type { Block, InlineNode } from '../engine/markdown.ts';
+import { parseInline, type Block, type InlineNode } from '../engine/markdown.ts';
 import { coachVariantMeta } from '../engine/trace/coach.ts';
 import { VariantIcon } from './CoachBubble.tsx';
 import { DiagramView } from './Diagram.tsx';
@@ -297,4 +297,12 @@ export function Markdown({
       </PlaceContext.Provider>
     </ScaleContext.Provider>
   );
+}
+
+/**
+ * Render one run of **inline** Markdown (code, bold, italic, links) at the reading scale — for short
+ * authored strings outside a document, e.g. the step explanation panel (Phase 28).
+ */
+export function InlineMarkdown({ text }: { text: string }) {
+  return <Inline nodes={parseInline(text)} />;
 }

@@ -1,7 +1,9 @@
 /**
- * The narration bar at the bottom: an amber step marker, an optional condition chip (branch/loop
- * test, e.g. `i <= n → true`), the current step's narration, and the progress dots from the design
- * (filled = visited, amber = current, faint = remaining).
+ * The narration bar at the bottom — since Phase 28 used by **presentation mode** only (the normal
+ * Studio view shows the narration in a card under the code, see `NarrationCard`): an amber step
+ * marker, an optional condition chip (branch/loop test, e.g. `i <= n → true`), the current step's
+ * narration, and the progress dots from the design (filled = visited, amber = current, faint =
+ * remaining).
  */
 import type { StepCondition } from '../engine/trace/types.ts';
 import type { TracePlayer } from '../engine/trace/useTrace.ts';
@@ -26,7 +28,7 @@ function ProgressDots({ index, total }: { index: number; total: number }) {
 }
 
 /** A condition test rendered as a chip: `expr → true` (green) or `expr → false` (muted). */
-function ConditionChip({ condition }: { condition: StepCondition }) {
+export function ConditionChip({ condition }: { condition: StepCondition }) {
   const { expr, result } = condition;
   return (
     <span

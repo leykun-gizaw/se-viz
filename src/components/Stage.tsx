@@ -1,11 +1,13 @@
 /**
  * The player surface. For memory traces (default, `view` absent/`'memory'`) it is the three
  * synchronized panels — code (left), memory (right, with the console panel beneath it when the step
- * has output) — plus the full-width narration bar. For the Phase 11 concept views (`pipeline`,
- * `before-after`, `dual-trace`) the main area is replaced by the matching renderer while the
- * narration bar and all surrounding chrome (top bar, transport, keyboard, presentation) are
- * unchanged. Shared by the normal workbench and presentation mode (the `presenting` flag only bumps
- * type sizes for the memory view).
+ * has output). For the Phase 11 concept views (`pipeline`, `before-after`, `dual-trace`) the main
+ * area is replaced by the matching renderer while all surrounding chrome (top bar, transport,
+ * keyboard, presentation) is unchanged.
+ *
+ * Studio layout (Phase 28): in the normal view the narration is a card **under the code panel**
+ * (under the concept view for concept traces) and the timeline runs along the bottom. Presentation
+ * mode (`presenting`) is unchanged: bigger type, a static divider, and the full-width narration bar.
  */
 import { useRef } from 'react';
 import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panels';
@@ -16,6 +18,8 @@ import { CodePanel } from './CodePanel.tsx';
 import { ConsolePanel } from './ConsolePanel.tsx';
 import { MemoryCanvas } from './memory/MemoryCanvas.tsx';
 import { NarrationBar } from './NarrationBar.tsx';
+import { NarrationCard } from './NarrationCard.tsx';
+import { Timeline } from './studio/Timeline.tsx';
 import { BeforeAfterView } from './concept/BeforeAfterView.tsx';
 import { DualTraceView } from './concept/DualTraceView.tsx';
 import { PipelineView } from './concept/PipelineView.tsx';
@@ -41,14 +45,26 @@ export function Stage({
   const pulseKey = `${displayStep.index}:${beat}`;
 
   let main;
+  let concept = null;
   if (view === 'pipeline') {
     // No line-by-line memory: pipeline forces single-beat, so displayStep === the logical step.
-    main = <PipelineView step={displayStep} />;
+    concept = <PipelineView step={displayStep} />;
   } else if (view === 'before-after') {
-    main = <BeforeAfterView step={displayStep} />;
+    concept = <BeforeAfterView step={displayStep} />;
   } else if (view === 'dual-trace') {
     // Dual-trace gets two-beat stepping (pre-state on arrive, revealed on apply) via displayStep.
-    main = <DualTraceView trace={trace} step={displayStep} />;
+    concept = <DualTraceView trace={trace} step={displayStep} />;
+  }
+
+  if (concept) {
+    main = presenting ? (
+      concept
+    ) : (
+      <div className="flex min-h-0 flex-1 flex-col gap-3">
+        <div className="flex min-h-0 flex-1 flex-col">{concept}</div>
+        <NarrationCard player={player} />
+      </div>
+    );
   } else {
     // Code (left) and visualization (right) share the width via a draggable divider, defaulting to
     // a narrower code panel so the memory canvas gets the room. The divider is disabled (static) in
@@ -67,14 +83,19 @@ export function Stage({
           maxSize="80%"
           className="h-full min-h-0 min-w-0"
         >
-          <CodePanel
-            trace={trace}
-            step={step}
-            displayStep={displayStep}
-            displayPrevStep={displayPrevStep}
-            pulseKey={pulseKey}
-            presenting={presenting}
-          />
+          <div className="flex h-full min-h-0 flex-col gap-3">
+            <div className="min-h-0 flex-1">
+              <CodePanel
+                trace={trace}
+                step={step}
+                displayStep={displayStep}
+                displayPrevStep={displayPrevStep}
+                pulseKey={pulseKey}
+                presenting={presenting}
+              />
+            </div>
+            {presenting ? null : <NarrationCard player={player} />}
+          </div>
         </Panel>
         <Separator
           disabled={presenting}
@@ -113,7 +134,7 @@ export function Stage({
           />
         ) : null}
       </div>
-      <NarrationBar player={player} presenting={presenting} />
+      {presenting ? <NarrationBar player={player} presenting /> : <Timeline player={player} />}
     </div>
   );
 }
