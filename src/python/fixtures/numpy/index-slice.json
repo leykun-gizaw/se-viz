@@ -1,0 +1,1626 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "np"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "a"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "array",
+      "src": "np.array"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "10"
+        },
+        {
+         "type": "const",
+         "repr": "20"
+        },
+        {
+         "type": "const",
+         "repr": "30"
+        },
+        {
+         "type": "const",
+         "repr": "40"
+        },
+        {
+         "type": "const",
+         "repr": "50"
+        }
+       ],
+       "src": "[10, 20, 30, 40, 50]"
+      }
+     ],
+     "src": "np.array([10, 20, 30, 40, 50])"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "x"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "a"
+     },
+     "index": {
+      "type": "const",
+      "repr": "1"
+     },
+     "src": "a[1]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20",
+        "dtype": "int32"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "last"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "a"
+     },
+     "index": {
+      "type": "unary",
+      "op": "-",
+      "operand": {
+       "type": "const",
+       "repr": "1"
+      },
+      "src": "-1"
+     },
+     "src": "a[-1]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "last",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "50",
+        "dtype": "int32"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "part"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "a"
+     },
+     "index": {
+      "type": "slice",
+      "lower": {
+       "type": "const",
+       "repr": "1"
+      },
+      "upper": {
+       "type": "const",
+       "repr": "4"
+      },
+      "src": "1:4"
+     },
+     "src": "a[1:4]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "last",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "50",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "part",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "name",
+      "id": "m"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "array",
+      "src": "np.array"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "const",
+           "repr": "1"
+          },
+          {
+           "type": "const",
+           "repr": "2"
+          },
+          {
+           "type": "const",
+           "repr": "3"
+          }
+         ],
+         "src": "[1, 2, 3]"
+        },
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "const",
+           "repr": "4"
+          },
+          {
+           "type": "const",
+           "repr": "5"
+          },
+          {
+           "type": "const",
+           "repr": "6"
+          }
+         ],
+         "src": "[4, 5, 6]"
+        }
+       ],
+       "src": "[[1, 2, 3], [4, 5, 6]]"
+      }
+     ],
+     "src": "np.array([[1, 2, 3], [4, 5, 6]])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 4,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "last",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "50",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "part",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "m",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 8,
+    "end": 8,
+    "targets": [
+     {
+      "type": "name",
+      "id": "v"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "m"
+     },
+     "index": {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "const",
+        "repr": "0"
+       },
+       {
+        "type": "const",
+        "repr": "2"
+       }
+      ],
+      "src": "0, 2"
+     },
+     "src": "m[0, 2]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 4,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       12,
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "last",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "50",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "part",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "m",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "v",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3",
+        "dtype": "int32"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 9,
+    "end": 9,
+    "targets": [
+     {
+      "type": "name",
+      "id": "row"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "m"
+     },
+     "index": {
+      "type": "const",
+      "repr": "1"
+     },
+     "src": "m[1]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 4,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       12,
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "last",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "50",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "part",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "m",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "v",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "row",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 10,
+    "end": 10,
+    "targets": [
+     {
+      "type": "name",
+      "id": "col"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "m"
+     },
+     "index": {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "slice",
+        "src": ":"
+       },
+       {
+        "type": "const",
+        "repr": "1"
+       }
+      ],
+      "src": ":, 1"
+     },
+     "src": "m[:, 1]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 4,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       12,
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o4": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o3"
+     },
+     "layout": {
+      "offset": 12,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "last",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "50",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "part",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "m",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "v",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3",
+        "dtype": "int32"
+       }
+      },
+      {
+       "name": "row",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "col",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 4,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       12,
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o4": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o3"
+     },
+     "layout": {
+      "offset": 12,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o5": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o3"
+     },
+     "layout": {
+      "offset": 4,
+      "strides": [
+       12
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

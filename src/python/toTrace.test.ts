@@ -8,9 +8,10 @@ import { describe, expect, it } from 'vitest';
 import { validateTrace } from '../engine/trace/validate.ts';
 import type { RunResult } from './protocol.ts';
 import { SAMPLES } from './samples/index.ts';
+import { NUMPY_SAMPLES } from './samples/numpy/index.ts';
 import { recordingToTrace } from './toTrace.ts';
 
-const RAW = import.meta.glob<string>('./fixtures/*.json', {
+const RAW = import.meta.glob<string>('./fixtures/**/*.json', {
   query: '?raw',
   import: 'default',
   eager: true,
@@ -50,4 +51,25 @@ describe('Phase 29 recordings as Python traces', () => {
     const trace = recordingToTrace(recording('syntax-error'), 'print(', { id: 'x', title: 'x' });
     expect(trace.steps).toEqual([]);
   });
+});
+
+describe('Phase 34 NumPy recordings as Python traces', () => {
+  it.each(NUMPY_SAMPLES.map((s) => [s.name, s] as const))(
+    'numpy/%s maps to a valid trace and matches its committed file',
+    async (name, sample) => {
+      const result = recording(`numpy/${name}`);
+      expect(result.error).toBeUndefined();
+      const trace = recordingToTrace(result, sample.source, {
+        id: `python-numpy-${name}`,
+        title: sample.title,
+        file: `${name}.py`,
+      });
+      expect(trace.steps.length).toBeGreaterThan(0);
+      expect(trace.steps.some((s) => s.heap.some((b) => b.objectKind === 'ndarray'))).toBe(true);
+      expect(validateTrace(trace)).toEqual([]);
+      await expect(`${JSON.stringify(trace, null, 1)}\n`).toMatchFileSnapshot(
+        `../content/fixtures/python/numpy/${name}.json`,
+      );
+    },
+  );
 });

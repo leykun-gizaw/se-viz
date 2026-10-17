@@ -1,0 +1,2262 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "np"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "a"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "array",
+      "src": "np.array"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "3"
+        },
+        {
+         "type": "const",
+         "repr": "1"
+        },
+        {
+         "type": "const",
+         "repr": "4"
+        },
+        {
+         "type": "const",
+         "repr": "1"
+        },
+        {
+         "type": "const",
+         "repr": "5"
+        }
+       ],
+       "src": "[3, 1, 4, 1, 5]"
+      }
+     ],
+     "src": "np.array([3, 1, 4, 1, 5])"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "r"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "arange",
+      "src": "np.arange"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "6"
+      }
+     ],
+     "src": "np.arange(6)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "r",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "z"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "zeros",
+      "src": "np.zeros"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "tuple",
+       "items": [
+        {
+         "type": "const",
+         "repr": "2"
+        },
+        {
+         "type": "const",
+         "repr": "3"
+        }
+       ],
+       "src": "(2, 3)"
+      }
+     ],
+     "src": "np.zeros((2, 3))"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      6
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "r",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "z",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "o"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "ones",
+      "src": "np.ones"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "4"
+      }
+     ],
+     "src": "np.ones(4)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      6
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "r",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "z",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "o",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "name",
+      "id": "t"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "linspace",
+      "src": "np.linspace"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "0"
+      },
+      {
+       "type": "const",
+       "repr": "1"
+      },
+      {
+       "type": "const",
+       "repr": "5"
+      }
+     ],
+     "src": "np.linspace(0, 1, 5)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      6
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o4": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      4
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "r",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "z",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "o",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 8,
+    "end": 8,
+    "targets": [
+     {
+      "type": "name",
+      "id": "m"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "array",
+      "src": "np.array"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "const",
+           "repr": "1"
+          },
+          {
+           "type": "const",
+           "repr": "2"
+          },
+          {
+           "type": "const",
+           "repr": "3"
+          }
+         ],
+         "src": "[1, 2, 3]"
+        },
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "const",
+           "repr": "4"
+          },
+          {
+           "type": "const",
+           "repr": "5"
+          },
+          {
+           "type": "const",
+           "repr": "6"
+          }
+         ],
+         "src": "[4, 5, 6]"
+        }
+       ],
+       "src": "[[1, 2, 3], [4, 5, 6]]"
+      }
+     ],
+     "src": "np.array([[1, 2, 3], [4, 5, 6]])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      6
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o4": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      4
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o5": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.25"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.75"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o6"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o6": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.25"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.75"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "r",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "z",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "o",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "m",
+       "value": {
+        "kind": "ref",
+        "id": "o7"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 9,
+    "end": 9,
+    "targets": [
+     {
+      "type": "name",
+      "id": "cube"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "array",
+      "src": "np.array"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "display",
+           "of": "list",
+           "items": [
+            {
+             "type": "const",
+             "repr": "1"
+            },
+            {
+             "type": "const",
+             "repr": "2"
+            }
+           ],
+           "src": "[1, 2]"
+          },
+          {
+           "type": "display",
+           "of": "list",
+           "items": [
+            {
+             "type": "const",
+             "repr": "3"
+            },
+            {
+             "type": "const",
+             "repr": "4"
+            }
+           ],
+           "src": "[3, 4]"
+          }
+         ],
+         "src": "[[1, 2], [3, 4]]"
+        },
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "display",
+           "of": "list",
+           "items": [
+            {
+             "type": "const",
+             "repr": "5"
+            },
+            {
+             "type": "const",
+             "repr": "6"
+            }
+           ],
+           "src": "[5, 6]"
+          },
+          {
+           "type": "display",
+           "of": "list",
+           "items": [
+            {
+             "type": "const",
+             "repr": "7"
+            },
+            {
+             "type": "const",
+             "repr": "8"
+            }
+           ],
+           "src": "[7, 8]"
+          }
+         ],
+         "src": "[[5, 6], [7, 8]]"
+        },
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "display",
+           "of": "list",
+           "items": [
+            {
+             "type": "const",
+             "repr": "9"
+            },
+            {
+             "type": "const",
+             "repr": "10"
+            }
+           ],
+           "src": "[9, 10]"
+          },
+          {
+           "type": "display",
+           "of": "list",
+           "items": [
+            {
+             "type": "const",
+             "repr": "11"
+            },
+            {
+             "type": "const",
+             "repr": "12"
+            }
+           ],
+           "src": "[11, 12]"
+          }
+         ],
+         "src": "[[9, 10], [11, 12]]"
+        }
+       ],
+       "src": "[[[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]]"
+      }
+     ],
+     "src": "np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      6
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o4": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      4
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o5": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.25"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.75"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o6"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o7": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       12,
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o6": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.25"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.75"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "a",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "r",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "z",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "o",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "m",
+       "value": {
+        "kind": "ref",
+        "id": "o7"
+       }
+      },
+      {
+       "name": "cube",
+       "value": {
+        "kind": "ref",
+        "id": "o8"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      6
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o4": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      4
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o5": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.25"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.75"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o6"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    },
+    "o7": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       12,
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o8": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      3,
+      2,
+      2
+     ],
+     "dtype": "int32",
+     "ndim": 3,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       16,
+       8,
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o6": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "float64",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.25"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.75"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       8
+      ],
+      "itemsize": 8
+     }
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

@@ -223,7 +223,26 @@
     "end": 3,
     "targets": [
      {
-      "type": "other",
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "inventory"
+      },
+      "index": {
+       "type": "display",
+       "of": "tuple",
+       "items": [
+        {
+         "type": "const",
+         "repr": "1"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        }
+       ],
+       "src": "(1, 2)"
+      },
       "src": "inventory[(1, 2)]"
      }
     ],

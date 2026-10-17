@@ -312,6 +312,8 @@ describe('criterion 6 — a clear place for ndarray and DataFrame views', () => 
   });
 
   it('A: real NumPy and pandas objects (fixture recorded with the packages) map the same way', () => {
+    // Since Phase 34 the array is an `ndarray` block with its values (C order) and the NumPy scalar
+    // `best = yields.max()` is a primitive typed by its dtype; pandas objects are still summaries.
     const result = fixture('packages-numpy-pandas');
     expect(result.error).toBeUndefined();
     const last = mapA(result, '\n'.repeat(8), 'packages').steps.at(-1)!;
@@ -321,12 +323,14 @@ describe('criterion 6 — a clear place for ndarray and DataFrame views', () => 
       ...b.cells.map((c) => (c.kind === 'scalar' ? `${c.name}=${c.value}` : c.name)),
     ]);
     expect(rows).toEqual([
-      ['summary', 'numpy ndarray', 'shape=(2, 3)', 'dtype=float64'],
-      ['summary', 'numpy float64', 'shape=()', 'dtype=float64'],
+      ['ndarray', 'numpy ndarray', '0, 0=3.0', '0, 1=4.5', '0, 2=2.0', '1, 0=5.5', '1, 1=1.0', '1, 2=4.0'],
       ['summary', 'pandas DataFrame', 'shape=(2, 2)', 'dtype=str, int64'],
       ['summary', 'pandas Series', 'shape=(2,)', 'dtype=int64'],
       ['dict', 'dict', "'grid'", "'table'"],
     ]);
+    expect(last.heap[0].ndarray).toMatchObject({ shape: [2, 3], dtype: 'float64', size: 6, base: null });
+    const best = last.stack[0].variables.find((v) => v.name === 'best');
+    expect(best).toMatchObject({ kind: 'scalar', type: 'np.float64', value: '5.5' });
   });
 
   it('B: the same summary sits in the payload, for a renderer B would have to write', () => {

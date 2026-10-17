@@ -262,6 +262,9 @@ export function validateTrace(trace: Trace): TraceIssue[] {
  * - ids are stable: an object id keeps its `objectKind`, a frame id keeps its function name, for
  *   the whole trace. (A frame id may leave and come back: a generator's frame is suspended at
  *   each `yield` and resumed as the same activation.)
+ * - NumPy arrays (Phase 34): a block has `ndarray` facts exactly when its `objectKind` is
+ *   `'ndarray'`; it holds at most `size` element cells; and its `base`, when set, is an object of
+ *   the same step.
  */
 function validatePython(trace: Trace, issue: (stepIndex: number, message: string) => void): void {
   const kindOf = new Map<string, string>();
@@ -279,6 +282,16 @@ function validatePython(trace: Trace, issue: (stepIndex: number, message: string
         issue(i, `object "${block.id}" changed kind from ${was} to ${block.objectKind}`);
       }
       kindOf.set(block.id, block.objectKind);
+      if ((block.objectKind === 'ndarray') !== (block.ndarray !== undefined)) {
+        issue(i, `object "${block.id}": ndarray facts must go with objectKind 'ndarray'`);
+      } else if (block.ndarray) {
+        const { size, base } = block.ndarray;
+        const elements = block.cells.filter((c) => c.name !== '…').length;
+        if (elements > size) issue(i, `array "${block.id}" has ${elements} cells but size ${size}`);
+        if (base !== null && !blocks.has(base)) {
+          issue(i, `array "${block.id}" is a view of "${base}", which is not an object here`);
+        }
+      }
     }
 
     // A target missing from the step altogether is already flagged by the shared check.

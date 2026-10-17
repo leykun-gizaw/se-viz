@@ -54,6 +54,7 @@ function Body({ object }: { object: PyObject }) {
     case 'class':
       return <span>class {object.name}</span>;
     case 'summary':
+    case 'ndarray':
       return (
         <span>{`${object.library} ${object.type} shape (${object.shape.join(', ')}) ${object.dtype}`}</span>
       );

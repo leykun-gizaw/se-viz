@@ -9,6 +9,7 @@
  *
  * @packageDocumentation
  */
+import { shapeText } from '../trace/ndarray.ts';
 import { diffObjects, type PyEvent } from '../trace/objectDiff.ts';
 import type {
   Cell,
@@ -1186,6 +1187,17 @@ function changeRow(ctx: Ctx, prev: Step, step: Step, e: PyEvent, paths: { prev: 
       return e.kind === 'attribute-set'
         ? { kind: 'add', subject: `Attribute ${code(cell.name)} set on ${obj}`, to: valueText(at, cell), ...md }
         : { kind: 'remove', subject: `Attribute ${code(cell.name)} removed from ${obj}`, from: valueText(at, cell), ...md };
+    }
+    case 'array-reshaped': {
+      const block = blockIn(step, e.objectId);
+      if (!block) return null;
+      return {
+        kind: 'value',
+        subject: `Shape of ${objectName(step, paths.next, e.objectId)} (reshaped in place)`,
+        from: shapeText(e.from),
+        to: shapeText(e.to),
+        ...md,
+      };
     }
     case 'value-changed':
     case 'reference-retargeted': {

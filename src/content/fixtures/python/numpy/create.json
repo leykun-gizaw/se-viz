@@ -1,0 +1,2780 @@
+{
+ "id": "python-numpy-create",
+ "title": "NumPy: creating arrays (1-D, 2-D, 3-D)",
+ "file": "create.py",
+ "language": "python",
+ "source": "import numpy as np\n\na = np.array([3, 1, 4, 1, 5])\nr = np.arange(6)\nz = np.zeros((2, 3))\no = np.ones(4)\nt = np.linspace(0, 1, 5)\nm = np.array([[1, 2, 3], [4, 5, 6]])\ncube = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]])\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Imported np.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "a now refers to a new ndarray.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "ndarray",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "int32",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "r now refers to a new ndarray.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "ndarray",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.r",
+       "name": "r",
+       "type": "ndarray",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "int32",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o2",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       6
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "z now refers to a new ndarray.",
+   "highlightedLines": [
+    5
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "ndarray",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.r",
+       "name": "r",
+       "type": "ndarray",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.z",
+       "name": "z",
+       "type": "ndarray",
+       "target": "o3"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "int32",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o2",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       6
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o3",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0,0]",
+       "name": "0, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,1]",
+       "name": "0, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,2]",
+       "name": "0, 2",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,0]",
+       "name": "1, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,1]",
+       "name": "1, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,2]",
+       "name": "1, 2",
+       "type": "float64",
+       "value": "0.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       2,
+       3
+      ],
+      "dtype": "float64",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        24,
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "o now refers to a new ndarray.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "ndarray",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.r",
+       "name": "r",
+       "type": "ndarray",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.z",
+       "name": "z",
+       "type": "ndarray",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.o",
+       "name": "o",
+       "type": "ndarray",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "int32",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o2",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       6
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o3",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0,0]",
+       "name": "0, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,1]",
+       "name": "0, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,2]",
+       "name": "0, 2",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,0]",
+       "name": "1, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,1]",
+       "name": "1, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,2]",
+       "name": "1, 2",
+       "type": "float64",
+       "value": "0.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       2,
+       3
+      ],
+      "dtype": "float64",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        24,
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o4",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       4
+      ],
+      "dtype": "float64",
+      "size": 4,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "t now refers to a new ndarray.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 8
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "ndarray",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.r",
+       "name": "r",
+       "type": "ndarray",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.z",
+       "name": "z",
+       "type": "ndarray",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.o",
+       "name": "o",
+       "type": "ndarray",
+       "target": "o4"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.t",
+       "name": "t",
+       "type": "ndarray",
+       "target": "o5"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "int32",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o2",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       6
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o3",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0,0]",
+       "name": "0, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,1]",
+       "name": "0, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,2]",
+       "name": "0, 2",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,0]",
+       "name": "1, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,1]",
+       "name": "1, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,2]",
+       "name": "1, 2",
+       "type": "float64",
+       "value": "0.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       2,
+       3
+      ],
+      "dtype": "float64",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        24,
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o4",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       4
+      ],
+      "dtype": "float64",
+      "size": 4,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o5",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o5[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "0.25"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "0.5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "0.75"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[4]",
+       "name": "4",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "float64",
+      "size": 5,
+      "ownsData": false,
+      "base": "o6",
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o6",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o6[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "0.25"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "0.5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "0.75"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[4]",
+       "name": "4",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "float64",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-6",
+   "index": 6,
+   "narration": "m now refers to a new ndarray.",
+   "highlightedLines": [
+    8
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 9
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "ndarray",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.r",
+       "name": "r",
+       "type": "ndarray",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.z",
+       "name": "z",
+       "type": "ndarray",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.o",
+       "name": "o",
+       "type": "ndarray",
+       "target": "o4"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.t",
+       "name": "t",
+       "type": "ndarray",
+       "target": "o5"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.m",
+       "name": "m",
+       "type": "ndarray",
+       "target": "o7"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "int32",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o2",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       6
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o3",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0,0]",
+       "name": "0, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,1]",
+       "name": "0, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,2]",
+       "name": "0, 2",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,0]",
+       "name": "1, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,1]",
+       "name": "1, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,2]",
+       "name": "1, 2",
+       "type": "float64",
+       "value": "0.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       2,
+       3
+      ],
+      "dtype": "float64",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        24,
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o4",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       4
+      ],
+      "dtype": "float64",
+      "size": 4,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o5",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o5[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "0.25"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "0.5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "0.75"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[4]",
+       "name": "4",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "float64",
+      "size": 5,
+      "ownsData": false,
+      "base": "o6",
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o7",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o7[0,0]",
+       "name": "0, 0",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[0,1]",
+       "name": "0, 1",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[0,2]",
+       "name": "0, 2",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[1,0]",
+       "name": "1, 0",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[1,1]",
+       "name": "1, 1",
+       "type": "int32",
+       "value": "5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[1,2]",
+       "name": "1, 2",
+       "type": "int32",
+       "value": "6"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       2,
+       3
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        12,
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o6",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o6[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "0.25"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "0.5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "0.75"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[4]",
+       "name": "4",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "float64",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-7",
+   "index": 7,
+   "narration": "cube now refers to a new ndarray.",
+   "highlightedLines": [
+    9
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 9,
+    "function": "<module>"
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "ndarray",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.r",
+       "name": "r",
+       "type": "ndarray",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.z",
+       "name": "z",
+       "type": "ndarray",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.o",
+       "name": "o",
+       "type": "ndarray",
+       "target": "o4"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.t",
+       "name": "t",
+       "type": "ndarray",
+       "target": "o5"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.m",
+       "name": "m",
+       "type": "ndarray",
+       "target": "o7"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.cube",
+       "name": "cube",
+       "type": "ndarray",
+       "target": "o8"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "int32",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o2",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int32",
+       "value": "0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int32",
+       "value": "5"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       6
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o3",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0,0]",
+       "name": "0, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,1]",
+       "name": "0, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[0,2]",
+       "name": "0, 2",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,0]",
+       "name": "1, 0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,1]",
+       "name": "1, 1",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3[1,2]",
+       "name": "1, 2",
+       "type": "float64",
+       "value": "0.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       2,
+       3
+      ],
+      "dtype": "float64",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        24,
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o4",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "1.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o4[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       4
+      ],
+      "dtype": "float64",
+      "size": 4,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o5",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o5[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "0.25"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "0.5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "0.75"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5[4]",
+       "name": "4",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "float64",
+      "size": 5,
+      "ownsData": false,
+      "base": "o6",
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    },
+    {
+     "id": "o7",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o7[0,0]",
+       "name": "0, 0",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[0,1]",
+       "name": "0, 1",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[0,2]",
+       "name": "0, 2",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[1,0]",
+       "name": "1, 0",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[1,1]",
+       "name": "1, 1",
+       "type": "int32",
+       "value": "5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o7[1,2]",
+       "name": "1, 2",
+       "type": "int32",
+       "value": "6"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       2,
+       3
+      ],
+      "dtype": "int32",
+      "size": 6,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        12,
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o8",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o8[0,0,0]",
+       "name": "0, 0, 0",
+       "type": "int32",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[0,0,1]",
+       "name": "0, 0, 1",
+       "type": "int32",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[0,1,0]",
+       "name": "0, 1, 0",
+       "type": "int32",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[0,1,1]",
+       "name": "0, 1, 1",
+       "type": "int32",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[1,0,0]",
+       "name": "1, 0, 0",
+       "type": "int32",
+       "value": "5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[1,0,1]",
+       "name": "1, 0, 1",
+       "type": "int32",
+       "value": "6"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[1,1,0]",
+       "name": "1, 1, 0",
+       "type": "int32",
+       "value": "7"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[1,1,1]",
+       "name": "1, 1, 1",
+       "type": "int32",
+       "value": "8"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[2,0,0]",
+       "name": "2, 0, 0",
+       "type": "int32",
+       "value": "9"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[2,0,1]",
+       "name": "2, 0, 1",
+       "type": "int32",
+       "value": "10"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[2,1,0]",
+       "name": "2, 1, 0",
+       "type": "int32",
+       "value": "11"
+      },
+      {
+       "kind": "scalar",
+       "id": "o8[2,1,1]",
+       "name": "2, 1, 1",
+       "type": "int32",
+       "value": "12"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       3,
+       2,
+       2
+      ],
+      "dtype": "int32",
+      "size": 12,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        16,
+        8,
+        4
+       ],
+       "itemsize": 4
+      }
+     }
+    },
+    {
+     "id": "o6",
+     "label": "numpy ndarray",
+     "type": "ndarray",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o6[0]",
+       "name": "0",
+       "type": "float64",
+       "value": "0.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[1]",
+       "name": "1",
+       "type": "float64",
+       "value": "0.25"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[2]",
+       "name": "2",
+       "type": "float64",
+       "value": "0.5"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[3]",
+       "name": "3",
+       "type": "float64",
+       "value": "0.75"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6[4]",
+       "name": "4",
+       "type": "float64",
+       "value": "1.0"
+      }
+     ],
+     "objectKind": "ndarray",
+     "ndarray": {
+      "shape": [
+       5
+      ],
+      "dtype": "float64",
+      "size": 5,
+      "ownsData": true,
+      "base": null,
+      "layout": {
+       "offset": 0,
+       "strides": [
+        8
+       ],
+       "itemsize": 8
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "statements": {
+  "1": {
+   "kind": "Import",
+   "line": 1,
+   "end": 1,
+   "names": [
+    "np"
+   ]
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "a"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "np"
+     },
+     "attr": "array",
+     "src": "np.array"
+    },
+    "args": [
+     {
+      "type": "display",
+      "of": "list",
+      "items": [
+       {
+        "type": "const",
+        "repr": "3"
+       },
+       {
+        "type": "const",
+        "repr": "1"
+       },
+       {
+        "type": "const",
+        "repr": "4"
+       },
+       {
+        "type": "const",
+        "repr": "1"
+       },
+       {
+        "type": "const",
+        "repr": "5"
+       }
+      ],
+      "src": "[3, 1, 4, 1, 5]"
+     }
+    ],
+    "src": "np.array([3, 1, 4, 1, 5])"
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "name",
+     "id": "r"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "np"
+     },
+     "attr": "arange",
+     "src": "np.arange"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "6"
+     }
+    ],
+    "src": "np.arange(6)"
+   }
+  },
+  "5": {
+   "kind": "Assign",
+   "line": 5,
+   "end": 5,
+   "targets": [
+    {
+     "type": "name",
+     "id": "z"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "np"
+     },
+     "attr": "zeros",
+     "src": "np.zeros"
+    },
+    "args": [
+     {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "const",
+        "repr": "2"
+       },
+       {
+        "type": "const",
+        "repr": "3"
+       }
+      ],
+      "src": "(2, 3)"
+     }
+    ],
+    "src": "np.zeros((2, 3))"
+   }
+  },
+  "6": {
+   "kind": "Assign",
+   "line": 6,
+   "end": 6,
+   "targets": [
+    {
+     "type": "name",
+     "id": "o"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "np"
+     },
+     "attr": "ones",
+     "src": "np.ones"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "4"
+     }
+    ],
+    "src": "np.ones(4)"
+   }
+  },
+  "7": {
+   "kind": "Assign",
+   "line": 7,
+   "end": 7,
+   "targets": [
+    {
+     "type": "name",
+     "id": "t"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "np"
+     },
+     "attr": "linspace",
+     "src": "np.linspace"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "0"
+     },
+     {
+      "type": "const",
+      "repr": "1"
+     },
+     {
+      "type": "const",
+      "repr": "5"
+     }
+    ],
+    "src": "np.linspace(0, 1, 5)"
+   }
+  },
+  "8": {
+   "kind": "Assign",
+   "line": 8,
+   "end": 8,
+   "targets": [
+    {
+     "type": "name",
+     "id": "m"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "np"
+     },
+     "attr": "array",
+     "src": "np.array"
+    },
+    "args": [
+     {
+      "type": "display",
+      "of": "list",
+      "items": [
+       {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "const",
+          "repr": "1"
+         },
+         {
+          "type": "const",
+          "repr": "2"
+         },
+         {
+          "type": "const",
+          "repr": "3"
+         }
+        ],
+        "src": "[1, 2, 3]"
+       },
+       {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "const",
+          "repr": "4"
+         },
+         {
+          "type": "const",
+          "repr": "5"
+         },
+         {
+          "type": "const",
+          "repr": "6"
+         }
+        ],
+        "src": "[4, 5, 6]"
+       }
+      ],
+      "src": "[[1, 2, 3], [4, 5, 6]]"
+     }
+    ],
+    "src": "np.array([[1, 2, 3], [4, 5, 6]])"
+   }
+  },
+  "9": {
+   "kind": "Assign",
+   "line": 9,
+   "end": 9,
+   "targets": [
+    {
+     "type": "name",
+     "id": "cube"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "np"
+     },
+     "attr": "array",
+     "src": "np.array"
+    },
+    "args": [
+     {
+      "type": "display",
+      "of": "list",
+      "items": [
+       {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "display",
+          "of": "list",
+          "items": [
+           {
+            "type": "const",
+            "repr": "1"
+           },
+           {
+            "type": "const",
+            "repr": "2"
+           }
+          ],
+          "src": "[1, 2]"
+         },
+         {
+          "type": "display",
+          "of": "list",
+          "items": [
+           {
+            "type": "const",
+            "repr": "3"
+           },
+           {
+            "type": "const",
+            "repr": "4"
+           }
+          ],
+          "src": "[3, 4]"
+         }
+        ],
+        "src": "[[1, 2], [3, 4]]"
+       },
+       {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "display",
+          "of": "list",
+          "items": [
+           {
+            "type": "const",
+            "repr": "5"
+           },
+           {
+            "type": "const",
+            "repr": "6"
+           }
+          ],
+          "src": "[5, 6]"
+         },
+         {
+          "type": "display",
+          "of": "list",
+          "items": [
+           {
+            "type": "const",
+            "repr": "7"
+           },
+           {
+            "type": "const",
+            "repr": "8"
+           }
+          ],
+          "src": "[7, 8]"
+         }
+        ],
+        "src": "[[5, 6], [7, 8]]"
+       },
+       {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "display",
+          "of": "list",
+          "items": [
+           {
+            "type": "const",
+            "repr": "9"
+           },
+           {
+            "type": "const",
+            "repr": "10"
+           }
+          ],
+          "src": "[9, 10]"
+         },
+         {
+          "type": "display",
+          "of": "list",
+          "items": [
+           {
+            "type": "const",
+            "repr": "11"
+           },
+           {
+            "type": "const",
+            "repr": "12"
+           }
+          ],
+          "src": "[11, 12]"
+         }
+        ],
+        "src": "[[9, 10], [11, 12]]"
+       }
+      ],
+      "src": "[[[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]]"
+     }
+    ],
+    "src": "np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]], [[9, 10], [11, 12]]])"
+   }
+  }
+ }
+}
