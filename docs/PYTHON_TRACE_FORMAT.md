@@ -219,6 +219,7 @@ All of these key on `trace.language === 'python'` or on `block.objectKind`:
 | Set member | `o4{'a'}` / `o4{#o7}` | (empty) |
 | Instance attribute | `o3.fuel` | `fuel` |
 | Summary | `o6.shape`, `o6.dtype` | `shape`, `dtype` |
+| NumPy array element (Phase 34) | `o3[1,2]` | `1, 2` |
 | Other object | `o8.repr` | `repr` |
 | Items beyond the container cap | `o1[…]` | `…` (value `"N more"`) |
 
@@ -279,6 +280,7 @@ type PyObject = { type: string } & ( // type(obj).__name__
   | { kind: 'function'; name: string; params: string[] } // e.g. ['a', '*rest', 'k', '**kw']
   | { kind: 'class'; name: string }
   | { kind: 'summary'; library: 'numpy' | 'pandas'; shape: number[]; dtype: string }
+  | PyNdarray // Phase 34, see "NumPy arrays"
   | { kind: 'other'; repr: string }
 );
 ```
@@ -420,3 +422,65 @@ module frame's `f_locals` holds only the comprehension's own names. The recorder
 globals plus those names, instead of every global name disappearing for the comprehension's steps.
 No Phase 29 sample has a module-level comprehension, so no committed fixture changed because of it.
 
+
+## NumPy arrays (Phase 34, additive)
+
+Phase 34 replaces the NumPy summary with a real array view. Everything here is additive: no field
+of an existing snapshot changed meaning, pandas objects are still summaries, and a program that
+doesn't use NumPy records exactly as before (one exception, below).
+
+**Raw snapshot.** A `numpy.ndarray` (exactly that type; subclasses such as masked arrays and
+matrices stay summaries) whose dtype kind is bool, int, uint, float or unicode str is a new object
+kind:
+
+```ts
+interface PyNdarray {
+  kind: 'ndarray'; library: 'numpy'; type: 'ndarray';
+  shape: number[]; dtype: string; ndim: number;
+  values: PyPrim[];   // the first NDARRAY_CAP (200) elements, flat, in C order (row by row)
+  omitted?: number;   // elements past the cap
+  owndata: boolean;   // arr.flags.owndata
+  base?: PyValue;     // arr.base, when not None (a ref: it is recorded like any reachable object)
+  layout?: { offset: number; strides: number[]; itemsize: number };
+}
+```
+
+- **`layout`** places the elements in the memory of the array that owns them: the end of the
+  `base` chain (NumPy usually collapses it to the owner already). `offset` is bytes from the owner's
+  first element (`arr.__array_interface__['data'][0]` minus the owner's), `strides` and `itemsize`
+  are NumPy's. Element `(i, j, …)` is at `offset + i·strides[0] + j·strides[1] + …`. Absent when the
+  base isn't an ndarray (`np.frombuffer(b)`).
+- **Other dtypes** (complex, datetime, bytes, object, structured) keep `kind: 'summary'`. So does an
+  ndarray-like the recorder can't read (it falls back rather than stopping the program).
+- **NumPy scalars** (`np.int64(3)`, `np.float64(2.5)`, `np.bool_`, `np.str_`) are primitives:
+  `{ kind: 'prim', type, repr, dtype }`, where `type` / `repr` are of `.item()` and `dtype` is the
+  NumPy dtype. Before Phase 34 they were summaries with shape `()`. Scalars whose `.item()` is not
+  a primitive stay summaries.
+- **Pyodide is 32-bit WebAssembly:** NumPy's default integer there is `int32`, not the `int64` of
+  a 64-bit desktop. The recordings show what the browser runs.
+
+**Statement facts.** Three additions to `PyExpr`, for NumPy indexing and aggregation:
+
+- `subscript` keeps a **slice** index (`a[1:4]` → `index: { type: 'slice', lower, upper }`, parts
+  left out in the code absent) and a **tuple** index (`m[0, 1]`, `m[:, 1]` → a tuple `display`
+  whose items may be slices). Both were `{ type: 'other' }` before. This is the one change to
+  existing recordings: `extra-dict-keys.json`'s `inventory[(1, 2)] = …` target is now a subscript
+  with a tuple index instead of `other`. (It is not a golden; the explanation can now pick the
+  dict-store concept for that line instead of the generic assignment one.)
+- `call` gains `kwargs: [{ name, value }]` next to `keywords` (`m.sum(axis=0)`).
+
+**Mapping.** The array is a `HeapBlock` with `objectKind: 'ndarray'` and `ndarray` facts
+(`shape`, `dtype`, `size`, `ownsData`, `base` — `null` when the base wasn't recorded —, `layout`).
+
+| Slot | Cell id | Cell name | Cell type / value |
+|------|---------|-----------|-------------------|
+| Element `(1, 2)` of `o3` | `o3[1,2]` | `1, 2` | the dtype / the element's `repr` |
+| The single element of a 0-d array | `o3[()]` | `()` | |
+| Elements past the cap | `o3[…]` | `…` | `omitted` / `N more` |
+| A NumPy scalar in a name | `f1.x` | `x` | `np.int32` / `20` |
+
+**Recording the samples.** NumPy isn't in the npm package, so `npm run py:record-packages` (opt-in,
+network: the pinned Pyodide CDN only) records `src/python/samples/numpy/*.py` into
+`src/python/fixtures/numpy/*.json`, and re-records `packages-numpy-pandas.json`. `npm test` reads
+those files offline; the stand-in program `extra-ndarray-standin` exercises the recorder's ndarray
+path (cap, base, layout, scalars) offline on every run.

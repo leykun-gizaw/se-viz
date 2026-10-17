@@ -463,7 +463,8 @@ export type TraceLanguage = 'c' | 'python';
 export type PyObjectKind =
   | 'list' | 'tuple' | 'set' | 'frozenset' | 'dict'
   | 'instance' | 'function' | 'class'
-  | 'summary' // NumPy / pandas: type, shape, dtype (Phases 34–35 add real views)
+  | 'summary' // pandas, and NumPy arrays of other dtypes: type, shape, dtype
+  | 'ndarray' // Phase 34: a NumPy array with its values (see "Phase 34 additions")
   | 'other'; // anything else, by its repr
 
 // on HeapBlock:  objectKind?: PyObjectKind   (present on every block of a Python trace, never on C)
@@ -572,3 +573,56 @@ sections; `explainBeat` merges them under authored text.
 - **Golden snapshots:** `src/engine/explain/golden/*.md` — the panel's text for every step and
   both beats of each Phase 29 sample, four Phase 32 programs and two C modules.
 
+
+---
+
+## Phase 34 additions — NumPy arrays (additive; C and non-NumPy Python traces unchanged)
+
+The recorder and mapping rules are in [`PYTHON_TRACE_FORMAT.md`](PYTHON_TRACE_FORMAT.md), "NumPy
+arrays (Phase 34)". In the trace:
+
+```ts
+// PyObjectKind gains 'ndarray' (a NumPy array with its values). 'summary' remains for pandas and
+// for arrays whose dtype has no primitive values (complex, datetime, object, bytes, …).
+// on HeapBlock:  ndarray?: NdarrayInfo   (set exactly when objectKind === 'ndarray')
+interface NdarrayInfo {
+  shape: number[];   // ndim = shape.length
+  dtype: string;     // 'int32', 'float64', 'bool', '<U5', …
+  size: number;      // product of shape; the block's cells hold the first 200 (C order)
+  ownsData: boolean; // arr.flags.owndata
+  base: BlockId | null; // arr.base: the array this one is a view of
+  layout?: { offset: number; strides: number[]; itemsize: number }; // bytes into the owner's data
+}
+// PyExpr gains { type: 'slice'; lower?; upper?; step? }; a subscript's index may be a slice or a
+// tuple display (`m[0, 1]`, `m[:, 1]`); a call gains kwargs?: { name; value: PyExpr }[].
+```
+
+- **Cells:** one `scalar` cell per captured element, id `o3[1,2]`, name `1, 2` (`o3[()]` for a 0-d
+  array), `type` the dtype, `value` the element's Python `repr`. Past 200 values, an `o3[…]` cell
+  (`N more`), as for containers.
+- **NumPy scalars** (`np.int64(3)`, `a[1]`, `m.sum()`) are `scalar` cells typed `np.<dtype>`
+  (`np.int32`), valued by their Python `repr`.
+- **Validation (Python rules):** `ndarray` facts go with `objectKind: 'ndarray'` and nothing else;
+  an array has at most `size` element cells; `base`, when set, is an object of the same step.
+- **Shared memory** (`src/engine/trace/ndarray.ts`): two arrays with the same owner (the end of the
+  `base` chain) share exactly the elements at equal byte positions (`sharedCells`). `writeThrough`
+  pairs cells written in one array with the same element changing in another.
+- **Object diff:** `array-reshaped { objectId, from, to }` — an array's shape changed in place with
+  every element where it was (`a.shape = (3, 2)`); its re-indexed cells are not reported as removed
+  and added. Its inverse swaps `from` and `to`. Element changes are `value-changed`, as before.
+- **Rendering** (`components/python/NdarrayView.tsx`, in the lazy Python canvas chunk): 1-D a row
+  with indices, 2-D a grid with row and column indices, 3-D a stack of 2-D slices labelled
+  `[k, :, :]`; more than 200 values or more than 3 dimensions → a summary with a flat preview. A
+  view has a dashed teal "view of" link to its base. Motion: a changed cell pulses; a write through
+  a view outlines the shared cells in both arrays (dashed teal, also under reduced motion); a new
+  view's cells fly in from the elements they share; an in-place reshape slides each element to its
+  new place; an array made by arithmetic on arrays sits beside its last array operand.
+- **Derived explanations** (`src/engine/explain/numpy.ts`, in the lazy Python deriver chunk):
+  creation (`np.array`, `arange`, `zeros`, `ones`, `linspace`), element reads, slices (which cells,
+  view or copy), boolean masks (which cells are `True`), elementwise arithmetic and broadcasting
+  (both operand shapes, the result shape, and which operand repeats along which axes), `sum` /
+  `mean` / `max` / `min` with or without `axis`, `reshape`, `.T` / `transpose`, `.copy()`, in-place
+  shape changes, and writes (which other arrays saw the write, or that none did). Goldens:
+  `src/engine/explain/golden/numpy-*.md`.
+- **Fixtures:** `src/content/fixtures/python/numpy/*.json` (mapped by `toTrace.test.ts` from the
+  recordings in `src/python/fixtures/numpy/`). In dev: `/?python-preview&trace=numpy/views`.
