@@ -237,7 +237,7 @@ export function ContentSidebar({
           >
             {courses.map((c) => (
               <option key={c.course} value={c.course}>
-                {c.course} · {c.courseTitle}
+                {c.course}
               </option>
             ))}
           </select>
@@ -253,14 +253,17 @@ export function ContentSidebar({
             </svg>
           </span>
         </div>
-        {/* Collapse / expand every topic at once. */}
-        <div className="mt-2 flex justify-end">
+        {/* The course title (wraps instead of truncating), and collapse / expand every topic. */}
+        <div className="mt-2 flex items-start justify-between gap-2">
+          <p className="min-w-0 pl-0.5 pt-0.5 font-sans text-[13px] leading-snug text-ink-muted">
+            {course?.courseTitle}
+          </p>
           <button
             type="button"
             onClick={anyOpen ? collapseAll : expandAll}
             aria-label={anyOpen ? 'Collapse all topics' : 'Expand all topics'}
             title={anyOpen ? 'Collapse all topics' : 'Expand all topics'}
-            className="flex h-6 w-6 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink"
+            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-hairline bg-surface-2 text-ink-muted hover:bg-surface-3 hover:text-ink"
           >
             <CollapseExpandIcon collapse={anyOpen} />
           </button>

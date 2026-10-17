@@ -77,7 +77,7 @@ export function PresentationMode({
           <Stage player={player} presenting />
         </div>
         {showExplanation ? (
-          <div style={{ width: explanationWidth, zoom: 1.15 }} className="min-h-0 shrink-0">
+          <div style={{ width: explanationWidth, zoom: 1.15 }} className="min-h-0 shrink-0 border-l border-hairline">
             <ExplanationPanel player={player} />
           </div>
         ) : null}
