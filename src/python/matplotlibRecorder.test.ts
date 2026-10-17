@@ -274,7 +274,7 @@ describe('the recorded matplotlib samples (Phase 36)', () => {
       line: [10],
       scatter: [11],
       histogram: [8, 14],
-      subplots: [15],
+      subplots: [16],
     };
     for (const s of MATPLOTLIB_SAMPLES) {
       const trace = sampleTrace(s.name);
