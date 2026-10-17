@@ -11,6 +11,7 @@
  * machine itself is pure and lives in `src/live/runState.ts`.
  */
 import { useCallback, useMemo, useReducer, useRef, useState } from 'react';
+import { cpp } from '@codemirror/lang-cpp';
 import { Group, Panel, Separator, useDefaultLayout } from 'react-resizable-panels';
 import type { Trace } from '../../engine/trace/types.ts';
 import { useTrace } from '../../engine/trace/useTrace.ts';
@@ -169,6 +170,9 @@ function LivePlayer({ trace }: { trace: Trace }) {
   );
 }
 
+/** The editor's language mode (created once; the editor reads it when it mounts). */
+const C_LANGUAGE = cpp();
+
 export interface LiveCodingViewProps {
   theme: Theme;
   onToggleTheme: () => void;
@@ -288,6 +292,7 @@ export function LiveCodingView({ theme, onToggleTheme }: LiveCodingViewProps) {
             <div className="min-h-0 flex-1">
               <CodeEditor
                 initialDoc={DEFAULT_PROGRAM}
+                language={C_LANGUAGE}
                 onChange={(doc) => (sourceRef.current = doc)}
                 onRun={run}
               />

@@ -16,6 +16,11 @@
  *  4. (Phase 29) Pyodide is never in the main chunk: no Pyodide loader, runtime or CDN URL, and no
  *     Python recorder code in `index-*.js`, and `index.html` doesn't reference Pyodide. Pyodide may
  *     only live in a worker chunk that the main chunk doesn't import statically.
+ *  5. (Phase 31) Python live coding ships, so its pieces must exist **and** stay lazy:
+ *     - a worker chunk with the Pyodide loader exists (so check 4 is not vacuous), and the main
+ *       chunk never names it (only the lazy live view creates the worker);
+ *     - `@codemirror/lang-python` (its Lezer grammar and snippets) is not in the main chunk, lives in
+ *       a lazy chunk the main chunk doesn't import statically, and is not in the C editor's chunk.
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -54,6 +59,10 @@ const PYODIDE_MARKERS = [
   'sys.settrace',
 ];
 const pyodideChunks = [];
+// Strings only `@codemirror/lang-python` puts in a chunk: a Lezer Python node name and a snippet.
+// (The main chunk's own read-only highlighter, `highlightPython.ts`, has neither.)
+const LANG_PYTHON_MARKERS = ['DictionaryComprehensionExpression', 'for ${name} in ${collection}'];
+const langPythonChunks = [];
 function fail(msg) {
   failures.push(msg);
 }
@@ -96,6 +105,32 @@ if (mainName) {
     }
   }
 
+  // 5. Python live coding (Phase 31): the worker exists and only lazy code names it; lang-python is
+  //    lazy and kept out of the main chunk and the C editor's chunk.
+  if (pyodideChunks.length === 0) {
+    fail('no worker chunk contains the Pyodide loader (Python live coding should ship one)');
+  }
+  for (const name of pyodideChunks) {
+    if (main.includes(name)) fail(`main chunk references the Pyodide worker chunk ${name}`);
+  }
+  for (const marker of LANG_PYTHON_MARKERS) {
+    if (main.includes(marker)) fail(`main chunk contains @codemirror/lang-python ("${marker}")`);
+  }
+  for (const name of files.filter((f) => f.endsWith('.js') && f !== mainName)) {
+    const text = readFileSync(join(assets, name), 'utf8');
+    if (!LANG_PYTHON_MARKERS.every((m) => text.includes(m))) continue;
+    langPythonChunks.push(name);
+    if (/^LiveCodingView-/.test(name)) fail(`the C live editor chunk ${name} contains lang-python`);
+    if (
+      new RegExp(`(?:from\\s*|import\\s*)["'][^"']*${name.replace(/[.-]/g, '\\$&')}`).test(main)
+    ) {
+      fail(`main chunk statically imports the lang-python chunk ${name}`);
+    }
+  }
+  if (langPythonChunks.length === 0) {
+    fail('no lazy chunk contains @codemirror/lang-python (are the markers out of date?)');
+  }
+
   // 3. Size budget.
   const bytes = Buffer.byteLength(main);
   const delta = bytes - baseline;
@@ -106,7 +141,7 @@ if (mainName) {
   );
   if (delta > budget) fail(`main chunk grew by ${delta} B (> ${budget} B budget)`);
 }
-for (const name of [coreName, runtimeName, ...pyodideChunks]) {
+for (const name of [coreName, runtimeName, ...pyodideChunks, ...langPythonChunks]) {
   if (name) console.log(`lazy chunk ${name}: ${readFileSync(join(assets, name)).length} B`);
 }
 
@@ -115,5 +150,6 @@ if (failures.length > 0) {
   process.exit(1);
 }
 console.log(
-  '✓ Mermaid is code-split, Pyodide is not in the main chunk, and the main chunk is within budget',
+  '✓ Mermaid is code-split, Pyodide and @codemirror/lang-python are not in the main chunk ' +
+    '(both are lazy), and the main chunk is within budget',
 );

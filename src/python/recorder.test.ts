@@ -326,3 +326,65 @@ describe('input, imports, values', () => {
     expect(session.run({ source: 'print(leftover)\n' }).error?.type).toBe('NameError');
   });
 });
+
+describe('streaming and the size budget (Phase 31)', () => {
+  type Chunk = { snaps: PySnapshot[]; total: number; stop: string | undefined };
+  const recordStreamed = (request: Parameters<RecorderSession['run']>[0]) => {
+    const chunks: Chunk[] = [];
+    const result = session.run(request, (chunk, total, stop) =>
+      chunks.push({ snaps: JSON.parse(chunk) as PySnapshot[], total, stop }),
+    );
+    return { result, chunks, streamed: chunks.flatMap((c) => c.snaps) };
+  };
+
+  it('streams every snapshot of a run that hits the step limit, with the reason on the last chunk', () => {
+    const { result, chunks, streamed } = recordStreamed({
+      source: sample('infinite-loop').request.source,
+      limits: { maxSteps: 450 },
+    });
+    expect(result.truncated).toBe('steps');
+    expect(streamed).toEqual(result.steps);
+    // One chunk per snapshot as it is taken, then an empty one carrying the stop reason.
+    expect(chunks.slice(0, -1).map((c) => c.snaps.length)).toEqual(Array(450).fill(1));
+    expect(chunks.slice(0, -1).map((c) => c.total)).toEqual(
+      Array.from({ length: 450 }, (_, i) => i + 1),
+    );
+    expect(chunks.slice(0, -1).every((c) => c.stop === undefined)).toBe(true);
+    expect(chunks[chunks.length - 1]).toEqual({ snaps: [], total: 450, stop: 'steps' });
+  });
+
+  it('streaming does not change the result', () => {
+    for (const s of SAMPLES) {
+      expect(recordStreamed(s.request).result).toEqual(session.run(s.request));
+    }
+  });
+
+  it('a stop the program swallows (bare except) was still streamed with its reason', () => {
+    // The step limit stops the program; the bare `except:` catches the stop, tracing is off, and
+    // the program finishes untraced. The steps and the reason are kept.
+    const { result, chunks, streamed } = recordStreamed({
+      source: 'try:\n    while True:\n        pass\nexcept:\n    pass\nafter = 1\n',
+      limits: { maxSteps: 30 },
+    });
+    expect(result.truncated).toBe('steps');
+    expect(streamed).toHaveLength(30);
+    expect(chunks[chunks.length - 1].stop).toBe('steps');
+  });
+
+  it('the size budget stops a run whose snapshots grow too large', () => {
+    const source = 'big = list(range(100))\nwhile True:\n    big[0] = big[0] + 1\n';
+    const result = session.run({ source, limits: { maxTraceChars: 50_000, maxSteps: 5000 } });
+    expect(result.truncated).toBe('size');
+    expect(JSON.stringify(result.steps).length).toBeLessThan(55_000);
+    expect(result.steps.length).toBeGreaterThan(10);
+  });
+
+  it('deep recursion at a 100-frame cap stays well under the size budget', () => {
+    const result = session.run({
+      source: 'def dig(n):\n    return dig(n + 1)\n\ndig(0)\n',
+      limits: { maxDepth: 100 },
+    });
+    expect(result.error).toMatchObject({ type: 'RecursionError' });
+    expect(JSON.stringify(result).length).toBeLessThan(2_000_000);
+  });
+});

@@ -13,6 +13,7 @@ import { useLayoutEffect, useRef } from 'react';
 import type { CatalogCourse } from '../content/catalog.ts';
 import type { TheoryDoc } from '../content/theory.ts';
 import { LIVE_CODING_ID } from '../live/config.ts';
+import { LIVE_PYTHON_ID } from '../python/live/config.ts';
 import { sentenceCase } from './studio/sentenceCase.ts';
 import { Chevron, RailButton } from './studio/StudioLayout.tsx';
 import { topicKey, type CourseMapNav } from './studio/useCourseMapNav.ts';
@@ -332,9 +333,25 @@ export function ContentSidebar({
         })}
       </nav>
 
-      {/* Live coding — its own pinned section, deliberately outside the curriculum tree. */}
-      {liveCodingEnabled ? (
-        <div className="border-t border-hairline p-2">
+      {/* Live coding — its own pinned section, deliberately outside the curriculum tree. Python
+          (Phase 31) runs in the browser, so it is always here; C needs the tracer backend. */}
+      <div className="flex flex-col gap-0.5 border-t border-hairline p-2">
+        <button
+          type="button"
+          onClick={() => onSelect(LIVE_PYTHON_ID)}
+          aria-current={selectedId === LIVE_PYTHON_ID ? 'true' : undefined}
+          title="Run your own Python program in the visualizer (runs in your browser)"
+          className={`flex w-full items-center gap-2 rounded-md px-2.5 py-2 text-left font-sans text-[13px] transition-colors ${
+            selectedId === LIVE_PYTHON_ID
+              ? 'bg-pointer-soft font-semibold text-pointer'
+              : 'text-pointer hover:bg-surface-2'
+          }`}
+        >
+          <LiveIcon />
+          <span>Live coding · Python</span>
+          <span className="ml-auto text-[11px] text-ink-faint">run Python</span>
+        </button>
+        {liveCodingEnabled ? (
           <button
             type="button"
             onClick={() => onSelect(LIVE_CODING_ID)}
@@ -350,8 +367,8 @@ export function ContentSidebar({
             <span>Live coding</span>
             <span className="ml-auto text-[11px] text-ink-faint">run C</span>
           </button>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </aside>
   );
 }

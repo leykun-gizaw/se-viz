@@ -27,6 +27,12 @@ export interface RunLimits {
   maxContainerItems: number;
   /** Objects recorded per snapshot; references beyond it stay as refs with no object entry. */
   maxObjects: number;
+  /**
+   * Size budget for the whole recording, in JSON characters (Phase 31). The snapshot that would
+   * cross it is dropped and the program stops with `truncated: 'size'`. Each snapshot restates the
+   * whole visible state, so deep recursion or big containers grow a trace fast.
+   */
+  maxTraceChars: number;
 }
 
 export const DEFAULT_LIMITS: RunLimits = {
@@ -36,6 +42,7 @@ export const DEFAULT_LIMITS: RunLimits = {
   timeoutMs: 5000,
   maxContainerItems: 100,
   maxObjects: 300,
+  maxTraceChars: 8_000_000,
 };
 
 /** Grace after `timeoutMs` before the main thread kills a worker that hasn't answered. */
@@ -54,8 +61,8 @@ export interface RunRequest {
   packages?: AllowedPackage[];
 }
 
-/** Why a run stopped early. */
-export type Truncation = 'steps' | 'stdout' | 'time';
+/** Why a run stopped early. `size` is the {@link RunLimits.maxTraceChars} budget (Phase 31). */
+export type Truncation = 'steps' | 'stdout' | 'time' | 'size';
 
 /** An error that ended the run: a syntax error, an uncaught exception, or a runner failure. */
 export interface RunError {
@@ -203,11 +210,35 @@ export interface PySnapshot {
 
 export type WorkerRequest = { type: 'run'; id: number; request: RunRequest };
 
+/** Load Pyodide now, before any run (Phase 31: the live editor preloads when it opens). */
+export type WorkerLoad = { type: 'load' };
+
+/** Everything the main thread posts to the worker. */
+export type WorkerMessage = WorkerRequest | WorkerLoad;
+
+/**
+ * Why the recorder stopped a program, as streamed with its last chunk. `depth` is the recursion cap
+ * (reported to the student as a `RecursionError`, not a truncation).
+ */
+export type RecorderStop = Truncation | 'depth';
+
 export type WorkerResponse =
   /** Pyodide finished loading (once per worker). */
   | { type: 'loaded'; ms: number; version: string }
-  /** Packages are loaded and the program starts now: the main thread's wall clock starts here. */
-  | { type: 'running'; id: number; packagesMs: number }
+  /** These allow-listed packages are not loaded yet and are being loaded now for run `id`. */
+  | { type: 'packages'; id: number; packages: AllowedPackage[] }
+  /**
+   * Packages are loaded and the program starts now: the main thread's wall clock starts here.
+   * `loaded` lists every allow-listed package this worker has loaded so far.
+   */
+  | { type: 'running'; id: number; packagesMs: number; loaded?: AllowedPackage[] }
+  /**
+   * Snapshots streamed while the program runs (Phase 31): `chunk` is a JSON array of new
+   * {@link PySnapshot}s, `total` the count so far, and `stop` is set on the chunk the recorder sends
+   * when it stops the program. The final `result` repeats every snapshot; the main thread only uses
+   * the chunks when it has to kill the worker.
+   */
+  | { type: 'steps'; id: number; chunk: string; total: number; stop?: RecorderStop }
   | { type: 'result'; id: number; result: RunResult; runMs: number; packagesMs: number }
   /** Pyodide failed to load, or the recorder itself crashed. */
   | { type: 'fatal'; id: number | null; message: string };

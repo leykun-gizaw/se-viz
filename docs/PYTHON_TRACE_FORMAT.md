@@ -244,7 +244,7 @@ interface RunResult {
     offset?: number;
     traceback?: string; // user frames only
   };
-  truncated?: 'steps' | 'stdout' | 'time';
+  truncated?: 'steps' | 'stdout' | 'time' | 'size'; // 'size' since Phase 31
 }
 
 interface PySnapshot {
@@ -309,16 +309,32 @@ Recorder rules that the shape relies on:
 | `maxSteps` | 1000 | The 1001st event stops the program: `truncated: 'steps'`, exactly 1000 snapshots. |
 | `maxStdoutLines` | 500 | Output is kept up to that many complete lines, then the program stops: `truncated: 'stdout'`. |
 | `maxDepth` | 200 | More than 200 user frames ends the run with `error.type: 'RecursionError'`. The interpreter's own limit sits 100 frames higher as a backstop. |
-| `timeoutMs` | 5000 | The recorder checks the clock on every event and stops with `truncated: 'time'`. The main thread terminates the worker `timeoutMs + 1000` ms after the program started (`KILL_GRACE_MS`), for loops the tracer can't see, such as `sum(itertools.count())`. The result is then `{ steps: [], truncated: 'time', error: TimeoutError }`, and the next run starts a fresh worker. The clock starts after Pyodide and the packages have loaded. |
+| `timeoutMs` | 5000 | The recorder checks the clock on every event and stops with `truncated: 'time'`. The main thread terminates the worker `timeoutMs + 1000` ms after the program started (`KILL_GRACE_MS`), for loops the tracer can't see, such as `sum(itertools.count())`. The result is then `{ steps: <the streamed snapshots>, truncated: 'time', error: TimeoutError }` (before Phase 31 the steps were always empty), and the next run starts a fresh worker. The clock starts after Pyodide and the packages have loaded. |
 | `maxContainerItems` | 100 | Further items are counted in `omitted`. |
 | `maxObjects` | 300 | Further objects are counted in `objectsOmitted`. Their refs stay, with no entry. |
+| `maxTraceChars` | 8,000,000 | (Phase 31) Total JSON characters of all snapshots. The snapshot that would cross it is dropped and the program stops: `truncated: 'size'`. Each snapshot restates the whole visible state, so deep recursion or big containers grow a trace fast (measured: 1,626 snapshots of a 100-item list hit it). |
+
+**Live editor limits (Phase 31, `src/python/live/limits.ts`).** The Python live editor sends
+`maxSteps` (default 1000, 10–5000), `timeoutMs` (default 10 s, 1–30 s), `maxStdoutLines` (default 500,
+10–2000), and a fixed `maxDepth: 100`. At 100 frames the deep-recursion run is 200 snapshots and
+1.26 M characters of JSON (it was 400 snapshots and 4.97 M at the default 200).
+
+**Streaming (Phase 31).** The recorder serializes each snapshot as it is taken (the final result is
+joined from those strings, so nothing is serialized twice) and, when the host passes `on_chunk`, hands
+it over at once. The worker posts each as a `steps` message. The main thread keeps them and uses them
+only when there is no `result`: a run killed at the time limit or stopped with **Stop** keeps every
+step recorded so far. When the recorder stops a program it sends a last, empty chunk carrying the
+reason (`steps`, `time`, `size`, `stdout`, `depth`). If the worker still has to be killed afterwards,
+the program caught the stop (see below), and the outcome says so (`RunOutcome.recorderStop`).
+Measured cost: about 5% at 5000 snapshots.
 
 **How the recorder stops a program.** It raises a private `BaseException` from the trace function
 (or from `print` for the stdout cap), so `except Exception:` can't swallow it.
 
 A bare `except:` or `except BaseException:` *can* swallow it. Python then switches tracing off (a
 trace function that raises is unset), so the program continues untraced. If it then loops forever,
-the main-thread kill ends it.
+the main-thread kill ends it. Since Phase 31 that run keeps its streamed steps, and the live editor
+says the program caught the stop. (The swallow itself is not prevented; see the Phase 31 report.)
 
 **Input.** `input()` reads the request's `stdin` lines in order, and echoes the prompt and the line
 to stdout, as a terminal would. It raises `EOFError("EOF when reading a line")` when the lines run
@@ -340,5 +356,15 @@ runs.
 - **The worker** is `src/python/worker.ts`, an ES module worker (`vite.config.ts`
   `worker.format: 'es'`; `optimizeDeps.exclude: ['pyodide']`). It is created only by `PythonRunner`
   in `src/python/client.ts`.
-- **Production builds have no Python code today.** The only entry is the dev-only debug page.
-  `scripts/check-bundle.mjs` fails if Pyodide markers ever reach the main chunk.
+- **Production ships Python live coding (Phase 31).** The lazy `PythonLiveView` chunk creates the
+  worker through a module-level `PythonRunner` (`src/python/live/runner.ts`), so the loaded runtime
+  and packages survive leaving and re-entering the mode. `scripts/check-bundle.mjs` fails if Pyodide
+  markers reach the main chunk, if the main chunk names the worker chunk, or if no worker chunk
+  exists.
+- **Worker messages (Phase 31 additions, `protocol.ts`).** In: `{ type: 'load' }` preloads Pyodide
+  (the mode sends it when it opens). Out: `packages` (allow-listed packages being loaded for a run;
+  only ones not loaded before), `running` now carries `loaded` (every allow-listed package the
+  worker has), and `steps` (streamed snapshots). The worker loads the union of the request's
+  `packages` and what Pyodide's `find_imports` finds in the source (the detector
+  `loadPackagesFromImports` uses), restricted to the allow-list, and imports each once per worker,
+  untraced; matplotlib gets the `Agg` backend.

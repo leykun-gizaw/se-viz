@@ -8,9 +8,15 @@ import type { Step } from '../engine/trace/types.ts';
 export function ConsolePanel({
   step,
   title = 'Output · heap watch',
+  preserveWhitespace = false,
 }: {
   step: Step;
   title?: string;
+  /**
+   * Keep spaces as printed (Phase 31, Python): indented output and a traceback's `^^^` markers only
+   * line up with their source line when leading spaces survive. C output keeps the default.
+   */
+  preserveWhitespace?: boolean;
 }) {
   const stdout = step.stdout ?? [];
   const watch = step.watch ?? [];
@@ -25,7 +31,10 @@ export function ConsolePanel({
       </div>
       <div className="se-code flex flex-col gap-0.5 px-4 py-2 text-xs">
         {stdout.map((line, i) => (
-          <span key={`out-${i}`} className="text-ink">
+          <span
+            key={`out-${i}`}
+            className={preserveWhitespace ? 'whitespace-pre-wrap text-ink' : 'text-ink'}
+          >
             {line}
           </span>
         ))}
