@@ -85,6 +85,8 @@ describe('PythonLiveView shell', () => {
     expect(html).toContain('Live coding · Python');
     expect(html).toContain('aria-label="Python source editor"');
     expect(html).toContain('main.py');
+    // Phase 35: the sample data file the worker writes beside the program.
+    expect(html).toContain('+ farm.csv');
     expect(html).toContain('one line per input()');
     expect(html).toContain('aria-label="Steps limit"');
     expect(html).toMatch(/max="5000" aria-label="Steps limit"[^>]*value="1000"/);

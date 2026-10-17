@@ -491,6 +491,13 @@ export function PythonLiveView({
               <span className="font-mono text-[11px] uppercase tracking-wide text-ink-muted">
                 {LIVE_PYTHON_FILE}
               </span>
+              {/* Phase 35: the bundled sample data, written beside the program before every run. */}
+              <span
+                className="font-mono text-[11px] text-ink-faint"
+                title={'A sample data file sits beside the program: pd.read_csv("farm.csv") reads it (30 farm plots, made up for SE-Viz).'}
+              >
+                + farm.csv
+              </span>
               <div className="ml-auto flex flex-wrap items-center gap-3">
                 <fieldset
                   disabled={state.inFlight}

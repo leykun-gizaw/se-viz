@@ -484,3 +484,83 @@ network: the pinned Pyodide CDN only) records `src/python/samples/numpy/*.py` in
 `src/python/fixtures/numpy/*.json`, and re-records `packages-numpy-pandas.json`. `npm test` reads
 those files offline; the stand-in program `extra-ndarray-standin` exercises the recorder's ndarray
 path (cap, base, layout, scalars) offline on every run.
+
+
+## pandas tables (Phase 35, additive)
+
+Phase 35 replaces the pandas summary of a `DataFrame`, `Series` and `DataFrameGroupBy` /
+`SeriesGroupBy` (detected by class name and module, subclasses included) with a captured table.
+Other pandas objects (an `Index`, a `Categorical`) stay summaries, and so does a table the recorder
+can't read (it falls back rather than stopping the program). Programs without pandas record exactly
+as before.
+
+**Caps** (`protocol.ts`, checked against `recorder.py` by a test): `TABLE_ROWS = 20` rows and
+`TABLE_COLS = 12` columns per table (the true shape is always recorded), `TABLE_REPR_CAP = 40`
+characters per cell, `GROUPS_CAP = 20` groups per GroupBy and `GROUP_ROWS = 3` rows per group.
+
+```ts
+interface PyCell { repr: string; type: string; truncated?: true }
+// A primitive's (or NumPy scalar's, via .item()) repr; anything else's str, as pandas prints it.
+// Missing values read 'nan', 'None', '<NA>' or 'NaT'. Cells are text: never references.
+
+interface PyTableColumn { label: PyCell; dtype: string; missing: number } // missing: whole column
+
+interface PyDataFrame {
+  kind: 'dataframe'; library: 'pandas'; type: string;
+  shape: number[];                  // [rows, columns]
+  columns: PyTableColumn[];         // the first 12
+  columnsOmitted?: number;
+  index: PyCell[];                  // labels of the first 20 rows
+  indexName?: string;               // repr of df.index.name, when set
+  rows: PyCell[][];                 // rows × captured columns
+  rowsOmitted?: number;
+}
+interface PySeries {
+  kind: 'series'; library: 'pandas'; type: string;
+  length: number; dtype: string; name: PyCell | null; missing: number;
+  index: PyCell[]; indexName?: string; values: PyCell[]; omitted?: number;
+}
+interface PyGroupBy {
+  kind: 'groupby'; library: 'pandas'; type: string; // DataFrameGroupBy / SeriesGroupBy
+  keys: string[];                   // column names (a Series key by its name)
+  ngroups: number; rowsTotal: number;
+  source: PyValue;                  // gb.obj, recorded as a reference
+  columns: PyTableColumn[]; columnsOmitted?: number;
+  groups: { label: PyCell; size: number; index: PyCell[]; rows: PyCell[][] }[]; // gb.indices order
+  groupsOmitted?: number;
+}
+```
+
+- **No "derived from" id for DataFrames and Series.** The prompt asked for it "when pandas exposes it
+  cheaply"; pandas 3.0.2 (copy-on-write) does not (`_cacher` and `_is_copy` are gone), so none is
+  recorded. The trace reads the source from the statement instead (`derivedTables`, see
+  `TRACE_FORMAT.md`). A GroupBy does expose its grouped object, `gb.obj`, recorded as `source`.
+- **Cost.** One DataFrame description is about 0.4 ms in Pyodide (an `iloc` slice, `itertuples`,
+  one `isna().sum()`); a GroupBy about 0.5 ms (`gb.indices` is cached by pandas).
+
+**Mapping.** A DataFrame or Series is a `HeapBlock` with `objectKind` `'dataframe'` / `'series'` and
+`table` facts; a GroupBy has `objectKind: 'groupby'` and `groupby` facts.
+
+| Slot | Cell id | Cell name | Cell type / value |
+|------|---------|-----------|-------------------|
+| DataFrame value, row label `2`, column `yield_kg` | `o3.loc[2, 'yield_kg']` | `2, 'yield_kg'` | the value's Python type / its text |
+| Series value labelled `'Coast'` | `o4.loc['Coast']` | `'Coast'` | as above |
+| A repeated index label (the second `3`) | `o3.loc[3#2, …]` | `3#2, …` | |
+| GroupBy: the grouped object | `o5.obj` | `obj` | a reference |
+| GroupBy: one group's size | `o5.groups['Coast']` | `Coast` | `group size` / `7` |
+
+**Sample data.** `src/python/data/farm.csv` is a synthetic farm dataset made up for this repo (30
+plots: `plot_id`, `region`, `crop`, `rainfall_mm`, `yield_kg`, `fertilized`; two rainfall and three
+yield values missing on purpose). The worker writes it into Pyodide's working directory
+(`/home/pyodide`) before every run (`installSampleFiles`), so `pd.read_csv("farm.csv")` works offline
+and a program that overwrote it can't change the next run. Only the worker imports it: it ships in
+the worker chunk.
+
+**Recording the samples.** `npm run py:record-packages` (opt-in, network: the pinned Pyodide CDN
+only) now also records `src/python/samples/pandas/*.py` into `src/python/fixtures/pandas/*.json`,
+with the sample data in place and NumPy and pandas imported first, untraced, as the worker does.
+`SE_VIZ_PYODIDE_CACHE=<dir>` reuses a package cache between runs. It also re-records
+`packages-numpy-pandas.json`, whose DataFrame and Series are now tables. Offline, `npm test`
+exercises the recorder's pandas path with the stand-in program `extra-pandas-standin` (caps, a
+missing value, a long string, 21 groups) and checks the sample file is in place with
+`extra-sample-data`.
