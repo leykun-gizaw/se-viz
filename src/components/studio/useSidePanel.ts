@@ -7,7 +7,7 @@
  * the collapse button and the rail's expand button go through the pure rules in `panelLayout.ts` and
  * are then applied to the library panel imperatively.
  */
-import { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { usePanelRef, type PanelSize } from 'react-resizable-panels';
 import { usePersistentState } from '../../hooks/usePersistentState.ts';
 import {
@@ -34,10 +34,27 @@ export interface SidePanelControls {
   expand: () => void;
   /** Panel `onResize`: flips the collapsed flag live while dragging through the rail threshold. */
   onResize: (size: PanelSize) => void;
-  /** Group `onLayoutChanged`: records the settled width after a drag. */
+  /** Group `onLayoutChanged`: records the settled width after a drag (not after a window resize). */
   onSettled: () => void;
   /** Separator `onKeyDownCapture`: our keyboard rules (pre-empting the library's 5% steps). */
   onSeparatorKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void;
+}
+
+/**
+ * When the window last changed size. The library squeezes (pixel-preserving) side panels when the
+ * window gets narrower and reports it as a layout change; that squeeze must not overwrite the width
+ * the presenter chose, or a trip to a small projector would shrink the panels for good.
+ */
+let lastWindowResize = 0;
+/** Mounted panels re-apply their chosen width once a window resize settles (so they grow back). */
+const reapply = new Set<() => void>();
+if (typeof window !== 'undefined') {
+  let timer = 0;
+  window.addEventListener('resize', () => {
+    lastWindowResize = Date.now();
+    clearTimeout(timer);
+    timer = window.setTimeout(() => reapply.forEach((f) => f()), 200);
+  });
 }
 
 export function useSidePanel(spec: SidePanelSpec): SidePanelControls {
@@ -82,6 +99,14 @@ export function useSidePanel(spec: SidePanelSpec): SidePanelControls {
     [commit, panelRef],
   );
 
+  useEffect(() => {
+    const f = () => apply(latest.current);
+    reapply.add(f);
+    return () => {
+      reapply.delete(f);
+    };
+  }, [apply]);
+
   const doCollapse = useCallback(() => apply(collapse(latest.current)), [apply]);
   const doExpand = useCallback(() => apply(expand(spec, latest.current)), [apply, spec]);
 
@@ -97,7 +122,7 @@ export function useSidePanel(spec: SidePanelSpec): SidePanelControls {
 
   const onSettled = useCallback(() => {
     const panel = panelRef.current;
-    if (!panel || applying.current) return;
+    if (!panel || applying.current || Date.now() - lastWindowResize < 1000) return;
     commit(stateFromPixels(spec, latest.current, panel.getSize().inPixels));
   }, [commit, panelRef, spec]);
 

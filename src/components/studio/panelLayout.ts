@@ -36,7 +36,7 @@ export const KEY_STEP = 16;
 export const KEY_STEP_LARGE = 64;
 
 /** The stage (code + memory) never gets narrower than this while side panels are open. */
-export const STAGE_MIN_WIDTH = 440;
+export const STAGE_MIN_WIDTH = 520;
 
 /** The course map (left). */
 export const COURSE_MAP: SidePanelSpec = {
