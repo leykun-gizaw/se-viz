@@ -6,6 +6,9 @@
  *   references as azure chips with arrows.
  * - **Objects:** one box per object, by kind (see `PyViews.tsx`), ordered by first appearance; an
  *   object referenced only from inside another sits next to its parent (`pyLayout.ts`).
+ * - **Layout:** frames on the left, objects on the right, side by side as in Python Tutor, so most
+ *   arrows run straight across; a narrow panel scrolls sideways rather than stacking the two
+ *   (stacked, arrows would have to cut through object boxes on their way down).
  * - **Arrows** are the shared `ArrowOverlay`, fed by the same anchors and render context as C.
  * - **Diff motion** (`pyMotion.ts`): the canvas animates the object-level events between the step it
  *   showed and the step it shows now — the inverse when stepping back, nothing after a jump, and
@@ -37,9 +40,9 @@ function Body({ trace, step, arrowsKey }: { trace: Trace; step: Step; arrowsKey:
   return (
     <div
       ref={setCanvas}
-      className="relative flex min-h-full flex-wrap items-start gap-x-12 gap-y-6 p-2"
+      className="relative flex min-h-full w-max min-w-full items-start gap-6 p-1"
     >
-      <Region label="Frames" hint="names · newest call last" className="shrink-0">
+      <Region label="Frames" hint="in call order" className="shrink-0">
         <div className="flex flex-col gap-2">
           <Presence>
             {step.stack.map((frame) => (
@@ -51,8 +54,8 @@ function Body({ trace, step, arrowsKey }: { trace: Trace; step: Step; arrowsKey:
           ) : null}
         </div>
       </Region>
-      <Region label="Objects" hint="references point here" className="min-w-64 flex-1">
-        <div className="flex flex-col items-start gap-4">
+      <Region label="Objects" hint="references point here" className="min-w-56 flex-1">
+        <div className="flex flex-col items-start gap-10">
           <Presence>
             {rows.map((node) => (
               <ObjectTree key={node.id} node={node} blocks={blocks} />

@@ -26,7 +26,18 @@ const root = createRoot(rootElement);
 // Phase 29 spike: the Python tracer debug page, at `/?python-debug`, in dev only. `import.meta.env.DEV`
 // is a build-time `false` in production, so this branch (and the page, the worker and Pyodide) is
 // dropped from the production bundle entirely.
-if (import.meta.env.DEV && new URLSearchParams(window.location.search).has('python-debug')) {
+// Phase 30 adds `/?python-preview&trace=<name>` beside it: the committed Python traces in the real
+// stage, without Pyodide (also dev only).
+const devPage = new URLSearchParams(window.location.search);
+if (import.meta.env.DEV && devPage.has('python-preview')) {
+  void import('./python/debug/TracePreview.tsx').then(({ TracePreview }) =>
+    root.render(
+      <StrictMode>
+        <TracePreview />
+      </StrictMode>,
+    ),
+  );
+} else if (import.meta.env.DEV && devPage.has('python-debug')) {
   void import('./python/debug/PythonDebugPage.tsx').then(({ PythonDebugPage }) =>
     root.render(
       <StrictMode>

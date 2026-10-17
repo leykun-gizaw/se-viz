@@ -9,7 +9,13 @@
  * away fades out (via `AnimatePresence`, instantly after a jump), a changed value cross-fades from
  * old to new with the green pulse, and boxes glide to their new place.
  */
-import { AnimatePresence, motion, type TargetAndTransition, type Variants } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  PresenceContext,
+  type TargetAndTransition,
+  type Variants,
+} from 'framer-motion';
 import { useAnchorRef } from '../../engine/anchorContext.ts';
 import type { Cell, HeapBlock, StackFrame } from '../../engine/trace/types.ts';
 import { useMemoryRender } from '../memory/renderContext.ts';
@@ -133,32 +139,36 @@ function SlotValue({ cell }: { cell: Cell }) {
     // Reduced motion: no fade, but the change is still marked for this step.
     return <span className="rounded bg-changed-soft px-1 text-changed">{now}</span>;
   }
+  // Its own presence scope: under an `AnimatePresence initial={false}` (every row is), framer
+  // blocks the initial animation of everything mounted inside the row, so the fade wouldn't play.
   return (
-    <span className="inline-grid items-center justify-items-end">
-      <motion.span
-        key={`was:${cues.transition}`}
-        aria-hidden="true"
-        className="px-1 [grid-area:1/1]"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0 }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-      >
-        <ValueContent cell={was} anchored={false} />
-      </motion.span>
-      <motion.span
-        key={`now:${cues.transition}`}
-        className="rounded px-1 [grid-area:1/1]"
-        initial={{
-          opacity: 0,
-          backgroundColor: 'var(--se-changed-soft)',
-          color: 'var(--se-changed)',
-        }}
-        animate={{ opacity: 1, backgroundColor: 'rgba(0,0,0,0)', color: 'var(--se-text)' }}
-        transition={{ opacity: { duration: 0.45 }, default: { duration: 0.9, ease: 'easeOut' } }}
-      >
-        {now}
-      </motion.span>
-    </span>
+    <PresenceContext.Provider value={null}>
+      <span className="inline-grid items-center justify-items-end">
+        <motion.span
+          key={`was:${cues.transition}`}
+          aria-hidden="true"
+          className="px-1 [grid-area:1/1]"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+        >
+          <ValueContent cell={was} anchored={false} />
+        </motion.span>
+        <motion.span
+          key={`now:${cues.transition}`}
+          className="rounded px-1 [grid-area:1/1]"
+          initial={{
+            opacity: 0,
+            backgroundColor: 'var(--se-changed-soft)',
+            color: 'var(--se-changed)',
+          }}
+          animate={{ opacity: 1, backgroundColor: 'rgba(0,0,0,0)', color: 'var(--se-text)' }}
+          transition={{ opacity: { duration: 0.45 }, default: { duration: 0.9, ease: 'easeOut' } }}
+        >
+          {now}
+        </motion.span>
+      </span>
+    </PresenceContext.Provider>
   );
 }
 
@@ -194,7 +204,7 @@ export function FrameView({ frame }: { frame: StackFrame }) {
       <div
         ref={ref}
         data-coach-anchor={frame.id}
-        className={`min-w-48 rounded-lg border bg-surface ${
+        className={`min-w-44 rounded-lg border bg-surface ${
           active ? 'border-active ring-1 ring-active' : 'border-hairline'
         }`}
       >
@@ -298,7 +308,7 @@ function SequenceBody({ block }: { block: HeapBlock }) {
             id={c.id}
             variants={SLIDE}
             layout={glide}
-            className={`-ml-px flex min-w-9 flex-col items-center gap-0.5 border border-hairline px-2 py-1 first:ml-0 first:rounded-l-md last:rounded-r-md ${
+            className={`-ml-px flex min-w-9 flex-col items-center gap-0.5 border border-hairline px-1.5 py-1 first:ml-0 first:rounded-l-md last:rounded-r-md ${
               tuple ? 'bg-surface' : 'bg-surface-2'
             }`}
           >
@@ -410,15 +420,19 @@ function ObjectBox({ block }: { block: HeapBlock }) {
   );
 }
 
-/** An object with the objects only it refers to drawn beside it, to its right. */
+/**
+ * An object with the objects only it refers to drawn beside it, to its right. The gaps are wide on
+ * purpose: `ArrowOverlay` routes an arrow to a box that isn't level with its source down a channel
+ * beside the source and along a lane just above the target, and those lanes need the room.
+ */
 export function ObjectTree({ node, blocks }: { node: ObjectNode; blocks: Map<string, HeapBlock> }) {
   const block = blocks.get(node.id);
   if (!block) return null;
   return (
-    <Enter id={node.id} variants={POP} className="flex items-start gap-10">
+    <Enter id={node.id} variants={POP} className="flex items-start gap-12">
       <ObjectBox block={block} />
       {node.children.length > 0 ? (
-        <div className="flex flex-col items-start gap-4">
+        <div className="flex flex-col items-start gap-10">
           <Presence>
             {node.children.map((child) => (
               <ObjectTree key={child.id} node={child} blocks={blocks} />
