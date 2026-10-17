@@ -1,7 +1,8 @@
 /**
- * The Live Coding source editor — CodeMirror 6 with the C/C++ language mode, line numbers, and a
- * theme built entirely from the app's design tokens (`--se-*` CSS variables), so it re-themes with
- * the light/dark toggle for free. Ligatures are OFF (the locked-spec rule: learners must see
+ * The Live Coding source editor — CodeMirror 6 with a language mode passed in by the caller (C/C++
+ * for C live coding, Python for Phase 31's Python live coding, so neither mode's chunk carries the
+ * other's grammar), line numbers, and a theme built entirely from the app's design tokens (`--se-*`
+ * CSS variables), so it re-themes with the light/dark toggle for free. Ligatures are OFF (the locked-spec rule: learners must see
  * literal `->`, `!=`, `<=`), matching the `.se-code` treatment of the read-only code panel.
  *
  * Uncontrolled by design: the view owns the document (CodeMirror manages its own state); React gets
@@ -9,7 +10,6 @@
  */
 import { useEffect, useRef } from 'react';
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
-import { cpp } from '@codemirror/lang-cpp';
 import {
   bracketMatching,
   HighlightStyle,
@@ -17,8 +17,10 @@ import {
   indentUnit,
   syntaxHighlighting,
 } from '@codemirror/language';
-import { EditorState } from '@codemirror/state';
+import { EditorState, StateEffect, StateField, type Extension } from '@codemirror/state';
 import {
+  Decoration,
+  type DecorationSet,
   drawSelection,
   EditorView,
   highlightActiveLine,
@@ -72,19 +74,65 @@ const seEditorTheme = EditorView.theme({
   },
   '.cm-activeLineGutter': { backgroundColor: 'transparent', color: 'var(--se-text)' },
   '.cm-matchingBracket': { backgroundColor: 'var(--se-pointer-soft)', outline: 'none' },
+  // The line a syntax error points at (Phase 31): the danger hue, as the read-only panels use it.
+  '.cm-se-error-line': {
+    backgroundColor: 'var(--se-danger-soft)',
+    boxShadow: 'inset 3px 0 0 var(--se-danger)',
+  },
+});
+
+/** Set (or clear, with `null`) the highlighted error line. */
+const setErrorLine = StateEffect.define<number | null>();
+
+/** The error-line decoration; it follows the text as the student edits around it. */
+const errorLineField = StateField.define<DecorationSet>({
+  create: () => Decoration.none,
+  update(deco, tr) {
+    let next = deco.map(tr.changes);
+    for (const effect of tr.effects) {
+      if (!effect.is(setErrorLine)) continue;
+      const n = effect.value;
+      next =
+        n === null || n < 1 || n > tr.state.doc.lines
+          ? Decoration.none
+          : Decoration.set([
+              Decoration.line({ class: 'cm-se-error-line' }).range(tr.state.doc.line(n).from),
+            ]);
+    }
+    return next;
+  },
+  provide: (field) => EditorView.decorations.from(field),
 });
 
 export interface CodeEditorProps {
   /** The document the editor opens with. Later changes flow out through `onChange` only. */
   initialDoc: string;
+  /** The language mode, e.g. `cpp()` or `python()`. Read once, when the editor is created. */
+  language: Extension;
+  /** Language-specific extras (e.g. extra highlight styles). Read once, like `language`. */
+  extensions?: Extension;
+  /** Accessible name of the editor region. */
+  ariaLabel?: string;
+  /** 1-based line to mark as the error line, or null/absent for none. */
+  errorLine?: number | null;
   /** Called with the full document text on every edit. */
   onChange: (doc: string) => void;
   /** Run shortcut (Mod-Enter), so the hands never leave the editor. */
   onRun?: () => void;
 }
 
-export function CodeEditor({ initialDoc, onChange, onRun }: CodeEditorProps) {
+export function CodeEditor({
+  initialDoc,
+  language,
+  extensions = [],
+  ariaLabel = 'C source editor',
+  errorLine = null,
+  onChange,
+  onRun,
+}: CodeEditorProps) {
   const hostRef = useRef<HTMLDivElement>(null);
+  const viewRef = useRef<EditorView | null>(null);
+  const languageRef = useRef([language, extensions]);
   // Latest callbacks behind stable refs, so the editor is created exactly once.
   const onChangeRef = useRef(onChange);
   const onRunRef = useRef(onRun);
@@ -121,8 +169,9 @@ export function CodeEditor({ initialDoc, onChange, onRun }: CodeEditorProps) {
             ...historyKeymap,
             indentWithTab,
           ]),
-          cpp(),
+          languageRef.current,
           syntaxHighlighting(seHighlight),
+          errorLineField,
           seEditorTheme,
           EditorView.updateListener.of((update) => {
             if (update.docChanged) onChangeRef.current(update.state.doc.toString());
@@ -131,8 +180,16 @@ export function CodeEditor({ initialDoc, onChange, onRun }: CodeEditorProps) {
       }),
       parent: host,
     });
-    return () => view.destroy();
+    viewRef.current = view;
+    return () => {
+      viewRef.current = null;
+      view.destroy();
+    };
   }, []);
 
-  return <div ref={hostRef} aria-label="C source editor" className="h-full min-h-0 overflow-hidden" />;
+  useEffect(() => {
+    viewRef.current?.dispatch({ effects: setErrorLine.of(errorLine) });
+  }, [errorLine]);
+
+  return <div ref={hostRef} aria-label={ariaLabel} className="h-full min-h-0 overflow-hidden" />;
 }

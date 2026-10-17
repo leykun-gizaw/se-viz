@@ -255,3 +255,23 @@ body {
   border-radius: 9999px;
   background: var(--se-active);
 }
+
+/* Indeterminate progress bar (Phase 31: Python live coding while Pyodide / packages load or a
+   program runs). Reduced motion keeps a static, centred bar. */
+@keyframes se-progress-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+.se-progress-bar {
+  animation: se-progress-slide 1.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .se-progress-bar {
+    animation: none;
+    transform: translateX(100%);
+  }
+}

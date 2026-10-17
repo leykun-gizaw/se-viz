@@ -12,6 +12,7 @@ import syntaxError from '../fixtures/syntax-error.json';
 import type { RunResult } from '../protocol.ts';
 import { SAMPLES } from '../samples/index.ts';
 import { DEFAULT_PYTHON_PROGRAM } from './defaultProgram.ts';
+import { stdinLines } from './input.ts';
 import {
   clampLimit,
   DEFAULT_LIVE_LIMITS,
@@ -416,5 +417,14 @@ describe('pyRunReducer', () => {
     ] as PyRunAction[]) {
       expect(run(idle, action)).toBe(idle);
     }
+  });
+});
+
+describe('stdinLines', () => {
+  it('one line per input(); a final newline adds none; CRLF is normalized', () => {
+    expect(stdinLines('')).toEqual([]);
+    expect(stdinLines('Ada')).toEqual(['Ada']);
+    expect(stdinLines('Ada\nBob\n')).toEqual(['Ada', 'Bob']);
+    expect(stdinLines('Ada\r\n\nBob')).toEqual(['Ada', '', 'Bob']);
   });
 });

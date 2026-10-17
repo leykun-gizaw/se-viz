@@ -14,6 +14,7 @@ import { useTrace } from './engine/trace/useTrace.ts';
 import { useKeyboardControls } from './hooks/useKeyboardControls.ts';
 import { useTheme, type Theme } from './hooks/useTheme.ts';
 import { LIVE_CODING_ID, tracerConfig } from './live/config.ts';
+import { LIVE_PYTHON_ID } from './python/live/config.ts';
 import { ContentSidebar } from './components/ContentSidebar.tsx';
 import { Legend } from './components/Legend.tsx';
 import { PresentationMode } from './components/PresentationMode.tsx';
@@ -33,6 +34,23 @@ import { useSidePanel } from './components/studio/useSidePanel.ts';
 const LiveCodingView = lazy(() =>
   import('./components/live/LiveCodingView.tsx').then((m) => ({ default: m.LiveCodingView })),
 );
+
+/**
+ * Lazy: Python live coding (Phase 31) — its editor (CodeMirror Python), the runner and, through the
+ * runner's worker, Pyodide load only when the mode is opened. It runs in the browser, so it ships.
+ */
+const PythonLiveView = lazy(() =>
+  import('./components/live/PythonLiveView.tsx').then((m) => ({ default: m.PythonLiveView })),
+);
+
+/** The stage's fallback while a lazy live-coding view loads. */
+function LoadingEditor() {
+  return (
+    <div className="flex flex-1 items-center justify-center font-sans text-sm text-ink-muted">
+      Loading the live editor…
+    </div>
+  );
+}
 
 /** The player + chrome for one module. Remounted (keyed on trace id) when the selection changes. */
 function Workbench({
@@ -139,15 +157,19 @@ export default function App() {
   // none, so the entry (and the whole mode) is hidden there rather than shipping a dead feature.
   const liveCodingEnabled = useMemo(() => tracerConfig() !== null, []);
   const liveCoding = liveCodingEnabled && selectedId === LIVE_CODING_ID;
+  // Python live coding (Phase 31) needs no backend, so it is always available.
+  const livePython = selectedId === LIVE_PYTHON_ID;
 
-  // A selection is the live-coding mode, a theory doc (synthetic id), or a module (trace id).
-  const theoryDoc = liveCoding ? null : (THEORY_BY_ID.get(selectedId) ?? null);
+  // A selection is a live-coding mode, a theory doc (synthetic id), or a module (trace id).
+  const theoryDoc = liveCoding || livePython ? null : (THEORY_BY_ID.get(selectedId) ?? null);
   const selectedModule = modules.find((m) => m.trace.id === selectedId) ?? modules[0];
 
   const firstModule = theoryDoc ? firstModuleOfTopic(theoryDoc.course, theoryDoc.topic) : null;
 
-  // Only the player has a step to explain; theory decks and live coding get a two-panel layout.
+  // Only the player has a step to explain; theory decks and C live coding get a two-panel layout.
+  // Python live coding plays its runs in the player, so it keeps the explanation panel.
   const hasPlayer = !liveCoding && !theoryDoc;
+  const explanationTarget = hasPlayer && !explanation.state.collapsed ? explanationSlot : null;
 
   return (
     <div className="flex h-full bg-bg text-ink">
@@ -159,7 +181,13 @@ export default function App() {
           <ContentSidebar
             courses={CATALOG}
             selectedId={
-              liveCoding ? LIVE_CODING_ID : theoryDoc ? theoryDoc.id : selectedModule.trace.id
+              liveCoding
+                ? LIVE_CODING_ID
+                : livePython
+                  ? LIVE_PYTHON_ID
+                  : theoryDoc
+                    ? theoryDoc.id
+                    : selectedModule.trace.id
             }
             onSelect={onSelect}
             collapsed={courseMap.state.collapsed}
@@ -171,14 +199,18 @@ export default function App() {
         }
       >
         {liveCoding ? (
-          <Suspense
-            fallback={
-              <div className="flex flex-1 items-center justify-center font-sans text-sm text-ink-muted">
-                Loading the live editor…
-              </div>
-            }
-          >
+          <Suspense fallback={<LoadingEditor />}>
             <LiveCodingView theme={theme} onToggleTheme={toggle} />
+          </Suspense>
+        ) : livePython ? (
+          <Suspense fallback={<LoadingEditor />}>
+            <PythonLiveView
+              theme={theme}
+              onToggleTheme={toggle}
+              explanationSlot={explanationTarget}
+              onCollapseExplanation={explanation.collapse}
+              explanationWidth={explanation.state.width}
+            />
           </Suspense>
         ) : theoryDoc ? (
           <TheoryDeck
@@ -197,7 +229,7 @@ export default function App() {
             trace={selectedModule.trace}
             theme={theme}
             onToggleTheme={toggle}
-            explanationSlot={hasPlayer && !explanation.state.collapsed ? explanationSlot : null}
+            explanationSlot={explanationTarget}
             onCollapseExplanation={explanation.collapse}
             explanationWidth={explanation.state.width}
           />
