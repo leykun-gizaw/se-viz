@@ -10,7 +10,8 @@ export const EXTRA_PROGRAMS: { name: string; request: RunRequest }[] = [
     name: 'extra-dict-keys',
     request: {
       source: [
-        'inventory = {1: "one", 2.5: "two and a half", "corn": [3, 4], True: "yes", None: {"nested": (5, 6)}}',
+        // `False` rather than `True`: True == 1 would share the `1` key.
+        'inventory = {1: "one", 2.5: "two and a half", "corn": [3, 4], False: "no", None: {"nested": (5, 6)}}',
         'inventory["corn"].append(5)',
         'inventory[(1, 2)] = "tuple key"',
         'tags = {"b", "a", "c"}',

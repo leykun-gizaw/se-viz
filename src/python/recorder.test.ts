@@ -5,9 +5,9 @@
  * Every sample is also written to `fixtures/<name>.json` (a file snapshot; `vitest -u` refreshes it),
  * which the mapping tests consume without Pyodide.
  */
-import { readFileSync } from 'node:fs';
 import { loadPyodide } from 'pyodide';
 import { beforeAll, describe, expect, it } from 'vitest';
+import packageJson from '../../package.json?raw';
 import recorderSource from './recorder.py?raw';
 import type { PySnapshot, PyValue, RunResult } from './protocol.ts';
 import { SAMPLES } from './samples/index.ts';
@@ -43,7 +43,7 @@ function show(v: PyValue): string {
 
 describe('pinned version', () => {
   it('the runtime, the npm pin and the CDN constant agree', () => {
-    const pkg = JSON.parse(readFileSync('package.json', 'utf8')) as {
+    const pkg = JSON.parse(packageJson) as {
       dependencies: Record<string, string>;
     };
     expect(pkg.dependencies.pyodide).toBe(PYODIDE_VERSION);
@@ -117,7 +117,10 @@ describe('identity and aliasing', () => {
     const last = steps[steps.length - 1];
     expect(vars(last)).toEqual({ a: 'o1', b: 'o1' });
     expect(Object.keys(last.objects)).toEqual(['o1']);
-    expect(last.objects.o1).toMatchObject({ kind: 'list', items: [{ repr: '1' }, { repr: '2' }, { repr: '3' }] });
+    expect(last.objects.o1).toMatchObject({
+      kind: 'list',
+      items: [{ repr: '1' }, { repr: '2' }, { repr: '3' }],
+    });
   });
 
   it('mutation through an argument: the callee and the caller see the same object', () => {
@@ -136,13 +139,19 @@ describe('identity and aliasing', () => {
     const { steps } = record('nested-containers');
     const last = steps[steps.length - 1];
     const fields = last.objects[vars(last).fields];
-    expect(fields).toMatchObject({ kind: 'dict', entries: [{ key: { repr: "'north'" } }, { key: { repr: "'south'" } }] });
+    expect(fields).toMatchObject({
+      kind: 'dict',
+      entries: [{ key: { repr: "'north'" } }, { key: { repr: "'south'" } }],
+    });
     const animals = last.objects[vars(last).animals];
     expect(animals.kind).toBe('list');
     const second = animals.kind === 'list' ? animals.items[1] : null;
     expect(second?.kind).toBe('ref');
     if (second?.kind === 'ref') {
-      expect(last.objects[second.id]).toMatchObject({ kind: 'dict', entries: [{}, { value: { repr: "'sheep'" } }] });
+      expect(last.objects[second.id]).toMatchObject({
+        kind: 'dict',
+        entries: [{}, { value: { repr: "'sheep'" } }],
+      });
     }
   });
 
@@ -156,7 +165,12 @@ describe('identity and aliasing', () => {
       'f4:factorial',
       'f5:factorial',
     ]);
-    expect(deepest.frames.slice(1).map((f) => vars(deepest, deepest.frames.indexOf(f)).n)).toEqual(['4', '3', '2', '1']);
+    expect(deepest.frames.slice(1).map((f) => vars(deepest, deepest.frames.indexOf(f)).n)).toEqual([
+      '4',
+      '3',
+      '2',
+      '1',
+    ]);
     const returns = steps.filter((s) => s.event === 'return' && s.returnValue);
     expect(returns.map((s) => s.returnValue && show(s.returnValue))).toEqual(['1', '2', '6', '24']);
     expect(stdout).toBe('24\n');
@@ -167,7 +181,11 @@ describe('identity and aliasing', () => {
     const last = steps[steps.length - 1];
     expect(vars(last)).toEqual({ Tractor: 'o2', red: 'o3', blue: 'o4' });
     expect(last.objects.o2).toEqual({ kind: 'class', type: 'type', name: 'Tractor' });
-    expect(last.objects.o3).toMatchObject({ kind: 'instance', type: 'Tractor', attrs: [{ name: 'name' }, { name: 'fuel', value: { repr: '70' } }] });
+    expect(last.objects.o3).toMatchObject({
+      kind: 'instance',
+      type: 'Tractor',
+      attrs: [{ name: 'name' }, { name: 'fuel', value: { repr: '70' } }],
+    });
     expect(last.objects.o4).toMatchObject({ attrs: [{}, { name: 'fuel', value: { repr: '80' } }] });
     const drive = steps.find((s) => s.frames.some((f) => f.name === 'drive'))!;
     expect(vars(drive).self).toBe('o3');
@@ -189,7 +207,10 @@ describe('errors', () => {
     const exc = result.steps.find((s) => s.event === 'exception');
     expect(exc?.exception).toEqual({ type: 'KeyError', message: "'beans'" });
     expect(vars(exc!)).toMatchObject({ total: '5', item: "'beans'" });
-    expect(result.steps[result.steps.length - 1]).toMatchObject({ event: 'return', unwinding: true });
+    expect(result.steps[result.steps.length - 1]).toMatchObject({
+      event: 'return',
+      unwinding: true,
+    });
     expect(result.truncated).toBeUndefined();
   });
 
@@ -225,7 +246,10 @@ describe('limits never hang', () => {
   });
 
   it('deep recursion ends with a RecursionError at the depth limit', () => {
-    const result = session.run({ source: 'def dig(n):\n    return dig(n + 1)\n\ndig(0)\n', limits: { maxDepth: 50 } });
+    const result = session.run({
+      source: 'def dig(n):\n    return dig(n + 1)\n\ndig(0)\n',
+      limits: { maxDepth: 50 },
+    });
     expect(result.error).toMatchObject({ type: 'RecursionError' });
     expect(result.truncated).toBeUndefined();
     expect(Math.max(...result.steps.map((s) => s.frames.length))).toBe(50);
@@ -258,14 +282,20 @@ describe('input, imports, values', () => {
   });
 
   it('student code cannot import the JS bridge', () => {
-    for (const source of ['import js\n', 'from pyodide.http import open_url\n', 'import micropip\n']) {
+    for (const source of [
+      'import js\n',
+      'from pyodide.http import open_url\n',
+      'import micropip\n',
+    ]) {
       expect(session.run({ source }).error?.type).toBe('ImportError');
     }
     expect(session.run({ source: 'import math\nx = math.sqrt(16)\n' }).error).toBeUndefined();
   });
 
   it('skips dunders and modules; caps reprs at 80 characters', () => {
-    const result = session.run({ source: 'import math\nlong = "x" * 200\nbig = 10 ** 5000\nend = 1\n' });
+    const result = session.run({
+      source: 'import math\nlong = "x" * 200\nbig = 10 ** 5000\nend = 1\n',
+    });
     const last = result.steps[result.steps.length - 1];
     expect(last.frames[0].vars.map((v) => v.name)).toEqual(['long', 'big', 'end']);
     const long = last.frames[0].vars[0].value;
@@ -279,7 +309,15 @@ describe('input, imports, values', () => {
     const last = result.steps[result.steps.length - 1];
     expect(Object.values(last.objects)).toEqual([
       { kind: 'function', type: 'function', name: '<lambda>', params: ['a', '*rest', 'k', '**kw'] },
-      { kind: 'set', type: 'set', items: [{ kind: 'prim', type: 'int', repr: '2' }, { kind: 'prim', type: 'int', repr: '3' }, { kind: 'prim', type: 'int', repr: '10' }] },
+      {
+        kind: 'set',
+        type: 'set',
+        items: [
+          { kind: 'prim', type: 'int', repr: '2' },
+          { kind: 'prim', type: 'int', repr: '3' },
+          { kind: 'prim', type: 'int', repr: '10' },
+        ],
+      },
     ]);
   });
 

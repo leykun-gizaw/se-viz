@@ -19,7 +19,10 @@ export interface RecorderSession {
  * @param pyodide - A loaded Pyodide.
  * @param recorderSource - The text of `recorder.py` (`?raw` in the worker, read from disk in Node).
  */
-export function createRecorderSession(pyodide: PyodideAPI, recorderSource: string): RecorderSession {
+export function createRecorderSession(
+  pyodide: PyodideAPI,
+  recorderSource: string,
+): RecorderSession {
   const namespace = pyodide.toPy({});
   pyodide.runPython(recorderSource, { globals: namespace, filename: 'se_viz_recorder.py' });
   const runJson = namespace.get('run_json') as (

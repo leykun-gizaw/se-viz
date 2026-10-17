@@ -5,7 +5,11 @@
  */
 import type { RunRequest } from '../protocol.ts';
 
-const SOURCES = import.meta.glob<string>('./*.py', { query: '?raw', import: 'default', eager: true });
+const SOURCES = import.meta.glob<string>('./*.py', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
 
 function source(name: string): string {
   const text = SOURCES[`./${name}.py`];
@@ -33,7 +37,11 @@ export const SAMPLES: Sample[] = [
     title: '3. Nested containers',
     request: { source: source('nested-containers') },
   },
-  { name: 'recursion', title: '4. Recursion: factorial(4)', request: { source: source('recursion') } },
+  {
+    name: 'recursion',
+    title: '4. Recursion: factorial(4)',
+    request: { source: source('recursion') },
+  },
   {
     name: 'class-instances',
     title: '5. A class with two instances',

@@ -47,7 +47,7 @@
        "value": {
         "kind": "prim",
         "type": "str",
-        "repr": "'yes'"
+        "repr": "'one'"
        }
       },
       {
@@ -71,6 +71,18 @@
        "value": {
         "kind": "ref",
         "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "bool",
+        "repr": "False"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'no'"
        }
       },
       {
@@ -171,7 +183,7 @@
        "value": {
         "kind": "prim",
         "type": "str",
-        "repr": "'yes'"
+        "repr": "'one'"
        }
       },
       {
@@ -195,6 +207,18 @@
        "value": {
         "kind": "ref",
         "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "bool",
+        "repr": "False"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'no'"
        }
       },
       {
@@ -300,7 +324,7 @@
        "value": {
         "kind": "prim",
         "type": "str",
-        "repr": "'yes'"
+        "repr": "'one'"
        }
       },
       {
@@ -324,6 +348,18 @@
        "value": {
         "kind": "ref",
         "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "bool",
+        "repr": "False"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'no'"
        }
       },
       {
@@ -463,7 +499,7 @@
        "value": {
         "kind": "prim",
         "type": "str",
-        "repr": "'yes'"
+        "repr": "'one'"
        }
       },
       {
@@ -487,6 +523,18 @@
        "value": {
         "kind": "ref",
         "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "bool",
+        "repr": "False"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'no'"
        }
       },
       {
