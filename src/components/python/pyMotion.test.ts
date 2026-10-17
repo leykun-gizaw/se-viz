@@ -16,7 +16,7 @@ import type { Step, Trace } from '../../engine/trace/types.ts';
 import { firstAppearance, layoutObjects } from './pyLayout.ts';
 import { advanceMotion, initialMotion, motionCues } from './pyMotion.ts';
 
-const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/*.json', {
+const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/**/*.json', {
   eager: true,
   import: 'default',
 });

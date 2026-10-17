@@ -579,7 +579,10 @@ class _Recorder:
         tname = t.__name__
         root = (getattr(t, "__module__", "") or "").split(".")[0]
         if root == "numpy" and _is_ndarray(v):
-            arr = self._ndarray(v, walk)
+            try:
+                arr = self._ndarray(v, walk)
+            except Exception:  # noqa: BLE001 - an array-like the recorder can't read stays a summary
+                arr = None
             if arr is not None:
                 return arr
         if root == "numpy" and hasattr(v, "shape") and hasattr(v, "dtype"):

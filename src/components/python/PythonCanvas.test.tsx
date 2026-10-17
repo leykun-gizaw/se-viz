@@ -8,7 +8,7 @@ import { int, pyStep, ref, set, str, tuple } from '../../engine/trace/pythonTest
 import type { Trace } from '../../engine/trace/types.ts';
 import PythonCanvas from './PythonCanvas.tsx';
 
-const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/*.json', {
+const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/**/*.json', {
   eager: true,
   import: 'default',
 });
