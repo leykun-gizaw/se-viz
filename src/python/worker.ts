@@ -50,6 +50,9 @@ async function handle(message: WorkerRequest): Promise<void> {
     const p0 = performance.now();
     if (packages.length > 0) {
       await pyodide.loadPackage(packages, { messageCallback: () => {} });
+      // Import them once here, untraced: importing pandas costs more than a second, which would
+      // otherwise land inside the student's traced run and its time limit. (Allow-listed names.)
+      pyodide.runPython(packages.map((p) => `import ${p}`).join('\n'));
     }
     const packagesMs = performance.now() - p0;
     scope.postMessage({ type: 'running', id, packagesMs });

@@ -298,6 +298,24 @@ describe('criterion 6 — a clear place for ndarray and DataFrame views', () => 
     expect(pointersByTarget(last).get(summary[0].id)).toEqual(['grid', '0', '1']);
   });
 
+  it('A: real NumPy and pandas objects (fixture recorded with the packages) map the same way', () => {
+    const result = fixture('packages-numpy-pandas');
+    expect(result.error).toBeUndefined();
+    const last = mapA(result, '\n'.repeat(8), 'packages').steps.at(-1)!;
+    const rows = last.heap.map((b) => [
+      (b as PyHeapBlock).objectKind,
+      b.label,
+      ...b.cells.map((c) => (c.kind === 'scalar' ? `${c.name}=${c.value}` : c.name)),
+    ]);
+    expect(rows).toEqual([
+      ['summary', 'numpy ndarray', 'shape=(2, 3)', 'dtype=float64'],
+      ['summary', 'numpy float64', 'shape=()', 'dtype=float64'],
+      ['summary', 'pandas DataFrame', 'shape=(2, 2)', 'dtype=str, int64'],
+      ['summary', 'pandas Series', 'shape=(2,)', 'dtype=int64'],
+      ['dict', 'dict', "'grid'", "'table'"],
+    ]);
+  });
+
   it('B: the same summary sits in the payload, for a renderer B would have to write', () => {
     const last = B('extra-summary').steps.at(-1)!;
     expect(last.python.objects.find((o) => o.object.kind === 'summary')?.object).toMatchObject({

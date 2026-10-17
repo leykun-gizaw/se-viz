@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "py:record-packages": "node scripts/record-python-packages-fixture.mjs"
   },
   "dependencies": {
     "@codemirror/commands": "^6.10.3",
