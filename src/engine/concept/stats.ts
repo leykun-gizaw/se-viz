@@ -34,11 +34,15 @@ export function emptyBins(lo: number, hi: number, count: number): DistributionBi
   }));
 }
 
-/** The index of the bin `[from, to)` holding `x` (values past either end go to the end bins). */
+/**
+ * The index of the bin `[from, to)` holding `x` (values past either end go to the end bins). A value
+ * on an edge (to within 1e-9 of a bin width, e.g. a mean of 3.75 computed as 3.7499999999) goes to
+ * the bin it starts, as `[from, to)` says.
+ */
 export function binIndex(bins: readonly DistributionBin[], x: number): number {
   const lo = bins[0].from;
   const w = (bins[bins.length - 1].to - lo) / bins.length;
-  return Math.min(bins.length - 1, Math.max(0, Math.floor((x - lo) / w)));
+  return Math.min(bins.length - 1, Math.max(0, Math.floor((x - lo) / w + 1e-9)));
 }
 
 export const round = (x: number, digits: number): number => {

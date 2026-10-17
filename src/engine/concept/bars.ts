@@ -345,7 +345,9 @@ export function insertionSortSteps(values: readonly number[]): Step[] {
           r.snap(did, { swapped: [0, 1], sorted: range(0, i), pointers: [pt('key', 0)] });
           break;
         }
-        r.snap(did, { swapped: [j, j + 1], sorted: prefix, pointers: [pt('key', j)] });
+        // Mid-insertion, the sorted part is 0..i without the key's current slot.
+        const part = range(0, i).filter((x) => x !== j);
+        r.snap(did, { swapped: [j, j + 1], sorted: part, pointers: [pt('key', j)] });
       } else {
         did.push(`${left} is not bigger, so ${key} stays at index ${j}: ${span(0, i)} are sorted.`);
         did.push(`Comparisons so far: ${r.c.comparisons}.`);
@@ -444,7 +446,15 @@ export function mergeSortSteps(values: readonly number[]): Step[] {
         did.push(`${Math.min(x, y)} is smaller, so it goes next, into index ${into}.`);
       }
       did.push(`Writes so far: ${r.c.writes}.`);
-      r.snap(did, { range: { from, to }, swapped: [into], pointers: heads(), segments: segs() });
+      // The value that lost the comparison stays a head: it is compared again next.
+      const other = from + out.length + (takeLeft ? left.length : 0);
+      r.snap(did, {
+        range: { from, to },
+        swapped: [into],
+        compared: [other],
+        pointers: heads(),
+        segments: segs(),
+      });
     }
     const rest = left.length > 0 ? left : right;
     const side = left.length > 0 ? 'right' : 'left';

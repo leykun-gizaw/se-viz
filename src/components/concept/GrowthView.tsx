@@ -30,174 +30,182 @@ export function GrowthView({ step }: { step: Step }) {
   const pw = W - M.left - M.right;
   const ph = H - M.top - M.bottom;
   const x = (n: number) => M.left + (n / xMax) * pw;
-  const y = (c: number) => M.top + ph - (Math.min(c, g.yMax) / g.yMax) * ph;
+  // Curves are drawn unclamped (the clip path cuts them at the top edge); markers and labels clamp.
+  const yRaw = (c: number) => M.top + ph - (c / g.yMax) * ph;
+  const y = (c: number) => yRaw(Math.min(c, g.yMax));
   const compared = new Set(g.compare ?? []);
 
   const path = (counts: number[], from: number, to: number) =>
     counts
       .slice(from, to + 1)
-      .map((c, j) => `${j === 0 ? 'M' : 'L'}${x(g.ns[from + j]).toFixed(1)} ${y(c).toFixed(1)}`)
+      .map((c, j) => `${j === 0 ? 'M' : 'L'}${x(g.ns[from + j]).toFixed(1)} ${yRaw(c).toFixed(1)}`)
       .join(' ');
 
   // Direct labels at the right edge, nudged apart so they never overlap.
   const labelYs = g.curves.map((c) => ({ id: c.id, y: y(c.counts[c.counts.length - 1]) }));
   const order = [...labelYs].sort((a, b) => b.y - a.y);
   for (let i = 1; i < order.length; i++) {
-    if (order[i - 1].y - order[i].y < 14) order[i].y = order[i - 1].y - 14;
+    if (order[i - 1].y - order[i].y < 15) order[i].y = order[i - 1].y - 15;
   }
   const labelY = new Map(order.map((l) => [l.id, l.y]));
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-3 overflow-auto rounded-lg border border-hairline bg-bg p-4 lg:flex-row">
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2">
-        <svg
-          role="img"
-          aria-label={`Growth curves at n = ${g.n}: ${g.curves.map((c) => `${c.label} ${fmt(c.counts[k])}`).join(', ')}.`}
-          viewBox={`0 0 ${W} ${H}`}
-          className="min-h-0 w-full flex-1"
-          data-concept="growth"
-        >
-          <defs>
-            <clipPath id="se-growth-plot">
-              <rect x={M.left} y={M.top - 1} width={pw + 1} height={ph + 2} />
-            </clipPath>
-          </defs>
-          {ticks(g.yMax, 4).map((t) => (
-            <g key={`y${t}`}>
-              <line x1={M.left} x2={M.left + pw} y1={y(t)} y2={y(t)} stroke="var(--se-border)" />
-              <text
-                x={M.left - 8}
-                y={y(t) + 4}
-                textAnchor="end"
-                className="fill-ink-faint font-mono"
-                fontSize={11}
-              >
-                {fmt(t)}
-              </text>
-            </g>
-          ))}
-          {ticks(xMax, 4).map((t) => (
+    <div className="flex h-full min-h-0 flex-col gap-3 overflow-auto rounded-lg border border-hairline bg-bg p-4">
+      <svg
+        role="img"
+        aria-label={`Growth curves at n = ${g.n}: ${g.curves.map((c) => `${c.label} ${fmt(c.counts[k])}`).join(', ')}.`}
+        viewBox={`0 0 ${W} ${H}`}
+        className="min-h-0 w-full flex-1"
+        data-concept="growth"
+      >
+        <defs>
+          <clipPath id="se-growth-plot">
+            <rect x={M.left} y={M.top - 1} width={pw + 1} height={ph + 2} />
+          </clipPath>
+        </defs>
+        {ticks(g.yMax, 4).map((t) => (
+          <g key={`y${t}`}>
+            <line x1={M.left} x2={M.left + pw} y1={y(t)} y2={y(t)} stroke="var(--se-border)" />
             <text
-              key={`x${t}`}
-              x={x(t)}
-              y={M.top + ph + 18}
-              textAnchor="middle"
+              x={M.left - 8}
+              y={y(t) + 4}
+              textAnchor="end"
               className="fill-ink-faint font-mono"
               fontSize={11}
             >
               {fmt(t)}
             </text>
-          ))}
-          <text
-            x={M.left + pw / 2}
-            y={H - 4}
-            textAnchor="middle"
-            className="fill-ink-muted font-sans"
-            fontSize={12}
-          >
-            n (input size)
-          </text>
-          <text
-            transform={`translate(12 ${M.top + ph / 2}) rotate(-90)`}
-            textAnchor="middle"
-            className="fill-ink-muted font-sans"
-            fontSize={12}
-          >
-            operations
-          </text>
-          <line
-            x1={x(g.n)}
-            x2={x(g.n)}
-            y1={M.top}
-            y2={M.top + ph}
-            stroke="var(--se-active)"
-            strokeOpacity={0.6}
-            strokeDasharray="4 4"
-          />
-          <g clipPath="url(#se-growth-plot)">
-            {g.curves.map((c, i) => {
-              const strong = compared.size === 0 || compared.has(c.id);
-              return (
-                <g key={c.id} data-curve={c.id}>
-                  <path
-                    d={path(c.counts, 0, g.ns.length - 1)}
-                    fill="none"
-                    stroke={color(i)}
-                    strokeOpacity={0.3}
-                    strokeWidth={1.5}
-                    strokeDasharray={DASH[i]}
-                  />
-                  <path
-                    d={path(c.counts, 0, k)}
-                    fill="none"
-                    stroke={color(i)}
-                    strokeWidth={strong ? 3 : 1.75}
-                    strokeDasharray={DASH[i]}
-                    strokeLinecap="round"
-                  />
-                </g>
-              );
-            })}
           </g>
+        ))}
+        {ticks(xMax, 4).map((t) => (
+          <text
+            key={`x${t}`}
+            x={x(t)}
+            y={M.top + ph + 18}
+            textAnchor="middle"
+            className="fill-ink-faint font-mono"
+            fontSize={11}
+          >
+            {fmt(t)}
+          </text>
+        ))}
+        <text
+          x={M.left + pw / 2}
+          y={H - 4}
+          textAnchor="middle"
+          className="fill-ink-muted font-sans"
+          fontSize={12}
+        >
+          n (input size)
+        </text>
+        <text
+          transform={`translate(12 ${M.top + ph / 2}) rotate(-90)`}
+          textAnchor="middle"
+          className="fill-ink-muted font-sans"
+          fontSize={12}
+        >
+          operations
+        </text>
+        <line
+          x1={x(g.n)}
+          x2={x(g.n)}
+          y1={M.top}
+          y2={M.top + ph}
+          stroke="var(--se-active)"
+          strokeOpacity={0.6}
+          strokeDasharray="4 4"
+        />
+        <g clipPath="url(#se-growth-plot)">
           {g.curves.map((c, i) => {
-            const count = c.counts[k];
-            const over = count > g.yMax;
-            const cx = x(g.n);
-            return over ? (
-              <g key={c.id} data-marker={c.id}>
+            const strong = compared.size === 0 || compared.has(c.id);
+            return (
+              <g key={c.id} data-curve={c.id}>
                 <path
-                  d={`M${cx - 6} ${M.top + 8} L${cx} ${M.top} L${cx + 6} ${M.top + 8} Z`}
-                  fill={color(i)}
+                  d={path(c.counts, 0, g.ns.length - 1)}
+                  fill="none"
+                  stroke={color(i)}
+                  strokeOpacity={0.3}
+                  strokeWidth={1.5}
+                  strokeDasharray={DASH[i]}
                 />
-                <text x={cx + 9} y={M.top + 9} className="fill-ink font-mono" fontSize={11}>
-                  {`${c.label} = ${fmt(count)}`}
-                </text>
+                <path
+                  d={path(c.counts, 0, k)}
+                  fill="none"
+                  stroke={color(i)}
+                  strokeWidth={strong ? 3 : 1.75}
+                  strokeDasharray={DASH[i]}
+                  strokeLinecap="round"
+                />
               </g>
-            ) : (
-              <circle
-                key={c.id}
-                data-marker={c.id}
-                cx={cx}
-                cy={y(count)}
-                r={compared.has(c.id) ? 6 : 4.5}
-                fill={color(i)}
-                stroke="var(--se-bg)"
-                strokeWidth={1.5}
-              />
             );
           })}
-          {g.curves.map((c, i) => (
-            <text
+        </g>
+        {g.curves.map((c, i) => {
+          const count = c.counts[k];
+          const over = count > g.yMax;
+          const cx = x(g.n);
+          // Near the right edge the label goes left of the arrow, clear of the direct labels.
+          const nearEnd = cx > M.left + pw * 0.7;
+          return over ? (
+            <g key={c.id} data-marker={c.id}>
+              <path
+                d={`M${cx - 6} ${M.top + 8} L${cx} ${M.top} L${cx + 6} ${M.top + 8} Z`}
+                fill={color(i)}
+              />
+              <text
+                x={nearEnd ? cx - 9 : cx + 9}
+                y={M.top + 9}
+                textAnchor={nearEnd ? 'end' : 'start'}
+                className="fill-ink font-mono"
+                fontSize={11}
+              >
+                {`${c.label} = ${fmt(count)}`}
+              </text>
+            </g>
+          ) : (
+            <circle
               key={c.id}
-              x={M.left + pw + 8}
-              y={(labelY.get(c.id) ?? 0) + 4}
-              className="font-mono"
+              data-marker={c.id}
+              cx={cx}
+              cy={y(count)}
+              r={compared.has(c.id) ? 6 : 4.5}
               fill={color(i)}
-              fontSize={12}
-              fontWeight={compared.has(c.id) ? 700 : 500}
-            >
-              {c.label}
-            </text>
-          ))}
-        </svg>
-        {g.caption ? (
-          <p className="font-sans text-sm text-ink" data-caption>
-            {g.caption}
-          </p>
-        ) : null}
-      </div>
-      <table className="h-fit shrink-0 self-start rounded-lg border border-hairline bg-surface font-mono text-sm">
-        <caption className="px-3 pt-2 text-left font-sans text-[10px] uppercase tracking-wide text-ink-faint">
+              stroke="var(--se-bg)"
+              strokeWidth={1.5}
+            />
+          );
+        })}
+        {g.curves.map((c, i) => (
+          <text
+            key={c.id}
+            x={M.left + pw + 8}
+            y={(labelY.get(c.id) ?? 0) + 4}
+            className="font-mono"
+            fill={color(i)}
+            fontSize={12}
+            fontWeight={compared.has(c.id) ? 700 : 500}
+          >
+            {c.label}
+          </text>
+        ))}
+      </svg>
+      <table className="w-full table-fixed border-collapse rounded-lg bg-surface font-mono text-sm">
+        <caption className="pb-1 text-left font-sans text-[10px] uppercase tracking-wide text-ink-faint">
           Operations at n = {fmt(g.n)}
         </caption>
         <tbody>
-          {g.curves.map((c, i) => (
-            <tr key={c.id} className={compared.has(c.id) ? 'bg-active-soft' : ''} data-row={c.id}>
-              <td className="py-1 pl-3 pr-2">
-                <svg width="28" height="10" aria-hidden="true">
+          <tr>
+            {g.curves.map((c, i) => (
+              <th
+                key={c.id}
+                scope="col"
+                data-row={c.id}
+                className={`border border-hairline px-2 py-1 text-left font-normal text-ink ${compared.has(c.id) ? 'bg-active-soft' : ''}`}
+              >
+                <svg width="22" height="10" aria-hidden="true" className="mr-1.5 inline-block">
                   <line
                     x1="1"
-                    x2="27"
+                    x2="21"
                     y1="5"
                     y2="5"
                     stroke={color(i)}
@@ -205,13 +213,27 @@ export function GrowthView({ step }: { step: Step }) {
                     strokeDasharray={DASH[i]}
                   />
                 </svg>
+                {c.label}
+              </th>
+            ))}
+          </tr>
+          <tr>
+            {g.curves.map((c) => (
+              <td
+                key={c.id}
+                className={`border border-hairline px-2 py-1 text-right font-semibold text-ink ${compared.has(c.id) ? 'bg-active-soft' : ''}`}
+              >
+                {fmt(c.counts[k])}
               </td>
-              <td className="py-1 pr-4 text-ink">{c.label}</td>
-              <td className="py-1 pr-3 text-right font-semibold text-ink">{fmt(c.counts[k])}</td>
-            </tr>
-          ))}
+            ))}
+          </tr>
         </tbody>
       </table>
+      {g.caption ? (
+        <p className="font-sans text-sm text-ink" data-caption>
+          {g.caption}
+        </p>
+      ) : null}
     </div>
   );
 }
