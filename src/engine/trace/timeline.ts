@@ -69,8 +69,10 @@ export function deriveTimelineMarkers(trace: Trace): TimelineMarker[] {
     // Calls / returns.
     const diff = diffSteps(prev, step);
     const parts: string[] = [];
-    for (const f of diff.framesPopped) parts.push(`${frameLabel(f, trace.source)} returns`);
-    for (const f of diff.framesPushed) parts.push(`${frameLabel(f, trace.source)} called`);
+    const label = (f: (typeof diff.framesPushed)[number]) =>
+      frameLabel(f, trace.source, trace.language);
+    for (const f of diff.framesPopped) parts.push(`${label(f)} returns`);
+    for (const f of diff.framesPushed) parts.push(`${label(f)} called`);
     if (parts.length > 0) {
       markers.push({
         index: i,
