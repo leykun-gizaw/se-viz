@@ -1,0 +1,4795 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 1,
+    "end": 4,
+    "name": "countdown",
+    "params": [
+     "n"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "ClassDef",
+    "line": 5,
+    "end": 9,
+    "name": "Barn"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "Barn",
+     "line": 5,
+     "vars": []
+    }
+   ],
+   "call": {
+    "function": "Barn",
+    "args": [],
+    "scope": "class"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "Barn",
+     "line": 5,
+     "vars": []
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "Barn",
+     "line": 6,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 6,
+    "end": 7,
+    "name": "__init__",
+    "params": [
+     "self",
+     "crops"
+    ]
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "Barn",
+     "line": 8,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 8,
+    "end": 9,
+    "name": "store",
+    "params": [
+     "self",
+     "crop"
+    ]
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "Barn",
+     "line": 8,
+     "vars": [
+      {
+       "name": "store",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "Barn",
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "Barn.store",
+     "params": [
+      "self",
+      "crop"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 10,
+    "end": 10,
+    "targets": [
+     {
+      "type": "name",
+      "id": "seen"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [],
+     "src": "[]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "For",
+    "line": 11,
+    "end": 12,
+    "target": {
+     "type": "name",
+     "id": "t"
+    },
+    "iter": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "countdown"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "2"
+      }
+     ],
+     "src": "countdown(2)"
+    },
+    "body": {
+     "first": 12,
+     "last": 12
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "countdown",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     }
+    ],
+    "scope": "generator"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "While",
+    "line": 2,
+    "end": 4,
+    "test": {
+     "type": "compare",
+     "ops": [
+      ">"
+     ],
+     "left": {
+      "type": "name",
+      "id": "n"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "0"
+      }
+     ],
+     "src": "n > 0"
+    },
+    "body": {
+     "first": 3,
+     "last": 4
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 3,
+    "end": 3,
+    "value": {
+     "type": "yield",
+     "src": "yield n"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "countdown",
+   "yielded": true,
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "2"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 12,
+    "end": 12,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "seen"
+      },
+      "attr": "append",
+      "src": "seen.append"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "t"
+      }
+     ],
+     "src": "seen.append(t)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "countdown",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     }
+    ],
+    "scope": "generator",
+    "resumed": true
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "AugAssign",
+    "line": 4,
+    "end": 4,
+    "target": {
+     "type": "name",
+     "id": "n"
+    },
+    "op": "-",
+    "value": {
+     "type": "const",
+     "repr": "1"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "countdown",
+   "yielded": true,
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "1"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "countdown",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     }
+    ],
+    "scope": "generator",
+    "resumed": true
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "countdown",
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 13,
+    "end": 13,
+    "targets": [
+     {
+      "type": "name",
+      "id": "shelf"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "const",
+       "repr": "'corn'",
+       "src": "\"corn\""
+      }
+     ],
+     "src": "[\"corn\"]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 14,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 14,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 14,
+    "end": 14,
+    "targets": [
+     {
+      "type": "name",
+      "id": "barn"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "Barn"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "shelf"
+      }
+     ],
+     "src": "Barn(shelf)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 14,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "line": 6,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "Barn.__init__",
+    "args": [
+     {
+      "name": "self",
+      "value": {
+       "kind": "ref",
+       "id": "o6"
+      }
+     },
+     {
+      "name": "crops",
+      "value": {
+       "kind": "ref",
+       "id": "o5"
+      }
+     }
+    ],
+    "scope": "function"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 14,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "line": 7,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "self"
+      },
+      "attr": "crops",
+      "src": "self.crops"
+     }
+    ],
+    "value": {
+     "type": "name",
+     "id": "crops"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 14,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "line": 7,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "Barn.__init__",
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 15,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 15,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 15,
+    "end": 15,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "barn"
+      },
+      "attr": "store",
+      "src": "barn.store"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'wheat'",
+       "src": "\"wheat\""
+      }
+     ],
+     "src": "barn.store(\"wheat\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 15,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "store",
+     "line": 8,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "Barn.store",
+    "args": [
+     {
+      "name": "self",
+      "value": {
+       "kind": "ref",
+       "id": "o6"
+      }
+     },
+     {
+      "name": "crop",
+      "value": {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     }
+    ],
+    "scope": "function"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 15,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "store",
+     "line": 9,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 9,
+    "end": 9,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "attribute",
+       "value": {
+        "type": "name",
+        "id": "self"
+       },
+       "attr": "crops",
+       "src": "self.crops"
+      },
+      "attr": "append",
+      "src": "self.crops.append"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "crop"
+      }
+     ],
+     "src": "self.crops.append(crop)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 15,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "store",
+     "line": 9,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "Barn.store",
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 16,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "AugAssign",
+    "line": 16,
+    "end": 16,
+    "target": {
+     "type": "name",
+     "id": "shelf"
+    },
+    "op": "+",
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "const",
+       "repr": "'beans'",
+       "src": "\"beans\""
+      }
+     ],
+     "src": "[\"beans\"]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 17,
+    "end": 17,
+    "targets": [
+     {
+      "type": "name",
+      "id": "total"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "sum"
+     },
+     "args": [
+      {
+       "type": "comprehension",
+       "of": "generator",
+       "src": "(x for x in seen)"
+      }
+     ],
+     "src": "sum(x for x in seen)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": []
+    }
+   ],
+   "call": {
+    "function": "<genexpr>",
+    "args": [],
+    "scope": "comprehension"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": []
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<genexpr>",
+   "yielded": true,
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "2"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "<genexpr>",
+    "args": [],
+    "scope": "comprehension",
+    "resumed": true
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<genexpr>",
+   "yielded": true,
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "1"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "<genexpr>",
+    "args": [],
+    "scope": "comprehension",
+    "resumed": true
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "<genexpr>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<genexpr>",
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "countdown",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "Barn",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "seen",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "t",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "shelf",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "barn",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "countdown",
+     "params": [
+      "n"
+     ]
+    },
+    "o3": {
+     "kind": "class",
+     "type": "type",
+     "name": "Barn"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o6": {
+     "kind": "instance",
+     "type": "Barn",
+     "attrs": [
+      {
+       "name": "crops",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

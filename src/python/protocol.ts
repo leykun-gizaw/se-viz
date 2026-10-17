@@ -8,6 +8,7 @@
  *
  * @packageDocumentation
  */
+import type { PyStatement, PyStepInfo } from '../engine/trace/types.ts';
 
 /** Limits enforced for one run. Every field has a default ({@link DEFAULT_LIMITS}). */
 export interface RunLimits {
@@ -204,6 +205,20 @@ export interface PySnapshot {
   unwinding?: true;
   /** `exception` events only. */
   exception?: { type: string; message: string };
+  /**
+   * `line` events (Phase 32): the statement on this line, from Python's `ast`. Sent once per line,
+   * with the first line event that runs it in a frame of its own scope (never from inside a
+   * generator expression, comprehension or lambda on that line); later line events omit it.
+   */
+  stmt?: PyStatement;
+  /** `call` events (Phase 32): who was called, with the arguments bound to each parameter. */
+  call?: Omit<NonNullable<PyStepInfo['call']>, 'params'> & {
+    args: { name: string; value: PyValue }[];
+  };
+  /** `return` events (Phase 32): the qualified name of the function returning. */
+  function?: string;
+  /** `return` events of a generator suspended at a `yield` (Phase 32). */
+  yielded?: true;
 }
 
 /* ───────────────────────── Worker messages ───────────────────────── */

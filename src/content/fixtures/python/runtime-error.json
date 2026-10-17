@@ -8,12 +8,16 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 ran.",
+   "narration": "prices now refers to a new dict.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -58,12 +62,16 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 2 ran.",
+   "narration": "basket now refers to a new list.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -151,12 +159,16 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 3 ran.",
+   "narration": "Set total to 0.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -251,12 +263,16 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Line 4 ran.",
+   "narration": "Iteration 1 of the for loop: item is now 'corn'.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
    "stack": [
     {
      "id": "f1",
@@ -358,12 +374,16 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Line 5 ran.",
+   "narration": "Set total to 3.",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -465,12 +485,16 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Line 4 ran.",
+   "narration": "Iteration 2 of the for loop: item is now 'wheat'.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
    "stack": [
     {
      "id": "f1",
@@ -572,12 +596,16 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Line 5 ran.",
+   "narration": "Set total to 5.",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -679,12 +707,16 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Line 4 ran.",
+   "narration": "Iteration 3 of the for loop: item is now 'beans'.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
    "stack": [
     {
      "id": "f1",
@@ -786,12 +818,20 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Line 5 raised KeyError: 'beans'",
+   "narration": "KeyError: 'beans' was raised on line 5.",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "exception",
+    "at": 5,
+    "exception": {
+     "type": "KeyError",
+     "message": "'beans'"
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -893,12 +933,18 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "<module> exits because of an exception.",
+   "narration": "Nothing caught the exception, so the program stops here.",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 5,
+    "function": "<module>",
+    "unwinding": true
+   },
    "stack": [
     {
      "id": "f1",
@@ -997,5 +1043,125 @@
     }
    ]
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "Assign",
+   "line": 1,
+   "end": 1,
+   "targets": [
+    {
+     "type": "name",
+     "id": "prices"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "dict",
+    "src": "{\"corn\": 3, \"wheat\": 2}"
+   }
+  },
+  "2": {
+   "kind": "Assign",
+   "line": 2,
+   "end": 2,
+   "targets": [
+    {
+     "type": "name",
+     "id": "basket"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "'corn'",
+      "src": "\"corn\""
+     },
+     {
+      "type": "const",
+      "repr": "'wheat'",
+      "src": "\"wheat\""
+     },
+     {
+      "type": "const",
+      "repr": "'beans'",
+      "src": "\"beans\""
+     },
+     {
+      "type": "const",
+      "repr": "'corn'",
+      "src": "\"corn\""
+     }
+    ],
+    "src": "[\"corn\", \"wheat\", \"beans\", \"corn\"]"
+   }
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "total"
+    }
+   ],
+   "value": {
+    "type": "const",
+    "repr": "0"
+   }
+  },
+  "4": {
+   "kind": "For",
+   "line": 4,
+   "end": 5,
+   "target": {
+    "type": "name",
+    "id": "item"
+   },
+   "iter": {
+    "type": "name",
+    "id": "basket"
+   },
+   "body": {
+    "first": 5,
+    "last": 5
+   }
+  },
+  "5": {
+   "kind": "Assign",
+   "line": 5,
+   "end": 5,
+   "targets": [
+    {
+     "type": "name",
+     "id": "total"
+    }
+   ],
+   "value": {
+    "type": "binop",
+    "op": "+",
+    "left": {
+     "type": "name",
+     "id": "total"
+    },
+    "right": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "prices"
+     },
+     "index": {
+      "type": "name",
+      "id": "item"
+     },
+     "src": "prices[item]"
+    },
+    "src": "total + prices[item]"
+   }
+  }
+ }
 }

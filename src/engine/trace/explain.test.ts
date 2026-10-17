@@ -5,6 +5,9 @@ import { dualTraceTrace } from '../../content/fixtures/dualTrace.ts';
 import { preprocessorTrace } from '../../content/fixtures/preprocessor.ts';
 import { factorialTrace } from '../../content/se200/recursion/factorial.ts';
 import { insertHeadTrace } from '../../content/se201/linked-lists/insertHead.ts';
+import { deriveExplanation } from '../explain/derive.ts';
+// Installs the (lazily loaded, in the app) Python deriver, so Python modules are explained too.
+import '../explain/python.ts';
 import { explainBeat } from './explain.ts';
 import type { HeapBlock, StackFrame, Step, Trace } from './types.ts';
 
@@ -86,13 +89,17 @@ const trace: Trace = {
 describe('explainBeat — what this step did', () => {
   it('uses authored explain.did when present (authored wins over narration)', () => {
     const ex = explainBeat(trace, 1, 'apply', 'two-beat');
-    expect(ex.did).toEqual({ items: ['Stores `1` in `x`.', 'Nothing else.'], authored: true });
+    expect(ex.did).toEqual({
+      items: ['Stores `1` in `x`.', 'Nothing else.'],
+      authored: true,
+      markdown: true,
+    });
     expect(ex.concept).toBe('Assignment **copies** a value.');
   });
 
   it('falls back to the narration, and hides Concept, when nothing is authored', () => {
     const ex = explainBeat(trace, 2, 'apply', 'two-beat');
-    expect(ex.did).toEqual({ items: ['narration 2'], authored: false });
+    expect(ex.did).toEqual({ items: ['narration 2'], authored: false, markdown: false });
     expect(ex.concept).toBeNull();
   });
 
@@ -100,6 +107,7 @@ describe('explainBeat — what this step did', () => {
     expect(explainBeat(trace, 6, 'apply', 'single').did).toEqual({
       items: ['narration 6'],
       authored: false,
+      markdown: false,
     });
   });
 });
@@ -278,7 +286,15 @@ describe('fallbacks for every catalog module', () => {
           expect(ex.current.number).toBe(i + 1);
         }
         const ex = explainBeat(t, i, 'apply', 'single');
-        const expected = s.explain?.did?.length ? s.explain.did : [s.narration];
+        // Phase 32: authored text wins; C traces (no statement facts) fall back to the narration;
+        // Python steps show the derived breakdown when there is one.
+        const derived = deriveExplanation(t, i, 'apply').did;
+        const expected = s.explain?.did?.length
+          ? s.explain.did
+          : derived.length > 0
+            ? derived
+            : [s.narration];
+        if (t.language === 'c') expect(derived, `${t.id} step ${i}`).toEqual([]);
         expect(ex.did?.items, `${t.id} step ${i}`).toEqual(expected);
       });
     }

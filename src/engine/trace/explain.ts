@@ -1,18 +1,26 @@
 /**
- * Step explanation model (Phase 28) — the pure function behind the explanation panel.
+ * Step explanation model (Phase 28; derived sections from Phase 32) — the pure function behind the
+ * explanation panel.
  *
  * {@link explainBeat} turns a trace position (logical step + beat) into everything the panel shows:
- * a header (step number, highlighted lines, the source text of those lines), "What this step did"
- * (authored {@link StepExplanation.did}, else the narration), "What changed" (derived from
- * {@link diffSteps} plus heap and output changes), the previous and next steps, and the authored
- * concept. Authored text always wins; everything else is derived from the trace, never invented.
+ * a header (step number, highlighted lines, the source text of those lines), "What this step did",
+ * "What changed", "Branch taken", "Loop iteration", "Calls and returns", "Exceptions", the previous
+ * and next steps, and the concept.
+ *
+ * **Authored text always wins, section by section** ({@link StepExplanation}); a section without
+ * authored text shows what {@link deriveExplanation} works out from the trace (Phase 32), and
+ * "What this step did" falls back to the narration when nothing can be derived. Nothing is invented:
+ * a fact that can't be derived is left out.
  *
  * Two-beat stepping (Phase 16) is respected: on an `arrive` beat the step hasn't run yet, so the
- * panel reports it as "about to run" and withholds its effects (`did`, `changes` and the next step's
- * narration are `null`).
+ * panel reports it as "about to run" and withholds its effects (`changes`, the derived sections and
+ * the next step's narration); "What this step did" then says only what is about to run (derived),
+ * or nothing.
  *
  * @packageDocumentation
  */
+import { deriveExplanation } from '../explain/derive.ts';
+import type { ChangeKind, ChangeRow } from '../explain/types.ts';
 import type { Beat, SteppingMode } from './beats.ts';
 import { diffSteps } from './diff.ts';
 import {
@@ -26,26 +34,7 @@ import {
 } from './labels.ts';
 import type { Cell, HeapBlock, PointerTarget, Step, Trace } from './types.ts';
 
-/** The kinds of row in "What changed". */
-export type ChangeKind =
-  | 'value' // a scalar's value changed
-  | 'pointer' // a pointer now targets something else
-  | 'call' // a frame was pushed
-  | 'return' // a frame was popped
-  | 'alloc' // a heap block appeared
-  | 'free' // a heap block was freed / released
-  | 'leak' // a heap block became unreachable
-  | 'declare' // a new variable appeared in a frame that already existed
-  | 'output'; // the program printed something
-
-/** One "What changed" row. `from`/`to` are present for value-like changes. */
-export interface ChangeRow {
-  kind: ChangeKind;
-  /** What changed, e.g. `n in factorial(3)`, `factorial(2)`, `node 0x8e0`. */
-  subject: string;
-  from?: string;
-  to?: string;
-}
+export type { ChangeKind, ChangeRow };
 
 /** A compact reference to a step, for the header and the previous / next sections. */
 export interface StepRef {
@@ -67,18 +56,38 @@ export interface BeatExplanation {
   status: 'about-to-run' | 'ran';
   total: number;
   current: StepRef;
-  /** "What this step did" — `null` on an arrive beat. */
-  did: { items: string[]; authored: boolean } | null;
+  /**
+   * "What this step did": authored, else derived (Phase 32), else the narration. `markdown` says
+   * whether the items are inline Markdown (authored or derived) or plain text (the narration). On an
+   * arrive beat it is the derived "about to run" description, or `null`.
+   */
+  did: { items: string[]; authored: boolean; markdown: boolean } | null;
   /** "What changed" rows — `null` on an arrive beat; `[]` means "Nothing changed". */
   changes: ChangeRow[] | null;
   /** When set, "What changed" is shown elsewhere on screen and this note replaces the rows. */
   changesNote: string | null;
+  /** Authored "What changed" text (Phase 32), shown instead of the rows; `null` when not authored. */
+  changedText: string[] | null;
+  /** "Branch taken" (Phase 32): authored or derived; `[]` hides the section. Empty on arrive. */
+  branch: string[];
+  /** "Loop iteration" (Phase 32). */
+  loop: string[];
+  /** "Calls and returns" (Phase 32). */
+  calls: string[];
+  /** "Exceptions" (Phase 32). */
+  exceptions: string[];
   /** The previous step (it has run), or `null` at the first step. */
   previous: StepRef | null;
   /** The next step, or `null` at the last step. */
   next: StepRef | null;
-  /** Authored concept text, or `null` (section hidden). */
+  /** Authored concept text, else a derived glossary entry (Phase 32), or `null` (section hidden). */
   concept: string | null;
+}
+
+/** Authored lines for a section, or `null` when none are authored (empty entries don't count). */
+function authoredList(list: readonly string[] | undefined): string[] | null {
+  const items = (list ?? []).filter((d) => d.trim() !== '');
+  return items.length > 0 ? items : null;
 }
 
 function stepRef(trace: Trace, step: Step, revealNarration: boolean): StepRef {
@@ -256,13 +265,17 @@ export function explainBeat(
   const nextStep = i < total - 1 ? trace.steps[i + 1] : null;
   const arriving = mode === 'two-beat' && beat === 'arrive';
   const view = trace.view ?? 'memory';
+  const derived = deriveExplanation(trace, i, arriving ? 'arrive' : 'apply');
+  const authoredText = step.explain ?? {};
 
-  const authored = (step.explain?.did ?? []).filter((d) => d.trim() !== '');
-  const did = arriving
-    ? null
-    : authored.length > 0
-      ? { items: authored, authored: true }
-      : { items: [step.narration], authored: false };
+  const authored = authoredList(authoredText.did);
+  let did: BeatExplanation['did'];
+  if (arriving) {
+    // The authored breakdown describes effects: hold it back. A derived "about to run" may show.
+    did = authored || derived.did.length === 0 ? null : { items: derived.did, authored: false, markdown: true };
+  } else if (authored) did = { items: authored, authored: true, markdown: true };
+  else if (derived.did.length > 0) did = { items: derived.did, authored: false, markdown: true };
+  else did = { items: [step.narration], authored: false, markdown: false };
 
   let changes: ChangeRow[] | null = null;
   let changesNote: string | null = null;
@@ -275,12 +288,16 @@ export function explainBeat(
     } else if (VIEW_NOTES[view]) {
       changes = [];
       changesNote = VIEW_NOTES[view];
+    } else if (derived.changes !== null) {
+      changes = derived.changes;
     } else {
       changes = view === 'memory' ? memoryChanges(trace, prev, step) : dualTraceChanges(prev, step);
     }
   }
 
-  const concept = step.explain?.concept?.trim() ? step.explain.concept.trim() : null;
+  const concept = authoredText.concept?.trim() ? authoredText.concept.trim() : derived.concept;
+  const section = (own: string[] | undefined, fallback: string[]) =>
+    arriving ? [] : (authoredList(own) ?? fallback);
 
   return {
     status: arriving ? 'about-to-run' : 'ran',
@@ -289,6 +306,11 @@ export function explainBeat(
     did,
     changes,
     changesNote,
+    changedText: arriving ? null : authoredList(authoredText.changed),
+    branch: section(authoredText.branch, derived.branch),
+    loop: section(authoredText.loop, derived.loop),
+    calls: section(authoredText.calls, derived.calls),
+    exceptions: section(authoredText.exceptions, derived.exceptions),
     previous: prev ? stepRef(trace, prev, true) : null,
     next: nextStep ? stepRef(trace, nextStep, !arriving) : null,
     concept,

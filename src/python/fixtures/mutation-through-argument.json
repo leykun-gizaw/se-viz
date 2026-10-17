@@ -11,6 +11,16 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 1,
+    "end": 2,
+    "name": "add_crop",
+    "params": [
+     "basket",
+     "crop"
+    ]
+   },
    "objects": {},
    "stdout": ""
   },
@@ -33,6 +43,29 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "basket"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "const",
+       "repr": "'corn'",
+       "src": "\"corn\""
+      }
+     ],
+     "src": "[\"corn\"]"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -72,6 +105,30 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 5,
+    "end": 5,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "add_crop"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "basket"
+      },
+      {
+       "type": "const",
+       "repr": "'wheat'",
+       "src": "\"wheat\""
+      }
+     ],
+     "src": "add_crop(basket, \"wheat\")"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -144,6 +201,27 @@
      ]
     }
    ],
+   "call": {
+    "function": "add_crop",
+    "args": [
+     {
+      "name": "basket",
+      "value": {
+       "kind": "ref",
+       "id": "o2"
+      }
+     },
+     {
+      "name": "crop",
+      "value": {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -216,6 +294,30 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 2,
+    "end": 2,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "basket"
+      },
+      "attr": "append",
+      "src": "basket.append"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "crop"
+      }
+     ],
+     "src": "basket.append(crop)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -288,6 +390,7 @@
      ]
     }
    ],
+   "function": "add_crop",
    "returnValue": {
     "kind": "prim",
     "type": "NoneType",
@@ -348,6 +451,25 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 6,
+    "end": 6,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "print"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "basket"
+      }
+     ],
+     "src": "print(basket)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -403,6 +525,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o1": {
      "kind": "function",

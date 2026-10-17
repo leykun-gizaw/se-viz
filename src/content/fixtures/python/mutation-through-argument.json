@@ -8,12 +8,16 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 ran.",
+   "narration": "Defined the function add_crop(basket, crop); its body runs only when it is called.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -43,12 +47,16 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 4 ran.",
+   "narration": "basket now refers to a new list.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
    "stack": [
     {
      "id": "f1",
@@ -100,12 +108,24 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 5 calls add_crop(basket=…, crop='wheat').",
+   "narration": "Called add_crop(basket, 'wheat').",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "call",
+    "at": 1,
+    "call": {
+     "function": "add_crop",
+     "scope": "function",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -178,12 +198,17 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "add_crop returns None.",
+   "narration": "add_crop(basket, 'wheat') reached its end, so it returns None.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "return",
+    "at": 2,
+    "function": "add_crop"
+   },
    "stack": [
     {
      "id": "f1",
@@ -270,12 +295,16 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Back in <module>: line 5 finishes.",
+   "narration": "Got None back from add_crop(basket, 'wheat').",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
    "stack": [
     {
      "id": "f1",
@@ -334,7 +363,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "The program finished.",
+   "narration": "Printed ['corn', 'wheat'].",
    "highlightedLines": [
     6
    ],
@@ -342,6 +371,11 @@
     "['corn', 'wheat']"
    ],
    "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 6,
+    "function": "<module>"
+   },
    "stack": [
     {
      "id": "f1",
@@ -397,5 +431,107 @@
     }
    ]
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "FunctionDef",
+   "line": 1,
+   "end": 2,
+   "name": "add_crop",
+   "params": [
+    "basket",
+    "crop"
+   ]
+  },
+  "2": {
+   "kind": "Expr",
+   "line": 2,
+   "end": 2,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "basket"
+     },
+     "attr": "append",
+     "src": "basket.append"
+    },
+    "args": [
+     {
+      "type": "name",
+      "id": "crop"
+     }
+    ],
+    "src": "basket.append(crop)"
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "name",
+     "id": "basket"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "'corn'",
+      "src": "\"corn\""
+     }
+    ],
+    "src": "[\"corn\"]"
+   }
+  },
+  "5": {
+   "kind": "Expr",
+   "line": 5,
+   "end": 5,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "add_crop"
+    },
+    "args": [
+     {
+      "type": "name",
+      "id": "basket"
+     },
+     {
+      "type": "const",
+      "repr": "'wheat'",
+      "src": "\"wheat\""
+     }
+    ],
+    "src": "add_crop(basket, \"wheat\")"
+   }
+  },
+  "6": {
+   "kind": "Expr",
+   "line": 6,
+   "end": 6,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "print"
+    },
+    "args": [
+     {
+      "type": "name",
+      "id": "basket"
+     }
+    ],
+    "src": "print(basket)"
+   }
+  }
+ }
 }

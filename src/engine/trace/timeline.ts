@@ -49,12 +49,33 @@ function firstLine(step: Step): number | null {
 }
 
 /**
+ * A C loop test (Phase 32): a step on a `for` / `while` header carrying the loop's condition, as the
+ * timeline reads it. `iteration` counts the passes started (this one included when the condition is
+ * true) since the loop was entered from above, or `null` when the entry wasn't seen.
+ */
+export interface LoopTest {
+  arrival: 'entry' | 'back';
+  result: boolean;
+  iteration: number | null;
+}
+
+/**
  * Derive the timeline markers for a trace, in step order. Concept views (pipeline, before-after,
  * dual-trace) have no frames or line-by-line control flow, so they get none.
  */
 export function deriveTimelineMarkers(trace: Trace): TimelineMarker[] {
+  return scan(trace).markers;
+}
+
+/** The loop tests of a trace by step index (see {@link LoopTest}); the same scan as the markers. */
+export function deriveLoopTests(trace: Trace): Map<number, LoopTest> {
+  return scan(trace).tests;
+}
+
+function scan(trace: Trace): { markers: TimelineMarker[]; tests: Map<number, LoopTest> } {
+  const tests = new Map<number, LoopTest>();
   const view = trace.view ?? 'memory';
-  if (view !== 'memory') return [];
+  if (view !== 'memory') return { markers: [], tests };
   const lines = trace.source.replace(/\n$/, '').split('\n');
   const markers: TimelineMarker[] = [];
   // Iteration counter per (frame id, loop header line), reset whenever the loop is entered from above.
@@ -111,16 +132,22 @@ export function deriveTimelineMarkers(trace: Trace): TimelineMarker[] {
       continue;
     }
     pending = null;
+    const result = step.condition.result;
     if (arrival === 'entry') {
       iterations.set(key, 1); // the loop's first test, entered from above
-    } else if (step.condition.result) {
-      const k = (iterations.get(key) ?? 1) + 1;
+      tests.set(i, { arrival, result, iteration: result ? 1 : 0 });
+    } else if (result) {
+      const seen = iterations.get(key);
+      const k = (seen ?? 1) + 1;
       iterations.set(key, k);
       markers.push({ index: i, kind: 'loop', label: `loop iteration ${k}` });
+      tests.set(i, { arrival, result, iteration: seen === undefined ? null : k });
     } else {
+      const seen = iterations.get(key);
       iterations.delete(key);
       markers.push({ index: i, kind: 'loop', label: 'loop exits' });
+      tests.set(i, { arrival, result, iteration: seen ?? null });
     }
   }
-  return markers;
+  return { markers, tests };
 }

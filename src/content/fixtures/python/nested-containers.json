@@ -8,12 +8,16 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 ran.",
+   "narration": "fields now refers to a new dict.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -87,12 +91,16 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 2 ran.",
+   "narration": "Called fields[\"south\"].append(\"beans\").",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -174,12 +182,16 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 3 ran.",
+   "narration": "animals now refers to a new list.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -334,12 +346,17 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "The program finished.",
+   "narration": "Stored 'sheep' in animals[1]['kind'].",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 4,
+    "function": "<module>"
+   },
    "stack": [
     {
      "id": "f1",
@@ -491,5 +508,118 @@
     }
    ]
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "Assign",
+   "line": 1,
+   "end": 1,
+   "targets": [
+    {
+     "type": "name",
+     "id": "fields"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "dict",
+    "src": "{\"north\": [\"corn\", \"wheat\"], \"south\": []}"
+   }
+  },
+  "2": {
+   "kind": "Expr",
+   "line": 2,
+   "end": 2,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "fields"
+      },
+      "index": {
+       "type": "const",
+       "repr": "'south'",
+       "src": "\"south\""
+      },
+      "src": "fields[\"south\"]"
+     },
+     "attr": "append",
+     "src": "fields[\"south\"].append"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'beans'",
+      "src": "\"beans\""
+     }
+    ],
+    "src": "fields[\"south\"].append(\"beans\")"
+   }
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "animals"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "display",
+      "of": "dict",
+      "src": "{\"name\": \"Daisy\", \"kind\": \"cow\"}"
+     },
+     {
+      "type": "display",
+      "of": "dict",
+      "src": "{\"name\": \"Lulu\", \"kind\": \"goat\"}"
+     }
+    ],
+    "src": "[{\"name\": \"Daisy\", \"kind\": \"cow\"}, {\"name\": \"Lulu\", \"kind\": \"goat\"}]"
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "subscript",
+     "value": {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "animals"
+      },
+      "index": {
+       "type": "const",
+       "repr": "1"
+      },
+      "src": "animals[1]"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'kind'",
+      "src": "\"kind\""
+     },
+     "src": "animals[1][\"kind\"]"
+    }
+   ],
+   "value": {
+    "type": "const",
+    "repr": "'sheep'",
+    "src": "\"sheep\""
+   }
+  }
+ }
 }

@@ -1,0 +1,7007 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "math"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 2,
+    "end": 2,
+    "names": [
+     "sqrt"
+    ],
+    "module": "math"
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "AnnAssign",
+    "line": 3,
+    "end": 3,
+    "target": {
+     "type": "name",
+     "id": "LIMIT"
+    },
+    "annotation": "int",
+    "value": {
+     "type": "const",
+     "repr": "3"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "AnnAssign",
+    "line": 4,
+    "end": 4,
+    "target": {
+     "type": "name",
+     "id": "note"
+    },
+    "annotation": "str"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 5,
+    "end": 6,
+    "name": "area",
+    "params": [
+     "r"
+    ]
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "name",
+      "id": "square"
+     }
+    ],
+    "value": {
+     "type": "other",
+     "src": "lambda n: n * n"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 8,
+    "end": 8,
+    "targets": [
+     {
+      "type": "name",
+      "id": "size"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "2"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "If",
+    "line": 9,
+    "end": 14,
+    "test": {
+     "type": "compare",
+     "ops": [
+      ">"
+     ],
+     "left": {
+      "type": "name",
+      "id": "size"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "5"
+      }
+     ],
+     "src": "size > 5"
+    },
+    "body": {
+     "first": 10,
+     "last": 10
+    },
+    "orelse": {
+     "kind": "elif",
+     "line": 11,
+     "first": 11,
+     "last": 14
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Elif",
+    "line": 11,
+    "end": 14,
+    "test": {
+     "type": "compare",
+     "ops": [
+      ">"
+     ],
+     "left": {
+      "type": "name",
+      "id": "size"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "1"
+      }
+     ],
+     "src": "size > 1"
+    },
+    "body": {
+     "first": 12,
+     "last": 12
+    },
+    "orelse": {
+     "kind": "else",
+     "line": 13,
+     "first": 14,
+     "last": 14
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 12,
+    "end": 12,
+    "targets": [
+     {
+      "type": "name",
+      "id": "label"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "'medium'",
+     "src": "\"medium\""
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 15,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 15,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 15,
+    "end": 15,
+    "targets": [
+     {
+      "type": "name",
+      "id": "day"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "0"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 16,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "While",
+    "line": 16,
+    "end": 22,
+    "test": {
+     "type": "compare",
+     "ops": [
+      "<"
+     ],
+     "left": {
+      "type": "name",
+      "id": "day"
+     },
+     "comparators": [
+      {
+       "type": "name",
+       "id": "LIMIT"
+      }
+     ],
+     "src": "day < LIMIT"
+    },
+    "body": {
+     "first": 17,
+     "last": 20
+    },
+    "orelse": {
+     "kind": "else",
+     "line": 21,
+     "first": 22,
+     "last": 22
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "AugAssign",
+    "line": 17,
+    "end": 17,
+    "target": {
+     "type": "name",
+     "id": "day"
+    },
+    "op": "+",
+    "value": {
+     "type": "const",
+     "repr": "1"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 18,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "If",
+    "line": 18,
+    "end": 19,
+    "test": {
+     "type": "compare",
+     "ops": [
+      "=="
+     ],
+     "left": {
+      "type": "name",
+      "id": "day"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "2"
+      }
+     ],
+     "src": "day == 2"
+    },
+    "body": {
+     "first": 19,
+     "last": 19
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 20,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 20,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Pass",
+    "line": 20,
+    "end": 20
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 16,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 18,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 19,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 19,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Continue",
+    "line": 19,
+    "end": 19
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 16,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 18,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 20,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 20,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 16,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 22,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 22,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 22,
+    "end": 22,
+    "targets": [
+     {
+      "type": "name",
+      "id": "day"
+     }
+    ],
+    "value": {
+     "type": "unary",
+     "op": "-",
+     "operand": {
+      "type": "name",
+      "id": "day"
+     },
+     "src": "-day"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 23,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 23,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 23,
+    "end": 23,
+    "targets": [
+     {
+      "type": "name",
+      "id": "stock"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "dict",
+     "src": "{\"corn\": 3, \"beans\": 0}"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 24,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 24,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "For",
+    "line": 24,
+    "end": 26,
+    "target": {
+     "type": "display",
+     "of": "tuple",
+     "items": [
+      {
+       "type": "name",
+       "id": "name"
+      },
+      {
+       "type": "name",
+       "id": "qty"
+      }
+     ],
+     "src": "name, qty"
+    },
+    "iter": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "stock"
+      },
+      "attr": "items",
+      "src": "stock.items"
+     },
+     "args": [],
+     "src": "stock.items()"
+    },
+    "body": {
+     "first": 25,
+     "last": 26
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 25,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 25,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "If",
+    "line": 25,
+    "end": 26,
+    "test": {
+     "type": "compare",
+     "ops": [
+      "=="
+     ],
+     "left": {
+      "type": "name",
+      "id": "qty"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "0"
+      }
+     ],
+     "src": "qty == 0"
+    },
+    "body": {
+     "first": 26,
+     "last": 26
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 24,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 24,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 25,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 25,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 26,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 26,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Break",
+    "line": 26,
+    "end": 26
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 27,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 27,
+    "end": 27,
+    "targets": [
+     {
+      "type": "name",
+      "id": "squares"
+     }
+    ],
+    "value": {
+     "type": "comprehension",
+     "of": "list",
+     "src": "[square(n) for n in range(3)]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "<lambda>",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      }
+     }
+    ],
+    "scope": "lambda"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<lambda>",
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "0"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 27,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "<lambda>",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     }
+    ],
+    "scope": "lambda"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<lambda>",
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "1"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 27,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "<lambda>",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     }
+    ],
+    "scope": "lambda"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "<lambda>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<lambda>",
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "4"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 27,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 27,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 28,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 28,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 28,
+    "end": 28,
+    "targets": [
+     {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "name",
+        "id": "a"
+       },
+       {
+        "type": "name",
+        "id": "b"
+       }
+      ],
+      "src": "a, b"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "tuple",
+     "items": [
+      {
+       "type": "const",
+       "repr": "1"
+      },
+      {
+       "type": "const",
+       "repr": "2"
+      }
+     ],
+     "src": "1, 2"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 29,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 29,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "b",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 29,
+    "end": 29,
+    "targets": [
+     {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "name",
+        "id": "a"
+       },
+       {
+        "type": "name",
+        "id": "b"
+       }
+      ],
+      "src": "a, b"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "tuple",
+     "items": [
+      {
+       "type": "name",
+       "id": "b"
+      },
+      {
+       "type": "name",
+       "id": "a"
+      }
+     ],
+     "src": "b, a"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 30,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 30,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "b",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Delete",
+    "line": 30,
+    "end": 30,
+    "targets": [
+     {
+      "type": "name",
+      "id": "b"
+     }
+    ]
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 31,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 31,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assert",
+    "line": 31,
+    "end": 31,
+    "test": {
+     "type": "compare",
+     "ops": [
+      "=="
+     ],
+     "left": {
+      "type": "name",
+      "id": "a"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "2"
+      }
+     ],
+     "src": "a == 2"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 32,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 32,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 32,
+    "end": 32,
+    "targets": [
+     {
+      "type": "name",
+      "id": "total"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "+",
+     "left": {
+      "type": "call",
+      "func": {
+       "type": "name",
+       "id": "sqrt"
+      },
+      "args": [
+       {
+        "type": "const",
+        "repr": "16"
+       }
+      ],
+      "src": "sqrt(16)"
+     },
+     "right": {
+      "type": "call",
+      "func": {
+       "type": "name",
+       "id": "area"
+      },
+      "args": [
+       {
+        "type": "const",
+        "repr": "1"
+       }
+      ],
+      "src": "area(1)"
+     },
+     "src": "sqrt(16) + area(1)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 32,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "area",
+     "line": 5,
+     "vars": [
+      {
+       "name": "r",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "call": {
+    "function": "area",
+    "args": [
+     {
+      "name": "r",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     }
+    ],
+    "scope": "function"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 32,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "area",
+     "line": 6,
+     "vars": [
+      {
+       "name": "r",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Return",
+    "line": 6,
+    "end": 6,
+    "value": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "math"
+      },
+      "attr": "pi",
+      "src": "math.pi"
+     },
+     "right": {
+      "type": "binop",
+      "op": "**",
+      "left": {
+       "type": "name",
+       "id": "r"
+      },
+      "right": {
+       "type": "const",
+       "repr": "2"
+      },
+      "src": "r ** 2"
+     },
+     "src": "math.pi * r ** 2"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 32,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "area",
+     "line": 6,
+     "vars": [
+      {
+       "name": "r",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "area",
+   "returnValue": {
+    "kind": "prim",
+    "type": "float",
+    "repr": "3.141592653589793"
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 32,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 32,
+     "vars": [
+      {
+       "name": "sqrt",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "LIMIT",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "area",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "square",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "size",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "label",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'medium'"
+       }
+      },
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "-3"
+       }
+      },
+      {
+       "name": "stock",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "qty",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "squares",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "a",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "float",
+        "repr": "7.141592653589793"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "builtin_function_or_method",
+     "repr": "<built-in function sqrt>"
+    },
+    "o2": {
+     "kind": "function",
+     "type": "function",
+     "name": "area",
+     "params": [
+      "r"
+     ]
+    },
+    "o3": {
+     "kind": "function",
+     "type": "function",
+     "name": "<lambda>",
+     "params": [
+      "n"
+     ]
+    },
+    "o4": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

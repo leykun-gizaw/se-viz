@@ -8,8 +8,10 @@
  *
  * @packageDocumentation
  */
+import { derivePython, summarize } from '../engine/explain/python.ts';
 import type { Trace } from '../engine/trace/types.ts';
 import { mapA } from './mappings/candidates.ts';
+import { statementTable } from './mappings/plan.ts';
 import type { RunResult } from './protocol.ts';
 
 /** What a trace carries besides its steps. */
@@ -20,15 +22,33 @@ export interface PythonTraceMeta {
   file?: string;
 }
 
-/** Map a run onto a `language: 'python'` trace. A run with no steps (a syntax error) has none. */
+/**
+ * Map a run onto a `language: 'python'` trace. A run with no steps (a syntax error) has none.
+ *
+ * Phase 32: the trace carries the recorder's statement facts (`statements`, and `py` on each step),
+ * and each step's narration and condition chip are derived from them (`summarize`,
+ * `derivePython`), replacing the plain "Line 4 ran." placeholder where a sentence can be
+ * derived.
+ */
 export function recordingToTrace(result: RunResult, source: string, meta: PythonTraceMeta): Trace {
   const { steps } = mapA(result, source, meta.id);
-  return {
+  const trace: Trace = {
     id: meta.id,
     title: meta.title,
     ...(meta.file ? { file: meta.file } : {}),
     language: 'python',
     source,
     steps,
+    statements: statementTable(result),
   };
+  const derived = steps.map((_, i) => ({
+    narration: summarize(trace, i),
+    condition: derivePython(trace, i, 'apply').condition,
+  }));
+  steps.forEach((step, i) => {
+    const { narration, condition } = derived[i];
+    if (narration !== null) step.narration = narration;
+    if (condition) step.condition = condition;
+  });
+  return trace;
 }

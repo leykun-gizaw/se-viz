@@ -15,6 +15,7 @@
  *
  * @packageDocumentation
  */
+import type { PyStatement, PyStepInfo } from '../../engine/trace/types.ts';
 import type { PyFrame, PySnapshot, PyValue, RunResult } from '../protocol.ts';
 
 export interface PlannedStep {
@@ -23,6 +24,32 @@ export interface PlannedStep {
   /** The 1-based line that just ran. */
   line: number;
   narration: string;
+  /** The recorder event behind the step (Phase 32), for the derived explanations. */
+  py: PyStepInfo;
+}
+
+/** What a snapshot says about its own event (Phase 32): {@link PyStepInfo}. */
+export function stepInfo(snap: PySnapshot): PyStepInfo {
+  const info: PyStepInfo = { event: snap.event, at: snap.line };
+  if (snap.call) {
+    const { args, ...rest } = snap.call;
+    info.call = { ...rest, params: args.map((a) => a.name) };
+  }
+  if (snap.function !== undefined) info.function = snap.function;
+  if (snap.unwinding) info.unwinding = true;
+  if (snap.yielded) info.yielded = true;
+  if (snap.exception) info.exception = snap.exception;
+  return info;
+}
+
+/**
+ * The statement on each line that ran (Phase 32), keyed by line: the recorder sends each line's
+ * facts once, on the first line event that runs it.
+ */
+export function statementTable(result: RunResult): Record<string, PyStatement> {
+  const table: Record<string, PyStatement> = {};
+  for (const snap of result.steps) if (snap.stmt) table[String(snap.stmt.line)] = snap.stmt;
+  return table;
 }
 
 /** The line execution was on after `prev`: the caller's line after a return, else `prev.line`. */
@@ -72,7 +99,12 @@ export function planSteps(result: RunResult): PlannedStep[] {
   if (snaps.length === 0) return [];
   if (snaps.length === 1) {
     return [
-      { snap: snaps[0], line: snaps[0].line, narration: narrate(null, snaps[0], snaps[0].line) },
+      {
+        snap: snaps[0],
+        line: snaps[0].line,
+        narration: narrate(null, snaps[0], snaps[0].line),
+        py: stepInfo(snaps[0]),
+      },
     ];
   }
   const planned: PlannedStep[] = [];
@@ -80,7 +112,12 @@ export function planSteps(result: RunResult): PlannedStep[] {
     const prev = snaps[i - 1];
     if (prev.event === 'call') continue;
     const line = lineAfter(prev);
-    planned.push({ snap: snaps[i], line, narration: narrate(prev, snaps[i], line) });
+    planned.push({
+      snap: snaps[i],
+      line,
+      narration: narrate(prev, snaps[i], line),
+      py: stepInfo(snaps[i]),
+    });
   }
   return planned;
 }

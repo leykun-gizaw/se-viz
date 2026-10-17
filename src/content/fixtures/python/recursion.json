@@ -8,12 +8,16 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 ran.",
+   "narration": "Defined the function factorial(n); its body runs only when it is called.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
    "stack": [
     {
      "id": "f1",
@@ -43,12 +47,23 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 6 calls factorial(n=4).",
+   "narration": "Called factorial(4).",
    "highlightedLines": [
     6
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "call",
+    "at": 1,
+    "call": {
+     "function": "factorial",
+     "scope": "function",
+     "params": [
+      "n"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -92,12 +107,16 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 2 ran.",
+   "narration": "n <= 1 is False, so line 3 is skipped.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -136,17 +155,32 @@
      "cells": [],
      "objectKind": "function"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "n <= 1",
+    "result": false
+   }
   },
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Line 4 calls factorial(n=3).",
+   "narration": "Called factorial(3).",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f3",
+   "py": {
+    "event": "call",
+    "at": 1,
+    "call": {
+     "function": "factorial",
+     "scope": "function",
+     "params": [
+      "n"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -204,12 +238,16 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Line 2 ran.",
+   "narration": "n <= 1 is False, so line 3 is skipped.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f3",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -262,17 +300,32 @@
      "cells": [],
      "objectKind": "function"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "n <= 1",
+    "result": false
+   }
   },
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Line 4 calls factorial(n=2).",
+   "narration": "Called factorial(2).",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f4",
+   "py": {
+    "event": "call",
+    "at": 1,
+    "call": {
+     "function": "factorial",
+     "scope": "function",
+     "params": [
+      "n"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -344,12 +397,16 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Line 2 ran.",
+   "narration": "n <= 1 is False, so line 3 is skipped.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f4",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -416,17 +473,32 @@
      "cells": [],
      "objectKind": "function"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "n <= 1",
+    "result": false
+   }
   },
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Line 4 calls factorial(n=1).",
+   "narration": "Called factorial(1).",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f5",
+   "py": {
+    "event": "call",
+    "at": 1,
+    "call": {
+     "function": "factorial",
+     "scope": "function",
+     "params": [
+      "n"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -512,12 +584,16 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Line 2 ran.",
+   "narration": "n <= 1 is True, so the body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f5",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -598,17 +674,26 @@
      "cells": [],
      "objectKind": "function"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "n <= 1",
+    "result": true
+   }
   },
   {
    "id": "py-9",
    "index": 9,
-   "narration": "factorial returns 1.",
+   "narration": "factorial(1) returns 1.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f5",
+   "py": {
+    "event": "return",
+    "at": 3,
+    "function": "factorial"
+   },
    "stack": [
     {
      "id": "f1",
@@ -701,12 +786,17 @@
   {
    "id": "py-10",
    "index": 10,
-   "narration": "factorial returns 2.",
+   "narration": "factorial(2) returns 2.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f4",
+   "py": {
+    "event": "return",
+    "at": 4,
+    "function": "factorial"
+   },
    "stack": [
     {
      "id": "f1",
@@ -785,12 +875,17 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "factorial returns 6.",
+   "narration": "factorial(3) returns 6.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f3",
+   "py": {
+    "event": "return",
+    "at": 4,
+    "function": "factorial"
+   },
    "stack": [
     {
      "id": "f1",
@@ -855,12 +950,17 @@
   {
    "id": "py-12",
    "index": 12,
-   "narration": "factorial returns 24.",
+   "narration": "factorial(4) returns 24.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "return",
+    "at": 4,
+    "function": "factorial"
+   },
    "stack": [
     {
      "id": "f1",
@@ -911,12 +1011,16 @@
   {
    "id": "py-13",
    "index": 13,
-   "narration": "Back in <module>: line 6 finishes.",
+   "narration": "Set result to 24.",
    "highlightedLines": [
     6
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
    "stack": [
     {
      "id": "f1",
@@ -953,7 +1057,7 @@
   {
    "id": "py-14",
    "index": 14,
-   "narration": "The program finished.",
+   "narration": "Printed 24.",
    "highlightedLines": [
     7
    ],
@@ -961,6 +1065,11 @@
     "24"
    ],
    "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 7,
+    "function": "<module>"
+   },
    "stack": [
     {
      "id": "f1",
@@ -994,5 +1103,132 @@
     }
    ]
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "FunctionDef",
+   "line": 1,
+   "end": 4,
+   "name": "factorial",
+   "params": [
+    "n"
+   ]
+  },
+  "2": {
+   "kind": "If",
+   "line": 2,
+   "end": 3,
+   "test": {
+    "type": "compare",
+    "ops": [
+     "<="
+    ],
+    "left": {
+     "type": "name",
+     "id": "n"
+    },
+    "comparators": [
+     {
+      "type": "const",
+      "repr": "1"
+     }
+    ],
+    "src": "n <= 1"
+   },
+   "body": {
+    "first": 3,
+    "last": 3
+   }
+  },
+  "3": {
+   "kind": "Return",
+   "line": 3,
+   "end": 3,
+   "value": {
+    "type": "const",
+    "repr": "1"
+   }
+  },
+  "4": {
+   "kind": "Return",
+   "line": 4,
+   "end": 4,
+   "value": {
+    "type": "binop",
+    "op": "*",
+    "left": {
+     "type": "name",
+     "id": "n"
+    },
+    "right": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "factorial"
+     },
+     "args": [
+      {
+       "type": "binop",
+       "op": "-",
+       "left": {
+        "type": "name",
+        "id": "n"
+       },
+       "right": {
+        "type": "const",
+        "repr": "1"
+       },
+       "src": "n - 1"
+      }
+     ],
+     "src": "factorial(n - 1)"
+    },
+    "src": "n * factorial(n - 1)"
+   }
+  },
+  "6": {
+   "kind": "Assign",
+   "line": 6,
+   "end": 6,
+   "targets": [
+    {
+     "type": "name",
+     "id": "result"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "factorial"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "4"
+     }
+    ],
+    "src": "factorial(4)"
+   }
+  },
+  "7": {
+   "kind": "Expr",
+   "line": 7,
+   "end": 7,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "print"
+    },
+    "args": [
+     {
+      "type": "name",
+      "id": "result"
+     }
+    ],
+    "src": "print(result)"
+   }
+  }
+ }
 }

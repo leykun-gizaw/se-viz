@@ -8,12 +8,16 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 ran.",
+   "narration": "harvest now refers to a new list.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -79,12 +83,16 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 2 ran.",
+   "narration": "counts now refers to a new dict.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -164,12 +172,16 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 3 ran.",
+   "narration": "Iteration 1 of the for loop: crop is now 'corn'.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -256,12 +268,16 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Line 4 ran.",
+   "narration": "crop in counts is False, so line 5 is skipped and the else branch (line 7) runs.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
    "stack": [
     {
      "id": "f1",
@@ -343,17 +359,25 @@
      "cells": [],
      "objectKind": "dict"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "crop in counts",
+    "result": false
+   }
   },
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Line 7 ran.",
+   "narration": "Added the key 'corn' to counts, with the value 1.",
    "highlightedLines": [
     7
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -448,12 +472,16 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Line 3 ran.",
+   "narration": "Iteration 2 of the for loop: crop is now 'wheat'.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -548,12 +576,16 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Line 4 ran.",
+   "narration": "crop in counts is False, so line 5 is skipped and the else branch (line 7) runs.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
    "stack": [
     {
      "id": "f1",
@@ -643,17 +675,25 @@
      ],
      "objectKind": "dict"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "crop in counts",
+    "result": false
+   }
   },
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Line 7 ran.",
+   "narration": "Added the key 'wheat' to counts, with the value 1.",
    "highlightedLines": [
     7
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -755,12 +795,16 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Line 3 ran.",
+   "narration": "Iteration 3 of the for loop: crop is now 'corn'.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -862,12 +906,16 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "Line 4 ran.",
+   "narration": "crop in counts is True, so the body (line 5) runs and the else part (lines 6–7) is skipped.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
    "stack": [
     {
      "id": "f1",
@@ -964,17 +1012,25 @@
      ],
      "objectKind": "dict"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "crop in counts",
+    "result": true
+   }
   },
   {
    "id": "py-10",
    "index": 10,
-   "narration": "Line 5 ran.",
+   "narration": "Stored 2 in counts['corn'].",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -1076,12 +1132,16 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "Line 3 ran.",
+   "narration": "Iteration 4 of the for loop: crop is now 'beans'.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -1183,12 +1243,16 @@
   {
    "id": "py-12",
    "index": 12,
-   "narration": "Line 4 ran.",
+   "narration": "crop in counts is False, so line 5 is skipped and the else branch (line 7) runs.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
    "stack": [
     {
      "id": "f1",
@@ -1285,17 +1349,25 @@
      ],
      "objectKind": "dict"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "crop in counts",
+    "result": false
+   }
   },
   {
    "id": "py-13",
    "index": 13,
-   "narration": "Line 7 ran.",
+   "narration": "Added the key 'beans' to counts, with the value 1.",
    "highlightedLines": [
     7
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -1404,12 +1476,16 @@
   {
    "id": "py-14",
    "index": 14,
-   "narration": "Line 3 ran.",
+   "narration": "Iteration 5 of the for loop: crop is now 'corn'.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -1518,12 +1594,16 @@
   {
    "id": "py-15",
    "index": 15,
-   "narration": "Line 4 ran.",
+   "narration": "crop in counts is True, so the body (line 5) runs and the else part (lines 6–7) is skipped.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
    "stack": [
     {
      "id": "f1",
@@ -1627,17 +1707,25 @@
      ],
      "objectKind": "dict"
     }
-   ]
+   ],
+   "condition": {
+    "expr": "crop in counts",
+    "result": true
+   }
   },
   {
    "id": "py-16",
    "index": 16,
-   "narration": "Line 5 ran.",
+   "narration": "Stored 3 in counts['corn'].",
    "highlightedLines": [
     5
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -1746,12 +1834,16 @@
   {
    "id": "py-17",
    "index": 17,
-   "narration": "Line 3 ran.",
+   "narration": "The for loop ends after 5 iterations.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 8
+   },
    "stack": [
     {
      "id": "f1",
@@ -1860,7 +1952,7 @@
   {
    "id": "py-18",
    "index": 18,
-   "narration": "The program finished.",
+   "narration": "Printed {'corn': 3, 'wheat': 1, 'beans': 1}.",
    "highlightedLines": [
     8
    ],
@@ -1868,6 +1960,11 @@
     "{'corn': 3, 'wheat': 1, 'beans': 1}"
    ],
    "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 8,
+    "function": "<module>"
+   },
    "stack": [
     {
      "id": "f1",
@@ -1973,5 +2070,197 @@
     }
    ]
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "Assign",
+   "line": 1,
+   "end": 1,
+   "targets": [
+    {
+     "type": "name",
+     "id": "harvest"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "'corn'",
+      "src": "\"corn\""
+     },
+     {
+      "type": "const",
+      "repr": "'wheat'",
+      "src": "\"wheat\""
+     },
+     {
+      "type": "const",
+      "repr": "'corn'",
+      "src": "\"corn\""
+     },
+     {
+      "type": "const",
+      "repr": "'beans'",
+      "src": "\"beans\""
+     },
+     {
+      "type": "const",
+      "repr": "'corn'",
+      "src": "\"corn\""
+     }
+    ],
+    "src": "[\"corn\", \"wheat\", \"corn\", \"beans\", \"corn\"]"
+   }
+  },
+  "2": {
+   "kind": "Assign",
+   "line": 2,
+   "end": 2,
+   "targets": [
+    {
+     "type": "name",
+     "id": "counts"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "dict",
+    "src": "{}"
+   }
+  },
+  "3": {
+   "kind": "For",
+   "line": 3,
+   "end": 7,
+   "target": {
+    "type": "name",
+    "id": "crop"
+   },
+   "iter": {
+    "type": "name",
+    "id": "harvest"
+   },
+   "body": {
+    "first": 4,
+    "last": 7
+   }
+  },
+  "4": {
+   "kind": "If",
+   "line": 4,
+   "end": 7,
+   "test": {
+    "type": "compare",
+    "ops": [
+     "in"
+    ],
+    "left": {
+     "type": "name",
+     "id": "crop"
+    },
+    "comparators": [
+     {
+      "type": "name",
+      "id": "counts"
+     }
+    ],
+    "src": "crop in counts"
+   },
+   "body": {
+    "first": 5,
+    "last": 5
+   },
+   "orelse": {
+    "kind": "else",
+    "line": 6,
+    "first": 7,
+    "last": 7
+   }
+  },
+  "5": {
+   "kind": "Assign",
+   "line": 5,
+   "end": 5,
+   "targets": [
+    {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "counts"
+     },
+     "index": {
+      "type": "name",
+      "id": "crop"
+     },
+     "src": "counts[crop]"
+    }
+   ],
+   "value": {
+    "type": "binop",
+    "op": "+",
+    "left": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "counts"
+     },
+     "index": {
+      "type": "name",
+      "id": "crop"
+     },
+     "src": "counts[crop]"
+    },
+    "right": {
+     "type": "const",
+     "repr": "1"
+    },
+    "src": "counts[crop] + 1"
+   }
+  },
+  "7": {
+   "kind": "Assign",
+   "line": 7,
+   "end": 7,
+   "targets": [
+    {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "counts"
+     },
+     "index": {
+      "type": "name",
+      "id": "crop"
+     },
+     "src": "counts[crop]"
+    }
+   ],
+   "value": {
+    "type": "const",
+    "repr": "1"
+   }
+  },
+  "8": {
+   "kind": "Expr",
+   "line": 8,
+   "end": 8,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "print"
+    },
+    "args": [
+     {
+      "type": "name",
+      "id": "counts"
+     }
+    ],
+    "src": "print(counts)"
+   }
+  }
+ }
 }

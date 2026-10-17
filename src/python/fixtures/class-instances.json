@@ -11,6 +11,12 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "ClassDef",
+    "line": 1,
+    "end": 7,
+    "name": "Tractor"
+   },
    "objects": {},
    "stdout": ""
   },
@@ -31,6 +37,11 @@
      "vars": []
     }
    ],
+   "call": {
+    "function": "Tractor",
+    "args": [],
+    "scope": "class"
+   },
    "objects": {},
    "stdout": ""
   },
@@ -71,6 +82,17 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 2,
+    "end": 4,
+    "name": "__init__",
+    "params": [
+     "self",
+     "name",
+     "fuel"
+    ]
+   },
    "objects": {},
    "stdout": ""
   },
@@ -91,6 +113,16 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 6,
+    "end": 7,
+    "name": "drive",
+    "params": [
+     "self",
+     "hours"
+    ]
+   },
    "objects": {},
    "stdout": ""
   },
@@ -119,6 +151,7 @@
      ]
     }
    ],
+   "function": "Tractor",
    "objects": {
     "o1": {
      "kind": "function",
@@ -151,6 +184,36 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 9,
+    "end": 9,
+    "targets": [
+     {
+      "type": "name",
+      "id": "red"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "Tractor"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Red'",
+       "src": "\"Red\""
+      },
+      {
+       "type": "const",
+       "repr": "100"
+      }
+     ],
+     "src": "Tractor(\"Red\", 100)"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -209,6 +272,35 @@
      ]
     }
    ],
+   "call": {
+    "function": "Tractor.__init__",
+    "args": [
+     {
+      "name": "self",
+      "value": {
+       "kind": "ref",
+       "id": "o3"
+      }
+     },
+     {
+      "name": "name",
+      "value": {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'Red'"
+      }
+     },
+     {
+      "name": "fuel",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -272,6 +364,26 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "self"
+      },
+      "attr": "name",
+      "src": "self.name"
+     }
+    ],
+    "value": {
+     "type": "name",
+     "id": "name"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -335,6 +447,26 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "self"
+      },
+      "attr": "fuel",
+      "src": "self.fuel"
+     }
+    ],
+    "value": {
+     "type": "name",
+     "id": "fuel"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -407,6 +539,7 @@
      ]
     }
    ],
+   "function": "Tractor.__init__",
    "returnValue": {
     "kind": "prim",
     "type": "NoneType",
@@ -469,6 +602,36 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 10,
+    "end": 10,
+    "targets": [
+     {
+      "type": "name",
+      "id": "blue"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "Tractor"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Blue'",
+       "src": "\"Blue\""
+      },
+      {
+       "type": "const",
+       "repr": "80"
+      }
+     ],
+     "src": "Tractor(\"Blue\", 80)"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -556,6 +719,35 @@
      ]
     }
    ],
+   "call": {
+    "function": "Tractor.__init__",
+    "args": [
+     {
+      "name": "self",
+      "value": {
+       "kind": "ref",
+       "id": "o4"
+      }
+     },
+     {
+      "name": "name",
+      "value": {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'Blue'"
+      }
+     },
+     {
+      "name": "fuel",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -841,6 +1033,7 @@
      ]
     }
    ],
+   "function": "Tractor.__init__",
    "returnValue": {
     "kind": "prim",
     "type": "NoneType",
@@ -932,6 +1125,30 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 11,
+    "end": 11,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "red"
+      },
+      "attr": "drive",
+      "src": "red.drive"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "3"
+      }
+     ],
+     "src": "red.drive(3)"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -1040,6 +1257,27 @@
      ]
     }
    ],
+   "call": {
+    "function": "Tractor.drive",
+    "args": [
+     {
+      "name": "self",
+      "value": {
+       "kind": "ref",
+       "id": "o3"
+      }
+     },
+     {
+      "name": "hours",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -1148,6 +1386,49 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "self"
+      },
+      "attr": "fuel",
+      "src": "self.fuel"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "-",
+     "left": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "self"
+      },
+      "attr": "fuel",
+      "src": "self.fuel"
+     },
+     "right": {
+      "type": "binop",
+      "op": "*",
+      "left": {
+       "type": "const",
+       "repr": "10"
+      },
+      "right": {
+       "type": "name",
+       "id": "hours"
+      },
+      "src": "10 * hours"
+     },
+     "src": "self.fuel - 10 * hours"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -1256,6 +1537,7 @@
      ]
     }
    ],
+   "function": "Tractor.drive",
    "returnValue": {
     "kind": "prim",
     "type": "NoneType",
@@ -1347,6 +1629,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o2": {
      "kind": "class",

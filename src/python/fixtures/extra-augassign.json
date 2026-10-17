@@ -1,0 +1,743 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 1,
+    "end": 1,
+    "targets": [
+     {
+      "type": "name",
+      "id": "harvest"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "dict",
+     "src": "{\"corn\": 30, \"wheat\": 20, \"beans\": 45}"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "For",
+    "line": 2,
+    "end": 3,
+    "target": {
+     "type": "name",
+     "id": "crop"
+    },
+    "iter": {
+     "type": "name",
+     "id": "harvest"
+    },
+    "body": {
+     "first": 3,
+     "last": 3
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "45"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "AugAssign",
+    "line": 3,
+    "end": 3,
+    "target": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "harvest"
+     },
+     "index": {
+      "type": "name",
+      "id": "crop"
+     },
+     "src": "harvest[crop]"
+    },
+    "op": "+",
+    "value": {
+     "type": "const",
+     "repr": "10"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "45"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "40"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "45"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "40"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "20"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "45"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "40"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "45"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "40"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "45"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "40"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "55"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 4,
+    "end": 4,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "print"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "harvest"
+      }
+     ],
+     "src": "print(harvest)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "40"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "55"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "40"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "55"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": "{'corn': 40, 'wheat': 30, 'beans': 55}\n"
+  }
+ ],
+ "stdout": "{'corn': 40, 'wheat': 30, 'beans': 55}\n"
+}

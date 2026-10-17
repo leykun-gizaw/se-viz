@@ -203,8 +203,9 @@ All of these key on `trace.language === 'python'` or on `block.objectKind`:
 - **Return values:** the returning frame gets a `return` cell (`f3.return`), as in Python Tutor. A
   frame exiting because of an exception has `unwinding: true` and no `return` cell.
 - **`Step.stdout`** is the cumulative stdout, split into lines.
-- **The narration is a plain placeholder** ("Line 4 calls factorial(n=3).", "factorial returns 2.",
-  "Line 5 raised KeyError: 'beans'"). Phase 32 derives real explanations.
+- **The narration** starts as a plain placeholder ("Line 4 calls factorial(n=3).", "factorial returns
+  2.", "Line 5 raised KeyError: 'beans'"). Since Phase 32 `recordingToTrace` replaces it with a
+  derived one-line summary wherever one can be derived (see "Statement facts" below).
 
 ### Cell ids (stable across steps for the same logical slot)
 
@@ -249,6 +250,7 @@ interface RunResult {
 
 interface PySnapshot {
   event: 'call' | 'line' | 'return' | 'exception';
+  // Phase 32 (additive): stmt? (line events), call? (call events), function? / yielded? (returns)
   line: number; // line of the frame the event is in (for 'line': about to run)
   frames: PyFrame[]; // user frames only, bottom-first; frames[0] is <module>
   objects: Record<string, PyObject>; // everything reachable this step, first-reached order
@@ -368,3 +370,53 @@ runs.
   `packages` and what Pyodide's `find_imports` finds in the source (the detector
   `loadPackagesFromImports` uses), restricted to the allow-list, and imports each once per worker,
   untraced; matplotlib gets the `Agg` backend.
+
+## Statement facts (Phase 32, additive)
+
+The recorder parses the program once with Python's `ast` and adds, without changing any existing
+field (every Phase 29 / 30 fixture is the same apart from these keys):
+
+| Snapshot field | When | What |
+|----------------|------|------|
+| `stmt` | the **first** `line` event that runs a line, in a frame of its own scope | The statement starting on that line (`PyStatement` in `src/engine/trace/types.ts`). Later line events for the same line omit it. Never sent from a generator expression, comprehension or lambda frame (their line is the enclosing statement's). |
+| `call` | `call` events | `{ function: co_qualname, args: [{ name, value }], scope, resumed? }`. `scope` is `function`, `generator`, `coroutine`, `class` (a class body), `lambda` or `comprehension`; `resumed` marks a generator resuming. `args` are the parameters bound at the call (the hidden `.0` iterator of a generator expression is skipped). |
+| `function` | `return` events | `co_qualname` of the frame returning (`Tractor.drive`, `<module>`). |
+| `yielded` | `return` events | The frame is a generator suspended at `yield` (it will resume), not finishing. |
+
+**`PyStatement`.** `kind` is one of `Assign`, `AugAssign`, `AnnAssign`, `If`, `Elif`, `For`, `While`,
+`Return`, `Expr`, `Import`, `FunctionDef`, `ClassDef`, `Try`, `Except` (an `except` clause header: Python
+runs a line event there to test the exception), `Raise`, `Pass`, `Break`, `Continue`, `With`, `Delete`,
+`Global`, `Nonlocal`, `Assert`, `Other` (with the `ast` class name) or `Multiple` (a line that starts
+more than one statement — `a = 1; b = 2`, `if x: y = 1` — about which nothing more is said). Every
+statement has `line` and `end`. By kind:
+
+- assignments: `targets` / `target`, `value`, `op` (`AugAssign`), `annotation` (`AnnAssign`);
+- `If` / `Elif` / `While`: `test` and `body` (`{ first, last }`); `For`: `target`, `iter`, `body`;
+  each may have `orelse: { kind: 'elif' | 'else', line, first, last }`. **There is no `Else`
+  statement:** an `else:` line never gets a line event, so it appears only as `orelse`;
+- `Try`: `body`, `handlers: [{ line, type, first, last }]`, `orelse`, `finalbody: { line, first, last }`;
+  `Except`: `type` (as written, or `null` for a bare `except:`), `name`, `body`;
+- `Return` / `Raise`: `value?`; `Expr`: `value`; `Import`: `names`, `module?`; `FunctionDef`: `name`,
+  `params` (with `*` / `**`); `ClassDef`: `name`; `With`: `body`; `Delete`: `targets`; `Global` /
+  `Nonlocal`: `names`; `Assert`: `test`.
+
+Expressions (`PyExpr`) keep only what the explanation can use: `name`, `const` (`repr`),
+`subscript`, `attribute`, `binop`, `unary`, `compare`, `boolop`, `call` (positional `args`,
+`keywords` names), `display` (`tuple` / `list` / `set` / `dict`, with `items` for a short tuple or
+list), `comprehension`, `fstring`, `yield`, and `other`. Each carries `src`, its text as written, when
+it is on one line and at most 80 characters (a name's text is its `id`; a constant written as its
+`repr` has no separate `src`). Nesting deeper than six levels becomes `other`.
+
+**In the trace.** `recordingToTrace` collects the `stmt` facts into `Trace.statements` (keyed by line)
+and gives every step `py: PyStepInfo` (the event, the line the snapshot was taken at, and the call /
+return / exception facts). See `docs/TRACE_FORMAT.md`, "Phase 32 additions", for how the explanation
+panel uses them. A run killed mid-way keeps its facts: they travel inside the streamed snapshots.
+
+**Size.** Facts are sent once per line, so they cost about 100–400 characters per distinct line that
+runs (the size-budget test's 100-item list loop now fits 12 snapshots in 60,000 characters).
+
+**Recorder fix (Phase 32).** While a comprehension inlined at module level runs (Python 3.12+), the
+module frame's `f_locals` holds only the comprehension's own names. The recorder now shows the
+globals plus those names, instead of every global name disappearing for the comprehension's steps.
+No Phase 29 sample has a module-level comprehension, so no committed fixture changed because of it.
+

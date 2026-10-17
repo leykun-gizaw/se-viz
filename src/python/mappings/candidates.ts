@@ -41,6 +41,7 @@ function baseStep(p: PlannedStep, index: number): Omit<Step, 'stack' | 'heap'> {
     highlightedLines: [p.line],
     stdout: stdoutLines(p.snap.stdout),
     ...(topFrame ? { activeId: topFrame.id } : {}),
+    py: p.py,
   };
 }
 

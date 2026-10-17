@@ -11,6 +11,21 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 1,
+    "end": 1,
+    "targets": [
+     {
+      "type": "name",
+      "id": "x"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "1"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -34,6 +49,28 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 2,
+    "end": 2,
+    "targets": [
+     {
+      "type": "name",
+      "id": "x"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "name",
+       "id": "x"
+      }
+     ],
+     "src": "[x]"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -56,6 +93,22 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "x"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "'done'",
+     "src": "\"done\""
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -91,6 +144,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {},
    "stdout": ""
   }

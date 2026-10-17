@@ -11,6 +11,21 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 1,
+    "end": 1,
+    "targets": [
+     {
+      "type": "name",
+      "id": "day"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "0"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -34,6 +49,19 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "While",
+    "line": 2,
+    "end": 3,
+    "test": {
+     "type": "const",
+     "repr": "True"
+    },
+    "body": {
+     "first": 3,
+     "last": 3
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -57,6 +85,30 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "day"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "+",
+     "left": {
+      "type": "name",
+      "id": "day"
+     },
+     "right": {
+      "type": "const",
+      "repr": "1"
+     },
+     "src": "day + 1"
+    }
+   },
    "objects": {},
    "stdout": ""
   },

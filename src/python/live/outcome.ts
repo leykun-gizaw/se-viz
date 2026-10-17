@@ -13,7 +13,7 @@
  *
  * @packageDocumentation
  */
-import type { Step, Trace } from '../../engine/trace/types.ts';
+import type { PyStepInfo, Step, Trace } from '../../engine/trace/types.ts';
 import type { RunOutcome } from '../client.ts';
 import type { RecorderStop, RunError } from '../protocol.ts';
 import { stdoutLines } from '../mappings/plan.ts';
@@ -95,8 +95,10 @@ export function exceptionHeadline(e: { type: string; message: string; line?: num
 function finalStep(
   last: Step,
   narration: string,
+  ending: NonNullable<PyStepInfo['ending']>,
   extraOutput: readonly string[] = [],
   line?: number,
+  exception?: { type: string; message: string },
 ): Step {
   const index = last.index + 1;
   const step: Step = {
@@ -106,10 +108,19 @@ function finalStep(
     narration,
     highlightedLines: line !== undefined ? [line] : last.highlightedLines,
     stdout: [...(last.stdout ?? []), ...extraOutput],
+    // Phase 32: marks the step as the run's ending, so the explanation doesn't read it as a line
+    // that ran (and doesn't list an uncaught exception's traceback as printed output).
+    py: {
+      event: last.py?.event ?? 'line',
+      at: line ?? last.py?.at ?? last.highlightedLines[0] ?? 0,
+      ending,
+      ...(exception ? { exception } : {}),
+    },
   };
   // Authored-looking fields of the copied step would describe the wrong step.
   delete step.explain;
   delete step.coach;
+  delete step.condition;
   return step;
 }
 
@@ -191,7 +202,7 @@ export function mapOutcome(
       steps: shown,
       ...(swallowed ? { swallowed: true } : {}),
     };
-    steps.push(finalStep(last, stoppedHeadline(ending, limits)));
+    steps.push(finalStep(last, stoppedHeadline(ending, limits), 'stopped'));
     return { kind: 'trace', trace, ending };
   }
 
@@ -209,8 +220,10 @@ export function mapOutcome(
       finalStep(
         last,
         `${exceptionHeadline(error)}. The program stopped here with an uncaught exception.`,
+        'uncaught',
         traceback,
         error.line,
+        { type: error.type, message: error.message },
       ),
     );
     return { kind: 'trace', trace, ending };

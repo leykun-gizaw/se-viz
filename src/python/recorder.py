@@ -13,7 +13,9 @@ so CPython never reuses its ``id()``; raw ids are mapped to ``o1``, ``o2``, ... 
 Frames get ``f1``, ``f2``, ... the same way (one id per activation).
 """
 
+import ast as _ast
 import builtins as _builtins
+import dis as _dis
 import json as _json
 import linecache as _linecache
 import sys as _sys
@@ -42,6 +44,305 @@ BLOCKED_MODULES = frozenset({"js", "pyodide", "pyodide_js", "_pyodide", "micropi
 CO_OPTIMIZED = 0x01  # set on function code objects, not on module or class bodies
 CO_VARARGS = 0x04
 CO_VARKEYWORDS = 0x08
+CO_GENERATOR = 0x20
+CO_COROUTINE = 0x80
+CO_ASYNC_GENERATOR = 0x200
+
+# Code objects that run part of one statement (Phase 32): a line event inside them is the
+# enclosing statement's line, so that statement's facts must not be attached to them.
+EXPRESSION_SCOPES = frozenset({"<genexpr>", "<listcomp>", "<dictcomp>", "<setcomp>", "<lambda>"})
+SRC_CAP = 80  # longest source text kept for an expression (longer ones keep no text)
+EXPR_DEPTH = 6  # deeper sub-expressions are summarized as {"type": "other"}
+
+_BINOPS = {
+    _ast.Add: "+",
+    _ast.Sub: "-",
+    _ast.Mult: "*",
+    _ast.Div: "/",
+    _ast.FloorDiv: "//",
+    _ast.Mod: "%",
+    _ast.Pow: "**",
+    _ast.MatMult: "@",
+    _ast.LShift: "<<",
+    _ast.RShift: ">>",
+    _ast.BitOr: "|",
+    _ast.BitXor: "^",
+    _ast.BitAnd: "&",
+}
+_CMPOPS = {
+    _ast.Eq: "==",
+    _ast.NotEq: "!=",
+    _ast.Lt: "<",
+    _ast.LtE: "<=",
+    _ast.Gt: ">",
+    _ast.GtE: ">=",
+    _ast.Is: "is",
+    _ast.IsNot: "is not",
+    _ast.In: "in",
+    _ast.NotIn: "not in",
+}
+_UNARYOPS = {_ast.Not: "not", _ast.USub: "-", _ast.UAdd: "+", _ast.Invert: "~"}
+_DISPLAYS = {_ast.Tuple: "tuple", _ast.List: "list", _ast.Set: "set", _ast.Dict: "dict"}
+_COMPREHENSIONS = {
+    _ast.ListComp: "list",
+    _ast.SetComp: "set",
+    _ast.DictComp: "dict",
+    _ast.GeneratorExp: "generator",
+}
+# Statement classes named as they are, with no further facts.
+_PLAIN = {
+    _ast.Pass: "Pass",
+    _ast.Break: "Break",
+    _ast.Continue: "Continue",
+}
+
+
+class _Statements:
+    """What each source line's statement is, from Python's ``ast`` (Phase 32).
+
+    The tree is indexed once by line; a line's facts are built the first time that line runs
+    (``describe``), so a long program pays only for the lines it reaches. A line that starts two
+    statements (``a = 1; b = 2``, ``if x: y = 1``) is ``Multiple``: nothing more is claimed about it.
+    """
+
+    def __init__(self, source):
+        self.lines = source.splitlines()
+        self.encoded = [ln.encode("utf-8") for ln in self.lines]
+        self.nodes = {}  # line -> ast node, or None for a line that starts several statements
+        self.elifs = set()  # id() of the If nodes that are written as `elif`
+        try:
+            tree = _ast.parse(source)
+        except (SyntaxError, ValueError, RecursionError, MemoryError):
+            return
+        self._index(tree.body)
+
+    # ── index ────────────────────────────────────────────────────────────────────────────────
+
+    def _put(self, line, node):
+        self.nodes[line] = None if line in self.nodes else node
+
+    def _index(self, body):
+        for node in body:
+            self._put(node.lineno, node)
+            if isinstance(node, _ast.If) and len(node.orelse) == 1:
+                inner = node.orelse[0]
+                if isinstance(inner, _ast.If) and self._text(inner.lineno).lstrip().startswith("elif"):
+                    self.elifs.add(id(inner))
+            for field in ("body", "orelse", "finalbody"):
+                self._index(getattr(node, field, None) or [])
+            for handler in getattr(node, "handlers", None) or []:
+                self._put(handler.lineno, handler)
+                self._index(handler.body)
+            for case in getattr(node, "cases", None) or []:
+                self._index(case.body)
+
+    # ── text ─────────────────────────────────────────────────────────────────────────────────
+
+    def _text(self, line):
+        return self.lines[line - 1] if 1 <= line <= len(self.lines) else ""
+
+    def _src(self, node):
+        """The node's own source text, when it is on one line and short enough; else None."""
+        line = getattr(node, "lineno", None)
+        if line is None or getattr(node, "end_lineno", None) != line:
+            return None
+        if not 1 <= line <= len(self.encoded):
+            return None
+        try:
+            text = self.encoded[line - 1][node.col_offset : node.end_col_offset].decode("utf-8")
+        except (UnicodeDecodeError, TypeError):
+            return None
+        return text if 0 < len(text) <= SRC_CAP else None
+
+    def _header(self, keyword, start, stop):
+        """The line in [start, stop] whose text begins with ``keyword:`` (an else / finally header)."""
+        for line in range(stop, start - 1, -1):
+            text = self._text(line).lstrip()
+            if text.startswith(keyword) and text[len(keyword) :].lstrip().startswith(":"):
+                return line
+        return None
+
+    # ── facts ────────────────────────────────────────────────────────────────────────────────
+
+    @staticmethod
+    def _block(body):
+        return {"first": body[0].lineno, "last": body[-1].end_lineno}
+
+    def _else(self, node):
+        """The `else:` clause of an if / for / while / try, or None."""
+        if not node.orelse:
+            return None
+        after = node.handlers[-1].end_lineno if getattr(node, "handlers", None) else node.body[-1].end_lineno
+        line = self._header("else", after + 1, node.orelse[0].lineno)
+        if line is None:
+            return None
+        return {"kind": "else", "line": line, **self._block(node.orelse)}
+
+    def _expr(self, node, depth=0):
+        if node is None:
+            return None
+        out = self._expr_kind(node, depth)
+        # A name's text is its id, and a constant written as its repr needs no copy.
+        src = None if isinstance(node, _ast.Name) else self._src(node)
+        if src is not None and src == out.get("repr"):
+            src = None
+        if src is not None:
+            out["src"] = src
+        return out
+
+    def _expr_kind(self, node, depth):
+        if depth > EXPR_DEPTH:
+            return {"type": "other"}
+        d = depth + 1
+        if isinstance(node, _ast.Name):
+            return {"type": "name", "id": node.id}
+        if isinstance(node, _ast.Constant):
+            r = repr(node.value)
+            return {"type": "const", "repr": r} if len(r) <= SRC_CAP else {"type": "other"}
+        if isinstance(node, _ast.Subscript):
+            if isinstance(node.slice, (_ast.Slice, _ast.Tuple)):
+                return {"type": "other"}
+            return {"type": "subscript", "value": self._expr(node.value, d), "index": self._expr(node.slice, d)}
+        if isinstance(node, _ast.Attribute):
+            return {"type": "attribute", "value": self._expr(node.value, d), "attr": node.attr}
+        if isinstance(node, _ast.BinOp) and type(node.op) in _BINOPS:
+            return {
+                "type": "binop",
+                "op": _BINOPS[type(node.op)],
+                "left": self._expr(node.left, d),
+                "right": self._expr(node.right, d),
+            }
+        if isinstance(node, _ast.UnaryOp) and type(node.op) in _UNARYOPS:
+            return {"type": "unary", "op": _UNARYOPS[type(node.op)], "operand": self._expr(node.operand, d)}
+        if isinstance(node, _ast.Compare) and all(type(op) in _CMPOPS for op in node.ops):
+            return {
+                "type": "compare",
+                "ops": [_CMPOPS[type(op)] for op in node.ops],
+                "left": self._expr(node.left, d),
+                "comparators": [self._expr(c, d) for c in node.comparators],
+            }
+        if isinstance(node, _ast.BoolOp):
+            return {
+                "type": "boolop",
+                "op": "and" if isinstance(node.op, _ast.And) else "or",
+                "values": [self._expr(v, d) for v in node.values],
+            }
+        if isinstance(node, _ast.Call):
+            if any(isinstance(a, _ast.Starred) for a in node.args) or any(k.arg is None for k in node.keywords):
+                return {"type": "other"}
+            out = {"type": "call", "func": self._expr(node.func, d), "args": [self._expr(a, d) for a in node.args]}
+            if node.keywords:
+                out["keywords"] = [k.arg for k in node.keywords]
+            return out
+        if type(node) in _DISPLAYS:
+            out = {"type": "display", "of": _DISPLAYS[type(node)]}
+            elts = getattr(node, "elts", None) or []
+            if isinstance(node, (_ast.Tuple, _ast.List)) and len(elts) <= 8 and not any(isinstance(x, _ast.Starred) for x in elts):
+                out["items"] = [self._expr(e, d) for e in node.elts]
+            return out
+        if type(node) in _COMPREHENSIONS:
+            return {"type": "comprehension", "of": _COMPREHENSIONS[type(node)]}
+        if isinstance(node, _ast.JoinedStr):
+            return {"type": "fstring"}
+        if isinstance(node, (_ast.Yield, _ast.YieldFrom)):
+            return {"type": "yield"}
+        return {"type": "other"}
+
+    def describe(self, line):
+        """The facts about the statement starting on ``line``, or None if no statement starts there."""
+        if line not in self.nodes:
+            return None
+        node = self.nodes[line]
+        if node is None:
+            return {"kind": "Multiple", "line": line}
+        out = {"kind": None, "line": line, "end": getattr(node, "end_lineno", line) or line}
+        e = self._expr
+        if isinstance(node, _ast.Assign):
+            out.update(kind="Assign", targets=[e(t) for t in node.targets], value=e(node.value))
+        elif isinstance(node, _ast.AugAssign):
+            out.update(kind="AugAssign", target=e(node.target), op=_BINOPS.get(type(node.op), "?"), value=e(node.value))
+        elif isinstance(node, _ast.AnnAssign):
+            out.update(kind="AnnAssign", target=e(node.target), annotation=self._src(node.annotation))
+            if node.value is not None:
+                out["value"] = e(node.value)
+        elif isinstance(node, _ast.If):
+            out.update(kind="Elif" if id(node) in self.elifs else "If", test=e(node.test), body=self._block(node.body))
+            if len(node.orelse) == 1 and id(node.orelse[0]) in self.elifs:
+                inner = node.orelse[0]
+                out["orelse"] = {"kind": "elif", "line": inner.lineno, "first": inner.lineno, "last": inner.end_lineno}
+            elif node.orelse:
+                clause = self._else(node)
+                if clause is not None:
+                    out["orelse"] = clause
+        elif isinstance(node, (_ast.For, _ast.AsyncFor)):
+            out.update(kind="For", target=e(node.target), iter=e(node.iter), body=self._block(node.body))
+        elif isinstance(node, _ast.While):
+            out.update(kind="While", test=e(node.test), body=self._block(node.body))
+        elif isinstance(node, _ast.Return):
+            out.update(kind="Return")
+            if node.value is not None:
+                out["value"] = e(node.value)
+        elif isinstance(node, _ast.Expr):
+            out.update(kind="Expr", value=e(node.value))
+        elif isinstance(node, (_ast.Import, _ast.ImportFrom)):
+            out.update(kind="Import", names=[a.asname or a.name for a in node.names])
+            if isinstance(node, _ast.ImportFrom) and node.module:
+                out["module"] = node.module
+        elif isinstance(node, (_ast.FunctionDef, _ast.AsyncFunctionDef)):
+            a = node.args
+            params = [p.arg for p in a.posonlyargs + a.args]
+            if a.vararg is not None:
+                params.append("*" + a.vararg.arg)
+            params += [p.arg for p in a.kwonlyargs]
+            if a.kwarg is not None:
+                params.append("**" + a.kwarg.arg)
+            out.update(kind="FunctionDef", name=node.name, params=params)
+        elif isinstance(node, _ast.ClassDef):
+            out.update(kind="ClassDef", name=node.name)
+        elif isinstance(node, (_ast.Try, getattr(_ast, "TryStar", _ast.Try))):
+            out.update(kind="Try", body=self._block(node.body))
+            out["handlers"] = [
+                {
+                    "line": h.lineno,
+                    "type": self._src(h.type) if h.type is not None else None,
+                    **self._block(h.body),
+                }
+                for h in node.handlers
+            ]
+            if node.orelse:
+                clause = self._else(node)
+                if clause is not None:
+                    out["orelse"] = clause
+            if node.finalbody:
+                fin = self._header("finally", node.body[-1].end_lineno + 1, node.finalbody[0].lineno)
+                if fin is not None:
+                    out["finalbody"] = {"line": fin, **self._block(node.finalbody)}
+        elif isinstance(node, _ast.ExceptHandler):
+            out.update(kind="Except", type=self._src(node.type) if node.type is not None else None, body=self._block(node.body))
+            if node.name:
+                out["name"] = node.name
+        elif isinstance(node, _ast.Raise):
+            out.update(kind="Raise")
+            if node.exc is not None:
+                out["value"] = e(node.exc)
+        elif type(node) in _PLAIN:
+            out.update(kind=_PLAIN[type(node)])
+        elif isinstance(node, (_ast.With, _ast.AsyncWith)):
+            out.update(kind="With", body=self._block(node.body))
+        elif isinstance(node, _ast.Delete):
+            out.update(kind="Delete", targets=[e(t) for t in node.targets])
+        elif isinstance(node, (_ast.Global, _ast.Nonlocal)):
+            out.update(kind="Global" if isinstance(node, _ast.Global) else "Nonlocal", names=list(node.names))
+        elif isinstance(node, _ast.Assert):
+            out.update(kind="Assert", test=e(node.test))
+        else:
+            out.update(kind="Other", name=type(node).__name__)
+        # Loops (for / while) and try statements can have an `else:` clause too.
+        if out["kind"] in ("For", "While") and node.orelse:
+            clause = self._else(node)
+            if clause is not None:
+                out["orelse"] = clause
+        return out
 
 
 class _Abort(BaseException):
@@ -125,6 +426,8 @@ class _Recorder:
         self.truncated = None
         self.error = None
         self.deadline = 0.0
+        self.statements = None  # _Statements for the program, built once it compiles (Phase 32)
+        self.described = set()  # lines whose statement facts were already sent
 
     # ── ids ──────────────────────────────────────────────────────────────────────────────────
 
@@ -302,6 +605,8 @@ class _Recorder:
             self._stop("steps")
         if _time.monotonic() > self.deadline:
             self._stop("time")
+        # A generator's frame is called again each time it resumes (Phase 32).
+        resumed = event == "call" and id(frame) in self.frame_ids
 
         chain = []
         f = frame
@@ -317,6 +622,10 @@ class _Recorder:
             fid = self._frame_id(fr)
             names = self.frame_names[fid]
             local = fr.f_locals
+            if fr.f_code.co_name == "<module>" and local is not fr.f_globals:
+                # Phase 32 fix: while a comprehension inlined at module level runs (Python 3.12+),
+                # `f_locals` holds only the comprehension's own names; the globals are still there.
+                local = {**fr.f_globals, **local}
             for name in local:
                 if name not in names:
                     names.append(name)
@@ -343,10 +652,25 @@ class _Recorder:
             "frames": frames,
         }
         fid = self.frame_ids[id(frame)]
+        code = frame.f_code
+        if event == "line":
+            # Phase 32: the statement on this line, sent with the first line event that runs it (in
+            # a frame of its own scope: a generator expression's line is its enclosing statement's).
+            line = snap["line"]
+            if line not in self.described and code.co_name not in EXPRESSION_SCOPES:
+                self.described.add(line)
+                info = self.statements.describe(line) if self.statements is not None else None
+                if info is not None:
+                    snap["stmt"] = info
+        elif event == "call":
+            snap["call"] = self._call_info(frame, fid, walk, resumed)
         if event == "return":
+            snap["function"] = _qualname(code)
+            if code.co_flags & (CO_GENERATOR | CO_ASYNC_GENERATOR) and _yielding(frame):
+                snap["yielded"] = True  # suspended at a `yield`, not finished (Phase 32)
             if fid in self.unwinding:
                 snap["unwinding"] = True
-            elif frame.f_code.co_flags & CO_OPTIMIZED:  # functions only; module/class bodies return None
+            elif code.co_flags & CO_OPTIMIZED:  # functions only; module/class bodies return None
                 snap["returnValue"] = self._value(arg, walk)
         elif event == "exception":
             exc_type, exc, _tb = arg
@@ -364,6 +688,38 @@ class _Recorder:
         # (a loop inside a C function) and gets killed still has every step up to here. Measured:
         # about 5% slower than no streaming at 5000 snapshots.
         self._flush()
+
+    def _call_info(self, frame, fid, walk, resumed):
+        """Who was called, and with what (Phase 32): the parameters bound at the call, in order."""
+        code = frame.f_code
+        n = code.co_argcount + code.co_kwonlyargcount
+        names = list(code.co_varnames[:n])
+        if code.co_flags & CO_VARARGS:
+            names.insert(code.co_argcount, code.co_varnames[n])
+            n += 1
+        if code.co_flags & CO_VARKEYWORDS:
+            names.append(code.co_varnames[n])
+        local = frame.f_locals
+        # The hidden `.0` iterator a generator expression gets is skipped, as frame names skip it.
+        args = [
+            {"name": name, "value": self._value(local[name], walk)}
+            for name in names
+            if name in local and not name.startswith(".") and not _is_dunder(name)
+        ]
+        if code.co_name in EXPRESSION_SCOPES:
+            scope = "lambda" if code.co_name == "<lambda>" else "comprehension"
+        elif code.co_flags & (CO_GENERATOR | CO_ASYNC_GENERATOR):
+            scope = "generator"
+        elif code.co_flags & CO_COROUTINE:
+            scope = "coroutine"
+        elif not code.co_flags & CO_OPTIMIZED:
+            scope = "class"  # a class body (the module body has no call event)
+        else:
+            scope = "function"
+        out = {"function": _qualname(code), "args": args, "scope": scope}
+        if resumed:
+            out["resumed"] = True
+        return out
 
     def _global(self, frame, event, arg):
         if self.truncated is not None or frame.f_code.co_filename != FILENAME:
@@ -440,6 +796,7 @@ class _Recorder:
         except (SyntaxError, ValueError) as e:
             return _json.dumps({"steps": [], "stdout": "", "error": _error_info(e)}, ensure_ascii=False)
 
+        self.statements = _Statements(source)
         _linecache.cache[FILENAME] = (len(source), None, source.splitlines(True), FILENAME)
         user_globals = {"__name__": "__main__", "__builtins__": self._builtins()}
         depth_here = 0
@@ -505,6 +862,19 @@ class _Walk:
             objects[oid] = self.rec._describe(v, self)
             i += 1
         return objects
+
+
+def _yielding(frame):
+    """Whether a generator frame's ``return`` event is a ``yield`` (it will resume) or its end."""
+    try:
+        return _dis.opname[frame.f_code.co_code[frame.f_lasti]] == "YIELD_VALUE"
+    except (IndexError, AttributeError):
+        return False
+
+
+def _qualname(code):
+    """``Tractor.drive`` for a method, ``f`` for a function (``co_qualname`` is Python 3.11+)."""
+    return getattr(code, "co_qualname", code.co_name)
 
 
 def _is_dunder(name):

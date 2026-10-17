@@ -154,6 +154,12 @@ fine for most modules.
   something; leave it off on routine steps.
 - Write each step so it still reads correctly when the learner arrives there by scrubbing.
 - Exemplars: `se200/recursion/factorial.ts`, `se201/linked-lists/insertHead.ts`.
+- **Phase 32: derived sections.** Without authored text the panel derives "Branch taken", "Loop
+  iteration" and "Calls and returns" from `condition` chips and frames (C), and a full breakdown,
+  "What changed", "Exceptions" and a glossary "Concept" from the recorder's facts (Python). To
+  replace any one section, author it: `changed`, `branch`, `loop`, `calls`, `exceptions` (each a
+  list of short sentences) next to `did` and `concept`. Authored text wins section by section; the
+  others stay derived. The glossary is `src/engine/explain/glossary.ts` (one reviewed file).
 
 ## Python modules (Phase 30)
 
@@ -167,5 +173,9 @@ only discovers `fixtures/*.ts` and `<course>/<topic>/<module>.ts`, never nested 
 - The JSON is plain data: playing it never loads Pyodide.
 - Every step's memory is generated, so leave the steps alone; authored `explain` text can be added
   on top in the `.ts` file if a module needs it.
+- Since Phase 32 the mapping also derives each step's narration and `condition` chip from the
+  recorder's statement facts (the old "Line 4 ran." placeholder remains only where nothing can be
+  derived). Put teaching text in `explain`, not in the narration: authored `explain.did` wins over
+  the derived breakdown, which wins over the narration.
 - Watch the main-chunk budget: a module's trace is bundled with the app (the harvest loop's 19 steps
   are about 17.5 KB).

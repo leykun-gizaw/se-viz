@@ -11,6 +11,21 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 1,
+    "end": 1,
+    "targets": [
+     {
+      "type": "name",
+      "id": "inventory"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "dict"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -33,6 +48,39 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 2,
+    "end": 2,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "subscript",
+       "value": {
+        "type": "name",
+        "id": "inventory"
+       },
+       "index": {
+        "type": "const",
+        "repr": "'corn'",
+        "src": "\"corn\""
+       },
+       "src": "inventory[\"corn\"]"
+      },
+      "attr": "append",
+      "src": "inventory[\"corn\"].append"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "5"
+      }
+     ],
+     "src": "inventory[\"corn\"].append(5)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "dict",
@@ -169,6 +217,22 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "other",
+      "src": "inventory[(1, 2)]"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "'tuple key'",
+     "src": "\"tuple key\""
+    }
+   },
    "objects": {
     "o1": {
      "kind": "dict",
@@ -310,6 +374,22 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "tags"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "set",
+     "src": "{\"b\", \"a\", \"c\"}"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "dict",
@@ -485,6 +565,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o1": {
      "kind": "dict",
