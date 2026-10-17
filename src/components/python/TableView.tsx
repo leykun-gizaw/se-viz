@@ -145,7 +145,7 @@ function TableGrid({ block }: { block: TableBlock }) {
     const index = columnWidth([block.table.indexName ?? '', ...block.table.rowLabels]);
     const data = cols.map((_, j) => {
       const c = columns[j];
-      const head = series ? (block.table.name ?? '') : (c?.name ?? '');
+      const head = series ? block.table.name || 'values' : (c?.name ?? '');
       const dtype = c ? `${c.dtype}${c.missing > 0 ? ` · ${c.missing} NaN` : ''}` : '';
       return columnWidth([
         head,
@@ -329,7 +329,8 @@ function GroupByStack({ block }: { block: GroupByBlock }) {
         </span>
         {obj ? (
           <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-ink-faint">
-            obj <SlotValue cell={obj} />
+            {/* The label after the chip: the reference arrow leaves the chip to the left. */}
+            <SlotValue cell={obj} /> obj
           </span>
         ) : null}
       </div>
