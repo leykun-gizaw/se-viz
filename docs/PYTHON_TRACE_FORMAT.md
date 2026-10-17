@@ -564,3 +564,71 @@ with the sample data in place and NumPy and pandas imported first, untraced, as 
 exercises the recorder's pandas path with the stand-in program `extra-pandas-standin` (caps, a
 missing value, a long string, 21 groups) and checks the sample file is in place with
 `extra-sample-data`.
+
+
+## matplotlib figures (Phase 36, additive)
+
+A run that uses matplotlib returns its figures as step output. Programs that don't import
+matplotlib record exactly as before (every Phase 29–35 fixture is byte-identical), and the recorder
+still imports nothing third-party: the figure code is active only when `matplotlib` is already in
+`sys.modules` (the worker imports `matplotlib` and `matplotlib.pyplot` once, untraced, with the
+non-interactive **Agg** backend, for a program that imports it).
+
+**Capture.** For the length of a run the recorder replaces `pyplot.show` and `Figure.show` with
+functions that capture the open figures (then close them), and wraps the chart methods of `Axes`
+(`plot`, `scatter`, `bar`, `barh`, `hist`, `pie`, `boxplot`) to remember which were called on each
+axes (the outermost call only: `hist` draws with `bar`). Figures still open when the module body
+returns (normally or with an exception) are captured too, with `trigger: 'end'`. Everything is
+restored after the run. Each run starts with `matplotlib.rcdefaults()`, `plt.close('all')` and the
+Agg backend, so an earlier run in the same worker can't leak figures or style into it. A run the
+recorder stops early (a limit, Stop) captures no end-of-run figures.
+
+**Raw snapshot.** A figure is sent once, on the first snapshot after it was captured:
+
+```ts
+interface PySnapshot { /* … */ figures?: PyFigure[] }
+interface PyFigure {
+  id: string;               // 'fig1', … in capture order within the run
+  number: number;           // matplotlib's figure number
+  trigger: 'show' | 'end';
+  width: number; height: number;    // fig.get_size_inches()
+  title?: string;           // suptitle, else the only axes' title (≤ 80 chars)
+  axes: { kinds: ChartCall[]; title?: string; xlabel?: string; ylabel?: string; legend?: string[] }[];
+  format: 'svg' | 'png' | 'none';
+  bytes?: number;
+  data?: string;            // svg: the SVG text; png: 'data:image/png;base64,…'
+  reason?: 'too-large' | 'cap' | 'error';
+  error?: string;           // reason 'error': the exception type
+}
+```
+
+**Formats and caps** (`protocol.ts`, checked against `recorder.py` by a test):
+
+| Rule | Value |
+|------|-------|
+| `FIGURES_CAP` | 6 figures per run are rendered; the 7th and later are `format: 'none'`, `reason: 'cap'` (never rendered, still listed with their facts) |
+| SVG | used when under `FIGURE_BYTES_CAP` = 300 KB. Written with `svg.fonttype: 'none'` (text as `<text>`, about 40% smaller than glyph paths) and `svg.hashsalt: 'se-viz'` with no date metadata (stable recordings) |
+| PNG | otherwise, at `FIGURE_PNG_DPI` = 100, when the canvas is at most `FIGURE_MAX_PIXELS` = 3000 × 3000 at that dpi and the PNG is under 300 KB |
+| too large | otherwise `format: 'none'`, `reason: 'too-large'`; no PNG is even tried past 9 M pixels |
+| error | `savefig` raised: `format: 'none'`, `reason: 'error'` |
+
+Rendering warnings are suppressed (they are matplotlib's, not the program's output). Rendering time
+counts against the program's time limit; figure bytes count against `maxTraceChars`.
+
+**Other objects.** A matplotlib object reachable from the program (`fig`, `ax`, the list `plt.plot`
+returns) is one opaque `kind: 'other'` object, `repr` its matplotlib repr (`<Figure size 900x350
+with 2 Axes>`, `<Axes: title={'center': 'Milk per day'}>`), or `<Line2D>` when that repr would show
+a memory address. Its `__dict__` is matplotlib's internals, not the program's data.
+
+**Recording the samples.** `npm run py:record-packages` (opt-in, network: the pinned Pyodide CDN
+only) records `src/python/samples/matplotlib/*.py` (line, scatter, bar, histogram, subplots) into
+`src/python/fixtures/matplotlib/*.json`, with matplotlib 3.10.8 imported first as the worker does.
+The mapped traces are in `src/content/fixtures/python/matplotlib/`. Offline, `npm test` runs the real
+recorder against a matplotlib **stand-in** (`MATPLOTLIB_STANDIN` in `testPrograms.ts`: just the
+pyplot / Figure / Axes API the recorder uses, with `savefig` writing as many bytes as a program
+asks), recorded into `fixtures/extra-matplotlib-standin.json` and `extra-matplotlib-end.json`.
+
+**Fixture size.** Each SVG is stored once in the raw recording and once in the mapped trace (a
+trace-level `figures` list, not per step): the five samples' six figures are 10–20 KB each; the
+raw recordings total about 220 KB and the mapped traces about 260 KB. None of it is in any bundle
+except the dev-only preview.
