@@ -734,7 +734,7 @@ function didApply(ctx: Ctx): string[] {
     if (isGenerator(py.call?.scope)) {
       return [`Started ${label}: it runs until it yields its first value.`, `Line ${ctx.line} waits for that value.`];
     }
-    return [`Called ${label}.`, `Line ${ctx.line} waits here until it returns.`];
+    return [`Called ${label}.`, `Line ${ctx.line} waits while it runs.`];
   }
   if (py.event === 'exception') {
     const e = py.exception;

@@ -43,7 +43,7 @@ export const GLOSSARY = {
   recursion:
     'A function that calls itself gets a new frame for every call, so each call has its own local names. The calls finish in reverse order.',
   'shared-argument':
-    'Passing a list or dict to a function passes the object itself, not a copy. The parameter and the caller’s name refer to the same object, so changes inside the function show outside.',
+    'Passing a list, dict or other object to a function passes the object itself, not a copy. The parameter and the caller’s name refer to the same object, so changes made through either show through both.',
   return: '`return` ends the function and hands its value back to the line that called it. A function with no `return` gives back `None`.',
   def: '`def` makes a function object and binds its name to it. The body does not run now; it runs each time the function is called.',
   class: '`class` runs its body once to build the class. Each object made from it later gets its own attributes, usually set in `__init__`.',

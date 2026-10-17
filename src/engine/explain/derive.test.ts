@@ -181,7 +181,7 @@ describe('calls and returns', () => {
 
   it('a call, a recursive call, and the returns back up', () => {
     expect(apply(rec, 1).calls).toEqual(['Called `factorial(4)` from line 6.']);
-    expect(apply(rec, 1).did).toEqual(['Called `factorial(4)`.', 'Line 6 waits here until it returns.']);
+    expect(apply(rec, 1).did).toEqual(['Called `factorial(4)`.', 'Line 6 waits while it runs.']);
     expect(apply(rec, 3).concept).toBe(GLOSSARY.recursion);
     const back = stepAt(rec, 4, 4); // factorial(2) gets 1 back and returns 2
     expect(apply(rec, back).calls).toEqual(['`factorial(1)` returned `1` to line 4.']);
