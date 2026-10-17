@@ -86,13 +86,16 @@ async function handle(message: WorkerRequest): Promise<void> {
       await pyodide.loadPackage(missing, { messageCallback: () => {} });
       // Import them once here, untraced: importing pandas costs more than a second, which would
       // otherwise land inside the student's traced run and its time limit. (Allow-listed names.)
-      // matplotlib gets the non-interactive Agg backend: a worker has no display.
+      // matplotlib gets the non-interactive Agg backend: a worker has no display. Its pyplot is
+      // imported here too (Phase 36): the recorder captures figures through it, and importing it
+      // inside the run would count against the program's time limit.
       pyodide.runPython(
         [
           ...(missing.includes('matplotlib')
             ? ['import os', "os.environ['MPLBACKEND'] = 'Agg'"]
             : []),
           ...missing.map((p) => `import ${p}`),
+          ...(missing.includes('matplotlib') ? ['import matplotlib.pyplot'] : []),
         ].join('\n'),
       );
       for (const p of missing) imported.add(p);

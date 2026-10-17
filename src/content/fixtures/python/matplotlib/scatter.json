@@ -1,0 +1,1868 @@
+{
+ "id": "python-matplotlib-scatter",
+ "title": "matplotlib: a scatter plot",
+ "file": "scatter.py",
+ "language": "python",
+ "source": "import matplotlib.pyplot as plt\n\nrainfall = [480, 520, 610, 700, 760, 820, 900, 950]\nyield_kg = [1150, 1240, 1310, 1500, 1580, 1620, 1790, 1850]\n\nfig, ax = plt.subplots()\nax.scatter(rainfall, yield_kg, color=\"tab:green\")\nax.set_title(\"Yield against rainfall\")\nax.set_xlabel(\"Rainfall (mm)\")\nax.set_ylabel(\"Yield (kg)\")\nplt.show()\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Imported plt.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "rainfall now refers to a new list.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "yield_kg now refers to a new list.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.yield_kg",
+       "name": "yield_kg",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1150"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "1240"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "1310"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "1500"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "1580"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "1620"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[6]",
+       "name": "6",
+       "type": "int",
+       "value": "1790"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[7]",
+       "name": "7",
+       "type": "int",
+       "value": "1850"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Unpacked the values: fig is now a Figure, ax is now an Axes.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.yield_kg",
+       "name": "yield_kg",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.fig",
+       "name": "fig",
+       "type": "Figure",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.ax",
+       "name": "ax",
+       "type": "Axes",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1150"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "1240"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "1310"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "1500"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "1580"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "1620"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[6]",
+       "name": "6",
+       "type": "int",
+       "value": "1790"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[7]",
+       "name": "7",
+       "type": "int",
+       "value": "1850"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "Figure",
+     "type": "Figure",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.repr",
+       "name": "repr",
+       "type": "Figure",
+       "value": "<Figure size 640x480 with 1 Axes>"
+      }
+     ],
+     "objectKind": "other"
+    },
+    {
+     "id": "o4",
+     "label": "Axes",
+     "type": "Axes",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.repr",
+       "name": "repr",
+       "type": "Axes",
+       "value": "<Axes: >"
+      }
+     ],
+     "objectKind": "other"
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Called ax.scatter(rainfall, yield_kg, color=\"tab:green\").",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 8
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.yield_kg",
+       "name": "yield_kg",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.fig",
+       "name": "fig",
+       "type": "Figure",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.ax",
+       "name": "ax",
+       "type": "Axes",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1150"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "1240"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "1310"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "1500"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "1580"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "1620"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[6]",
+       "name": "6",
+       "type": "int",
+       "value": "1790"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[7]",
+       "name": "7",
+       "type": "int",
+       "value": "1850"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "Figure",
+     "type": "Figure",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.repr",
+       "name": "repr",
+       "type": "Figure",
+       "value": "<Figure size 640x480 with 1 Axes>"
+      }
+     ],
+     "objectKind": "other"
+    },
+    {
+     "id": "o4",
+     "label": "Axes",
+     "type": "Axes",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.repr",
+       "name": "repr",
+       "type": "Axes",
+       "value": "<Axes: >"
+      }
+     ],
+     "objectKind": "other"
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "Called ax.set_title(\"Yield against rainfall\").",
+   "highlightedLines": [
+    8
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 9
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.yield_kg",
+       "name": "yield_kg",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.fig",
+       "name": "fig",
+       "type": "Figure",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.ax",
+       "name": "ax",
+       "type": "Axes",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1150"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "1240"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "1310"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "1500"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "1580"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "1620"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[6]",
+       "name": "6",
+       "type": "int",
+       "value": "1790"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[7]",
+       "name": "7",
+       "type": "int",
+       "value": "1850"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "Figure",
+     "type": "Figure",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.repr",
+       "name": "repr",
+       "type": "Figure",
+       "value": "<Figure size 640x480 with 1 Axes>"
+      }
+     ],
+     "objectKind": "other"
+    },
+    {
+     "id": "o4",
+     "label": "Axes",
+     "type": "Axes",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.repr",
+       "name": "repr",
+       "type": "Axes",
+       "value": "<Axes: title={'center': 'Yield against rainfall'}>"
+      }
+     ],
+     "objectKind": "other"
+    }
+   ]
+  },
+  {
+   "id": "py-6",
+   "index": 6,
+   "narration": "Called ax.set_xlabel(\"Rainfall (mm)\").",
+   "highlightedLines": [
+    9
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 10
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.yield_kg",
+       "name": "yield_kg",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.fig",
+       "name": "fig",
+       "type": "Figure",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.ax",
+       "name": "ax",
+       "type": "Axes",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1150"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "1240"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "1310"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "1500"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "1580"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "1620"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[6]",
+       "name": "6",
+       "type": "int",
+       "value": "1790"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[7]",
+       "name": "7",
+       "type": "int",
+       "value": "1850"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "Figure",
+     "type": "Figure",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.repr",
+       "name": "repr",
+       "type": "Figure",
+       "value": "<Figure size 640x480 with 1 Axes>"
+      }
+     ],
+     "objectKind": "other"
+    },
+    {
+     "id": "o4",
+     "label": "Axes",
+     "type": "Axes",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.repr",
+       "name": "repr",
+       "type": "Axes",
+       "value": "<Axes: title={'center': 'Yield against rainfall'}, xlabel='Rainfall (mm)'>"
+      }
+     ],
+     "objectKind": "other"
+    }
+   ]
+  },
+  {
+   "id": "py-7",
+   "index": 7,
+   "narration": "Called ax.set_ylabel(\"Yield (kg)\").",
+   "highlightedLines": [
+    10
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 11
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.yield_kg",
+       "name": "yield_kg",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.fig",
+       "name": "fig",
+       "type": "Figure",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.ax",
+       "name": "ax",
+       "type": "Axes",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1150"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "1240"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "1310"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "1500"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "1580"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "1620"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[6]",
+       "name": "6",
+       "type": "int",
+       "value": "1790"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[7]",
+       "name": "7",
+       "type": "int",
+       "value": "1850"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "Figure",
+     "type": "Figure",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.repr",
+       "name": "repr",
+       "type": "Figure",
+       "value": "<Figure size 640x480 with 1 Axes>"
+      }
+     ],
+     "objectKind": "other"
+    },
+    {
+     "id": "o4",
+     "label": "Axes",
+     "type": "Axes",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.repr",
+       "name": "repr",
+       "type": "Axes",
+       "value": "<Axes: title={'center': 'Yield against rainfall'}, xlabel='Rainfall (mm)', ylab…"
+      }
+     ],
+     "objectKind": "other"
+    }
+   ]
+  },
+  {
+   "id": "py-8",
+   "index": 8,
+   "narration": "Called plt.show().",
+   "highlightedLines": [
+    11
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 11,
+    "function": "<module>"
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rainfall",
+       "name": "rainfall",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.yield_kg",
+       "name": "yield_kg",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.fig",
+       "name": "fig",
+       "type": "Figure",
+       "target": "o3"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.ax",
+       "name": "ax",
+       "type": "Axes",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "480"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "520"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "610"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "int",
+       "value": "700"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "int",
+       "value": "760"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[6]",
+       "name": "6",
+       "type": "int",
+       "value": "900"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[7]",
+       "name": "7",
+       "type": "int",
+       "value": "950"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1150"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "1240"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "1310"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "1500"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "1580"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "1620"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[6]",
+       "name": "6",
+       "type": "int",
+       "value": "1790"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[7]",
+       "name": "7",
+       "type": "int",
+       "value": "1850"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "Figure",
+     "type": "Figure",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.repr",
+       "name": "repr",
+       "type": "Figure",
+       "value": "<Figure size 640x480 with 1 Axes>"
+      }
+     ],
+     "objectKind": "other"
+    },
+    {
+     "id": "o4",
+     "label": "Axes",
+     "type": "Axes",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o4.repr",
+       "name": "repr",
+       "type": "Axes",
+       "value": "<Axes: title={'center': 'Yield against rainfall'}, xlabel='Rainfall (mm)', ylab…"
+      }
+     ],
+     "objectKind": "other"
+    }
+   ]
+  }
+ ],
+ "statements": {
+  "1": {
+   "kind": "Import",
+   "line": 1,
+   "end": 1,
+   "names": [
+    "plt"
+   ]
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "rainfall"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "480"
+     },
+     {
+      "type": "const",
+      "repr": "520"
+     },
+     {
+      "type": "const",
+      "repr": "610"
+     },
+     {
+      "type": "const",
+      "repr": "700"
+     },
+     {
+      "type": "const",
+      "repr": "760"
+     },
+     {
+      "type": "const",
+      "repr": "820"
+     },
+     {
+      "type": "const",
+      "repr": "900"
+     },
+     {
+      "type": "const",
+      "repr": "950"
+     }
+    ],
+    "src": "[480, 520, 610, 700, 760, 820, 900, 950]"
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "name",
+     "id": "yield_kg"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "1150"
+     },
+     {
+      "type": "const",
+      "repr": "1240"
+     },
+     {
+      "type": "const",
+      "repr": "1310"
+     },
+     {
+      "type": "const",
+      "repr": "1500"
+     },
+     {
+      "type": "const",
+      "repr": "1580"
+     },
+     {
+      "type": "const",
+      "repr": "1620"
+     },
+     {
+      "type": "const",
+      "repr": "1790"
+     },
+     {
+      "type": "const",
+      "repr": "1850"
+     }
+    ],
+    "src": "[1150, 1240, 1310, 1500, 1580, 1620, 1790, 1850]"
+   }
+  },
+  "6": {
+   "kind": "Assign",
+   "line": 6,
+   "end": 6,
+   "targets": [
+    {
+     "type": "display",
+     "of": "tuple",
+     "items": [
+      {
+       "type": "name",
+       "id": "fig"
+      },
+      {
+       "type": "name",
+       "id": "ax"
+      }
+     ],
+     "src": "fig, ax"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plt"
+     },
+     "attr": "subplots",
+     "src": "plt.subplots"
+    },
+    "args": [],
+    "src": "plt.subplots()"
+   }
+  },
+  "7": {
+   "kind": "Expr",
+   "line": 7,
+   "end": 7,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "ax"
+     },
+     "attr": "scatter",
+     "src": "ax.scatter"
+    },
+    "args": [
+     {
+      "type": "name",
+      "id": "rainfall"
+     },
+     {
+      "type": "name",
+      "id": "yield_kg"
+     }
+    ],
+    "keywords": [
+     "color"
+    ],
+    "kwargs": [
+     {
+      "name": "color",
+      "value": {
+       "type": "const",
+       "repr": "'tab:green'",
+       "src": "\"tab:green\""
+      }
+     }
+    ],
+    "src": "ax.scatter(rainfall, yield_kg, color=\"tab:green\")"
+   }
+  },
+  "8": {
+   "kind": "Expr",
+   "line": 8,
+   "end": 8,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "ax"
+     },
+     "attr": "set_title",
+     "src": "ax.set_title"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Yield against rainfall'",
+      "src": "\"Yield against rainfall\""
+     }
+    ],
+    "src": "ax.set_title(\"Yield against rainfall\")"
+   }
+  },
+  "9": {
+   "kind": "Expr",
+   "line": 9,
+   "end": 9,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "ax"
+     },
+     "attr": "set_xlabel",
+     "src": "ax.set_xlabel"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Rainfall (mm)'",
+      "src": "\"Rainfall (mm)\""
+     }
+    ],
+    "src": "ax.set_xlabel(\"Rainfall (mm)\")"
+   }
+  },
+  "10": {
+   "kind": "Expr",
+   "line": 10,
+   "end": 10,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "ax"
+     },
+     "attr": "set_ylabel",
+     "src": "ax.set_ylabel"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Yield (kg)'",
+      "src": "\"Yield (kg)\""
+     }
+    ],
+    "src": "ax.set_ylabel(\"Yield (kg)\")"
+   }
+  },
+  "11": {
+   "kind": "Expr",
+   "line": 11,
+   "end": 11,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plt"
+     },
+     "attr": "show",
+     "src": "plt.show"
+    },
+    "args": [],
+    "src": "plt.show()"
+   }
+  }
+ },
+ "figures": [
+  {
+   "id": "fig1",
+   "step": 8,
+   "number": 1,
+   "trigger": "show",
+   "title": "Yield against rainfall",
+   "width": 6.4,
+   "height": 4.8,
+   "axes": [
+    {
+     "kinds": [
+      "scatter"
+     ],
+     "title": "Yield against rainfall",
+     "xlabel": "Rainfall (mm)",
+     "ylabel": "Yield (kg)",
+     "legend": null
+    }
+   ],
+   "format": "svg",
+   "bytes": 10680,
+   "data": "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"460.8pt\" height=\"345.6pt\" viewBox=\"0 0 460.8 345.6\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n <defs>\n  <style type=\"text/css\">*{stroke-linejoin: round; stroke-linecap: butt}</style>\n </defs>\n <g id=\"figure_1\">\n  <g id=\"patch_1\">\n   <path d=\"M 0 345.6 \nL 460.8 345.6 \nL 460.8 0 \nL 0 0 \nz\n\" style=\"fill: #ffffff\"/>\n  </g>\n  <g id=\"axes_1\">\n   <g id=\"patch_2\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \nL 414.72 41.472 \nL 57.6 41.472 \nz\n\" style=\"fill: #ffffff\"/>\n   </g>\n   <g id=\"PathCollection_1\">\n    <defs>\n     <path id=\"m56a6285eee\" d=\"M 0 3 \nC 0.795609 3 1.55874 2.683901 2.12132 2.12132 \nC 2.683901 1.55874 3 0.795609 3 0 \nC 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 \nC 1.55874 -2.683901 0.795609 -3 0 -3 \nC -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 \nC -2.683901 -1.55874 -3 -0.795609 -3 0 \nC -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 \nC -1.55874 2.683901 -0.795609 3 0 3 \nz\n\" style=\"stroke: #2ca02c\"/>\n    </defs>\n    <g clip-path=\"url(#p2c4a7be6aa)\">\n     <use xlink:href=\"#m56a6285eee\" x=\"73.832727\" y=\"295.488\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n     <use xlink:href=\"#m56a6285eee\" x=\"101.462901\" y=\"264.384\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n     <use xlink:href=\"#m56a6285eee\" x=\"163.630793\" y=\"240.192\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n     <use xlink:href=\"#m56a6285eee\" x=\"225.798685\" y=\"174.528\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n     <use xlink:href=\"#m56a6285eee\" x=\"267.243946\" y=\"146.88\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n     <use xlink:href=\"#m56a6285eee\" x=\"308.689207\" y=\"133.056\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n     <use xlink:href=\"#m56a6285eee\" x=\"363.949555\" y=\"74.304\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n     <use xlink:href=\"#m56a6285eee\" x=\"398.487273\" y=\"53.568\" style=\"fill: #2ca02c; stroke: #2ca02c\"/>\n    </g>\n   </g>\n   <g id=\"matplotlib.axis_1\">\n    <g id=\"xtick_1\">\n     <g id=\"line2d_1\">\n      <defs>\n       <path id=\"m388f9e0eb3\" d=\"M 0 0 \nL 0 3.5 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"87.647814\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_1\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"87.647814\" y=\"322.182437\" transform=\"rotate(-0 87.647814 322.182437)\">500</text>\n     </g>\n    </g>\n    <g id=\"xtick_2\">\n     <g id=\"line2d_2\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"156.72325\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_2\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"156.72325\" y=\"322.182437\" transform=\"rotate(-0 156.72325 322.182437)\">600</text>\n     </g>\n    </g>\n    <g id=\"xtick_3\">\n     <g id=\"line2d_3\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"225.798685\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_3\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"225.798685\" y=\"322.182437\" transform=\"rotate(-0 225.798685 322.182437)\">700</text>\n     </g>\n    </g>\n    <g id=\"xtick_4\">\n     <g id=\"line2d_4\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"294.87412\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_4\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"294.87412\" y=\"322.182437\" transform=\"rotate(-0 294.87412 322.182437)\">800</text>\n     </g>\n    </g>\n    <g id=\"xtick_5\">\n     <g id=\"line2d_5\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"363.949555\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_5\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"363.949555\" y=\"322.182437\" transform=\"rotate(-0 363.949555 322.182437)\">900</text>\n     </g>\n    </g>\n    <g id=\"text_6\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"335.860562\" transform=\"rotate(-0 236.16 335.860562)\">Rainfall (mm)</text>\n    </g>\n   </g>\n   <g id=\"matplotlib.axis_2\">\n    <g id=\"ytick_1\">\n     <g id=\"line2d_6\">\n      <defs>\n       <path id=\"md3de9cf98b\" d=\"M 0 0 \nL -3.5 0 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"278.208\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_7\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"282.007219\" transform=\"rotate(-0 50.6 282.007219)\">1200</text>\n     </g>\n    </g>\n    <g id=\"ytick_2\">\n     <g id=\"line2d_7\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"243.648\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_8\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"247.447219\" transform=\"rotate(-0 50.6 247.447219)\">1300</text>\n     </g>\n    </g>\n    <g id=\"ytick_3\">\n     <g id=\"line2d_8\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"209.088\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_9\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"212.887219\" transform=\"rotate(-0 50.6 212.887219)\">1400</text>\n     </g>\n    </g>\n    <g id=\"ytick_4\">\n     <g id=\"line2d_9\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"174.528\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_10\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"178.327219\" transform=\"rotate(-0 50.6 178.327219)\">1500</text>\n     </g>\n    </g>\n    <g id=\"ytick_5\">\n     <g id=\"line2d_10\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"139.968\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_11\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"143.767219\" transform=\"rotate(-0 50.6 143.767219)\">1600</text>\n     </g>\n    </g>\n    <g id=\"ytick_6\">\n     <g id=\"line2d_11\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"105.408\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_12\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"109.207219\" transform=\"rotate(-0 50.6 109.207219)\">1700</text>\n     </g>\n    </g>\n    <g id=\"ytick_7\">\n     <g id=\"line2d_12\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"70.848\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_13\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"74.647219\" transform=\"rotate(-0 50.6 74.647219)\">1800</text>\n     </g>\n    </g>\n    <g id=\"text_14\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"19.070312\" y=\"174.528\" transform=\"rotate(-90 19.070312 174.528)\">Yield (kg)</text>\n    </g>\n   </g>\n   <g id=\"patch_3\">\n    <path d=\"M 57.6 307.584 \nL 57.6 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_4\">\n    <path d=\"M 414.72 307.584 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_5\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_6\">\n    <path d=\"M 57.6 41.472 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"text_15\">\n    <text style=\"font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"35.472\" transform=\"rotate(-0 236.16 35.472)\">Yield against rainfall</text>\n   </g>\n  </g>\n </g>\n <defs>\n  <clipPath id=\"p2c4a7be6aa\">\n   <rect x=\"57.6\" y=\"41.472\" width=\"357.12\" height=\"266.112\"/>\n  </clipPath>\n </defs>\n</svg>\n"
+  }
+ ]
+}

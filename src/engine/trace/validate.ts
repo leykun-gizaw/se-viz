@@ -274,6 +274,28 @@ function validatePython(trace: Trace, issue: (stepIndex: number, message: string
   const kindOf = new Map<string, string>();
   const frameName = new Map<string, string>();
 
+  // Phase 36: figures belong to a step, in capture order, with an image only for svg / png.
+  const figureIds = new Set<string>();
+  let lastStep = 0;
+  for (const f of trace.figures ?? []) {
+    if (figureIds.has(f.id)) issue(-1, `figure id "${f.id}" is used twice`);
+    figureIds.add(f.id);
+    if (!Number.isInteger(f.step) || f.step < 0 || f.step >= trace.steps.length) {
+      issue(-1, `figure "${f.id}" belongs to step ${f.step}, which does not exist`);
+    }
+    if (f.step < lastStep) issue(-1, `figure "${f.id}" is out of step order`);
+    lastStep = Math.max(lastStep, f.step);
+    if (f.format === 'none') {
+      if (f.data !== undefined || f.reason === undefined) {
+        issue(-1, `figure "${f.id}" has no image, so it needs a reason and no data`);
+      }
+    } else if (typeof f.data !== 'string' || f.data.length === 0) {
+      issue(-1, `figure "${f.id}" is ${f.format} but has no data`);
+    } else if (f.format === 'png' && !f.data.startsWith('data:image/png;base64,')) {
+      issue(-1, `figure "${f.id}" is png but its data is not a data:image/png;base64, URL`);
+    }
+  }
+
   trace.steps.forEach((step, i) => {
     const blocks = new Set(step.heap.map((b) => b.id));
     for (const block of step.heap) {

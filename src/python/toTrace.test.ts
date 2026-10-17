@@ -9,6 +9,7 @@ import { validateTrace } from '../engine/trace/validate.ts';
 import type { RunResult } from './protocol.ts';
 import { SAMPLES } from './samples/index.ts';
 import { NUMPY_SAMPLES } from './samples/numpy/index.ts';
+import { MATPLOTLIB_SAMPLES } from './samples/matplotlib/index.ts';
 import { PANDAS_SAMPLES } from './samples/pandas/index.ts';
 import { recordingToTrace } from './toTrace.ts';
 
@@ -95,6 +96,27 @@ describe('Phase 35 pandas recordings as Python traces', () => {
       expect(validateTrace(trace)).toEqual([]);
       await expect(`${JSON.stringify(trace, null, 1)}\n`).toMatchFileSnapshot(
         `../content/fixtures/python/pandas/${name}.json`,
+      );
+    },
+  );
+});
+
+describe('Phase 36 matplotlib recordings as Python traces', () => {
+  it.each(MATPLOTLIB_SAMPLES.map((s) => [s.name, s] as const))(
+    'matplotlib/%s maps to a valid trace and matches its committed file',
+    async (name, sample) => {
+      const result = recording(`matplotlib/${name}`);
+      expect(result.error).toBeUndefined();
+      const trace = recordingToTrace(result, sample.source, {
+        id: `python-matplotlib-${name}`,
+        title: sample.title,
+        file: `${name}.py`,
+      });
+      expect(trace.steps.length).toBeGreaterThan(0);
+      expect(trace.figures?.length ?? 0).toBeGreaterThan(0);
+      expect(validateTrace(trace)).toEqual([]);
+      await expect(`${JSON.stringify(trace, null, 1)}\n`).toMatchFileSnapshot(
+        `../content/fixtures/python/matplotlib/${name}.json`,
       );
     },
   );

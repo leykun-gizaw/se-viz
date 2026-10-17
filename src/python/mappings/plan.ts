@@ -21,6 +21,8 @@ import type { PyFrame, PySnapshot, PyValue, RunResult } from '../protocol.ts';
 export interface PlannedStep {
   /** The snapshot whose state this step shows. */
   snap: PySnapshot;
+  /** Its index in `result.steps` (Phase 36: figures travel on snapshots, and map to steps by it). */
+  snapIndex: number;
   /** The 1-based line that just ran. */
   line: number;
   narration: string;
@@ -101,6 +103,7 @@ export function planSteps(result: RunResult): PlannedStep[] {
     return [
       {
         snap: snaps[0],
+        snapIndex: 0,
         line: snaps[0].line,
         narration: narrate(null, snaps[0], snaps[0].line),
         py: stepInfo(snaps[0]),
@@ -114,6 +117,7 @@ export function planSteps(result: RunResult): PlannedStep[] {
     const line = lineAfter(prev);
     planned.push({
       snap: snaps[i],
+      snapIndex: i,
       line,
       narration: narrate(prev, snaps[i], line),
       py: stepInfo(snaps[i]),

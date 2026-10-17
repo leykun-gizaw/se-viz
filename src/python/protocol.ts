@@ -344,6 +344,66 @@ export interface PySnapshot {
   function?: string;
   /** `return` events of a generator suspended at a `yield` (Phase 32). */
   yielded?: true;
+  /**
+   * Phase 36: matplotlib figures captured since the previous snapshot (by `plt.show()` /
+   * `fig.show()`, or still open when the program ended), in capture order. Each figure is sent
+   * exactly once, on the first snapshot after it was captured: the state after the line that
+   * showed it.
+   */
+  figures?: PyFigure[];
+}
+
+/* ───────────────────────── matplotlib figures (Phase 36) ───────────────────────── */
+
+/** At most this many figures per run are rendered; later ones are `format: 'none'`, `reason: 'cap'`. */
+export const FIGURES_CAP = 6;
+/** A figure is an SVG under this many bytes, else a PNG at {@link FIGURE_PNG_DPI} under it too. */
+export const FIGURE_BYTES_CAP = 300 * 1024;
+export const FIGURE_PNG_DPI = 100;
+/** A PNG is not even rendered for a canvas larger than this (pixels at {@link FIGURE_PNG_DPI}). */
+export const FIGURE_MAX_PIXELS = 3000 * 3000;
+
+/** An `Axes` method whose use names the chart type (the outermost call: `hist` draws with `bar`). */
+export type ChartCall = 'plot' | 'scatter' | 'bar' | 'barh' | 'hist' | 'pie' | 'boxplot';
+
+/** One set of axes in a figure: the chart calls made on it and the text set on it. */
+export interface PyFigureAxes {
+  /** Chart calls made on these axes, in first-call order (empty: none of {@link ChartCall}). */
+  kinds: ChartCall[];
+  /** Each at most 80 characters (cut with `…`); absent when not set. */
+  title?: string;
+  xlabel?: string;
+  ylabel?: string;
+  /** The legend's entries (at most 12), when the axes have a legend. */
+  legend?: string[];
+}
+
+/** A captured matplotlib figure. */
+export interface PyFigure {
+  /** `fig1`, `fig2`, … in capture order within the run. */
+  id: string;
+  /** matplotlib's figure number (`plt.figure(3)` is 3). */
+  number: number;
+  /** `show`: captured by `plt.show()` / `fig.show()`; `end`: still open when the program ended. */
+  trigger: 'show' | 'end';
+  /** The figure's size in inches (`fig.get_size_inches()`). */
+  width: number;
+  height: number;
+  /** The `suptitle`, else the title of a figure's only axes; absent when neither is set. */
+  title?: string;
+  axes: PyFigureAxes[];
+  /**
+   * `svg`: `data` is the SVG text (sanitize before display); `png`: `data` is a
+   * `data:image/png;base64,` URL; `none`: no image (see `reason`).
+   */
+  format: 'svg' | 'png' | 'none';
+  /** The image size in bytes (for `none`, the size that was too large, when one was rendered). */
+  bytes?: number;
+  data?: string;
+  /** Why there is no image: over the size caps, past {@link FIGURES_CAP}, or rendering failed. */
+  reason?: 'too-large' | 'cap' | 'error';
+  /** `reason: 'error'`: the exception type rendering raised. */
+  error?: string;
 }
 
 /* ───────────────────────── Worker messages ───────────────────────── */

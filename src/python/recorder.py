@@ -75,6 +75,20 @@ PANDAS_KINDS = {
     "SeriesGroupBy": "groupby",
 }
 
+# matplotlib (Phase 36): figures are captured when `plt.show()` (or `fig.show()`) runs and when the
+# program ends, at most FIGURES_CAP per run. Each is an SVG when that is under FIGURE_BYTES_CAP
+# bytes, else a PNG at FIGURE_PNG_DPI (when that is under the cap too, and the canvas is at most
+# FIGURE_MAX_PIXELS); anything larger is a "too large" note with no image.
+FIGURES_CAP = 6
+FIGURE_BYTES_CAP = 300 * 1024
+FIGURE_PNG_DPI = 100
+FIGURE_MAX_PIXELS = 3000 * 3000
+# The Axes methods whose use names the chart type (the outermost call only: `hist` draws with `bar`).
+CHART_CALLS = ("plot", "scatter", "bar", "barh", "hist", "pie", "boxplot")
+# Text kept for a title, axis label or legend entry, and the most legend entries kept per axes.
+FIGURE_TEXT_CAP = 80
+LEGEND_CAP = 12
+
 _BINOPS = {
     _ast.Add: "+",
     _ast.Sub: "-",
@@ -430,6 +444,238 @@ class _Capture:
         return True
 
 
+_MISSING = object()
+
+
+class _Figures:
+    """matplotlib figures as step output (Phase 36).
+
+    Active only when matplotlib is already imported (the worker imports it, untraced, for a program
+    that uses it); otherwise every method is a no-op and nothing third-party is touched. During a
+    run, ``pyplot.show`` and ``Figure.show`` are replaced by functions that capture the open
+    figures (then close them), and the chart methods of ``Axes`` (:data:`CHART_CALLS`) by thin
+    wrappers that remember which were called on each axes. Everything is restored when the run ends.
+
+    A captured figure waits in ``pending`` until the recorder's next snapshot, which carries it: the
+    state after the line that showed it. Figures still open when the program ends are captured just
+    before the module's last snapshot (its ``return`` event).
+    """
+
+    def __init__(self, rec):
+        self.rec = rec
+        self.mpl = None
+        self.plt = None
+        self.count = 0
+        self.pending = []
+        self.kinds = {}  # id(axes) -> chart calls made on it, in first-call order
+        self.depth = 0  # > 0 while inside a chart call (its inner calls are not counted)
+        self.saved = []  # (owner, attribute, original) to restore
+
+    # ── setup ────────────────────────────────────────────────────────────────────────────────
+
+    def setup(self):
+        if "matplotlib" not in _sys.modules:
+            return
+        try:
+            import importlib
+
+            mpl = importlib.import_module("matplotlib")
+            plt = importlib.import_module("matplotlib.pyplot")
+            axes_mod = importlib.import_module("matplotlib.axes")
+            figure_mod = importlib.import_module("matplotlib.figure")
+            # Non-interactive (a worker has no display), and resolved now rather than lazily at the
+            # program's first figure, which would also re-annotate the patched `show` below.
+            plt.switch_backend("Agg")
+            # Each run starts from matplotlib's defaults with no figure open, whatever an earlier run
+            # in this worker did (the backend is not reset by rcdefaults).
+            mpl.rcdefaults()
+            plt.close("all")
+        except Exception:  # noqa: BLE001 - a broken matplotlib must not stop the program
+            return
+        self.mpl, self.plt = mpl, plt
+        self._patch(plt, "show", self._show())
+        self._patch(figure_mod.Figure, "show", self._figure_show())
+        for name in CHART_CALLS:
+            original = axes_mod.Axes.__dict__.get(name)
+            if original is not None:
+                self._patch(axes_mod.Axes, name, self._chart(name, original))
+
+    def _patch(self, owner, name, value):
+        # An inherited attribute (not in the owner's own __dict__) is deleted again on teardown.
+        self.saved.append((owner, name, owner.__dict__.get(name, _MISSING)))
+        setattr(owner, name, value)
+
+    def teardown(self):
+        for owner, name, original in reversed(self.saved):
+            try:
+                if original is _MISSING:
+                    delattr(owner, name)
+                else:
+                    setattr(owner, name, original)
+            except Exception:  # noqa: BLE001
+                pass
+        self.saved = []
+        if self.plt is not None:
+            try:
+                self.plt.close("all")
+            except Exception:  # noqa: BLE001
+                pass
+
+    # ── what the student calls ───────────────────────────────────────────────────────────────
+
+    def _show(self):
+        figs = self
+
+        # A plain function, not a bound method: pyplot sets attributes on its `show`.
+        def show(*args, **kwargs):
+            """``plt.show()``: capture every open figure, then close them all."""
+            figs.capture("show")
+
+        return show
+
+    def _figure_show(self):
+        figs = self
+
+        def show(fig, *args, **kwargs):
+            """``fig.show()``: capture that figure, then close it."""
+            figs._take(fig, getattr(fig, "number", None), "show")
+            try:
+                figs.plt.close(fig)
+            except Exception:  # noqa: BLE001
+                pass
+
+        return show
+
+    def _chart(self, name, original):
+        figs = self
+
+        def chart(ax, *args, **kwargs):
+            if figs.depth == 0:
+                kinds = figs.kinds.get(id(ax))
+                if kinds is None:
+                    kinds = figs.kinds[id(ax)] = []
+                    figs.rec.keep.append(ax)  # its id() must not be reused while it is a key
+                if name not in kinds:
+                    kinds.append(name)
+            figs.depth += 1
+            try:
+                return original(ax, *args, **kwargs)
+            finally:
+                figs.depth -= 1
+
+        for attr in ("__name__", "__qualname__", "__doc__", "__module__"):
+            try:
+                setattr(chart, attr, getattr(original, attr))
+            except (AttributeError, TypeError):
+                pass
+        chart.__wrapped__ = original
+        return chart
+
+    # ── capture ──────────────────────────────────────────────────────────────────────────────
+
+    def capture(self, trigger):
+        """Capture every open figure (``trigger``: ``show`` or ``end``), then close them all."""
+        plt = self.plt
+        if plt is None:
+            return
+        try:
+            numbers = list(plt.get_fignums())
+        except Exception:  # noqa: BLE001
+            return
+        for num in numbers:
+            try:
+                fig = plt.figure(num)
+            except Exception:  # noqa: BLE001
+                continue
+            self._take(fig, num, trigger)
+        try:
+            plt.close("all")
+        except Exception:  # noqa: BLE001
+            pass
+
+    def _take(self, fig, num, trigger):
+        self.count += 1
+        entry = {"id": "fig" + str(self.count), "number": int(num) if isinstance(num, int) else self.count, "trigger": trigger}
+        width = height = 0.0
+        try:
+            entry.update(self._facts(fig))
+            width, height = entry["width"], entry["height"]
+        except Exception:  # noqa: BLE001 - a figure the recorder can't read keeps the basics
+            entry.setdefault("axes", [])
+        if self.count > FIGURES_CAP:
+            entry.update(format="none", reason="cap")
+        else:
+            entry.update(self._render(fig, width, height))
+        self.pending.append(entry)
+
+    @staticmethod
+    def _text(s):
+        s = str(s)
+        return s if len(s) <= FIGURE_TEXT_CAP else s[: FIGURE_TEXT_CAP - 1] + "…"
+
+    def _facts(self, fig):
+        """The figure's size (inches), title, and per axes: chart calls, title, labels, legend."""
+        w, h = fig.get_size_inches()
+        out = {"width": round(float(w), 3), "height": round(float(h), 3)}
+        axes = []
+        for ax in fig.get_axes():
+            a = {"kinds": list(self.kinds.get(id(ax), []))}
+            for key, getter in (("title", ax.get_title), ("xlabel", ax.get_xlabel), ("ylabel", ax.get_ylabel)):
+                text = getter()
+                if text:
+                    a[key] = self._text(text)
+            legend = ax.get_legend()
+            if legend is not None:
+                a["legend"] = [self._text(t.get_text()) for t in legend.get_texts()[:LEGEND_CAP]]
+            axes.append(a)
+        out["axes"] = axes
+        sup = fig.get_suptitle() if hasattr(fig, "get_suptitle") else ""
+        titled = [a["title"] for a in axes if "title" in a]
+        if sup:
+            out["title"] = self._text(sup)
+        elif len(axes) == 1 and titled:
+            out["title"] = titled[0]
+        return out
+
+    def _render(self, fig, width, height):
+        """SVG under the cap, else a PNG at 100 dpi under the cap, else a "too large" note."""
+        import base64
+        import io
+        import warnings
+
+        try:
+            with warnings.catch_warnings():
+                # Rendering warnings are matplotlib's, not the program's output.
+                warnings.simplefilter("ignore")
+                # Text as <text> (not glyph paths): about 40% smaller. Fixed ids: stable recordings.
+                with self.mpl.rc_context({"svg.fonttype": "none", "svg.hashsalt": "se-viz"}):
+                    buf = io.BytesIO()
+                    fig.savefig(buf, format="svg", metadata={"Creator": None, "Date": None, "Format": None, "Type": None})
+                svg = buf.getvalue()
+                if len(svg) < FIGURE_BYTES_CAP:
+                    return {"format": "svg", "bytes": len(svg), "data": svg.decode("utf-8")}
+                if width * FIGURE_PNG_DPI * height * FIGURE_PNG_DPI > FIGURE_MAX_PIXELS:
+                    return {"format": "none", "reason": "too-large", "bytes": len(svg)}
+                buf = io.BytesIO()
+                fig.savefig(buf, format="png", dpi=FIGURE_PNG_DPI)
+                png = buf.getvalue()
+            if len(png) < FIGURE_BYTES_CAP:
+                return {
+                    "format": "png",
+                    "bytes": len(png),
+                    "data": "data:image/png;base64," + base64.b64encode(png).decode("ascii"),
+                }
+            return {"format": "none", "reason": "too-large", "bytes": len(png)}
+        except _Abort:
+            raise
+        except Exception as e:  # noqa: BLE001 - a figure that fails to render is a note, not a crash
+            return {"format": "none", "reason": "error", "error": type(e).__name__}
+
+    def take_pending(self):
+        out, self.pending = self.pending, []
+        return out
+
+
 class _Recorder:
     def __init__(self, stdin_lines, limits, on_chunk=None):
         self.max_steps = int(limits["maxSteps"])
@@ -458,6 +704,7 @@ class _Recorder:
         self.deadline = 0.0
         self.statements = None  # _Statements for the program, built once it compiles (Phase 32)
         self.described = set()  # lines whose statement facts were already sent
+        self.figs = _Figures(self)  # matplotlib figures (Phase 36)
 
     # ── ids ──────────────────────────────────────────────────────────────────────────────────
 
@@ -768,6 +1015,10 @@ class _Recorder:
                 "shape": [int(n) for n in v.shape],
                 "dtype": dtype,
             }
+        if root == "matplotlib":
+            # Phase 36: a Figure, Axes, Line2D ... is one opaque object. Its __dict__ is matplotlib's
+            # internals (hundreds of objects), not the program's data.
+            return {"kind": "other", "type": tname, "repr": _mpl_repr(self._safe_repr(v), tname)}
         if isinstance(v, dict):
             entries = []
             for i, (k, val) in enumerate(v.items()):
@@ -931,6 +1182,10 @@ class _Recorder:
         if walk.omitted:
             snap["objectsOmitted"] = walk.omitted
         snap["stdout"] = self.out.text
+        if self.figs.pending:
+            # Phase 36: figures captured since the last snapshot belong to this one (the state after
+            # the line that showed them).
+            snap["figures"] = self.figs.take_pending()
         text = _json.dumps(snap, ensure_ascii=False)
         if self.chars + len(text) > self.max_chars:
             self._stop("size")
@@ -1002,6 +1257,9 @@ class _Recorder:
             self.unwinding.discard(self.frame_ids.get(id(frame)))
             self._snapshot(frame, "line", arg)
         elif event == "return":
+            if frame.f_code.co_name == "<module>" and not _has_user_caller(frame):
+                # Phase 36: figures still open when the program ends are its output too.
+                self.figs.capture("end")
             self._snapshot(frame, "return", arg)
             self.unwinding.discard(self.frame_ids.get(id(frame)))
         elif event == "exception":
@@ -1060,6 +1318,8 @@ class _Recorder:
         old_out, old_err = _sys.stdout, _sys.stderr
         _sys.stdout = _sys.stderr = self.out
         _sys.setrecursionlimit(depth_here + self.max_depth + RECURSION_HEADROOM)
+        # matplotlib (Phase 36), set up before the clock starts: a no-op unless it is imported.
+        self.figs.setup()
         self.deadline = _time.monotonic() + self.timeout_s
         try:
             _sys.settrace(self._global)
@@ -1074,6 +1334,7 @@ class _Recorder:
         finally:
             _sys.stdout, _sys.stderr = old_out, old_err
             _sys.setrecursionlimit(old_limit)
+            self.figs.teardown()
             _linecache.cache.pop(FILENAME, None)
 
         rest = {"stdout": self.out.text}
@@ -1133,6 +1394,22 @@ def _pandas_kind(v):
         if kind is not None and (getattr(k, "__module__", "") or "").split(".")[0] == "pandas":
             return kind
     return None
+
+
+def _has_user_caller(frame):
+    """Whether a student frame called this one (the module body of an ``exec`` in the program has one)."""
+    f = frame.f_back
+    while f is not None:
+        if f.f_code.co_filename == FILENAME:
+            return True
+        f = f.f_back
+    return False
+
+
+def _mpl_repr(r, tname):
+    """A matplotlib object's repr, unless it shows a memory address (``<... object at 0x...>``),
+    which changes from run to run: then just ``<Line2D>``."""
+    return "<" + tname + ">" if " at 0x" in r else r
 
 
 def _yielding(frame):

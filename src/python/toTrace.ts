@@ -11,7 +11,8 @@
 import { derivePython, summarize } from '../engine/explain/python.ts';
 import type { Trace } from '../engine/trace/types.ts';
 import { mapA } from './mappings/candidates.ts';
-import { statementTable } from './mappings/plan.ts';
+import { traceFigures } from './mappings/figures.ts';
+import { planSteps, statementTable } from './mappings/plan.ts';
 import type { RunResult } from './protocol.ts';
 
 /** What a trace carries besides its steps. */
@@ -29,6 +30,9 @@ export interface PythonTraceMeta {
  * and each step's narration and condition chip are derived from them (`summarize`,
  * `derivePython`), replacing the plain "Line 4 ran." placeholder where a sentence can be
  * derived.
+ *
+ * Phase 36: matplotlib figures the run captured become {@link Trace.figures}, each attached to the
+ * step that produced it.
  */
 export function recordingToTrace(result: RunResult, source: string, meta: PythonTraceMeta): Trace {
   const { steps } = mapA(result, source, meta.id);
@@ -41,6 +45,9 @@ export function recordingToTrace(result: RunResult, source: string, meta: Python
     steps,
     statements: statementTable(result),
   };
+  // Phase 36: matplotlib figures, each on the step that produced it.
+  const figures = traceFigures(result, planSteps(result));
+  if (figures.length > 0) trace.figures = figures;
   const derived = steps.map((_, i) => ({
     narration: summarize(trace, i),
     condition: derivePython(trace, i, 'apply').condition,

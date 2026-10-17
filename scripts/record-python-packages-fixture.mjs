@@ -6,11 +6,13 @@
  * - Phase 34: every `src/python/samples/numpy/<name>.py` → `src/python/fixtures/numpy/<name>.json`;
  * - Phase 35: every `src/python/samples/pandas/<name>.py` → `src/python/fixtures/pandas/<name>.json`,
  *   with the sample data files (`src/python/data/*.csv`) in the working directory, as the worker
- *   writes them before every run.
+ *   writes them before every run;
+ * - Phase 36: every `src/python/samples/matplotlib/<name>.py` → `src/python/fixtures/matplotlib/<name>.json`,
+ *   with matplotlib (Agg backend) and its pyplot imported first, as the worker does.
  *
  *   node scripts/record-python-packages-fixture.mjs        (npm run py:record-packages)
  *
- * Opt-in and **needs network**: Pyodide in Node downloads the numpy/pandas wheels from jsDelivr at
+ * Opt-in and **needs network**: Pyodide in Node downloads the numpy/pandas/matplotlib wheels from jsDelivr at
  * the pinned version (into a temp cache dir, not node_modules) — the same CDN and version the app
  * uses, nothing else. `npm test` never runs this; the tests read the fixtures it writes. Each program
  * runs with the default limits, exactly as `recorder.py` runs in the worker. Node ≥ 22.18 (imports
@@ -28,7 +30,7 @@ const recorder = readFileSync('src/python/recorder.py', 'utf8');
 const jobs = [
   ['src/python/samples/packages/numpy-pandas.py', 'src/python/fixtures/packages-numpy-pandas.json'],
 ];
-for (const lib of ['numpy', 'pandas']) {
+for (const lib of ['numpy', 'pandas', 'matplotlib']) {
   const dir = `src/python/samples/${lib}`;
   mkdirSync(`src/python/fixtures/${lib}`, { recursive: true });
   for (const file of readdirSync(dir)
@@ -47,12 +49,21 @@ const pyodide = await loadPyodide({
     process.env.SE_VIZ_PYODIDE_CACHE ?? mkdtempSync(join(tmpdir(), 'se-viz-pyodide-')),
 });
 const t0 = performance.now();
-await pyodide.loadPackage(['numpy', 'pandas'], { messageCallback: () => {} });
+await pyodide.loadPackage(['numpy', 'pandas', 'matplotlib'], { messageCallback: () => {} });
 const loadMs = performance.now() - t0;
-console.log(`numpy+pandas load ${Math.round(loadMs)} ms (Node ${process.version})`);
+console.log(`numpy+pandas+matplotlib load ${Math.round(loadMs)} ms (Node ${process.version})`);
 // Imported once, untraced, as the worker does (importing pandas inside the run would count against
-// the program's time limit).
-pyodide.runPython('import numpy\nimport pandas');
+// the program's time limit). matplotlib gets the Agg backend and its pyplot, as in the worker.
+pyodide.runPython(
+  [
+    'import os',
+    "os.environ['MPLBACKEND'] = 'Agg'",
+    'import numpy',
+    'import pandas',
+    'import matplotlib',
+    'import matplotlib.pyplot',
+  ].join('\n'),
+);
 
 for (const [src, out] of jobs) {
   // A fresh recorder namespace per program, as each worker run gets fresh globals.
