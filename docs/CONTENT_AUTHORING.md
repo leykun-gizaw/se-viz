@@ -154,3 +154,18 @@ fine for most modules.
   something; leave it off on routine steps.
 - Write each step so it still reads correctly when the learner arrives there by scrubbing.
 - Exemplars: `se200/recursion/factorial.ts`, `se201/linked-lists/insertHead.ts`.
+
+## Python modules (Phase 30)
+
+A Python module is a recorded run, not hand-authored steps. Record the program (Phase 29 recorder),
+map it with `recordingToTrace` (`src/python/toTrace.ts`), and commit the trace as JSON under
+`src/content/fixtures/python/` (see `src/python/toTrace.test.ts`, which writes them). Then register
+it with a **top-level** `.ts` file that default-exports a `ContentModule` and spreads the JSON into a
+`Trace` with its breadcrumb (`src/content/fixtures/pythonHarvest.ts` is the example). The catalog
+only discovers `fixtures/*.ts` and `<course>/<topic>/<module>.ts`, never nested data folders.
+
+- The JSON is plain data: playing it never loads Pyodide.
+- Every step's memory is generated, so leave the steps alone; authored `explain` text can be added
+  on top in the `.ts` file if a module needs it.
+- Watch the main-chunk budget: a module's trace is bundled with the app (the harvest loop's 19 steps
+  are about 17.5 KB).
