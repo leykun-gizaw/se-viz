@@ -128,7 +128,7 @@ export function Stage({
             </div>
             <ConsolePanel
               step={displayStep}
-              {...(trace.language === 'python' ? { title: 'Output' } : {})}
+              {...(trace.language === 'python' ? { title: 'Output', preserveWhitespace: true } : {})}
             />
           </div>
         </Panel>

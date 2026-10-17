@@ -27,10 +27,6 @@ STDOUT_MAX_CHARS = 64 * 1024
 # The real interpreter recursion limit sits this far above the user-frame cap, so the recorder's own
 # frames (trace callback, snapshot) always have room and the cap below is what the student hits.
 RECURSION_HEADROOM = 100
-# Streaming (Phase 31): snapshots are handed to the host in chunks of at most this many, or after
-# this long, so a run the main thread has to kill still has the steps recorded so far.
-CHUNK_MAX_SNAPSHOTS = 200
-CHUNK_MAX_SECONDS = 0.1
 
 PRIMITIVES = {
     int: "int",
@@ -121,7 +117,6 @@ class _Recorder:
         self.chars = 0
         self.on_chunk = on_chunk
         self.flushed = 0
-        self.last_flush = 0.0
         self.keep = []  # strong refs to every object and frame seen: id() is never reused
         self.obj_ids = {}  # id(obj) -> "oN"
         self.frame_ids = {}  # id(frame) -> "fN"
@@ -294,7 +289,6 @@ class _Recorder:
             return
         chunk = "[" + ", ".join(self.snaps[self.flushed :]) + "]"
         self.flushed = len(self.snaps)
-        self.last_flush = _time.monotonic()
         self._send(chunk, self.truncated if final else None)
 
     def _send(self, chunk, reason):
@@ -306,8 +300,7 @@ class _Recorder:
     def _snapshot(self, frame, event, arg):
         if len(self.snaps) >= self.max_steps:
             self._stop("steps")
-        now = _time.monotonic()
-        if now > self.deadline:
+        if _time.monotonic() > self.deadline:
             self._stop("time")
 
         chain = []
@@ -367,11 +360,10 @@ class _Recorder:
             self._stop("size")
         self.chars += len(text) + 2  # ", " between snapshots
         self.snaps.append(text)
-        if self.on_chunk is not None and (
-            len(self.snaps) - self.flushed >= CHUNK_MAX_SNAPSHOTS
-            or now - self.last_flush >= CHUNK_MAX_SECONDS
-        ):
-            self._flush()
+        # Streamed at once (Phase 31): a program that then hangs where the tracer can't see it
+        # (a loop inside a C function) and gets killed still has every step up to here. Measured:
+        # about 5% slower than no streaming at 5000 snapshots.
+        self._flush()
 
     def _global(self, frame, event, arg):
         if self.truncated is not None or frame.f_code.co_filename != FILENAME:
@@ -460,7 +452,6 @@ class _Recorder:
         _sys.stdout = _sys.stderr = self.out
         _sys.setrecursionlimit(depth_here + self.max_depth + RECURSION_HEADROOM)
         self.deadline = _time.monotonic() + self.timeout_s
-        self.last_flush = _time.monotonic()
         try:
             _sys.settrace(self._global)
             try:

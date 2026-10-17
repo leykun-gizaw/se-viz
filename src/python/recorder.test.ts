@@ -344,10 +344,13 @@ describe('streaming and the size budget (Phase 31)', () => {
     });
     expect(result.truncated).toBe('steps');
     expect(streamed).toEqual(result.steps);
-    expect(chunks.length).toBeGreaterThan(1); // at most 200 snapshots per chunk
-    expect(chunks.every((c) => c.snaps.length <= 200)).toBe(true);
-    expect(chunks[chunks.length - 1]).toMatchObject({ total: 450, stop: 'steps' });
+    // One chunk per snapshot as it is taken, then an empty one carrying the stop reason.
+    expect(chunks.slice(0, -1).map((c) => c.snaps.length)).toEqual(Array(450).fill(1));
+    expect(chunks.slice(0, -1).map((c) => c.total)).toEqual(
+      Array.from({ length: 450 }, (_, i) => i + 1),
+    );
     expect(chunks.slice(0, -1).every((c) => c.stop === undefined)).toBe(true);
+    expect(chunks[chunks.length - 1]).toEqual({ snaps: [], total: 450, stop: 'steps' });
   });
 
   it('streaming does not change the result', () => {

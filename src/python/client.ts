@@ -102,6 +102,9 @@ function streamed(chunks: readonly string[]): PySnapshot[] {
 
 type Ending = 'result' | 'killed' | 'stopped';
 
+/** The fastest the progress hook is called while snapshots stream in. */
+const PROGRESS_INTERVAL_MS = 100;
+
 interface ActiveRun {
   id: number;
   onMessage: (msg: WorkerResponse) => void;
@@ -261,6 +264,8 @@ export class PythonRunner {
       let packagesMs: number | null = null;
       const chunks: string[] = [];
       let recorderStop: RecorderStop | undefined;
+      // The recorder streams every snapshot; the progress hook hears about it at most every 100 ms.
+      let lastProgress = -Infinity;
       const arm = (ms: number, onFire: () => void) => {
         if (timer !== null) clearTimeout(timer);
         timer = setTimeout(onFire, ms);
@@ -315,7 +320,11 @@ export class PythonRunner {
           } else if (msg.type === 'steps') {
             if (msg.chunk !== '[]') chunks.push(msg.chunk);
             if (msg.stop) recorderStop = msg.stop;
-            hooks.onProgress?.(msg.total);
+            const now = performance.now();
+            if (now - lastProgress >= PROGRESS_INTERVAL_MS) {
+              lastProgress = now;
+              hooks.onProgress?.(msg.total);
+            }
           } else if (msg.type === 'result') {
             packagesMs = msg.packagesMs;
             finish(msg.result, msg.runMs, 'result');
