@@ -14,10 +14,25 @@ import { Group, Panel, Separator } from 'react-resizable-panels';
 import { occupiedWidth, STAGE_MIN_WIDTH } from './panelLayout.ts';
 import type { SidePanelControls } from './useSidePanel.ts';
 
-/** Chevron pointing left or right. */
-export function Chevron({ direction }: { direction: 'left' | 'right' }) {
+/** Chevron pointing left or right (also the disclosure caret of course-map topics and panel sections). */
+export function Chevron({
+  direction,
+  size = 14,
+  className,
+}: {
+  direction: 'left' | 'right';
+  size?: number;
+  className?: string;
+}) {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+    >
       <path
         d={direction === 'left' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}
         stroke="currentColor"
@@ -60,7 +75,7 @@ function ResizeHandle({ label, controls }: { label: string; controls: SidePanelC
     <Separator
       id={`${controls.spec.id}-handle`}
       aria-label={label}
-      title={`${label} (drag, or focus and use ←/→, Shift for bigger steps, Enter to collapse)`}
+      title={`${label} (drag, or ←/→; Enter collapses)`}
       onKeyDownCapture={controls.onSeparatorKeyDown}
       className="relative z-10 w-px bg-hairline transition-colors hover:bg-pointer data-[separator=active]:bg-pointer data-[separator=focus]:bg-pointer"
     />

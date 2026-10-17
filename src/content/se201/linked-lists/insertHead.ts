@@ -110,7 +110,7 @@ const steps: Step[] = [
         'The list is 7 -> 4 -> NULL. Nothing new has been allocated yet.',
       ],
       concept:
-        "`head` is the function's own copy of the caller's pointer. Changing it here does not change the caller's variable, which is why the function returns the new head.",
+        "`head` is a copy of the caller's pointer; changing it here doesn't change the caller's, so the new head is returned.",
     },
     narration: 'insert_head is called with head pointing at node 7 and value 2 to prepend.',
     highlightedLines: [8],
@@ -125,10 +125,9 @@ const steps: Step[] = [
       did: [
         '`malloc(sizeof(node_t))` reserves a node-sized block on the heap, at `0x8e0`.',
         "The local `new` now holds that block's address.",
-        "The node's fields are uninitialised (`?`): `malloc` does not clear memory.",
+        'Its fields are uninitialised (`?`): `malloc` does not clear memory.',
       ],
-      concept:
-        'Heap memory outlives the function call: this node stays allocated after `insert_head` returns, until someone calls `free` on it.',
+      concept: 'Heap memory outlives the call: the node stays allocated until it is `free`d.',
     },
     narration: 'new = malloc(sizeof(node_t)) allocates a fresh, uninitialised node at 0x8e0.',
     highlightedLines: [9],
@@ -165,7 +164,7 @@ const steps: Step[] = [
         'The new node now leads to the old first node, so the rest of the list is reachable from it.',
       ],
       concept:
-        'Order matters: link the new node **before** moving `head`. If `head` moved first, nothing would point at node 7 any more and the rest of the list would be lost.',
+        'Order matters: link **before** moving `head`, or nothing points at node 7 and the rest of the list is lost.',
     },
     narration:
       'new->next = head links the new node to the old first node (7) — do this BEFORE moving head, or the rest of the list is lost.',
@@ -201,10 +200,9 @@ const steps: Step[] = [
     explain: {
       did: [
         "`return head;` hands the new first node's address (`0x8e0`) back to the caller.",
-        'The caller must store it, e.g. `list = insert_head(list, 2);`, or the new node is unreachable.',
+        'The caller must store it (`list = insert_head(list, 2);`) or the node is unreachable.',
       ],
-      concept:
-        'Inserting at the head takes the same two pointer assignments however long the list is: it is O(1).',
+      concept: 'Two pointer assignments, however long the list: insert at head is O(1).',
     },
     narration: 'insert_head returns the new head (0x8e0) — the caller’s list now starts at node 2.',
     highlightedLines: [13],

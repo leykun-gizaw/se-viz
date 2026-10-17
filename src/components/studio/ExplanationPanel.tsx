@@ -1,8 +1,7 @@
 /**
  * The step explanation panel (Phase 28) — the Studio's right-hand column. A labeled landmark that
  * explains the current beat in five collapsible sections: "What this step did", "What changed",
- * "Previous step" (open by default), and "Coming next" and "Concept" (closed by default). Section
- * open states persist.
+ * "Previous step" (open by default), and "Coming next" and "Concept" (closed by default).
  *
  * All content comes from {@link explainBeat}: authored `explain` data when the step has it, else the
  * narration and the derived diff. On an `arrive` beat the step hasn't run, so its effects are held
@@ -16,60 +15,30 @@ import {
   type StepRef,
 } from '../../engine/trace/explain.ts';
 import type { TracePlayer } from '../../engine/trace/useTrace.ts';
-import { usePersistentState } from '../../hooks/usePersistentState.ts';
 import { InlineMarkdown } from '../Markdown.tsx';
-import { RailButton } from './StudioLayout.tsx';
+import { Chevron, RailButton } from './StudioLayout.tsx';
 
-type SectionId = 'did' | 'changed' | 'previous' | 'next' | 'concept';
-
-/** Which sections start open (the spec's defaults). */
-const SECTION_DEFAULTS: Record<SectionId, boolean> = {
-  did: true,
-  changed: true,
-  previous: true,
-  next: false,
-  concept: false,
-};
-
+/**
+ * One collapsible section. `<details>` is left uncontrolled: `open` only sets the default, and the
+ * learner's own toggles survive stepping (the sections stay mounted while the step changes).
+ */
 function Section({
-  id,
   title,
-  open,
-  onToggle,
+  open = true,
   children,
 }: {
-  id: SectionId;
   title: string;
-  open: boolean;
-  onToggle: (id: SectionId, open: boolean) => void;
+  open?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <details
-      open={open}
-      onToggle={(e) => {
-        const now = e.currentTarget.open;
-        if (now !== open) onToggle(id, now);
-      }}
-      className="group border-b border-hairline"
-    >
+    <details open={open} className="group border-b border-hairline">
       <summary className="flex cursor-pointer select-none list-none items-center gap-2 px-4 py-2.5 font-sans text-[13px] font-semibold text-ink hover:bg-surface-2 [&::-webkit-details-marker]:hidden">
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 24 24"
-          fill="none"
-          aria-hidden="true"
+        <Chevron
+          direction="right"
+          size={12}
           className="shrink-0 text-ink-faint transition-transform duration-150 group-open:rotate-90"
-        >
-          <path
-            d="M9 5l7 7-7 7"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        />
         {title}
       </summary>
       <div className="px-4 pb-3.5 pl-9 font-sans text-[13px] leading-relaxed text-ink">
@@ -118,18 +87,26 @@ function StepRefView({ step, hiddenNote }: { step: StepRef; hiddenNote?: string 
   );
 }
 
-const KIND_META: Record<ChangeKind, { label: string; className: string }> = {
-  value: { label: 'value', className: 'border-changed/50 text-changed' },
-  pointer: { label: 'pointer', className: 'border-pointer/50 text-pointer' },
-  call: { label: 'call', className: 'border-active/50 text-active' },
-  return: { label: 'return', className: 'border-active/50 text-active' },
-  alloc: { label: 'malloc', className: 'border-heap/50 text-heap' },
-  free: { label: 'free', className: 'border-hairline-strong text-ink-muted' },
-  leak: { label: 'leak', className: 'border-danger/50 text-danger' },
-  declare: { label: 'new', className: 'border-hairline-strong text-ink-muted' },
-  output: { label: 'output', className: 'border-hairline-strong text-ink-muted' },
-  state: { label: 'state', className: 'border-pointer/50 text-pointer' },
+const NEUTRAL = 'border-hairline-strong text-ink-muted';
+const FRAME = 'border-active/50 text-active';
+
+/** Each change kind's badge: its label and token colour (colour = meaning, as on the canvas). */
+const KIND_META: Record<ChangeKind, [label: string, tone: string]> = {
+  value: ['value', 'border-changed/50 text-changed'],
+  pointer: ['pointer', 'border-pointer/50 text-pointer'],
+  call: ['call', FRAME],
+  return: ['return', FRAME],
+  alloc: ['malloc', 'border-heap/50 text-heap'],
+  free: ['free', NEUTRAL],
+  leak: ['leak', 'border-danger/50 text-danger'],
+  declare: ['new', NEUTRAL],
+  output: ['output', NEUTRAL],
 };
+
+/** A muted note paragraph. */
+function Note({ children }: { children: React.ReactNode }) {
+  return <p className="text-ink-muted">{children}</p>;
+}
 
 function rowText(row: ChangeRow): string {
   switch (row.kind) {
@@ -151,13 +128,13 @@ function rowText(row: ChangeRow): string {
 }
 
 function ChangeRowView({ row }: { row: ChangeRow }) {
-  const meta = KIND_META[row.kind];
+  const [label, tone] = KIND_META[row.kind];
   return (
     <li className="flex items-start gap-2">
       <span
-        className={`mt-0.5 shrink-0 rounded border px-1.5 font-mono text-[10px] leading-4 ${meta.className}`}
+        className={`mt-0.5 shrink-0 rounded border px-1.5 font-mono text-[10px] leading-4 ${tone}`}
       >
-        {meta.label}
+        {label}
       </span>
       <span className="min-w-0 break-words">
         <span>{rowText(row)}</span>
@@ -199,13 +176,6 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
     () => explainBeat(trace, index, beat, effectiveMode),
     [trace, index, beat, effectiveMode],
   );
-  const [stored, setStored] = usePersistentState<Partial<Record<SectionId, boolean>>>(
-    'se-viz-explanation-sections',
-    {},
-  );
-  const isOpen = (id: SectionId) =>
-    typeof stored[id] === 'boolean' ? (stored[id] as boolean) : SECTION_DEFAULTS[id];
-  const onToggle = (id: SectionId, open: boolean) => setStored((s) => ({ ...s, [id]: open }));
   const arriving = ex.status === 'about-to-run';
 
   return (
@@ -245,12 +215,12 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
           <CodeLines lines={ex.current.lines} code={ex.current.code} />
         </div>
 
-        <Section id="did" title="What this step did" open={isOpen('did')} onToggle={onToggle}>
+        <Section title="What this step did">
           {ex.did === null ? (
-            <p className="text-ink-muted">
+            <Note>
               About to run. The highlighted line hasn&rsquo;t run yet; step forward to see what it
               does.
-            </p>
+            </Note>
           ) : ex.did.items.length > 1 ? (
             <ol className="list-decimal space-y-1 pl-4 marker:text-ink-faint">
               {ex.did.items.map((item, i) => (
@@ -264,13 +234,13 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
           )}
         </Section>
 
-        <Section id="changed" title="What changed" open={isOpen('changed')} onToggle={onToggle}>
+        <Section title="What changed">
           {ex.changes === null ? (
-            <p className="text-ink-muted">Nothing yet. The changes appear when this step runs.</p>
+            <Note>Nothing yet. The changes appear when this step runs.</Note>
           ) : ex.changesNote ? (
-            <p className="text-ink-muted">{ex.changesNote}</p>
+            <Note>{ex.changesNote}</Note>
           ) : ex.changes.length === 0 ? (
-            <p className="text-ink-muted">Nothing changed</p>
+            <Note>Nothing changed</Note>
           ) : (
             <ul className="space-y-1.5">
               {ex.changes.map((row, i) => (
@@ -280,24 +250,20 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
           )}
         </Section>
 
-        <Section id="previous" title="Previous step" open={isOpen('previous')} onToggle={onToggle}>
-          {ex.previous ? (
-            <StepRefView step={ex.previous} />
-          ) : (
-            <p className="text-ink-muted">This is the first step.</p>
-          )}
+        <Section title="Previous step">
+          {ex.previous ? <StepRefView step={ex.previous} /> : <Note>This is the first step.</Note>}
         </Section>
 
-        <Section id="next" title="Coming next" open={isOpen('next')} onToggle={onToggle}>
+        <Section title="Coming next" open={false}>
           {ex.next ? (
             <StepRefView step={ex.next} hiddenNote="Shown once the current step has run." />
           ) : (
-            <p className="text-ink-muted">This is the last step.</p>
+            <Note>This is the last step.</Note>
           )}
         </Section>
 
         {ex.concept ? (
-          <Section id="concept" title="Concept" open={isOpen('concept')} onToggle={onToggle}>
+          <Section title="Concept" open={false}>
             <p>
               <InlineMarkdown text={ex.concept} />
             </p>

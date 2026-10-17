@@ -103,13 +103,6 @@ describe('ExplanationPanel', () => {
       'Nothing changed',
     );
   });
-
-  it('remembers a section the user opened (persisted)', () => {
-    store.set('se-viz-explanation-sections', JSON.stringify({ next: true, previous: false }));
-    const html = renderToStaticMarkup(<ExplanationPanel player={player(factorialTrace, 5)} />);
-    expect(section(html, 'Coming next')).toEqual({ open: true });
-    expect(section(html, 'Previous step')).toEqual({ open: false });
-  });
 });
 
 describe('StudioLayout', () => {

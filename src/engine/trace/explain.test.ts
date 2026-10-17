@@ -157,7 +157,7 @@ describe('explainBeat — first and last step', () => {
     const ex = explainBeat(trace, 0, 'apply', 'two-beat');
     expect(ex.previous).toBeNull();
     expect(ex.changes).toEqual([]);
-    expect(ex.changesNote).toMatch(/first step/);
+    expect(ex.changesNote).toMatch(/first step/i);
     expect(ex.next?.number).toBe(2);
     expect(ex.current).toEqual({
       index: 0,
@@ -216,10 +216,10 @@ describe('explainBeat — arrive vs apply (two-beat stepping)', () => {
 });
 
 describe('explainBeat — concept views', () => {
-  it('pipeline: node state changes', () => {
-    const rows = explainBeat(buildPipelineTrace, 1, 'apply', 'single').changes ?? [];
-    expect(rows.length).toBeGreaterThan(0);
-    expect(rows.every((r) => r.kind === 'state')).toBe(true);
+  it('pipeline: points at the highlighted stage instead of listing rows', () => {
+    const ex = explainBeat(buildPipelineTrace, 1, 'apply', 'single');
+    expect(ex.changes).toEqual([]);
+    expect(ex.changesNote).toMatch(/highlighted stage/);
   });
 
   it('dual-trace: rows flagged changed', () => {

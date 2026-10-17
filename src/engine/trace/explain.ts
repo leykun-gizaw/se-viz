@@ -36,8 +36,7 @@ export type ChangeKind =
   | 'free' // a heap block was freed / released
   | 'leak' // a heap block became unreachable
   | 'declare' // a new variable appeared in a frame that already existed
-  | 'output' // the program printed something
-  | 'state'; // a concept-view element changed state (pipeline node, dual-trace row)
+  | 'output'; // the program printed something
 
 /** One "What changed" row. `from`/`to` are present for value-like changes. */
 export interface ChangeRow {
@@ -188,22 +187,9 @@ function memoryChanges(trace: Trace, prev: Step, next: Step): ChangeRow[] {
   return rows;
 }
 
-const PIPELINE_STATE: Record<string, string> = { idle: 'waiting', active: 'running', done: 'done' };
-
-/** Concept-view changes: pipeline node states, dual-trace rows flagged `changed`. */
-function conceptChanges(prev: Step, next: Step): ChangeRow[] {
+/** Dual-trace changes: the rows each column flags `changed`. */
+function dualTraceChanges(prev: Step, next: Step): ChangeRow[] {
   const rows: ChangeRow[] = [];
-  if (next.pipeline) {
-    const before = new Map((prev.pipeline?.nodes ?? []).map((n) => [n.id, n]));
-    for (const node of next.pipeline.nodes) {
-      const was = before.get(node.id);
-      const from = PIPELINE_STATE[was?.state ?? 'idle'];
-      const to = PIPELINE_STATE[node.state ?? 'idle'];
-      if (was ? from !== to : node.state !== undefined && node.state !== 'idle') {
-        rows.push({ kind: 'state', subject: node.label, ...(was ? { from } : {}), to });
-      }
-    }
-  }
   if (next.dualTrace) {
     for (const side of ['left', 'right'] as const) {
       const col = next.dualTrace[side];
@@ -222,6 +208,12 @@ function conceptChanges(prev: Step, next: Step): ChangeRow[] {
   }
   return rows;
 }
+
+/** Views whose changes are already the whole picture on screen: a note points at them instead. */
+const VIEW_NOTES: Record<string, string> = {
+  pipeline: 'The highlighted stage in the pipeline is what this step did.',
+  'before-after': 'The highlighted lines in the before and after panels show what changed.',
+};
 
 /**
  * Explain one position of the player.
@@ -259,16 +251,12 @@ export function explainBeat(
       // A trace may start mid-program (a list already built), so "everything appeared" would be
       // wrong. The first step has nothing to compare against.
       changes = [];
-      changesNote =
-        'This is the first step, so there is nothing to compare yet. The panels show the starting state.';
-    } else if (view === 'before-after') {
+      changesNote = 'The first step: nothing to compare yet. The panels show the starting state.';
+    } else if (VIEW_NOTES[view]) {
       changes = [];
-      changesNote =
-        'The highlighted lines in the before and after panels show what this step changed.';
-    } else if (view === 'memory') {
-      changes = memoryChanges(trace, prev, step);
+      changesNote = VIEW_NOTES[view];
     } else {
-      changes = conceptChanges(prev, step);
+      changes = view === 'memory' ? memoryChanges(trace, prev, step) : dualTraceChanges(prev, step);
     }
   }
 

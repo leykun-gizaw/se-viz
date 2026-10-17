@@ -73,11 +73,10 @@ const steps: Step[] = [
     index: 0,
     explain: {
       did: [
-        '`main` reaches line 10 and is about to evaluate the call `factorial(4)`.',
-        "`result` already has a slot in `main`'s frame, but no value yet (shown as `?`).",
+        '`main` is about to evaluate the call `factorial(4)`.',
+        "`result` has a slot in `main`'s frame but no value yet (`?`).",
       ],
-      concept:
-        'A call is an expression: `result` only gets its value after `factorial(4)` has finished and returned.',
+      concept: 'A call is an expression: `result` gets its value only once `factorial(4)` returns.',
     },
     narration: 'main is about to call factorial(4).',
     highlightedLines: [10],
@@ -92,10 +91,10 @@ const steps: Step[] = [
       did: [
         'Calling `factorial(4)` pushes a new frame with its own `n`, set to 4.',
         'The test `n <= 1` is false, so the base case on line 5 is skipped.',
-        'Line 6 needs `factorial(3)` before it can multiply, so this frame waits with `4 * factorial(3)` pending.',
+        'Line 6 needs `factorial(3)` first, so `4 * factorial(3)` waits, pending.',
       ],
       concept:
-        "Every call gets its own stack frame. This frame's `n` is a separate variable from the `n` of any other `factorial` call.",
+        "Every call gets its own frame, so this `n` is separate from every other call's `n`.",
     },
     narration:
       'factorial(4): n is 4, so n <= 1 is false. It will return 4 * factorial(3) — but first it pushes a new frame to compute factorial(3).',
@@ -112,10 +111,10 @@ const steps: Step[] = [
       did: [
         '`factorial(3)` pushes a second `factorial` frame, with `n = 3`.',
         '`n <= 1` is false again, so it calls itself too: `3 * factorial(2)` is pending.',
-        'Two `factorial` frames are live now. The newest one is on top of the stack.',
+        'Two `factorial` frames are live; the newest is on top.',
       ],
       concept:
-        'Recursion is a function calling itself. To the machine it is an ordinary call that pushes an ordinary frame.',
+        'Recursion is a function calling itself: to the machine, an ordinary call pushing an ordinary frame.',
     },
     narration:
       'factorial(3): n is 3 — not the base case — so it pushes another frame for factorial(2). The stack grows downward.',
@@ -134,7 +133,7 @@ const steps: Step[] = [
         '`n <= 1` is false, so `2 * factorial(1)` is pending.',
       ],
       concept:
-        'Each call works on a smaller input (4, 3, 2, …). That shrinking is what guarantees the recursion reaches its base case.',
+        'Each call gets a smaller input (4, 3, 2, …), which guarantees it reaches the base case.',
     },
     narration: 'factorial(2): still not the base case — push a frame for factorial(1).',
     highlightedLines: [4, 6],
@@ -154,10 +153,9 @@ const steps: Step[] = [
     explain: {
       did: [
         '`factorial(1)` pushes the deepest frame, with `n = 1`.',
-        'This time `n <= 1` is **true**: this is the base case, so there is no further call.',
+        'Now `n <= 1` is **true**: the base case, so no further call.',
       ],
-      concept:
-        'The base case is an input the function answers directly, without calling itself. It is what stops the recursion.',
+      concept: 'The base case is answered directly, without another call. It stops the recursion.',
     },
     narration:
       'factorial(1): now n is 1, so n <= 1 is true — this is the base case. Recursion stops here.',
@@ -181,8 +179,7 @@ const steps: Step[] = [
         '`return 1;` runs in the deepest frame.',
         "`factorial(1)`'s return value is 1: the seed that the unwinding builds on.",
       ],
-      concept:
-        'Without a base case the calls would never stop, and the program would run out of stack space (a stack overflow).',
+      concept: 'Without a base case the calls never stop and the stack overflows.',
     },
     narration:
       'The base case returns 1 (the seed value). The deepest frame is done; the stack now unwinds from the bottom up.',
@@ -212,8 +209,7 @@ const steps: Step[] = [
         'Back in `factorial(2)`, the pending `2 * factorial(1)` becomes `2 * 1 = 2`.',
         '`factorial(2)` returns 2.',
       ],
-      concept:
-        'Unwinding: each frame finishes the work it left pending, using the value returned by the call it made.',
+      concept: 'Unwinding: each frame finishes its pending work with the value its call returned.',
     },
     narration: 'factorial(1) returned 1, so factorial(2) resolves 2 * 1 = 2 and returns.',
     highlightedLines: [6],
@@ -234,8 +230,7 @@ const steps: Step[] = [
         '`factorial(2)` returns 2 and its frame is popped.',
         '`factorial(3)` resolves `3 * 2 = 6` and returns 6.',
       ],
-      concept:
-        'Return values travel back in the reverse order of the calls: last called, first to return.',
+      concept: 'Returns happen in reverse call order: last called, first to return.',
     },
     narration: 'factorial(2) returned 2, so factorial(3) resolves 3 * 2 = 6 and returns.',
     highlightedLines: [6],
@@ -267,7 +262,7 @@ const steps: Step[] = [
         'Back in `main`, the call on line 10 evaluates to 24, which is stored in `result`.',
       ],
       concept:
-        "Only `main`'s frame is left: each of the four `factorial` frames was pushed once and popped once.",
+        "Only `main`'s frame is left: each `factorial` frame was pushed once and popped once.",
     },
     narration: 'factorial(4) returned 24, which is stored in result.',
     highlightedLines: [10],
@@ -279,7 +274,7 @@ const steps: Step[] = [
     id: 'print',
     index: 10,
     explain: {
-      did: ['`printf` formats `result` with `%d` and writes `24` and a newline to the console.'],
+      did: ['`printf` writes `result` (24) and a newline to the console.'],
     },
     narration: 'printf writes 24 to the console.',
     highlightedLines: [11],
@@ -292,10 +287,7 @@ const steps: Step[] = [
     id: 'return',
     index: 11,
     explain: {
-      did: [
-        '`main` returns 0, which tells the operating system the program succeeded.',
-        'The program ends.',
-      ],
+      did: ['`main` returns 0: the program succeeded.', 'The program ends.'],
     },
     narration: 'main returns 0 and the program ends.',
     highlightedLines: [12],

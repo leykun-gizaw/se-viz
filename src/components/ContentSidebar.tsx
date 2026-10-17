@@ -14,7 +14,7 @@ import type { CatalogCourse } from '../content/catalog.ts';
 import type { TheoryDoc } from '../content/theory.ts';
 import { LIVE_CODING_ID } from '../live/config.ts';
 import { sentenceCase } from './studio/sentenceCase.ts';
-import { RailButton } from './studio/StudioLayout.tsx';
+import { Chevron, RailButton } from './studio/StudioLayout.tsx';
 import { topicKey, type CourseMapNav } from './studio/useCourseMapNav.ts';
 
 export interface ContentSidebarProps {
@@ -60,24 +60,17 @@ function LiveIcon() {
 /** Disclosure caret for a topic section: points right when closed, rotates down when open. */
 function Caret({ open }: { open: boolean }) {
   return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
+    <Chevron
+      direction="right"
+      size={12}
       className={`shrink-0 text-ink-faint transition-transform duration-150 ${open ? 'rotate-90' : ''}`}
-    >
-      <path
-        d="M9 5l7 7-7 7"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    />
   );
 }
+
+/** The current item's marker: a soft azure fill with a 3px azure bar on the left. */
+const CURRENT =
+  'bg-pointer-soft font-semibold before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-full before:bg-pointer';
 
 /**
  * The collapse-all / expand-all toggle glyph (VS Code "unfold" style): two chevrons pointing **toward**
@@ -130,9 +123,7 @@ function TheoryEntry({
         title={theory.title}
         aria-current={active ? 'true' : undefined}
         className={`relative flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left font-sans text-[13px] transition-colors ${
-          active
-            ? 'bg-pointer-soft font-semibold text-pointer before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-full before:bg-pointer'
-            : 'text-pointer hover:bg-surface-2'
+          active ? `${CURRENT} text-pointer` : 'text-pointer hover:bg-surface-2'
         }`}
       >
         <svg
@@ -322,7 +313,7 @@ export function ContentSidebar({
                           aria-current={active ? 'true' : undefined}
                           className={`relative w-full break-words rounded-md px-2.5 py-1.5 text-left font-sans text-[13px] leading-snug transition-colors ${
                             active
-                              ? 'bg-pointer-soft font-semibold text-ink before:absolute before:inset-y-1 before:left-0 before:w-[3px] before:rounded-full before:bg-pointer'
+                              ? `${CURRENT} text-ink`
                               : 'text-ink-muted hover:bg-surface-2 hover:text-ink'
                           }`}
                         >
