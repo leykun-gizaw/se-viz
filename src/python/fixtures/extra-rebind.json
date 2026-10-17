@@ -1,0 +1,99 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "x",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'done'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

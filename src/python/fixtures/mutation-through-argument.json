@@ -1,0 +1,437 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "add_crop",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "add_crop",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "add_crop",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "add_crop",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "add_crop",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "add_crop",
+     "line": 1,
+     "vars": [
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "add_crop",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "add_crop",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "add_crop",
+     "line": 2,
+     "vars": [
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "add_crop",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "add_crop",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "add_crop",
+     "line": 2,
+     "vars": [
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "add_crop",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "add_crop",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "add_crop",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "add_crop",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "add_crop",
+     "params": [
+      "basket",
+      "crop"
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    }
+   },
+   "stdout": "['corn', 'wheat']\n"
+  }
+ ],
+ "stdout": "['corn', 'wheat']\n"
+}

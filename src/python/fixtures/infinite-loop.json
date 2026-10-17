@@ -1,0 +1,917 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "5"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "5"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "6"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "6"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "7"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "7"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "8"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "8"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "10"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "10"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "11"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "11"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "12"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "12"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "13"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "13"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "14"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "14"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "15"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "15"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "16"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "16"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "17"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "17"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "18"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "18"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "day",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "19"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  }
+ ],
+ "stdout": "",
+ "truncated": "steps"
+}

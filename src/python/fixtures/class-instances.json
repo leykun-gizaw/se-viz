@@ -1,0 +1,1405 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "line": 2,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "line": 6,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "Tractor",
+     "line": 6,
+     "vars": [
+      {
+       "name": "drive",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "Tractor.drive",
+     "params": [
+      "self",
+      "hours"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "__init__",
+     "line": 2,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "__init__",
+     "line": 3,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "__init__",
+     "line": 4,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "__init__",
+     "line": 4,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "line": 2,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "line": 3,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "line": 4,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "__init__",
+     "line": 4,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "blue",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "blue",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "drive",
+     "line": 6,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "hours",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "blue",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "drive",
+     "line": 7,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "hours",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "100"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "blue",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "drive",
+     "line": 7,
+     "vars": [
+      {
+       "name": "self",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "hours",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "NoneType",
+    "repr": "None"
+   },
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "70"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "Tractor",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "red",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "blue",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "Tractor"
+    },
+    "o3": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Red'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "70"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "instance",
+     "type": "Tractor",
+     "attrs": [
+      {
+       "name": "name",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Blue'"
+       }
+      },
+      {
+       "name": "fuel",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "80"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

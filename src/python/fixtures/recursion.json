@@ -1,0 +1,1244 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "factorial",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "factorial",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "factorial",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "factorial",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "1"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "2"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "6"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    }
+   ],
+   "returnValue": {
+    "kind": "prim",
+    "type": "int",
+    "repr": "24"
+   },
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "result",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "24"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "factorial",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "result",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "24"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "function",
+     "type": "function",
+     "name": "factorial",
+     "params": [
+      "n"
+     ]
+    }
+   },
+   "stdout": "24\n"
+  }
+ ],
+ "stdout": "24\n"
+}

@@ -1,0 +1,977 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "item",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "item",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "name": "item",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "5"
+       }
+      },
+      {
+       "name": "item",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "5"
+       }
+      },
+      {
+       "name": "item",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "exception",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "5"
+       }
+      },
+      {
+       "name": "item",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      }
+     ]
+    }
+   ],
+   "exception": {
+    "type": "KeyError",
+    "message": "'beans'"
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "prices",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "basket",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "total",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "5"
+       }
+      },
+      {
+       "name": "item",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      }
+     ]
+    }
+   ],
+   "unwinding": true,
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": "",
+ "error": {
+  "type": "KeyError",
+  "message": "'beans'",
+  "line": 5,
+  "traceback": "Traceback (most recent call last):\n  File \"<student>\", line 5, in <module>\n    total = total + prices[item]\n                    ~~~~~~^^^^^^\nKeyError: 'beans'\n"
+ }
+}

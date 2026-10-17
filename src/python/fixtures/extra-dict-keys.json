@@ -1,0 +1,612 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "inventory",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'yes'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "float",
+        "repr": "2.5"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'two and a half'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "NoneType",
+        "repr": "None"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'nested'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "inventory",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'yes'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "float",
+        "repr": "2.5"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'two and a half'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "NoneType",
+        "repr": "None"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'nested'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "inventory",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'yes'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "float",
+        "repr": "2.5"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'two and a half'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "NoneType",
+        "repr": "None"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "key": {
+        "kind": "ref",
+        "id": "o5"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'tuple key'"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'nested'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    },
+    "o4": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "inventory",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "tags",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'yes'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "float",
+        "repr": "2.5"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'two and a half'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'corn'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "NoneType",
+        "repr": "None"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "key": {
+        "kind": "ref",
+        "id": "o5"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'tuple key'"
+       }
+      }
+     ]
+    },
+    "o6": {
+     "kind": "set",
+     "type": "set",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'a'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'b'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'c'"
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'nested'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    },
+    "o5": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     ]
+    },
+    "o4": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}
