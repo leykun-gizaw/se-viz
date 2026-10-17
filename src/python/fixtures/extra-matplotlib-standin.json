@@ -1,0 +1,3484 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "plt"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 2,
+    "end": 2,
+    "targets": [
+     {
+      "type": "name",
+      "id": "small"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "figure",
+      "src": "plt.figure"
+     },
+     "args": [],
+     "src": "plt.figure()"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 3,
+    "end": 3,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "plot",
+      "src": "plt.plot"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "1"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        },
+        {
+         "type": "const",
+         "repr": "3"
+        }
+       ],
+       "src": "[1, 2, 3]"
+      }
+     ],
+     "src": "plt.plot([1, 2, 3])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 4,
+    "end": 4,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "title",
+      "src": "plt.title"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'small'",
+       "src": "\"small\""
+      }
+     ],
+     "src": "plt.title(\"small\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 5,
+    "end": 5,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "show",
+      "src": "plt.show"
+     },
+     "args": [],
+     "src": "plt.show()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "big"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "figure",
+      "src": "plt.figure"
+     },
+     "args": [],
+     "src": "plt.figure()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig1",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "plot"
+       ],
+       "title": "small"
+      }
+     ],
+     "title": "small",
+     "format": "svg",
+     "bytes": 600,
+     "data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 345\"><rect width=\"4\" height=\"4\"/><!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--></svg>"
+    }
+   ]
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "big"
+      },
+      "attr": "svg_bytes",
+      "src": "big.svg_bytes"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "const",
+      "repr": "400"
+     },
+     "right": {
+      "type": "const",
+      "repr": "1024"
+     },
+     "src": "400 * 1024"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 8,
+    "end": 8,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "big"
+      },
+      "attr": "png_bytes",
+      "src": "big.png_bytes"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "2000"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 9,
+    "end": 9,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "hist",
+      "src": "plt.hist"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "1"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        },
+        {
+         "type": "const",
+         "repr": "3"
+        }
+       ],
+       "src": "[1, 2, 2, 3]"
+      }
+     ],
+     "src": "plt.hist([1, 2, 2, 3])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 10,
+    "end": 10,
+    "targets": [
+     {
+      "type": "name",
+      "id": "huge"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "figure",
+      "src": "plt.figure"
+     },
+     "args": [],
+     "keywords": [
+      "figsize"
+     ],
+     "kwargs": [
+      {
+       "name": "figsize",
+       "value": {
+        "type": "display",
+        "of": "tuple",
+        "items": [
+         {
+          "type": "const",
+          "repr": "40"
+         },
+         {
+          "type": "const",
+          "repr": "40"
+         }
+        ],
+        "src": "(40, 40)"
+       }
+      }
+     ],
+     "src": "plt.figure(figsize=(40, 40))"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 11,
+    "end": 11,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "huge"
+      },
+      "attr": "svg_bytes",
+      "src": "huge.svg_bytes"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "const",
+      "repr": "400"
+     },
+     "right": {
+      "type": "const",
+      "repr": "1024"
+     },
+     "src": "400 * 1024"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 12,
+    "end": 12,
+    "targets": [
+     {
+      "type": "name",
+      "id": "heavy"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "figure",
+      "src": "plt.figure"
+     },
+     "args": [],
+     "src": "plt.figure()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 13,
+    "end": 13,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "heavy"
+      },
+      "attr": "svg_bytes",
+      "src": "heavy.svg_bytes"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "const",
+      "repr": "400"
+     },
+     "right": {
+      "type": "const",
+      "repr": "1024"
+     },
+     "src": "400 * 1024"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 14,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 14,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 14,
+    "end": 14,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "heavy"
+      },
+      "attr": "png_bytes",
+      "src": "heavy.png_bytes"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "const",
+      "repr": "400"
+     },
+     "right": {
+      "type": "const",
+      "repr": "1024"
+     },
+     "src": "400 * 1024"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 15,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 15,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 15,
+    "end": 15,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "show",
+      "src": "plt.show"
+     },
+     "args": [],
+     "src": "plt.show()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 16,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 16,
+    "end": 16,
+    "targets": [
+     {
+      "type": "name",
+      "id": "broken"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "figure",
+      "src": "plt.figure"
+     },
+     "args": [],
+     "src": "plt.figure()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig2",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "hist"
+       ]
+      }
+     ],
+     "format": "png",
+     "bytes": 2000,
+     "data": "data:image/png;base64,iVBORzAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA="
+    },
+    {
+     "id": "fig3",
+     "number": 2,
+     "trigger": "show",
+     "width": 40,
+     "height": 40,
+     "axes": [],
+     "format": "none",
+     "reason": "too-large",
+     "bytes": 409600
+    },
+    {
+     "id": "fig4",
+     "number": 3,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [],
+     "format": "none",
+     "reason": "too-large",
+     "bytes": 409600
+    }
+   ]
+  },
+  {
+   "event": "line",
+   "line": 17,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 17,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 17,
+    "end": 17,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "broken"
+      },
+      "attr": "fail",
+      "src": "broken.fail"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "True"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 18,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 18,
+    "end": 18,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "broken"
+      },
+      "attr": "show",
+      "src": "broken.show"
+     },
+     "args": [],
+     "src": "broken.show()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 19,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 19,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "For",
+    "line": 19,
+    "end": 23,
+    "target": {
+     "type": "name",
+     "id": "i"
+    },
+    "iter": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "range"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "3"
+      }
+     ],
+     "src": "range(3)"
+    },
+    "body": {
+     "first": 20,
+     "last": 23
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig5",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [],
+     "format": "none",
+     "reason": "error",
+     "error": "ValueError"
+    }
+   ]
+  },
+  {
+   "event": "line",
+   "line": 20,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 20,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 20,
+    "end": 20,
+    "targets": [
+     {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "name",
+        "id": "fig"
+       },
+       {
+        "type": "name",
+        "id": "ax"
+       }
+      ],
+      "src": "fig, ax"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "subplots",
+      "src": "plt.subplots"
+     },
+     "args": [],
+     "src": "plt.subplots()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 21,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 21,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o7"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 21,
+    "end": 21,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "ax"
+      },
+      "attr": "scatter",
+      "src": "ax.scatter"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "name",
+         "id": "i"
+        }
+       ],
+       "src": "[i]"
+      },
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "name",
+         "id": "i"
+        }
+       ],
+       "src": "[i]"
+      }
+     ],
+     "src": "ax.scatter([i], [i])"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o6": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o7": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 22,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 22,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o7"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 22,
+    "end": 22,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "ax"
+      },
+      "attr": "set_xlabel",
+      "src": "ax.set_xlabel"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'x'",
+       "src": "\"x\""
+      }
+     ],
+     "src": "ax.set_xlabel(\"x\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o6": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o7": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 23,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 23,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o7"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 23,
+    "end": 23,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "show",
+      "src": "plt.show"
+     },
+     "args": [],
+     "src": "plt.show()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o6": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o7": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 19,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 19,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o7"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o6": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o7": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig6",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "scatter"
+       ],
+       "xlabel": "x"
+      }
+     ],
+     "format": "svg",
+     "bytes": 600,
+     "data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 460 345\"><rect width=\"4\" height=\"4\"/><!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx--></svg>"
+    }
+   ]
+  },
+  {
+   "event": "line",
+   "line": 20,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 20,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o6"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o7"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o6": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o7": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 21,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 21,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o8"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o8": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o9": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 22,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 22,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o8"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o8": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o9": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 23,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 23,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o8"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o8": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o9": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 19,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 19,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o8"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o8": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o9": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig7",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "scatter"
+       ],
+       "xlabel": "x"
+      }
+     ],
+     "format": "none",
+     "reason": "cap"
+    }
+   ]
+  },
+  {
+   "event": "line",
+   "line": 20,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 20,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o8"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o8": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o9": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 21,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 21,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o10"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o11"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o10": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o11": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 22,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 22,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o10"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o11"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o10": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o11": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 23,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 23,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o10"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o11"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o10": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o11": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 19,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 19,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o10"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o11"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o10": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o11": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig8",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "scatter"
+       ],
+       "xlabel": "x"
+      }
+     ],
+     "format": "none",
+     "reason": "cap"
+    }
+   ]
+  },
+  {
+   "event": "line",
+   "line": 24,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 24,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o10"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o11"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 24,
+    "end": 24,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "print"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'done'",
+       "src": "\"done\""
+      }
+     ],
+     "src": "print(\"done\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o10": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o11": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 24,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 24,
+     "vars": [
+      {
+       "name": "small",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "huge",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "heavy",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      },
+      {
+       "name": "broken",
+       "value": {
+        "kind": "ref",
+        "id": "o5"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      },
+      {
+       "name": "fig",
+       "value": {
+        "kind": "ref",
+        "id": "o10"
+       }
+      },
+      {
+       "name": "ax",
+       "value": {
+        "kind": "ref",
+        "id": "o11"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o2": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o3": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o4": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o5": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o10": {
+     "kind": "other",
+     "type": "Figure",
+     "repr": "<Figure>"
+    },
+    "o11": {
+     "kind": "other",
+     "type": "Axes",
+     "repr": "<Axes>"
+    }
+   },
+   "stdout": "done\n"
+  }
+ ],
+ "stdout": "done\n"
+}

@@ -109,6 +109,15 @@ export const GLOSSARY = {
   'np-mask':
     'Comparing an array with a value (`a > 2`) gives a boolean array of the same shape. Indexing with it (`a[mask]`) keeps the elements where it is `True`, as a new array (a copy).',
   // pandas (Phase 35)
+  // matplotlib (Phase 36)
+  'mpl-chart':
+    'A plotting call such as `plt.plot` or `ax.bar` adds marks to a set of axes inside a figure. Nothing is drawn on screen yet: the figure appears when it is shown with `plt.show()` (in SE-Viz, also when the program ends with it still open).',
+  'mpl-labels':
+    'A title, axis label or legend is text attached to a set of axes (or, for `suptitle`, to the whole figure). It says what the chart shows and changes no data.',
+  'mpl-figure':
+    'A figure is the whole image; each set of axes inside it is one chart with its own x and y axis. `plt.subplots(1, 2)` makes a figure with one row of two sets of axes.',
+  'mpl-show':
+    'In SE-Viz, `plt.show()` draws every open figure into the output and then closes it, so the next plotting call starts a new figure.',
   'pd-read':
     '`pd.read_csv` reads a CSV file into a DataFrame: a table with one row per line of data and one column per header name. Each column gets one dtype, and an empty cell becomes a missing value, `NaN`.',
   'pd-create':

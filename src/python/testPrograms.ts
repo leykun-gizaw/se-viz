@@ -302,3 +302,243 @@ export const EXTRA_PROGRAMS: { name: string; request: RunRequest }[] = [
     },
   },
 ];
+
+/**
+ * Phase 36: an offline stand-in for matplotlib, installed into `sys.modules` (untraced, as the
+ * worker imports the real one) before {@link MATPLOTLIB_STANDIN_PROGRAMS} run. It has just what the
+ * recorder uses — `pyplot` (`show`, `figure`, `get_fignums`, `close`, `switch_backend`, …),
+ * `rcdefaults` / `rc_context`, `Figure` (`savefig`, `get_size_inches`, `get_axes`,
+ * `get_suptitle`, `show`) and `Axes` (the chart calls, titles, labels, a legend) — and a figure's
+ * `savefig` writes as many bytes as the program asks (`fig.svg_bytes`, `fig.png_bytes`), so the
+ * recorder's SVG / PNG / "too large" choice, the 6-figure cap and end-of-run capture are exercised
+ * on every `npm test`. The real matplotlib recordings come from `npm run py:record-packages`.
+ */
+export const MATPLOTLIB_STANDIN = String.raw`
+import contextlib, sys, types, warnings
+
+mpl = types.ModuleType("matplotlib")
+mpl.__path__ = []
+mpl.rcParams = {}
+log = []  # (figure number, format) for each savefig call
+
+def rcdefaults():
+    mpl.rcParams.clear()
+    log.append(("rcdefaults", None))
+
+@contextlib.contextmanager
+def rc_context(params):
+    old = dict(mpl.rcParams)
+    mpl.rcParams.update(params)
+    try:
+        yield
+    finally:
+        mpl.rcParams.clear()
+        mpl.rcParams.update(old)
+
+mpl.rcdefaults = rcdefaults
+mpl.rc_context = rc_context
+mpl.get_backend = lambda: "agg"
+mpl.log = log
+
+class Legend:
+    def __init__(self, labels):
+        self.labels = labels
+    def get_texts(self):
+        return [types.SimpleNamespace(get_text=(lambda t=t: t)) for t in self.labels]
+
+class Axes:
+    def __init__(self, fig):
+        self.figure = fig
+        self.text = {"title": "", "xlabel": "", "ylabel": ""}
+        self.legend_ = None
+    def plot(self, *args, **kwargs):
+        return []
+    def scatter(self, *args, **kwargs):
+        return None
+    def bar(self, *args, **kwargs):
+        return None
+    def hist(self, values, bins=10, **kwargs):
+        self.bar(values, values)  # like matplotlib: a histogram is drawn with bars
+        return None
+    def pie(self, *args, **kwargs):
+        return None
+    def set_title(self, t):
+        self.text["title"] = t
+    def set_xlabel(self, t):
+        self.text["xlabel"] = t
+    def set_ylabel(self, t):
+        self.text["ylabel"] = t
+    def get_title(self):
+        return self.text["title"]
+    def get_xlabel(self):
+        return self.text["xlabel"]
+    def get_ylabel(self):
+        return self.text["ylabel"]
+    def legend(self, labels):
+        self.legend_ = Legend(labels)
+    def get_legend(self):
+        return self.legend_
+
+class Figure:
+    def __init__(self, number, figsize=(6.4, 4.8)):
+        self.number = number
+        self.size = figsize
+        self.axes_ = []
+        self.sup = ""
+        self.svg_bytes = 600
+        self.png_bytes = 300
+        self.fail = False
+    def get_size_inches(self):
+        return self.size
+    def get_axes(self):
+        return list(self.axes_)
+    def get_suptitle(self):
+        return self.sup
+    def suptitle(self, t):
+        self.sup = t
+    def add_axes(self):
+        ax = Axes(self)
+        self.axes_.append(ax)
+        return ax
+    def savefig(self, buf, format=None, dpi=None, metadata=None):
+        log.append((self.number, format if format != "svg" else "svg:" + str(mpl.rcParams.get("svg.fonttype"))))
+        warnings.warn("stand-in rendering warning")  # must not reach the program's output
+        if self.fail:
+            raise ValueError("cannot draw")
+        if format == "svg":
+            head = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d"><rect width="4" height="4"/><!--' % (self.size[0] * 72, self.size[1] * 72)
+            tail = "--></svg>"
+            buf.write((head + "x" * max(0, self.svg_bytes - len(head) - len(tail)) + tail).encode())
+        else:
+            buf.write(b"\x89PNG" + b"0" * max(0, self.png_bytes - 4))
+    def show(self):
+        print("the stand-in's own Figure.show ran")
+
+for k in (Legend, Axes):
+    k.__module__ = "matplotlib.axes"
+Figure.__module__ = "matplotlib.figure"
+
+plt = types.ModuleType("matplotlib.pyplot")
+figs = {}
+current = [None]
+
+def figure(num=None, figsize=(6.4, 4.8)):
+    if num is not None and num in figs:
+        current[0] = figs[num]
+        return figs[num]
+    n = num if num is not None else (max(figs) + 1 if figs else 1)
+    f = Figure(n, figsize)
+    figs[n] = f
+    current[0] = f
+    return f
+
+def gcf():
+    return current[0] if current[0] is not None and current[0].number in figs else figure()
+
+def gca():
+    f = gcf()
+    return f.axes_[0] if f.axes_ else f.add_axes()
+
+def subplots(nrows=1, ncols=1, figsize=(6.4, 4.8)):
+    f = figure(figsize=figsize)
+    axs = [f.add_axes() for _ in range(nrows * ncols)]
+    return f, (axs[0] if len(axs) == 1 else axs)
+
+def close(which=None):
+    if which is None or which == "all":
+        figs.clear()
+        current[0] = None
+    else:
+        figs.pop(which.number, None)
+
+def show():
+    print("the stand-in's own show ran")
+
+plt.figure = figure
+plt.gcf = gcf
+plt.gca = gca
+plt.subplots = subplots
+plt.close = close
+plt.show = show
+plt.get_fignums = lambda: sorted(figs)
+plt.switch_backend = lambda name: None
+plt.plot = lambda *a, **k: gca().plot(*a, **k)
+plt.scatter = lambda *a, **k: gca().scatter(*a, **k)
+plt.bar = lambda *a, **k: gca().bar(*a, **k)
+plt.hist = lambda *a, **k: gca().hist(*a, **k)
+plt.title = lambda t: gca().set_title(t)
+plt.xlabel = lambda t: gca().set_xlabel(t)
+plt.ylabel = lambda t: gca().set_ylabel(t)
+
+axes_mod = types.ModuleType("matplotlib.axes")
+axes_mod.Axes = Axes
+figure_mod = types.ModuleType("matplotlib.figure")
+figure_mod.Figure = Figure
+mpl.pyplot = plt
+mpl.axes = axes_mod
+mpl.figure = figure_mod
+sys.modules.update({
+    "matplotlib": mpl,
+    "matplotlib.pyplot": plt,
+    "matplotlib.axes": axes_mod,
+    "matplotlib.figure": figure_mod,
+})
+`;
+
+/** Phase 36: programs run against {@link MATPLOTLIB_STANDIN}. */
+export const MATPLOTLIB_STANDIN_PROGRAMS: { name: string; request: RunRequest }[] = [
+  {
+    // Every format choice, the 6-figure cap, Figure.show, and a figure that fails to draw.
+    name: 'extra-matplotlib-standin',
+    request: {
+      source: [
+        'import matplotlib.pyplot as plt',
+        'small = plt.figure()',
+        'plt.plot([1, 2, 3])',
+        'plt.title("small")',
+        'plt.show()',
+        'big = plt.figure()',
+        'big.svg_bytes = 400 * 1024',
+        'big.png_bytes = 2000',
+        'plt.hist([1, 2, 2, 3])',
+        'huge = plt.figure(figsize=(40, 40))',
+        'huge.svg_bytes = 400 * 1024',
+        'heavy = plt.figure()',
+        'heavy.svg_bytes = 400 * 1024',
+        'heavy.png_bytes = 400 * 1024',
+        'plt.show()',
+        'broken = plt.figure()',
+        'broken.fail = True',
+        'broken.show()',
+        'for i in range(3):',
+        '    fig, ax = plt.subplots()',
+        '    ax.scatter([i], [i])',
+        '    ax.set_xlabel("x")',
+        '    plt.show()',
+        'print("done")',
+        '',
+      ].join('\n'),
+    },
+  },
+  {
+    // Figures still open at the end, two axes with a legend and a suptitle, and a function call.
+    name: 'extra-matplotlib-end',
+    request: {
+      source: [
+        'import matplotlib.pyplot as plt',
+        'def draw(values):',
+        '    plt.bar(["a", "b"], values)',
+        '    plt.ylabel("kg")',
+        'fig, (left, right) = plt.subplots(1, 2)',
+        'left.plot([1, 2])',
+        'left.legend(["rain"])',
+        'right.pie([1, 2])',
+        'fig.suptitle("Two charts")',
+        'draw([3, 4])',
+        'plt.figure()',
+        'plt.bar(["c"], [5])',
+        '',
+      ].join('\n'),
+    },
+  },
+];

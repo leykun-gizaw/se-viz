@@ -808,6 +808,57 @@ export interface Trace {
    * absent. See {@link PyStatement}.
    */
   statements?: Record<string, PyStatement>;
+  /**
+   * Python only (Phase 36, additive): the matplotlib figures the run produced, in capture order.
+   * Each belongs to the step that produced it ({@link TraceFigure.step}) and is output of that step
+   * and every later one, as `stdout` is: stepping back past it hides it ({@link
+   * import('./figures.ts').figuresAt}). Absent when the run made no figure.
+   */
+  figures?: TraceFigure[];
+}
+
+/* ───────────────────────── matplotlib figures (Phase 36, additive) ───────────────────────── */
+
+/** An `Axes` method whose use names a chart type (`hist` counts as `hist`, not the `bar` it draws). */
+export type ChartKind = 'plot' | 'scatter' | 'bar' | 'barh' | 'hist' | 'pie' | 'boxplot';
+
+/** One set of axes in a figure, as recorded. */
+export interface FigureAxesInfo {
+  /** Chart calls made on these axes, in first-call order. */
+  kinds: ChartKind[];
+  title: string | null;
+  xlabel: string | null;
+  ylabel: string | null;
+  /** The legend's entries, or `null` when the axes have no legend. */
+  legend: string[] | null;
+}
+
+/** A matplotlib figure as step output (Phase 36). */
+export interface TraceFigure {
+  /** `fig1`, `fig2`, … in capture order. Unique within the trace. */
+  id: string;
+  /** Index of the step that produced it (the step whose line showed it, or the last step). */
+  step: number;
+  /** matplotlib's figure number. */
+  number: number;
+  /** `show`: `plt.show()` / `fig.show()`; `end`: still open when the program ended. */
+  trigger: 'show' | 'end';
+  /** The `suptitle`, else the title of a figure's only axes. */
+  title: string | null;
+  /** Size in inches. */
+  width: number;
+  height: number;
+  axes: FigureAxesInfo[];
+  /**
+   * `svg`: {@link TraceFigure.data} is raw SVG text — **untrusted: sanitize before display**;
+   * `png`: a `data:image/png;base64,` URL; `none`: no image, see {@link TraceFigure.reason}.
+   */
+  format: 'svg' | 'png' | 'none';
+  /** The image's size in bytes, or the size that was too large; `null` when nothing was rendered. */
+  bytes: number | null;
+  data?: string;
+  /** Why there is no image: over the size caps, past the 6-figure cap, or rendering failed. */
+  reason?: 'too-large' | 'cap' | 'error';
 }
 
 /* ───────────────────────── Concept views (Phase 11, additive) ─────────────────────────

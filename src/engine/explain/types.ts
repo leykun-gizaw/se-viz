@@ -17,7 +17,8 @@ export type ChangeKind =
   | 'declare' // a new variable appeared in a frame that already existed
   | 'output' // the program printed something
   | 'add' // Python (Phase 32): an item, key or attribute was added inside an object
-  | 'remove'; // Python (Phase 32): an item, key, attribute or name was removed
+  | 'remove' // Python (Phase 32): an item, key, attribute or name was removed
+  | 'figure'; // Python (Phase 36): the step produced a matplotlib figure
 
 /** One "What changed" row. `from`/`to` are present for value-like changes. */
 export interface ChangeRow {

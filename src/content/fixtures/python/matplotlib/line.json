@@ -1,0 +1,1407 @@
+{
+ "id": "python-matplotlib-line",
+ "title": "matplotlib: a line chart",
+ "file": "line.py",
+ "language": "python",
+ "source": "import matplotlib.pyplot as plt\n\nmonths = [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"]\nrain_mm = [42, 55, 80, 120, 95, 60]\n\nplt.plot(months, rain_mm, marker=\"o\")\nplt.title(\"Rainfall by month\")\nplt.xlabel(\"Month\")\nplt.ylabel(\"Rainfall (mm)\")\nplt.show()\nprint(\"Wettest month:\", months[rain_mm.index(max(rain_mm))])\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Imported plt.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "months now refers to a new list.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "rain_mm now refers to a new list.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.rain_mm",
+       "name": "rain_mm",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "42"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "55"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "120"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "95"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "60"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Drew a line plot of rain_mm against months on the current axes.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.rain_mm",
+       "name": "rain_mm",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "42"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "55"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "120"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "95"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "60"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Set the title of the current axes to \"Rainfall by month\".",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 8
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.rain_mm",
+       "name": "rain_mm",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "42"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "55"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "120"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "95"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "60"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "Set the x-axis label of the current axes to \"Month\".",
+   "highlightedLines": [
+    8
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 9
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.rain_mm",
+       "name": "rain_mm",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "42"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "55"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "120"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "95"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "60"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-6",
+   "index": 6,
+   "narration": "Set the y-axis label of the current axes to \"Rainfall (mm)\".",
+   "highlightedLines": [
+    9
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 10
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.rain_mm",
+       "name": "rain_mm",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "42"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "55"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "120"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "95"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "60"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-7",
+   "index": 7,
+   "narration": "Figure 1 is in the output: a line plot titled Rainfall by month, with the x axis labelled Month and the y axis Rainfall (mm).",
+   "highlightedLines": [
+    10
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 11
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.rain_mm",
+       "name": "rain_mm",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "42"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "55"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "120"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "95"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "60"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-8",
+   "index": 8,
+   "narration": "Printed Wettest month: Apr.",
+   "highlightedLines": [
+    11
+   ],
+   "stdout": [
+    "Wettest month: Apr"
+   ],
+   "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 11,
+    "function": "<module>"
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.months",
+       "name": "months",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.rain_mm",
+       "name": "rain_mm",
+       "type": "list",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'Jan'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'Feb'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'Mar'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'Apr'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'May'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[5]",
+       "name": "5",
+       "type": "str",
+       "value": "'Jun'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "int",
+       "value": "42"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "int",
+       "value": "55"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[2]",
+       "name": "2",
+       "type": "int",
+       "value": "80"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[3]",
+       "name": "3",
+       "type": "int",
+       "value": "120"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[4]",
+       "name": "4",
+       "type": "int",
+       "value": "95"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[5]",
+       "name": "5",
+       "type": "int",
+       "value": "60"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  }
+ ],
+ "statements": {
+  "1": {
+   "kind": "Import",
+   "line": 1,
+   "end": 1,
+   "names": [
+    "plt"
+   ]
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "months"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "'Jan'",
+      "src": "\"Jan\""
+     },
+     {
+      "type": "const",
+      "repr": "'Feb'",
+      "src": "\"Feb\""
+     },
+     {
+      "type": "const",
+      "repr": "'Mar'",
+      "src": "\"Mar\""
+     },
+     {
+      "type": "const",
+      "repr": "'Apr'",
+      "src": "\"Apr\""
+     },
+     {
+      "type": "const",
+      "repr": "'May'",
+      "src": "\"May\""
+     },
+     {
+      "type": "const",
+      "repr": "'Jun'",
+      "src": "\"Jun\""
+     }
+    ],
+    "src": "[\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\"]"
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "name",
+     "id": "rain_mm"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "42"
+     },
+     {
+      "type": "const",
+      "repr": "55"
+     },
+     {
+      "type": "const",
+      "repr": "80"
+     },
+     {
+      "type": "const",
+      "repr": "120"
+     },
+     {
+      "type": "const",
+      "repr": "95"
+     },
+     {
+      "type": "const",
+      "repr": "60"
+     }
+    ],
+    "src": "[42, 55, 80, 120, 95, 60]"
+   }
+  },
+  "6": {
+   "kind": "Expr",
+   "line": 6,
+   "end": 6,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plt"
+     },
+     "attr": "plot",
+     "src": "plt.plot"
+    },
+    "args": [
+     {
+      "type": "name",
+      "id": "months"
+     },
+     {
+      "type": "name",
+      "id": "rain_mm"
+     }
+    ],
+    "keywords": [
+     "marker"
+    ],
+    "kwargs": [
+     {
+      "name": "marker",
+      "value": {
+       "type": "const",
+       "repr": "'o'",
+       "src": "\"o\""
+      }
+     }
+    ],
+    "src": "plt.plot(months, rain_mm, marker=\"o\")"
+   }
+  },
+  "7": {
+   "kind": "Expr",
+   "line": 7,
+   "end": 7,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plt"
+     },
+     "attr": "title",
+     "src": "plt.title"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Rainfall by month'",
+      "src": "\"Rainfall by month\""
+     }
+    ],
+    "src": "plt.title(\"Rainfall by month\")"
+   }
+  },
+  "8": {
+   "kind": "Expr",
+   "line": 8,
+   "end": 8,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plt"
+     },
+     "attr": "xlabel",
+     "src": "plt.xlabel"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Month'",
+      "src": "\"Month\""
+     }
+    ],
+    "src": "plt.xlabel(\"Month\")"
+   }
+  },
+  "9": {
+   "kind": "Expr",
+   "line": 9,
+   "end": 9,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plt"
+     },
+     "attr": "ylabel",
+     "src": "plt.ylabel"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Rainfall (mm)'",
+      "src": "\"Rainfall (mm)\""
+     }
+    ],
+    "src": "plt.ylabel(\"Rainfall (mm)\")"
+   }
+  },
+  "10": {
+   "kind": "Expr",
+   "line": 10,
+   "end": 10,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plt"
+     },
+     "attr": "show",
+     "src": "plt.show"
+    },
+    "args": [],
+    "src": "plt.show()"
+   }
+  },
+  "11": {
+   "kind": "Expr",
+   "line": 11,
+   "end": 11,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "print"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Wettest month:'",
+      "src": "\"Wettest month:\""
+     },
+     {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "months"
+      },
+      "index": {
+       "type": "call",
+       "func": {
+        "type": "attribute",
+        "value": {
+         "type": "name",
+         "id": "rain_mm"
+        },
+        "attr": "index",
+        "src": "rain_mm.index"
+       },
+       "args": [
+        {
+         "type": "call",
+         "func": {
+          "type": "name",
+          "id": "max"
+         },
+         "args": [
+          {
+           "type": "name",
+           "id": "rain_mm"
+          }
+         ],
+         "src": "max(rain_mm)"
+        }
+       ],
+       "src": "rain_mm.index(max(rain_mm))"
+      },
+      "src": "months[rain_mm.index(max(rain_mm))]"
+     }
+    ],
+    "src": "print(\"Wettest month:\", months[rain_mm.index(max(rain_mm))])"
+   }
+  }
+ },
+ "figures": [
+  {
+   "id": "fig1",
+   "step": 7,
+   "number": 1,
+   "trigger": "show",
+   "title": "Rainfall by month",
+   "width": 6.4,
+   "height": 4.8,
+   "axes": [
+    {
+     "kinds": [
+      "plot"
+     ],
+     "title": "Rainfall by month",
+     "xlabel": "Month",
+     "ylabel": "Rainfall (mm)",
+     "legend": null
+    }
+   ],
+   "format": "svg",
+   "bytes": 12344,
+   "data": "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"460.8pt\" height=\"345.6pt\" viewBox=\"0 0 460.8 345.6\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n <defs>\n  <style type=\"text/css\">*{stroke-linejoin: round; stroke-linecap: butt}</style>\n </defs>\n <g id=\"figure_1\">\n  <g id=\"patch_1\">\n   <path d=\"M 0 345.6 \nL 460.8 345.6 \nL 460.8 0 \nL 0 0 \nz\n\" style=\"fill: #ffffff\"/>\n  </g>\n  <g id=\"axes_1\">\n   <g id=\"patch_2\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \nL 414.72 41.472 \nL 57.6 41.472 \nz\n\" style=\"fill: #ffffff\"/>\n   </g>\n   <g id=\"matplotlib.axis_1\">\n    <g id=\"xtick_1\">\n     <g id=\"line2d_1\">\n      <defs>\n       <path id=\"m388f9e0eb3\" d=\"M 0 0 \nL 0 3.5 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"73.832727\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_1\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"73.832727\" y=\"322.182437\" transform=\"rotate(-0 73.832727 322.182437)\">Jan</text>\n     </g>\n    </g>\n    <g id=\"xtick_2\">\n     <g id=\"line2d_2\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"138.763636\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_2\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"138.763636\" y=\"322.182437\" transform=\"rotate(-0 138.763636 322.182437)\">Feb</text>\n     </g>\n    </g>\n    <g id=\"xtick_3\">\n     <g id=\"line2d_3\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"203.694545\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_3\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"203.694545\" y=\"322.182437\" transform=\"rotate(-0 203.694545 322.182437)\">Mar</text>\n     </g>\n    </g>\n    <g id=\"xtick_4\">\n     <g id=\"line2d_4\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"268.625455\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_4\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"268.625455\" y=\"322.182437\" transform=\"rotate(-0 268.625455 322.182437)\">Apr</text>\n     </g>\n    </g>\n    <g id=\"xtick_5\">\n     <g id=\"line2d_5\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"333.556364\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_5\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"333.556364\" y=\"322.182437\" transform=\"rotate(-0 333.556364 322.182437)\">May</text>\n     </g>\n    </g>\n    <g id=\"xtick_6\">\n     <g id=\"line2d_6\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"398.487273\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_6\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"398.487273\" y=\"322.182437\" transform=\"rotate(-0 398.487273 322.182437)\">Jun</text>\n     </g>\n    </g>\n    <g id=\"text_7\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"335.860562\" transform=\"rotate(-0 236.16 335.860562)\">Month</text>\n    </g>\n   </g>\n   <g id=\"matplotlib.axis_2\">\n    <g id=\"ytick_1\">\n     <g id=\"line2d_7\">\n      <defs>\n       <path id=\"md3de9cf98b\" d=\"M 0 0 \nL -3.5 0 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"301.691077\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_8\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"305.490296\" transform=\"rotate(-0 50.6 305.490296)\">40</text>\n     </g>\n    </g>\n    <g id=\"ytick_2\">\n     <g id=\"line2d_8\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"270.675692\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_9\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"274.474911\" transform=\"rotate(-0 50.6 274.474911)\">50</text>\n     </g>\n    </g>\n    <g id=\"ytick_3\">\n     <g id=\"line2d_9\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"239.660308\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_10\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"243.459526\" transform=\"rotate(-0 50.6 243.459526)\">60</text>\n     </g>\n    </g>\n    <g id=\"ytick_4\">\n     <g id=\"line2d_10\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"208.644923\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_11\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"212.444142\" transform=\"rotate(-0 50.6 212.444142)\">70</text>\n     </g>\n    </g>\n    <g id=\"ytick_5\">\n     <g id=\"line2d_11\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"177.629538\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_12\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"181.428757\" transform=\"rotate(-0 50.6 181.428757)\">80</text>\n     </g>\n    </g>\n    <g id=\"ytick_6\">\n     <g id=\"line2d_12\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"146.614154\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_13\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"150.413373\" transform=\"rotate(-0 50.6 150.413373)\">90</text>\n     </g>\n    </g>\n    <g id=\"ytick_7\">\n     <g id=\"line2d_13\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"115.598769\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_14\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"119.397988\" transform=\"rotate(-0 50.6 119.397988)\">100</text>\n     </g>\n    </g>\n    <g id=\"ytick_8\">\n     <g id=\"line2d_14\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"84.583385\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_15\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"88.382603\" transform=\"rotate(-0 50.6 88.382603)\">110</text>\n     </g>\n    </g>\n    <g id=\"ytick_9\">\n     <g id=\"line2d_15\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"53.568\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_16\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"57.367219\" transform=\"rotate(-0 50.6 57.367219)\">120</text>\n     </g>\n    </g>\n    <g id=\"text_17\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"25.432813\" y=\"174.528\" transform=\"rotate(-90 25.432813 174.528)\">Rainfall (mm)</text>\n    </g>\n   </g>\n   <g id=\"line2d_16\">\n    <path d=\"M 73.832727 295.488 \nL 138.763636 255.168 \nL 203.694545 177.629538 \nL 268.625455 53.568 \nL 333.556364 131.106462 \nL 398.487273 239.660308 \n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square\"/>\n    <defs>\n     <path id=\"m1fd14dfd5b\" d=\"M 0 3 \nC 0.795609 3 1.55874 2.683901 2.12132 2.12132 \nC 2.683901 1.55874 3 0.795609 3 0 \nC 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 \nC 1.55874 -2.683901 0.795609 -3 0 -3 \nC -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 \nC -2.683901 -1.55874 -3 -0.795609 -3 0 \nC -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 \nC -1.55874 2.683901 -0.795609 3 0 3 \nz\n\" style=\"stroke: #1f77b4\"/>\n    </defs>\n    <g clip-path=\"url(#p2c4a7be6aa)\">\n     <use xlink:href=\"#m1fd14dfd5b\" x=\"73.832727\" y=\"295.488\" style=\"fill: #1f77b4; stroke: #1f77b4\"/>\n     <use xlink:href=\"#m1fd14dfd5b\" x=\"138.763636\" y=\"255.168\" style=\"fill: #1f77b4; stroke: #1f77b4\"/>\n     <use xlink:href=\"#m1fd14dfd5b\" x=\"203.694545\" y=\"177.629538\" style=\"fill: #1f77b4; stroke: #1f77b4\"/>\n     <use xlink:href=\"#m1fd14dfd5b\" x=\"268.625455\" y=\"53.568\" style=\"fill: #1f77b4; stroke: #1f77b4\"/>\n     <use xlink:href=\"#m1fd14dfd5b\" x=\"333.556364\" y=\"131.106462\" style=\"fill: #1f77b4; stroke: #1f77b4\"/>\n     <use xlink:href=\"#m1fd14dfd5b\" x=\"398.487273\" y=\"239.660308\" style=\"fill: #1f77b4; stroke: #1f77b4\"/>\n    </g>\n   </g>\n   <g id=\"patch_3\">\n    <path d=\"M 57.6 307.584 \nL 57.6 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_4\">\n    <path d=\"M 414.72 307.584 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_5\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_6\">\n    <path d=\"M 57.6 41.472 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"text_18\">\n    <text style=\"font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"35.472\" transform=\"rotate(-0 236.16 35.472)\">Rainfall by month</text>\n   </g>\n  </g>\n </g>\n <defs>\n  <clipPath id=\"p2c4a7be6aa\">\n   <rect x=\"57.6\" y=\"41.472\" width=\"357.12\" height=\"266.112\"/>\n  </clipPath>\n </defs>\n</svg>\n"
+  }
+ ]
+}

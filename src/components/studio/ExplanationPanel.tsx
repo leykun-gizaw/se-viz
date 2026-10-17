@@ -110,6 +110,7 @@ const KIND_META: Record<ChangeKind, [label: string, tone: string]> = {
   output: ['output', NEUTRAL],
   add: ['added', 'border-changed/50 text-changed'],
   remove: ['removed', NEUTRAL],
+  figure: ['figure', 'border-pointer/50 text-pointer'],
 };
 
 /** A muted note paragraph. */

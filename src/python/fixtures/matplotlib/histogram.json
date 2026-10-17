@@ -1,0 +1,1455 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "plt"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "weights"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "src": "[3.1, 3.4, 2.9, 3.8, 3.3, 3.6, 4.0, 3.2, 3.5, 2.7, 3.9, 3.4, 3.0, 3.7, 3.3, 3.6]"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 5,
+    "end": 5,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "hist",
+      "src": "plt.hist"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "weights"
+      }
+     ],
+     "keywords": [
+      "bins",
+      "edgecolor"
+     ],
+     "kwargs": [
+      {
+       "name": "bins",
+       "value": {
+        "type": "const",
+        "repr": "4"
+       }
+      },
+      {
+       "name": "edgecolor",
+       "value": {
+        "type": "const",
+        "repr": "'black'",
+        "src": "\"black\""
+       }
+      }
+     ],
+     "src": "plt.hist(weights, bins=4, edgecolor=\"black\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 6,
+    "end": 6,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "title",
+      "src": "plt.title"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Melon weights, 4 bins'",
+       "src": "\"Melon weights, 4 bins\""
+      }
+     ],
+     "src": "plt.title(\"Melon weights, 4 bins\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 7,
+    "end": 7,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "xlabel",
+      "src": "plt.xlabel"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Weight (kg)'",
+       "src": "\"Weight (kg)\""
+      }
+     ],
+     "src": "plt.xlabel(\"Weight (kg)\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 8,
+    "end": 8,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "show",
+      "src": "plt.show"
+     },
+     "args": [],
+     "src": "plt.show()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 10,
+    "end": 10,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "hist",
+      "src": "plt.hist"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "weights"
+      }
+     ],
+     "keywords": [
+      "bins",
+      "edgecolor",
+      "color"
+     ],
+     "kwargs": [
+      {
+       "name": "bins",
+       "value": {
+        "type": "const",
+        "repr": "8"
+       }
+      },
+      {
+       "name": "edgecolor",
+       "value": {
+        "type": "const",
+        "repr": "'black'",
+        "src": "\"black\""
+       }
+      },
+      {
+       "name": "color",
+       "value": {
+        "type": "const",
+        "repr": "'tab:purple'",
+        "src": "\"tab:purple\""
+       }
+      }
+     ],
+     "src": "plt.hist(weights, bins=8, edgecolor=\"black\", color=\"tab:purple\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig1",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "hist"
+       ],
+       "title": "Melon weights, 4 bins",
+       "xlabel": "Weight (kg)"
+      }
+     ],
+     "title": "Melon weights, 4 bins",
+     "format": "svg",
+     "bytes": 10414,
+     "data": "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"460.8pt\" height=\"345.6pt\" viewBox=\"0 0 460.8 345.6\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n <defs>\n  <style type=\"text/css\">*{stroke-linejoin: round; stroke-linecap: butt}</style>\n </defs>\n <g id=\"figure_1\">\n  <g id=\"patch_1\">\n   <path d=\"M 0 345.6 \nL 460.8 345.6 \nL 460.8 0 \nL 0 0 \nz\n\" style=\"fill: #ffffff\"/>\n  </g>\n  <g id=\"axes_1\">\n   <g id=\"patch_2\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \nL 414.72 41.472 \nL 57.6 41.472 \nz\n\" style=\"fill: #ffffff\"/>\n   </g>\n   <g id=\"patch_3\">\n    <path d=\"M 73.832727 307.584 \nL 154.996364 307.584 \nL 154.996364 155.52 \nL 73.832727 155.52 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #1f77b4; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_4\">\n    <path d=\"M 154.996364 307.584 \nL 236.16 307.584 \nL 236.16 104.832 \nL 154.996364 104.832 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #1f77b4; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_5\">\n    <path d=\"M 236.16 307.584 \nL 317.323636 307.584 \nL 317.323636 54.144 \nL 236.16 54.144 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #1f77b4; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_6\">\n    <path d=\"M 317.323636 307.584 \nL 398.487273 307.584 \nL 398.487273 104.832 \nL 317.323636 104.832 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #1f77b4; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"matplotlib.axis_1\">\n    <g id=\"xtick_1\">\n     <g id=\"line2d_1\">\n      <defs>\n       <path id=\"m388f9e0eb3\" d=\"M 0 0 \nL 0 3.5 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"98.806154\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_1\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"98.806154\" y=\"322.182437\" transform=\"rotate(-0 98.806154 322.182437)\">2.8</text>\n     </g>\n    </g>\n    <g id=\"xtick_2\">\n     <g id=\"line2d_2\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"148.753007\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_2\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"148.753007\" y=\"322.182437\" transform=\"rotate(-0 148.753007 322.182437)\">3.0</text>\n     </g>\n    </g>\n    <g id=\"xtick_3\">\n     <g id=\"line2d_3\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"198.69986\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_3\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"198.69986\" y=\"322.182437\" transform=\"rotate(-0 198.69986 322.182437)\">3.2</text>\n     </g>\n    </g>\n    <g id=\"xtick_4\">\n     <g id=\"line2d_4\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"248.646713\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_4\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"248.646713\" y=\"322.182437\" transform=\"rotate(-0 248.646713 322.182437)\">3.4</text>\n     </g>\n    </g>\n    <g id=\"xtick_5\">\n     <g id=\"line2d_5\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"298.593566\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_5\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"298.593566\" y=\"322.182437\" transform=\"rotate(-0 298.593566 322.182437)\">3.6</text>\n     </g>\n    </g>\n    <g id=\"xtick_6\">\n     <g id=\"line2d_6\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"348.54042\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_6\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"348.54042\" y=\"322.182437\" transform=\"rotate(-0 348.54042 322.182437)\">3.8</text>\n     </g>\n    </g>\n    <g id=\"xtick_7\">\n     <g id=\"line2d_7\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"398.487273\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_7\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"398.487273\" y=\"322.182437\" transform=\"rotate(-0 398.487273 322.182437)\">4.0</text>\n     </g>\n    </g>\n    <g id=\"text_8\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"335.860562\" transform=\"rotate(-0 236.16 335.860562)\">Weight (kg)</text>\n    </g>\n   </g>\n   <g id=\"matplotlib.axis_2\">\n    <g id=\"ytick_1\">\n     <g id=\"line2d_8\">\n      <defs>\n       <path id=\"md3de9cf98b\" d=\"M 0 0 \nL -3.5 0 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_9\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"311.383219\" transform=\"rotate(-0 50.6 311.383219)\">0</text>\n     </g>\n    </g>\n    <g id=\"ytick_2\">\n     <g id=\"line2d_9\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"256.896\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_10\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"260.695219\" transform=\"rotate(-0 50.6 260.695219)\">1</text>\n     </g>\n    </g>\n    <g id=\"ytick_3\">\n     <g id=\"line2d_10\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"206.208\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_11\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"210.007219\" transform=\"rotate(-0 50.6 210.007219)\">2</text>\n     </g>\n    </g>\n    <g id=\"ytick_4\">\n     <g id=\"line2d_11\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"155.52\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_12\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"159.319219\" transform=\"rotate(-0 50.6 159.319219)\">3</text>\n     </g>\n    </g>\n    <g id=\"ytick_5\">\n     <g id=\"line2d_12\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"104.832\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_13\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"108.631219\" transform=\"rotate(-0 50.6 108.631219)\">4</text>\n     </g>\n    </g>\n    <g id=\"ytick_6\">\n     <g id=\"line2d_13\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"54.144\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_14\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"57.943219\" transform=\"rotate(-0 50.6 57.943219)\">5</text>\n     </g>\n    </g>\n   </g>\n   <g id=\"patch_7\">\n    <path d=\"M 57.6 307.584 \nL 57.6 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_8\">\n    <path d=\"M 414.72 307.584 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_9\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_10\">\n    <path d=\"M 57.6 41.472 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"text_15\">\n    <text style=\"font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"35.472\" transform=\"rotate(-0 236.16 35.472)\">Melon weights, 4 bins</text>\n   </g>\n  </g>\n </g>\n <defs>\n  <clipPath id=\"p2c4a7be6aa\">\n   <rect x=\"57.6\" y=\"41.472\" width=\"357.12\" height=\"266.112\"/>\n  </clipPath>\n </defs>\n</svg>\n"
+    }
+   ]
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 11,
+    "end": 11,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "title",
+      "src": "plt.title"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Melon weights, 8 bins'",
+       "src": "\"Melon weights, 8 bins\""
+      }
+     ],
+     "src": "plt.title(\"Melon weights, 8 bins\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 12,
+    "end": 12,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "xlabel",
+      "src": "plt.xlabel"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Weight (kg)'",
+       "src": "\"Weight (kg)\""
+      }
+     ],
+     "src": "plt.xlabel(\"Weight (kg)\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 13,
+    "end": 13,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "ylabel",
+      "src": "plt.ylabel"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Melons'",
+       "src": "\"Melons\""
+      }
+     ],
+     "src": "plt.ylabel(\"Melons\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 14,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 14,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 14,
+    "end": 14,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "show",
+      "src": "plt.show"
+     },
+     "args": [],
+     "src": "plt.show()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 14,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 14,
+     "vars": [
+      {
+       "name": "weights",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.1"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.8"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.2"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.9"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.4"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.7"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.3"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.6"
+      }
+     ]
+    }
+   },
+   "stdout": "",
+   "figures": [
+    {
+     "id": "fig2",
+     "number": 1,
+     "trigger": "show",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "hist"
+       ],
+       "title": "Melon weights, 8 bins",
+       "xlabel": "Weight (kg)",
+       "ylabel": "Melons"
+      }
+     ],
+     "title": "Melon weights, 8 bins",
+     "format": "svg",
+     "bytes": 12213,
+     "data": "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"460.8pt\" height=\"345.6pt\" viewBox=\"0 0 460.8 345.6\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n <defs>\n  <style type=\"text/css\">*{stroke-linejoin: round; stroke-linecap: butt}</style>\n </defs>\n <g id=\"figure_1\">\n  <g id=\"patch_1\">\n   <path d=\"M 0 345.6 \nL 460.8 345.6 \nL 460.8 0 \nL 0 0 \nz\n\" style=\"fill: #ffffff\"/>\n  </g>\n  <g id=\"axes_1\">\n   <g id=\"patch_2\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \nL 414.72 41.472 \nL 57.6 41.472 \nz\n\" style=\"fill: #ffffff\"/>\n   </g>\n   <g id=\"patch_3\">\n    <path d=\"M 73.832727 307.584 \nL 114.414545 307.584 \nL 114.414545 223.104 \nL 73.832727 223.104 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_4\">\n    <path d=\"M 114.414545 307.584 \nL 154.996364 307.584 \nL 154.996364 138.624 \nL 114.414545 138.624 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_5\">\n    <path d=\"M 154.996364 307.584 \nL 195.578182 307.584 \nL 195.578182 223.104 \nL 154.996364 223.104 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_6\">\n    <path d=\"M 195.578182 307.584 \nL 236.16 307.584 \nL 236.16 54.144 \nL 195.578182 54.144 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_7\">\n    <path d=\"M 236.16 307.584 \nL 276.741818 307.584 \nL 276.741818 54.144 \nL 236.16 54.144 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_8\">\n    <path d=\"M 276.741818 307.584 \nL 317.323636 307.584 \nL 317.323636 138.624 \nL 276.741818 138.624 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_9\">\n    <path d=\"M 317.323636 307.584 \nL 357.905455 307.584 \nL 357.905455 138.624 \nL 317.323636 138.624 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"patch_10\">\n    <path d=\"M 357.905455 307.584 \nL 398.487273 307.584 \nL 398.487273 138.624 \nL 357.905455 138.624 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #9467bd; stroke: #000000; stroke-linejoin: miter\"/>\n   </g>\n   <g id=\"matplotlib.axis_1\">\n    <g id=\"xtick_1\">\n     <g id=\"line2d_1\">\n      <defs>\n       <path id=\"m388f9e0eb3\" d=\"M 0 0 \nL 0 3.5 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"98.806154\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_1\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"98.806154\" y=\"322.182437\" transform=\"rotate(-0 98.806154 322.182437)\">2.8</text>\n     </g>\n    </g>\n    <g id=\"xtick_2\">\n     <g id=\"line2d_2\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"148.753007\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_2\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"148.753007\" y=\"322.182437\" transform=\"rotate(-0 148.753007 322.182437)\">3.0</text>\n     </g>\n    </g>\n    <g id=\"xtick_3\">\n     <g id=\"line2d_3\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"198.69986\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_3\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"198.69986\" y=\"322.182437\" transform=\"rotate(-0 198.69986 322.182437)\">3.2</text>\n     </g>\n    </g>\n    <g id=\"xtick_4\">\n     <g id=\"line2d_4\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"248.646713\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_4\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"248.646713\" y=\"322.182437\" transform=\"rotate(-0 248.646713 322.182437)\">3.4</text>\n     </g>\n    </g>\n    <g id=\"xtick_5\">\n     <g id=\"line2d_5\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"298.593566\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_5\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"298.593566\" y=\"322.182437\" transform=\"rotate(-0 298.593566 322.182437)\">3.6</text>\n     </g>\n    </g>\n    <g id=\"xtick_6\">\n     <g id=\"line2d_6\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"348.54042\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_6\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"348.54042\" y=\"322.182437\" transform=\"rotate(-0 348.54042 322.182437)\">3.8</text>\n     </g>\n    </g>\n    <g id=\"xtick_7\">\n     <g id=\"line2d_7\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"398.487273\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_7\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"398.487273\" y=\"322.182437\" transform=\"rotate(-0 398.487273 322.182437)\">4.0</text>\n     </g>\n    </g>\n    <g id=\"text_8\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"335.860562\" transform=\"rotate(-0 236.16 335.860562)\">Weight (kg)</text>\n    </g>\n   </g>\n   <g id=\"matplotlib.axis_2\">\n    <g id=\"ytick_1\">\n     <g id=\"line2d_8\">\n      <defs>\n       <path id=\"md3de9cf98b\" d=\"M 0 0 \nL -3.5 0 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_9\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"311.383219\" transform=\"rotate(-0 50.6 311.383219)\">0.0</text>\n     </g>\n    </g>\n    <g id=\"ytick_2\">\n     <g id=\"line2d_9\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"265.344\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_10\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"269.143219\" transform=\"rotate(-0 50.6 269.143219)\">0.5</text>\n     </g>\n    </g>\n    <g id=\"ytick_3\">\n     <g id=\"line2d_10\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"223.104\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_11\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"226.903219\" transform=\"rotate(-0 50.6 226.903219)\">1.0</text>\n     </g>\n    </g>\n    <g id=\"ytick_4\">\n     <g id=\"line2d_11\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"180.864\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_12\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"184.663219\" transform=\"rotate(-0 50.6 184.663219)\">1.5</text>\n     </g>\n    </g>\n    <g id=\"ytick_5\">\n     <g id=\"line2d_12\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"138.624\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_13\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"142.423219\" transform=\"rotate(-0 50.6 142.423219)\">2.0</text>\n     </g>\n    </g>\n    <g id=\"ytick_6\">\n     <g id=\"line2d_13\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"96.384\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_14\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"100.183219\" transform=\"rotate(-0 50.6 100.183219)\">2.5</text>\n     </g>\n    </g>\n    <g id=\"ytick_7\">\n     <g id=\"line2d_14\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"54.144\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_15\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"57.943219\" transform=\"rotate(-0 50.6 57.943219)\">3.0</text>\n     </g>\n    </g>\n    <g id=\"text_16\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"28.617187\" y=\"174.528\" transform=\"rotate(-90 28.617187 174.528)\">Melons</text>\n    </g>\n   </g>\n   <g id=\"patch_11\">\n    <path d=\"M 57.6 307.584 \nL 57.6 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_12\">\n    <path d=\"M 414.72 307.584 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_13\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_14\">\n    <path d=\"M 57.6 41.472 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"text_17\">\n    <text style=\"font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"35.472\" transform=\"rotate(-0 236.16 35.472)\">Melon weights, 8 bins</text>\n   </g>\n  </g>\n </g>\n <defs>\n  <clipPath id=\"p2c4a7be6aa\">\n   <rect x=\"57.6\" y=\"41.472\" width=\"357.12\" height=\"266.112\"/>\n  </clipPath>\n </defs>\n</svg>\n"
+    }
+   ]
+  }
+ ],
+ "stdout": ""
+}

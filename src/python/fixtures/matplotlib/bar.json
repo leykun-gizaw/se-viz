@@ -1,0 +1,1401 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "plt"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "harvest"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "dict",
+     "src": "{}"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "For",
+    "line": 4,
+    "end": 5,
+    "target": {
+     "type": "display",
+     "of": "tuple",
+     "items": [
+      {
+       "type": "name",
+       "id": "crop"
+      },
+      {
+       "type": "name",
+       "id": "kg"
+      }
+     ],
+     "src": "crop, kg"
+    },
+    "iter": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "zip"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "'maize'",
+         "src": "\"maize\""
+        },
+        {
+         "type": "const",
+         "repr": "'beans'",
+         "src": "\"beans\""
+        },
+        {
+         "type": "const",
+         "repr": "'wheat'",
+         "src": "\"wheat\""
+        },
+        {
+         "type": "const",
+         "repr": "'sorghum'",
+         "src": "\"sorghum\""
+        }
+       ],
+       "src": "[\"maize\", \"beans\", \"wheat\", \"sorghum\"]"
+      },
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "1840"
+        },
+        {
+         "type": "const",
+         "repr": "920"
+        },
+        {
+         "type": "const",
+         "repr": "1310"
+        },
+        {
+         "type": "const",
+         "repr": "760"
+        }
+       ],
+       "src": "[1840, 920, 1310, 760]"
+      }
+     ],
+     "src": "zip([\"maize\", \"beans\", \"wheat\", \"sorghum\"], [1840, 920, 1310, 760])"
+    },
+    "body": {
+     "first": 5,
+     "last": 5
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "harvest"
+      },
+      "index": {
+       "type": "name",
+       "id": "crop"
+      },
+      "src": "harvest[crop]"
+     }
+    ],
+    "value": {
+     "type": "name",
+     "id": "kg"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 7,
+    "end": 7,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "bar",
+      "src": "plt.bar"
+     },
+     "args": [
+      {
+       "type": "call",
+       "func": {
+        "type": "name",
+        "id": "list"
+       },
+       "args": [
+        {
+         "type": "name",
+         "id": "harvest"
+        }
+       ],
+       "src": "list(harvest)"
+      },
+      {
+       "type": "call",
+       "func": {
+        "type": "name",
+        "id": "list"
+       },
+       "args": [
+        {
+         "type": "call",
+         "func": {
+          "type": "attribute",
+          "value": {
+           "type": "name",
+           "id": "harvest"
+          },
+          "attr": "values",
+          "src": "harvest.values"
+         },
+         "args": [],
+         "src": "harvest.values()"
+        }
+       ],
+       "src": "list(harvest.values())"
+      }
+     ],
+     "keywords": [
+      "color"
+     ],
+     "kwargs": [
+      {
+       "name": "color",
+       "value": {
+        "type": "const",
+        "repr": "'tab:orange'",
+        "src": "\"tab:orange\""
+       }
+      }
+     ],
+     "src": "plt.bar(list(harvest), list(harvest.values()), color=\"tab:orange\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 8,
+    "end": 8,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "title",
+      "src": "plt.title"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Harvest by crop'",
+       "src": "\"Harvest by crop\""
+      }
+     ],
+     "src": "plt.title(\"Harvest by crop\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 9,
+    "end": 9,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plt"
+      },
+      "attr": "ylabel",
+      "src": "plt.ylabel"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Harvest (kg)'",
+       "src": "\"Harvest (kg)\""
+      }
+     ],
+     "src": "plt.ylabel(\"Harvest (kg)\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 10,
+    "end": 10,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "print"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'Total:'",
+       "src": "\"Total:\""
+      },
+      {
+       "type": "call",
+       "func": {
+        "type": "name",
+        "id": "sum"
+       },
+       "args": [
+        {
+         "type": "call",
+         "func": {
+          "type": "attribute",
+          "value": {
+           "type": "name",
+           "id": "harvest"
+          },
+          "attr": "values",
+          "src": "harvest.values"
+         },
+         "args": [],
+         "src": "harvest.values()"
+        }
+       ],
+       "src": "sum(harvest.values())"
+      },
+      {
+       "type": "const",
+       "repr": "'kg'",
+       "src": "\"kg\""
+      }
+     ],
+     "src": "print(\"Total:\", sum(harvest.values()), \"kg\")"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "harvest",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "crop",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       }
+      },
+      {
+       "name": "kg",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'maize'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1840"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'beans'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "920"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'wheat'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1310"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sorghum'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "760"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": "Total: 4830 kg\n",
+   "figures": [
+    {
+     "id": "fig1",
+     "number": 1,
+     "trigger": "end",
+     "width": 6.4,
+     "height": 4.8,
+     "axes": [
+      {
+       "kinds": [
+        "bar"
+       ],
+       "title": "Harvest by crop",
+       "ylabel": "Harvest (kg)"
+      }
+     ],
+     "title": "Harvest by crop",
+     "format": "svg",
+     "bytes": 9733,
+     "data": "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n  \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n<svg xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"460.8pt\" height=\"345.6pt\" viewBox=\"0 0 460.8 345.6\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n <defs>\n  <style type=\"text/css\">*{stroke-linejoin: round; stroke-linecap: butt}</style>\n </defs>\n <g id=\"figure_1\">\n  <g id=\"patch_1\">\n   <path d=\"M 0 345.6 \nL 460.8 345.6 \nL 460.8 0 \nL 0 0 \nz\n\" style=\"fill: #ffffff\"/>\n  </g>\n  <g id=\"axes_1\">\n   <g id=\"patch_2\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \nL 414.72 41.472 \nL 57.6 41.472 \nz\n\" style=\"fill: #ffffff\"/>\n   </g>\n   <g id=\"patch_3\">\n    <path d=\"M 73.832727 307.584 \nL 142.181053 307.584 \nL 142.181053 54.144 \nL 73.832727 54.144 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #ff7f0e\"/>\n   </g>\n   <g id=\"patch_4\">\n    <path d=\"M 159.268134 307.584 \nL 227.616459 307.584 \nL 227.616459 180.864 \nL 159.268134 180.864 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #ff7f0e\"/>\n   </g>\n   <g id=\"patch_5\">\n    <path d=\"M 244.703541 307.584 \nL 313.051866 307.584 \nL 313.051866 127.145739 \nL 244.703541 127.145739 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #ff7f0e\"/>\n   </g>\n   <g id=\"patch_6\">\n    <path d=\"M 330.138947 307.584 \nL 398.487273 307.584 \nL 398.487273 202.902261 \nL 330.138947 202.902261 \nz\n\" clip-path=\"url(#p2c4a7be6aa)\" style=\"fill: #ff7f0e\"/>\n   </g>\n   <g id=\"matplotlib.axis_1\">\n    <g id=\"xtick_1\">\n     <g id=\"line2d_1\">\n      <defs>\n       <path id=\"m388f9e0eb3\" d=\"M 0 0 \nL 0 3.5 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"108.00689\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_1\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"108.00689\" y=\"322.182437\" transform=\"rotate(-0 108.00689 322.182437)\">maize</text>\n     </g>\n    </g>\n    <g id=\"xtick_2\">\n     <g id=\"line2d_2\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"193.442297\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_2\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"193.442297\" y=\"322.182437\" transform=\"rotate(-0 193.442297 322.182437)\">beans</text>\n     </g>\n    </g>\n    <g id=\"xtick_3\">\n     <g id=\"line2d_3\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"278.877703\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_3\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"278.877703\" y=\"322.182437\" transform=\"rotate(-0 278.877703 322.182437)\">wheat</text>\n     </g>\n    </g>\n    <g id=\"xtick_4\">\n     <g id=\"line2d_4\">\n      <g>\n       <use xlink:href=\"#m388f9e0eb3\" x=\"364.31311\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_4\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"364.31311\" y=\"322.182437\" transform=\"rotate(-0 364.31311 322.182437)\">sorghum</text>\n     </g>\n    </g>\n   </g>\n   <g id=\"matplotlib.axis_2\">\n    <g id=\"ytick_1\">\n     <g id=\"line2d_5\">\n      <defs>\n       <path id=\"md3de9cf98b\" d=\"M 0 0 \nL -3.5 0 \n\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </defs>\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"307.584\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_5\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"311.383219\" transform=\"rotate(-0 50.6 311.383219)\">0</text>\n     </g>\n    </g>\n    <g id=\"ytick_2\">\n     <g id=\"line2d_6\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"273.149217\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_6\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"276.948436\" transform=\"rotate(-0 50.6 276.948436)\">250</text>\n     </g>\n    </g>\n    <g id=\"ytick_3\">\n     <g id=\"line2d_7\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"238.714435\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_7\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"242.513654\" transform=\"rotate(-0 50.6 242.513654)\">500</text>\n     </g>\n    </g>\n    <g id=\"ytick_4\">\n     <g id=\"line2d_8\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"204.279652\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_8\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"208.078871\" transform=\"rotate(-0 50.6 208.078871)\">750</text>\n     </g>\n    </g>\n    <g id=\"ytick_5\">\n     <g id=\"line2d_9\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"169.84487\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_9\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"173.644088\" transform=\"rotate(-0 50.6 173.644088)\">1000</text>\n     </g>\n    </g>\n    <g id=\"ytick_6\">\n     <g id=\"line2d_10\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"135.410087\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_10\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"139.209306\" transform=\"rotate(-0 50.6 139.209306)\">1250</text>\n     </g>\n    </g>\n    <g id=\"ytick_7\">\n     <g id=\"line2d_11\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"100.975304\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_11\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"104.774523\" transform=\"rotate(-0 50.6 104.774523)\">1500</text>\n     </g>\n    </g>\n    <g id=\"ytick_8\">\n     <g id=\"line2d_12\">\n      <g>\n       <use xlink:href=\"#md3de9cf98b\" x=\"57.6\" y=\"66.540522\" style=\"stroke: #000000; stroke-width: 0.8\"/>\n      </g>\n     </g>\n     <g id=\"text_12\">\n      <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end\" x=\"50.6\" y=\"70.33974\" transform=\"rotate(-0 50.6 70.33974)\">1750</text>\n     </g>\n    </g>\n    <g id=\"text_13\">\n     <text style=\"font-size: 10px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"19.070312\" y=\"174.528\" transform=\"rotate(-90 19.070312 174.528)\">Harvest (kg)</text>\n    </g>\n   </g>\n   <g id=\"patch_7\">\n    <path d=\"M 57.6 307.584 \nL 57.6 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_8\">\n    <path d=\"M 414.72 307.584 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_9\">\n    <path d=\"M 57.6 307.584 \nL 414.72 307.584 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"patch_10\">\n    <path d=\"M 57.6 41.472 \nL 414.72 41.472 \n\" style=\"fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square\"/>\n   </g>\n   <g id=\"text_14\">\n    <text style=\"font-size: 12px; font-family: 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle\" x=\"236.16\" y=\"35.472\" transform=\"rotate(-0 236.16 35.472)\">Harvest by crop</text>\n   </g>\n  </g>\n </g>\n <defs>\n  <clipPath id=\"p2c4a7be6aa\">\n   <rect x=\"57.6\" y=\"41.472\" width=\"357.12\" height=\"266.112\"/>\n  </clipPath>\n </defs>\n</svg>\n"
+    }
+   ]
+  }
+ ],
+ "stdout": "Total: 4830 kg\n"
+}

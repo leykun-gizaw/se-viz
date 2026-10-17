@@ -695,3 +695,47 @@ interface GroupByInfo {
   `src/engine/explain/golden/pandas-*.md`.
 - **Fixtures:** `src/content/fixtures/python/pandas/*.json` (mapped from
   `src/python/fixtures/pandas/`). In dev: `/?python-preview&trace=pandas/filter`.
+
+## Phase 36 additions — matplotlib figures (additive; C and other Python traces unchanged)
+
+The recorder rules are in [`PYTHON_TRACE_FORMAT.md`](PYTHON_TRACE_FORMAT.md), "matplotlib figures
+(Phase 36)". In the trace, figures are trace-level (each image is stored once, not per step):
+
+```ts
+// on Trace (Python only; absent when the run made no figure):
+figures?: TraceFigure[];      // capture order
+type ChartKind = 'plot' | 'scatter' | 'bar' | 'barh' | 'hist' | 'pie' | 'boxplot';
+interface FigureAxesInfo { kinds: ChartKind[]; title: string | null; xlabel: string | null;
+  ylabel: string | null; legend: string[] | null }
+interface TraceFigure {
+  id: string;                 // 'fig1', 'fig2', …
+  step: number;               // the step that produced it
+  number: number;             // matplotlib's figure number
+  trigger: 'show' | 'end';    // plt.show() / fig.show(), or still open when the program ended
+  title: string | null;       // suptitle, else the only axes' title
+  width: number; height: number;   // inches
+  axes: FigureAxesInfo[];
+  format: 'svg' | 'png' | 'none';
+  bytes: number | null;
+  data?: string;              // svg: raw SVG text (UNTRUSTED: sanitize before display);
+                              // png: 'data:image/png;base64,…'
+  reason?: 'too-large' | 'cap' | 'error';   // format 'none' only
+}
+```
+
+- **Which figures a step shows:** every figure with `step <= displayStep.index`
+  (`figuresAt(trace.figures, index)` in `src/engine/trace/figures.ts`): cumulative, like `stdout`,
+  so stepping back past a figure's step hides it. On a two-beat `arrive` the display step is the
+  previous one, so a figure appears on its step's `apply`.
+- **Step attachment:** the step whose snapshot carried the figure (the state after the line that
+  showed it). A snapshot that makes no step hands its figures to the next step that has one, else
+  the last step. A live run's extra ending step comes after every figure, so it shows them all.
+- **Validation (Python rules):** ids are unique; `step` is a real step; figures are in step order;
+  `svg` / `png` have `data` (a `png` must be a `data:image/png;base64,` URL); `none` has a `reason`
+  and no `data`.
+- **Explanations:** `ChangeKind` gains `'figure'` (a "What changed" row per figure the step
+  produced). The derived text for matplotlib calls is in `src/engine/explain/matplotlib.ts`.
+- **Display:** `Stage` renders the thumbnails inside `ConsolePanel` (new optional `figures` slot) and
+  the large view over the visualization panel, both from the lazy `FigureOutput` chunk. SVG is
+  sanitized (`src/components/python/figure/sanitizeSvg.ts`) and inserted with `DOMParser` +
+  `importNode` (`svgDom.ts`); never `innerHTML` / `dangerouslySetInnerHTML`.
