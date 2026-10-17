@@ -491,7 +491,7 @@ function creation(
   const last =
     fullyCaptured(made) && cells.length > 0 ? code(scalarText(cells[cells.length - 1])) : null;
   const callText = call.src ? code(call.src) : null;
-  let lead: string | null = null;
+  let lead: string;
   switch (fn) {
     case 'array':
     case 'asarray': {
