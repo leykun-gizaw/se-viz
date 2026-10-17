@@ -11,6 +11,49 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 1,
+    "end": 1,
+    "targets": [
+     {
+      "type": "name",
+      "id": "harvest"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "const",
+       "repr": "'corn'",
+       "src": "\"corn\""
+      },
+      {
+       "type": "const",
+       "repr": "'wheat'",
+       "src": "\"wheat\""
+      },
+      {
+       "type": "const",
+       "repr": "'corn'",
+       "src": "\"corn\""
+      },
+      {
+       "type": "const",
+       "repr": "'beans'",
+       "src": "\"beans\""
+      },
+      {
+       "type": "const",
+       "repr": "'corn'",
+       "src": "\"corn\""
+      }
+     ],
+     "src": "[\"corn\", \"wheat\", \"corn\", \"beans\", \"corn\"]"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -33,6 +76,22 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 2,
+    "end": 2,
+    "targets": [
+     {
+      "type": "name",
+      "id": "counts"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "dict",
+     "src": "{}"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -94,6 +153,23 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "For",
+    "line": 3,
+    "end": 7,
+    "target": {
+     "type": "name",
+     "id": "crop"
+    },
+    "iter": {
+     "type": "name",
+     "id": "harvest"
+    },
+    "body": {
+     "first": 4,
+     "last": 7
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -168,6 +244,38 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "If",
+    "line": 4,
+    "end": 7,
+    "test": {
+     "type": "compare",
+     "ops": [
+      "in"
+     ],
+     "left": {
+      "type": "name",
+      "id": "crop"
+     },
+     "comparators": [
+      {
+       "type": "name",
+       "id": "counts"
+      }
+     ],
+     "src": "crop in counts"
+    },
+    "body": {
+     "first": 5,
+     "last": 5
+    },
+    "orelse": {
+     "kind": "else",
+     "line": 6,
+     "first": 7,
+     "last": 7
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -242,6 +350,29 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "counts"
+      },
+      "index": {
+       "type": "name",
+       "id": "crop"
+      },
+      "src": "counts[crop]"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "1"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -775,6 +906,46 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "counts"
+      },
+      "index": {
+       "type": "name",
+       "id": "crop"
+      },
+      "src": "counts[crop]"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "+",
+     "left": {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "counts"
+      },
+      "index": {
+       "type": "name",
+       "id": "crop"
+      },
+      "src": "counts[crop]"
+     },
+     "right": {
+      "type": "const",
+      "repr": "1"
+     },
+     "src": "counts[crop] + 1"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -1615,6 +1786,25 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 8,
+    "end": 8,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "print"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "counts"
+      }
+     ],
+     "src": "print(counts)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -1726,6 +1916,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o1": {
      "kind": "list",

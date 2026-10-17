@@ -11,6 +11,32 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 1,
+    "end": 1,
+    "targets": [
+     {
+      "type": "name",
+      "id": "a"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "const",
+       "repr": "1"
+      },
+      {
+       "type": "const",
+       "repr": "2"
+      }
+     ],
+     "src": "[1, 2]"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -33,6 +59,21 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 2,
+    "end": 2,
+    "targets": [
+     {
+      "type": "name",
+      "id": "b"
+     }
+    ],
+    "value": {
+     "type": "name",
+     "id": "a"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -79,6 +120,30 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 3,
+    "end": 3,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "b"
+      },
+      "attr": "append",
+      "src": "b.append"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "3"
+      }
+     ],
+     "src": "b.append(3)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "list",
@@ -125,6 +190,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o1": {
      "kind": "list",

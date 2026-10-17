@@ -373,9 +373,12 @@ describe('streaming and the size budget (Phase 31)', () => {
 
   it('the size budget stops a run whose snapshots grow too large', () => {
     const source = 'big = list(range(100))\nwhile True:\n    big[0] = big[0] + 1\n';
-    const result = session.run({ source, limits: { maxTraceChars: 50_000, maxSteps: 5000 } });
+    // Phase 32: the budget was 50,000 (11 snapshots fit). The statement facts sent with each line's
+    // first event add about 1,100 characters here, so the budget grows by the same proportion to
+    // keep this test's margin; the assertions are unchanged in kind.
+    const result = session.run({ source, limits: { maxTraceChars: 60_000, maxSteps: 5000 } });
     expect(result.truncated).toBe('size');
-    expect(JSON.stringify(result.steps).length).toBeLessThan(55_000);
+    expect(JSON.stringify(result.steps).length).toBeLessThan(66_000);
     expect(result.steps.length).toBeGreaterThan(10);
   });
 

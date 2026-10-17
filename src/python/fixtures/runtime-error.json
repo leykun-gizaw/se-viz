@@ -11,6 +11,22 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 1,
+    "end": 1,
+    "targets": [
+     {
+      "type": "name",
+      "id": "prices"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "dict",
+     "src": "{\"corn\": 3, \"wheat\": 2}"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -33,6 +49,44 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 2,
+    "end": 2,
+    "targets": [
+     {
+      "type": "name",
+      "id": "basket"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "const",
+       "repr": "'corn'",
+       "src": "\"corn\""
+      },
+      {
+       "type": "const",
+       "repr": "'wheat'",
+       "src": "\"wheat\""
+      },
+      {
+       "type": "const",
+       "repr": "'beans'",
+       "src": "\"beans\""
+      },
+      {
+       "type": "const",
+       "repr": "'corn'",
+       "src": "\"corn\""
+      }
+     ],
+     "src": "[\"corn\", \"wheat\", \"beans\", \"corn\"]"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "dict",
@@ -93,6 +147,21 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "total"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "0"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "dict",
@@ -187,6 +256,23 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "For",
+    "line": 4,
+    "end": 5,
+    "target": {
+     "type": "name",
+     "id": "item"
+    },
+    "iter": {
+     "type": "name",
+     "id": "basket"
+    },
+    "body": {
+     "first": 5,
+     "last": 5
+    }
+   },
    "objects": {
     "o1": {
      "kind": "dict",
@@ -289,6 +375,38 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "total"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "+",
+     "left": {
+      "type": "name",
+      "id": "total"
+     },
+     "right": {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "prices"
+      },
+      "index": {
+       "type": "name",
+       "id": "item"
+      },
+      "src": "prices[item]"
+     },
+     "src": "total + prices[item]"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "dict",
@@ -905,6 +1023,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "unwinding": true,
    "objects": {
     "o1": {

@@ -328,9 +328,162 @@ export interface StepExplanation {
   did?: string[];
   /**
    * The idea this step illustrates, shown in the panel's "Concept" section (closed by default).
-   * When absent the section is hidden.
+   * When absent the panel shows a derived glossary entry (Phase 32), or hides the section.
    */
   concept?: string;
+  /**
+   * Phase 32 (additive): authored text for the derived sections. Each one, when present and not
+   * empty, replaces that section's derived text (authored wins section by section): "What changed"
+   * (`changed`, shown instead of the derived rows), "Branch taken", "Loop iteration", "Calls and
+   * returns" and "Exceptions". One short sentence per entry, inline Markdown.
+   */
+  changed?: string[];
+  branch?: string[];
+  loop?: string[];
+  calls?: string[];
+  exceptions?: string[];
+}
+
+/* ───────────────────────── Python statement facts (Phase 32, additive) ─────────────────────────
+ * What the recorder reads from Python's `ast` about each line that runs, so the explanation panel
+ * can say what a step did without guessing (see `docs/PYTHON_TRACE_FORMAT.md`, "Statement facts").
+ * Present only on Python traces; C traces never set them.
+ */
+
+/**
+ * A Python expression, simplified from `ast`. `src` is the expression as written, when it is on
+ * one line and at most 80 characters (a bare name has no `src`: its text is its `id`). Anything the
+ * explanation can't use is `other` (or `fstring`, `yield`, `comprehension`).
+ */
+export type PyExpr = { src?: string } & (
+  | { type: 'name'; id: string }
+  | { type: 'const'; repr: string }
+  | { type: 'subscript'; value: PyExpr; index: PyExpr }
+  | { type: 'attribute'; value: PyExpr; attr: string }
+  | { type: 'binop'; op: string; left: PyExpr; right: PyExpr }
+  | { type: 'unary'; op: string; operand: PyExpr }
+  | { type: 'compare'; ops: string[]; left: PyExpr; comparators: PyExpr[] }
+  | { type: 'boolop'; op: 'and' | 'or'; values: PyExpr[] }
+  /** `keywords`: the names of keyword arguments, when there are any. */
+  | { type: 'call'; func: PyExpr; args: PyExpr[]; keywords?: string[] }
+  /** A tuple / list / set / dict display; `items` for a tuple or list of at most 8 plain items. */
+  | { type: 'display'; of: 'tuple' | 'list' | 'set' | 'dict'; items?: PyExpr[] }
+  | { type: 'comprehension'; of: 'list' | 'set' | 'dict' | 'generator' }
+  | { type: 'fstring' }
+  | { type: 'yield' }
+  | { type: 'other' }
+);
+
+/** A clause body's line range (first line of its first statement to last line of its last). */
+export interface PyBlockRange {
+  first: number;
+  last: number;
+}
+
+/** An `elif` / `else` clause: its header line and its body. An `elif`'s body is the whole `elif`. */
+export interface PyElseClause extends PyBlockRange {
+  kind: 'elif' | 'else';
+  line: number;
+}
+
+/** One `except` clause of a `try`. `type` is the clause's exception expression as written. */
+export interface PyHandler extends PyBlockRange {
+  line: number;
+  type: string | null;
+}
+
+/** Facts shared by every statement: its first and last line. */
+interface PyStatementBase {
+  line: number;
+  end: number;
+}
+
+/**
+ * The statement that starts on a line, from Python's `ast` (Phase 32). `Multiple` is a line that
+ * starts more than one statement (`a = 1; b = 2`, `if x: y = 1`): nothing more is claimed about it.
+ * `Except` is an `except` clause header (Python runs a line event there to test the exception).
+ * There is no `Else` statement: an `else:` line never runs a line event; it appears as the
+ * {@link PyElseClause} of an `if` / `elif` / `for` / `while` / `try`.
+ */
+export type PyStatement =
+  | { kind: 'Multiple'; line: number }
+  | (PyStatementBase &
+      (
+        | { kind: 'Assign'; targets: PyExpr[]; value: PyExpr }
+        | { kind: 'AugAssign'; target: PyExpr; op: string; value: PyExpr }
+        | { kind: 'AnnAssign'; target: PyExpr; annotation: string | null; value?: PyExpr }
+        | {
+            kind: 'If' | 'Elif';
+            test: PyExpr;
+            body: PyBlockRange;
+            orelse?: PyElseClause;
+          }
+        | {
+            kind: 'For';
+            target: PyExpr;
+            iter: PyExpr;
+            body: PyBlockRange;
+            orelse?: PyElseClause;
+          }
+        | { kind: 'While'; test: PyExpr; body: PyBlockRange; orelse?: PyElseClause }
+        | { kind: 'Return'; value?: PyExpr }
+        | { kind: 'Expr'; value: PyExpr }
+        | { kind: 'Import'; names: string[]; module?: string }
+        | { kind: 'FunctionDef'; name: string; params: string[] }
+        | { kind: 'ClassDef'; name: string }
+        | {
+            kind: 'Try';
+            body: PyBlockRange;
+            handlers: PyHandler[];
+            orelse?: PyElseClause;
+            finalbody?: PyBlockRange & { line: number };
+          }
+        | { kind: 'Except'; type: string | null; name?: string; body: PyBlockRange }
+        | { kind: 'Raise'; value?: PyExpr }
+        | { kind: 'Pass' | 'Break' | 'Continue' }
+        | { kind: 'With'; body: PyBlockRange }
+        | { kind: 'Delete'; targets: PyExpr[] }
+        | { kind: 'Global' | 'Nonlocal'; names: string[] }
+        | { kind: 'Assert'; test: PyExpr }
+        | { kind: 'Other'; name: string }
+      ));
+
+export type PyStatementKind = PyStatement['kind'];
+
+/**
+ * What the recorder knew about the event behind one Python step (Phase 32, additive). Present on
+ * every step of a recorded Python trace; absent on C.
+ */
+export interface PyStepInfo {
+  /** The `sys.settrace` event this step's snapshot was taken on. */
+  event: 'line' | 'call' | 'return' | 'exception';
+  /**
+   * The line that snapshot was taken at: for a `line` event the line about to run next, for `call`
+   * the function's `def` line, for `return` / `exception` the line that returned or raised.
+   */
+  at: number;
+  /** `call` events: the function's qualified name, its parameters in order, and its kind. */
+  call?: {
+    function: string;
+    params: string[];
+    scope: 'function' | 'generator' | 'coroutine' | 'class' | 'lambda' | 'comprehension';
+    /** A generator (or coroutine) resuming, not a new call. */
+    resumed?: true;
+  };
+  /** `return` events: the qualified name of the function returning. */
+  function?: string;
+  /** `return` events: the frame is exiting because an exception propagates through it. */
+  unwinding?: true;
+  /** `return` events of a generator suspended at a `yield` (it will resume). */
+  yielded?: true;
+  /** `exception` events: the exception raised (or passing through) at `at`. */
+  exception?: { type: string; message: string };
+  /**
+   * An extra final step added by Python live coding (Phase 31): `uncaught` ends on an uncaught
+   * exception (its output lines added this step are the traceback, not printed output), `stopped`
+   * on a limit or Stop.
+   */
+  ending?: 'uncaught' | 'stopped';
 }
 
 /**
@@ -430,6 +583,11 @@ export interface Step {
    * @remarks Added in Phase 28 (additive).
    */
   explain?: StepExplanation;
+  /**
+   * Python only (Phase 32, additive): the recorder event behind this step, used to derive the
+   * explanation panel's text. See {@link PyStepInfo}.
+   */
+  py?: PyStepInfo;
 }
 
 /**
@@ -509,6 +667,12 @@ export interface Trace {
    */
   leftSource?: string;
   rightSource?: string;
+  /**
+   * Python only (Phase 32, additive): the statement that starts on each line that ran, keyed by the
+   * 1-based line number (as a string, for JSON). Lines that never ran, or start no statement, are
+   * absent. See {@link PyStatement}.
+   */
+  statements?: Record<string, PyStatement>;
 }
 
 /* ───────────────────────── Concept views (Phase 11, additive) ─────────────────────────

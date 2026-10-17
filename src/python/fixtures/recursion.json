@@ -11,6 +11,15 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "FunctionDef",
+    "line": 1,
+    "end": 4,
+    "name": "factorial",
+    "params": [
+     "n"
+    ]
+   },
    "objects": {},
    "stdout": ""
   },
@@ -33,6 +42,31 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "result"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "factorial"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "4"
+      }
+     ],
+     "src": "factorial(4)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -79,6 +113,20 @@
      ]
     }
    ],
+   "call": {
+    "function": "factorial",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -125,6 +173,32 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "If",
+    "line": 2,
+    "end": 3,
+    "test": {
+     "type": "compare",
+     "ops": [
+      "<="
+     ],
+     "left": {
+      "type": "name",
+      "id": "n"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "1"
+      }
+     ],
+     "src": "n <= 1"
+    },
+    "body": {
+     "first": 3,
+     "last": 3
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -171,6 +245,43 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Return",
+    "line": 4,
+    "end": 4,
+    "value": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "name",
+      "id": "n"
+     },
+     "right": {
+      "type": "call",
+      "func": {
+       "type": "name",
+       "id": "factorial"
+      },
+      "args": [
+       {
+        "type": "binop",
+        "op": "-",
+        "left": {
+         "type": "name",
+         "id": "n"
+        },
+        "right": {
+         "type": "const",
+         "repr": "1"
+        },
+        "src": "n - 1"
+       }
+      ],
+      "src": "factorial(n - 1)"
+     },
+     "src": "n * factorial(n - 1)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -232,6 +343,20 @@
      ]
     }
    ],
+   "call": {
+    "function": "factorial",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -430,6 +555,20 @@
      ]
     }
    ],
+   "call": {
+    "function": "factorial",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -673,6 +812,20 @@
      ]
     }
    ],
+   "call": {
+    "function": "factorial",
+    "args": [
+     {
+      "name": "n",
+      "value": {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      }
+     }
+    ],
+    "scope": "function"
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -855,6 +1008,15 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Return",
+    "line": 3,
+    "end": 3,
+    "value": {
+     "type": "const",
+     "repr": "1"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -946,6 +1108,7 @@
      ]
     }
    ],
+   "function": "factorial",
    "returnValue": {
     "kind": "prim",
     "type": "int",
@@ -1027,6 +1190,7 @@
      ]
     }
    ],
+   "function": "factorial",
    "returnValue": {
     "kind": "prim",
     "type": "int",
@@ -1093,6 +1257,7 @@
      ]
     }
    ],
+   "function": "factorial",
    "returnValue": {
     "kind": "prim",
     "type": "int",
@@ -1144,6 +1309,7 @@
      ]
     }
    ],
+   "function": "factorial",
    "returnValue": {
     "kind": "prim",
     "type": "int",
@@ -1188,6 +1354,25 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 7,
+    "end": 7,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "print"
+     },
+     "args": [
+      {
+       "type": "name",
+       "id": "result"
+      }
+     ],
+     "src": "print(result)"
+    }
+   },
    "objects": {
     "o1": {
      "kind": "function",
@@ -1227,6 +1412,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o1": {
      "kind": "function",

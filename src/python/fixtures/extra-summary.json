@@ -11,6 +11,12 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "ClassDef",
+    "line": 1,
+    "end": 3,
+    "name": "ndarray"
+   },
    "objects": {},
    "stdout": ""
   },
@@ -31,6 +37,11 @@
      "vars": []
     }
    ],
+   "call": {
+    "function": "ndarray",
+    "args": [],
+    "scope": "class"
+   },
    "objects": {},
    "stdout": ""
   },
@@ -71,6 +82,32 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 2,
+    "end": 2,
+    "targets": [
+     {
+      "type": "name",
+      "id": "shape"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "tuple",
+     "items": [
+      {
+       "type": "const",
+       "repr": "2"
+      },
+      {
+       "type": "const",
+       "repr": "3"
+      }
+     ],
+     "src": "(2, 3)"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -99,6 +136,22 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "dtype"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "'float64'",
+     "src": "\"float64\""
+    }
+   },
    "objects": {
     "o1": {
      "kind": "tuple",
@@ -152,6 +205,7 @@
      ]
     }
    ],
+   "function": "ndarray",
    "objects": {
     "o1": {
      "kind": "tuple",
@@ -191,6 +245,27 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "ndarray"
+      },
+      "attr": "__module__",
+      "src": "ndarray.__module__"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "'numpy'",
+     "src": "\"numpy\""
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -219,6 +294,26 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "grid"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "ndarray"
+     },
+     "args": [],
+     "src": "ndarray()"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -254,6 +349,32 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "rows"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "list",
+     "items": [
+      {
+       "type": "name",
+       "id": "grid"
+      },
+      {
+       "type": "name",
+       "id": "grid"
+      }
+     ],
+     "src": "[grid, grid]"
+    }
+   },
    "objects": {
     "o2": {
      "kind": "class",
@@ -306,6 +427,7 @@
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o2": {
      "kind": "class",
