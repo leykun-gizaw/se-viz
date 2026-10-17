@@ -1,0 +1,1977 @@
+{
+ "id": "python-harvest",
+ "title": "The DS 200 harvest loop",
+ "file": "harvest.py",
+ "language": "python",
+ "source": "harvest = [\"corn\", \"wheat\", \"corn\", \"beans\", \"corn\"]\ncounts = {}\nfor crop in harvest:\n    if crop in counts:\n        counts[crop] = counts[crop] + 1\n    else:\n        counts[crop] = 1\nprint(counts)\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Line 1 ran.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Line 4 ran.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Line 7 ran.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-6",
+   "index": 6,
+   "narration": "Line 4 ran.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-7",
+   "index": 7,
+   "narration": "Line 7 ran.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-8",
+   "index": 8,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-9",
+   "index": 9,
+   "narration": "Line 4 ran.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-10",
+   "index": 10,
+   "narration": "Line 5 ran.",
+   "highlightedLines": [
+    5
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-11",
+   "index": 11,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'beans'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-12",
+   "index": 12,
+   "narration": "Line 4 ran.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'beans'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-13",
+   "index": 13,
+   "narration": "Line 7 ran.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'beans'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['beans']",
+       "name": "'beans'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-14",
+   "index": 14,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['beans']",
+       "name": "'beans'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-15",
+   "index": 15,
+   "narration": "Line 4 ran.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['beans']",
+       "name": "'beans'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-16",
+   "index": 16,
+   "narration": "Line 5 ran.",
+   "highlightedLines": [
+    5
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['beans']",
+       "name": "'beans'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-17",
+   "index": 17,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['beans']",
+       "name": "'beans'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-18",
+   "index": 18,
+   "narration": "The program finished.",
+   "highlightedLines": [
+    8
+   ],
+   "stdout": [
+    "{'corn': 3, 'wheat': 1, 'beans': 1}"
+   ],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.harvest",
+       "name": "harvest",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.counts",
+       "name": "counts",
+       "type": "dict",
+       "target": "o2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.crop",
+       "name": "crop",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[3]",
+       "name": "3",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[4]",
+       "name": "4",
+       "type": "str",
+       "value": "'corn'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2['corn']",
+       "name": "'corn'",
+       "type": "int",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['wheat']",
+       "name": "'wheat'",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2['beans']",
+       "name": "'beans'",
+       "type": "int",
+       "value": "1"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  }
+ ]
+}

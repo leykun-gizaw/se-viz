@@ -14,7 +14,8 @@
  */
 
 import { tokenizeLine } from '../highlightC.ts';
-import type { Cell, ScalarCell, StackFrame, Step } from './types.ts';
+import { tokenizePythonLine } from '../highlightPython.ts';
+import type { Cell, ScalarCell, StackFrame, Step, TraceLanguage } from './types.ts';
 
 /** One variable's value to render on the active line. */
 export interface InlineValue {
@@ -84,6 +85,7 @@ const IDENT_RE = /^[A-Za-z_]\w*$/;
  * @param params.source - The trace source (newline-separated; 1-based lines).
  * @param params.frame - The active frame (from {@link findActiveFrame}), or `null`.
  * @param params.changedIds - Cell ids that changed this beat (from `pulsedCellIds`); empty on arrive.
+ * @param params.language - The source language, which picks the tokenizer (Phase 30; default C).
  * @returns One {@link InlineValue} per distinct touched variable, in first-seen order.
  */
 export function resolveInlineValues(params: {
@@ -91,8 +93,11 @@ export function resolveInlineValues(params: {
   source: string;
   frame: StackFrame | null;
   changedIds: ReadonlySet<string>;
+  language?: TraceLanguage;
 }): InlineValue[] {
   const { lines, source, frame, changedIds } = params;
+  const tokenize =
+    params.language === 'python' ? (l: string) => tokenizePythonLine(l).tokens : tokenizeLine;
   if (!frame) return [];
 
   const byName = new Map<string, Cell>();
@@ -105,7 +110,7 @@ export function resolveInlineValues(params: {
   for (const lineNo of lines) {
     const text = sourceLines[lineNo - 1];
     if (text === undefined) continue;
-    for (const tok of tokenizeLine(text)) {
+    for (const tok of tokenize(text)) {
       // Only plain identifiers can be variable names (keywords/types/fns/etc. are excluded).
       if (tok.type !== 'plain' || !IDENT_RE.test(tok.text) || seen.has(tok.text)) continue;
       const cell = byName.get(tok.text);

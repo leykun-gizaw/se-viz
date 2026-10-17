@@ -108,7 +108,15 @@ function Note({ children }: { children: React.ReactNode }) {
   return <p className="text-ink-muted">{children}</p>;
 }
 
-function rowText(row: ChangeRow): string {
+/** Python objects are created and become unreachable; they are never malloc'd or freed (Phase 30). */
+const PYTHON_META: Partial<Record<ChangeKind, [label: string, tone: string]>> = {
+  alloc: ['object', KIND_META.alloc[1]],
+  free: ['gone', NEUTRAL],
+};
+
+function rowText(row: ChangeRow, python: boolean): string {
+  if (python && row.kind === 'alloc') return `${row.subject} object created`;
+  if (python && row.kind === 'free') return `${row.subject} is no longer reachable`;
   switch (row.kind) {
     case 'call':
       return `${row.subject} called: a new frame is pushed`;
@@ -127,8 +135,8 @@ function rowText(row: ChangeRow): string {
   }
 }
 
-function ChangeRowView({ row }: { row: ChangeRow }) {
-  const [label, tone] = KIND_META[row.kind];
+function ChangeRowView({ row, python }: { row: ChangeRow; python: boolean }) {
+  const [label, tone] = (python && PYTHON_META[row.kind]) || KIND_META[row.kind];
   return (
     <li className="flex items-start gap-2">
       <span
@@ -137,7 +145,7 @@ function ChangeRowView({ row }: { row: ChangeRow }) {
         {label}
       </span>
       <span className="min-w-0 break-words">
-        <span>{rowText(row)}</span>
+        <span>{rowText(row, python)}</span>
         {row.kind === 'output' ? (
           <code className="se-code mt-0.5 block whitespace-pre-wrap rounded bg-surface-2 px-1.5 py-0.5 text-[12px]">
             {row.subject}
@@ -244,7 +252,7 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
           ) : (
             <ul className="space-y-1.5">
               {ex.changes.map((row, i) => (
-                <ChangeRowView key={i} row={row} />
+                <ChangeRowView key={i} row={row} python={trace.language === 'python'} />
               ))}
             </ul>
           )}

@@ -41,7 +41,7 @@ The unit a content module exports and the engine plays.
 | ---------- | ---------- | ------------------------------------------------------------ |
 | `id`       | `string`   | Stable id, e.g. `"phase0-add"`.                              |
 | `title`    | `string`   | Shown in the UI.                                             |
-| `language` | `'c'`      | Only C is in scope for SE 200 / SE 201.                      |
+| `language` | `'c' \| 'python'` | C for SE 200 / SE 201; `'python'` since Phase 30 (see below). |
 | `source`   | `string`   | Full source, `\n`-separated. Line numbers are **1-based**.   |
 | `steps`    | `Step[]`   | Ordered execution steps; `steps[i].index === i`.             |
 | `covers?`  | `string[]` | Optional curriculum rows covered (see `docs/CURRICULUM.md`). |
@@ -443,3 +443,78 @@ header in the same frame, on a step that carries the loop's `condition` (`loop i
 `loop exits` when it is false). No marker is shown when the label can't be derived reliably (no
 condition on the back-edge, concept views). There is no authored marker field: the Phase 16
 "beats" are the arrive / apply halves of every step, not events.
+
+---
+
+## Phase 30 additions — Python traces (additive; C traces unchanged)
+
+Python runs use the **same model** as C: the decision, the evidence and the full mapping rules are
+in [`PYTHON_TRACE_FORMAT.md`](PYTHON_TRACE_FORMAT.md), which is binding. In short:
+
+- **Names are cells.** A primitive is a `scalar` cell whose `value` is its `repr` (`'corn'`, `3`,
+  `None`) and whose `type` is the Python type name. A reference is a `pointer` cell whose `target`
+  is an object id and whose `type` is the target's type name.
+- **Every object is a `HeapBlock`** whose `id` is the object's stable id (`o1`, `o2`, …) and which
+  carries the kind of object it is:
+
+```ts
+export type TraceLanguage = 'c' | 'python';
+
+export type PyObjectKind =
+  | 'list' | 'tuple' | 'set' | 'frozenset' | 'dict'
+  | 'instance' | 'function' | 'class'
+  | 'summary' // NumPy / pandas: type, shape, dtype (Phases 34–35 add real views)
+  | 'other'; // anything else, by its repr
+
+// on HeapBlock:  objectKind?: PyObjectKind   (present on every block of a Python trace, never on C)
+```
+
+- **Cell ids** are stable per logical slot: `f2.n` (a name in frame `f2`), `f2.return` (a frame's
+  return value), `o1[0]` (list / tuple item, by position), `o2['corn']` (dict entry, by the key's
+  `repr`; `o2[#o5]` for an object key), `o4{'a'}` (set member), `o3.fuel` (attribute),
+  `o6.shape` / `o6.dtype` (summary), `o8.repr`, and `o1[…]` (the "N more" past the item cap).
+- **Frames** are `f1` (the module, shown as "Global frame"), `f2`, … — one per activation.
+  `activeId` is the top frame. `stdout` is cumulative, as for C.
+
+### Validation (Python rules, additive)
+
+`validateTrace` keeps every shared rule (`steps[i].index === i`, unique ids per step, every
+pointer target resolving within its step) and adds, for `language: 'python'`:
+
+- every heap block has an `objectKind`;
+- a non-null reference targets an **object** (a heap block id), never a cell;
+- ids are stable: an object id keeps its `objectKind`, and a frame id keeps its function name, for
+  the whole trace (a frame id may leave and come back: a resumed generator);
+- and, for every other language, a block with `objectKind` is flagged.
+
+### The diff
+
+`diffSteps` gains one field, always empty on C traces:
+
+- `kindsChanged` — `{ id, from: Cell, to: Cell }` for cells present in both steps whose `kind`
+  changed (a name rebound from a primitive to a reference or back, `x = 1` then `x = [x]`).
+
+Python traces also get an **object-level** diff, `diffObjects(prev, next)`
+([`objectDiff.ts`](../src/engine/trace/objectDiff.ts)), which names what happened in the terms the
+renderer animates: `frame-pushed` / `frame-popped`, `object-created` / `object-released`,
+`name-bound` / `name-unbound`, `item-added` / `item-removed` (with `index` and `atEnd`),
+`value-changed`, `key-added` / `key-removed`, `attribute-set` / `attribute-deleted`, and
+`reference-retargeted`. List items are aligned by value, so `insert(0, x)` is one `item-added` at
+index 0 rather than a change on every shifted position. `invertEvents` gives the inverse, which is
+what stepping back plays: `diffObjects(b, a)` equals `invertEvents(diffObjects(a, b))` as a set.
+
+### Rendering
+
+`Stage` loads `components/python/PythonCanvas.tsx` lazily for `language: 'python'` (C traces never
+load it): frames on the left, an objects area on the right (a body per `objectKind`), arrows from
+the shared `ArrowOverlay`. Motion is the object-level diff between the step shown and the one shown
+before: one step or beat away it animates (inverse on step back), a jump shows the new state at
+once, and `prefers-reduced-motion` turns it off. Two-beat stepping works as for C.
+
+### Fixtures
+
+The Phase 29 recordings, mapped, live in `src/content/fixtures/python/*.json` (data only; written
+by `src/python/toTrace.test.ts`, refreshed with `vitest -u`). The harvest loop is the one catalog
+module (`src/content/fixtures/pythonHarvest.ts`). In dev, `/?python-preview&trace=<name>` plays any
+of them in the real stage.
+

@@ -12,7 +12,6 @@ import type { RunResult } from '../protocol.ts';
 import { SAMPLES } from '../samples/index.ts';
 import { EXTRA_PROGRAMS } from '../testPrograms.ts';
 import { adaptC, mapA, mapB, mapC, type PyTrace } from './candidates.ts';
-import type { PyHeapBlock } from './memory.ts';
 import { planSteps } from './plan.ts';
 
 const RAW = import.meta.glob<string>('../fixtures/*.json', {
@@ -248,6 +247,18 @@ describe('criterion 4 — diffSteps gives the right “what changed” for every
     expect(steps[1].stack[0].variables[0]).toMatchObject({ id: 'f1.x', kind: 'pointer' });
     expect(steps[0].stack[0].variables[0]).toMatchObject({ id: 'f1.x', kind: 'scalar' });
   });
+
+  it('Phase 30 closes that gap: `kindsChanged` reports the rebind, both ways', () => {
+    const { steps } = A('extra-rebind');
+    const forward = diffAt(steps, 1).kindsChanged;
+    expect(forward.map((k) => [k.id, k.from.kind, k.to.kind])).toEqual([
+      ['f1.x', 'scalar', 'pointer'],
+    ]);
+    const back = diffSteps(steps[1], steps[0]).kindsChanged;
+    expect(back.map((k) => [k.id, k.from.kind, k.to.kind])).toEqual([
+      ['f1.x', 'pointer', 'scalar'],
+    ]);
+  });
 });
 
 describe('criterion 5 — any primitive dict key, and nesting, with no special cases', () => {
@@ -277,7 +288,7 @@ describe('criterion 5 — any primitive dict key, and nesting, with no special c
       '4',
       '5',
     ]);
-    const tags = last.heap.find((b) => (b as PyHeapBlock).objectKind === 'set')!;
+    const tags = last.heap.find((b) => b.objectKind === 'set')!;
     expect(tags.cells.map((c) => (c.kind === 'scalar' ? c.value : null))).toEqual([
       "'a'",
       "'b'",
@@ -289,7 +300,7 @@ describe('criterion 5 — any primitive dict key, and nesting, with no special c
 describe('criterion 6 — a clear place for ndarray and DataFrame views', () => {
   it('A: a NumPy/pandas object is one block tagged `summary`, shared by every reference', () => {
     const last = A('extra-summary').steps.at(-1)!;
-    const summary = last.heap.filter((b) => (b as PyHeapBlock).objectKind === 'summary');
+    const summary = last.heap.filter((b) => b.objectKind === 'summary');
     expect(summary).toHaveLength(1);
     expect(summary[0]).toMatchObject({ label: 'numpy ndarray', type: 'ndarray' });
     expect(
@@ -303,7 +314,7 @@ describe('criterion 6 — a clear place for ndarray and DataFrame views', () => 
     expect(result.error).toBeUndefined();
     const last = mapA(result, '\n'.repeat(8), 'packages').steps.at(-1)!;
     const rows = last.heap.map((b) => [
-      (b as PyHeapBlock).objectKind,
+      b.objectKind,
       b.label,
       ...b.cells.map((c) => (c.kind === 'scalar' ? `${c.name}=${c.value}` : c.name)),
     ]);

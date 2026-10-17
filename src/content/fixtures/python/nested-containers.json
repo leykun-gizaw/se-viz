@@ -1,0 +1,495 @@
+{
+ "id": "python-nested-containers",
+ "title": "Nested containers",
+ "file": "nested-containers.py",
+ "language": "python",
+ "source": "fields = {\"north\": [\"corn\", \"wheat\"], \"south\": []}\nfields[\"south\"].append(\"beans\")\nanimals = [{\"name\": \"Daisy\", \"kind\": \"cow\"}, {\"name\": \"Lulu\", \"kind\": \"goat\"}]\nanimals[1][\"kind\"] = \"sheep\"\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Line 1 ran.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.fields",
+       "name": "fields",
+       "type": "dict",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "pointer",
+       "id": "o1['north']",
+       "name": "'north'",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "o1['south']",
+       "name": "'south'",
+       "type": "list",
+       "target": "o3"
+      }
+     ],
+     "objectKind": "dict"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "list",
+     "type": "list",
+     "cells": [],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.fields",
+       "name": "fields",
+       "type": "dict",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "pointer",
+       "id": "o1['north']",
+       "name": "'north'",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "o1['south']",
+       "name": "'south'",
+       "type": "list",
+       "target": "o3"
+      }
+     ],
+     "objectKind": "dict"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'beans'"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Line 3 ran.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.fields",
+       "name": "fields",
+       "type": "dict",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.animals",
+       "name": "animals",
+       "type": "list",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "pointer",
+       "id": "o1['north']",
+       "name": "'north'",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "o1['south']",
+       "name": "'south'",
+       "type": "list",
+       "target": "o3"
+      }
+     ],
+     "objectKind": "dict"
+    },
+    {
+     "id": "o4",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "pointer",
+       "id": "o4[0]",
+       "name": "0",
+       "type": "dict",
+       "target": "o5"
+      },
+      {
+       "kind": "pointer",
+       "id": "o4[1]",
+       "name": "1",
+       "type": "dict",
+       "target": "o6"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'beans'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o5",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o5['name']",
+       "name": "'name'",
+       "type": "str",
+       "value": "'Daisy'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5['kind']",
+       "name": "'kind'",
+       "type": "str",
+       "value": "'cow'"
+      }
+     ],
+     "objectKind": "dict"
+    },
+    {
+     "id": "o6",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o6['name']",
+       "name": "'name'",
+       "type": "str",
+       "value": "'Lulu'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6['kind']",
+       "name": "'kind'",
+       "type": "str",
+       "value": "'goat'"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "The program finished.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.fields",
+       "name": "fields",
+       "type": "dict",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.animals",
+       "name": "animals",
+       "type": "list",
+       "target": "o4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "pointer",
+       "id": "o1['north']",
+       "name": "'north'",
+       "type": "list",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "o1['south']",
+       "name": "'south'",
+       "type": "list",
+       "target": "o3"
+      }
+     ],
+     "objectKind": "dict"
+    },
+    {
+     "id": "o4",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "pointer",
+       "id": "o4[0]",
+       "name": "0",
+       "type": "dict",
+       "target": "o5"
+      },
+      {
+       "kind": "pointer",
+       "id": "o4[1]",
+       "name": "1",
+       "type": "dict",
+       "target": "o6"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o2",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'corn'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2[1]",
+       "name": "1",
+       "type": "str",
+       "value": "'wheat'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o3",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3[0]",
+       "name": "0",
+       "type": "str",
+       "value": "'beans'"
+      }
+     ],
+     "objectKind": "list"
+    },
+    {
+     "id": "o5",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o5['name']",
+       "name": "'name'",
+       "type": "str",
+       "value": "'Daisy'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o5['kind']",
+       "name": "'kind'",
+       "type": "str",
+       "value": "'cow'"
+      }
+     ],
+     "objectKind": "dict"
+    },
+    {
+     "id": "o6",
+     "label": "dict",
+     "type": "dict",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o6['name']",
+       "name": "'name'",
+       "type": "str",
+       "value": "'Lulu'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o6['kind']",
+       "name": "'kind'",
+       "type": "str",
+       "value": "'sheep'"
+      }
+     ],
+     "objectKind": "dict"
+    }
+   ]
+  }
+ ]
+}

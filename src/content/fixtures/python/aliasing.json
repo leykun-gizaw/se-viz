@@ -1,0 +1,180 @@
+{
+ "id": "python-aliasing",
+ "title": "Aliasing",
+ "file": "aliasing.py",
+ "language": "python",
+ "source": "a = [1, 2]\nb = a\nb.append(3)\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Line 1 ran.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "list",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "2"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.b",
+       "name": "b",
+       "type": "list",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "2"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "The program finished.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.a",
+       "name": "a",
+       "type": "list",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.b",
+       "name": "b",
+       "type": "list",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "list",
+     "type": "list",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1[0]",
+       "name": "0",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[1]",
+       "name": "1",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1[2]",
+       "name": "2",
+       "type": "int",
+       "value": "3"
+      }
+     ],
+     "objectKind": "list"
+    }
+   ]
+  }
+ ]
+}

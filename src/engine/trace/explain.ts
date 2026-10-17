@@ -24,7 +24,7 @@ import {
   lineTexts,
   type CellInfo,
 } from './labels.ts';
-import type { HeapBlock, PointerTarget, Step, Trace } from './types.ts';
+import type { Cell, HeapBlock, PointerTarget, Step, Trace } from './types.ts';
 
 /** The kinds of row in "What changed". */
 export type ChangeKind =
@@ -112,14 +112,17 @@ const isFreed = (b: HeapBlock) => b.state === 'freed' || b.state === 'dangling';
 function memoryChanges(trace: Trace, prev: Step, next: Step): ChangeRow[] {
   const rows: ChangeRow[] = [];
   const src = trace.source;
+  const lang = trace.language;
   const diff = diffSteps(prev, next);
-  const nextCells = indexCells(next, src);
-  const prevCells = indexCells(prev, src);
+  const nextCells = indexCells(next, src, lang);
+  const prevCells = indexCells(prev, src, lang);
   const nextBlocks = new Map(next.heap.map((b) => [b.id, b]));
   const prevBlocks = new Map(prev.heap.map((b) => [b.id, b]));
 
-  for (const f of diff.framesPopped) rows.push({ kind: 'return', subject: frameLabel(f, src) });
-  for (const f of diff.framesPushed) rows.push({ kind: 'call', subject: frameLabel(f, src) });
+  for (const f of diff.framesPopped) {
+    rows.push({ kind: 'return', subject: frameLabel(f, src, lang) });
+  }
+  for (const f of diff.framesPushed) rows.push({ kind: 'call', subject: frameLabel(f, src, lang) });
 
   // New variables in frames that already existed (a declaration mid-function). Variables of a
   // freshly pushed frame are part of the call row, not listed separately.
@@ -172,6 +175,23 @@ function memoryChanges(trace: Trace, prev: Step, next: Step): ChangeRow[] {
       subject: info ? cellLabel(info) : p.id,
       from: targetLabel(p.from, prevCells, prevBlocks),
       to: targetLabel(p.to, nextCells, nextBlocks),
+    });
+  }
+
+  // A name rebound across kinds (Python `x = 1` then `x = [x]`, Phase 30). Never on C traces.
+  const show = (c: Cell, cells: Map<string, CellInfo>, blocks: Map<string, HeapBlock>) =>
+    c.kind === 'scalar'
+      ? displayScalar(c.value)
+      : c.kind === 'pointer'
+        ? targetLabel(c.target, cells, blocks)
+        : c.type;
+  for (const k of diff.kindsChanged) {
+    const info = nextCells.get(k.id);
+    rows.push({
+      kind: k.to.kind === 'pointer' ? 'pointer' : 'value',
+      subject: info ? cellLabel(info) : k.id,
+      from: show(k.from, prevCells, prevBlocks),
+      to: show(k.to, nextCells, nextBlocks),
     });
   }
 

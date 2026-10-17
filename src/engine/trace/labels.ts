@@ -7,7 +7,7 @@
  *
  * @packageDocumentation
  */
-import type { Cell, HeapBlock, StackFrame, Step } from './types.ts';
+import type { Cell, HeapBlock, StackFrame, Step, TraceLanguage } from './types.ts';
 
 /** Escape a string for literal use inside a `RegExp`. */
 function escapeRegExp(s: string): string {
@@ -41,8 +41,41 @@ export function functionParams(source: string, name: string): string[] | null {
   return null;
 }
 
-/** A frame's call label: `factorial(3)` when every parameter is a known scalar, else the bare name. */
-export function frameLabel(frame: StackFrame, source: string): string {
+/**
+ * The parameter names of the Python function `name` as defined in `source` (`def f(a, b=2, *rest):`),
+ * or `null` when there is no `def` line for it. Defaults, annotations and the `*` / `**` markers are
+ * dropped; a bare `*` or `/` separator is not a parameter. Phase 30.
+ */
+export function pythonParams(source: string, name: string): string[] | null {
+  const def = new RegExp(`^\\s*(?:async\\s+)?def\\s+${escapeRegExp(name)}\\s*\\(([^)]*)\\)`, 'm');
+  const m = def.exec(source);
+  if (!m) return null;
+  return m[1]
+    .split(',')
+    .map((p) => p.split(/[:=]/)[0].replace(/\*/g, '').trim())
+    .filter((p) => p !== '' && p !== '/');
+}
+
+/**
+ * A frame's call label. C: `factorial(3)` when every parameter is a known scalar, else the bare
+ * name. Python (Phase 30): `factorial(n=3)`, with `…` for a parameter that holds a reference, and
+ * `global frame` for the module.
+ */
+export function frameLabel(
+  frame: StackFrame,
+  source: string,
+  language: TraceLanguage = 'c',
+): string {
+  if (language === 'python') {
+    if (frame.name === '<module>') return 'global frame';
+    const names = pythonParams(source, frame.name);
+    if (names === null) return frame.name;
+    const args = names.map((p) => {
+      const cell = frame.variables.find((v) => v.name === p);
+      return `${p}=${cell?.kind === 'scalar' ? displayScalar(cell.value) : '…'}`;
+    });
+    return `${frame.name}(${args.join(', ')})`;
+  }
   const params = functionParams(source, frame.name);
   if (params === null) return frame.name;
   const values: string[] = [];
@@ -85,9 +118,15 @@ function walk(cells: Cell[], prefix: string, owner: string, into: Map<string, Ce
 }
 
 /** Index every cell in a step by id, with a readable path and owner. */
-export function indexCells(step: Step, source: string): Map<string, CellInfo> {
+export function indexCells(
+  step: Step,
+  source: string,
+  language: TraceLanguage = 'c',
+): Map<string, CellInfo> {
   const map = new Map<string, CellInfo>();
-  for (const frame of step.stack) walk(frame.variables, '', frameLabel(frame, source), map);
+  for (const frame of step.stack) {
+    walk(frame.variables, '', frameLabel(frame, source, language), map);
+  }
   for (const block of step.heap) walk(block.cells, '', blockLabel(block), map);
   const s = step.staticData;
   if (s) {

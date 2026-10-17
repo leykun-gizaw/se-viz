@@ -1,0 +1,998 @@
+{
+ "id": "python-recursion",
+ "title": "Recursion: factorial(4)",
+ "file": "recursion.py",
+ "language": "python",
+ "source": "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n\nresult = factorial(4)\nprint(result)\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Line 1 ran.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Line 6 calls factorial(n=4).",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Line 4 calls factorial(n=3).",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f3",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f3",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "Line 4 calls factorial(n=2).",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f4",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "callId": 2,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f4.n",
+       "name": "n",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-6",
+   "index": 6,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f4",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "callId": 2,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f4.n",
+       "name": "n",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-7",
+   "index": 7,
+   "narration": "Line 4 calls factorial(n=1).",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f5",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "callId": 2,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f4.n",
+       "name": "n",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "factorial",
+     "callId": 3,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f5.n",
+       "name": "n",
+       "type": "int",
+       "value": "1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-8",
+   "index": 8,
+   "narration": "Line 2 ran.",
+   "highlightedLines": [
+    2
+   ],
+   "stdout": [],
+   "activeId": "f5",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "callId": 2,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f4.n",
+       "name": "n",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "factorial",
+     "callId": 3,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f5.n",
+       "name": "n",
+       "type": "int",
+       "value": "1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-9",
+   "index": 9,
+   "narration": "factorial returns 1.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f5",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "callId": 2,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f4.n",
+       "name": "n",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "factorial",
+     "callId": 3,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f5.n",
+       "name": "n",
+       "type": "int",
+       "value": "1"
+      },
+      {
+       "kind": "scalar",
+       "id": "f5.return",
+       "name": "return",
+       "type": "int",
+       "value": "1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-10",
+   "index": 10,
+   "narration": "factorial returns 2.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f4",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "factorial",
+     "callId": 2,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f4.n",
+       "name": "n",
+       "type": "int",
+       "value": "2"
+      },
+      {
+       "kind": "scalar",
+       "id": "f4.return",
+       "name": "return",
+       "type": "int",
+       "value": "2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-11",
+   "index": 11,
+   "narration": "factorial returns 6.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f3",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "factorial",
+     "callId": 1,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f3.n",
+       "name": "n",
+       "type": "int",
+       "value": "3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f3.return",
+       "name": "return",
+       "type": "int",
+       "value": "6"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-12",
+   "index": 12,
+   "narration": "factorial returns 24.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f2",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "factorial",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "scalar",
+       "id": "f2.n",
+       "name": "n",
+       "type": "int",
+       "value": "4"
+      },
+      {
+       "kind": "scalar",
+       "id": "f2.return",
+       "name": "return",
+       "type": "int",
+       "value": "24"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-13",
+   "index": 13,
+   "narration": "Back in <module>: line 6 finishes.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.result",
+       "name": "result",
+       "type": "int",
+       "value": "24"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  },
+  {
+   "id": "py-14",
+   "index": 14,
+   "narration": "The program finished.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [
+    "24"
+   ],
+   "activeId": "f1",
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.factorial",
+       "name": "factorial",
+       "type": "function",
+       "target": "o1"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.result",
+       "name": "result",
+       "type": "int",
+       "value": "24"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "function factorial(n)",
+     "type": "function",
+     "cells": [],
+     "objectKind": "function"
+    }
+   ]
+  }
+ ]
+}

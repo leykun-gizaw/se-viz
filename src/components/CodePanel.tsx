@@ -11,6 +11,7 @@
  */
 import { motion, useReducedMotion } from 'framer-motion';
 import { tokenizeLine, type TokenType } from '../engine/highlightC.ts';
+import { tokenizePython } from '../engine/highlightPython.ts';
 import { pulsedCellIds } from '../engine/trace/diff.ts';
 import {
   findActiveFrame,
@@ -95,6 +96,9 @@ export function CodePanel({
   presenting = false,
 }: CodePanelProps) {
   const lines = trace.source.replace(/\n$/, '').split('\n');
+  // Python (Phase 30) is tokenized as a whole, so a triple-quoted string can span lines.
+  const python = trace.language === 'python';
+  const pyTokens = python ? tokenizePython(lines.join('\n')) : null;
   const highlighted = new Set(step.highlightedLines);
 
   // Inline values are resolved against the displayed snapshot's active frame; the active frame is
@@ -108,7 +112,7 @@ export function CodePanel({
       <div className="flex items-center gap-2 border-b border-hairline px-4 py-2">
         <span className="font-mono text-[11px] text-ink-faint">&lt;/&gt;</span>
         <span className="font-mono text-[11px] uppercase tracking-wide text-ink-muted">
-          {trace.file ?? `${trace.id}.c`}
+          {trace.file ?? `${trace.id}.${python ? 'py' : 'c'}`}
         </span>
       </div>
       <div className="min-h-0 flex-1 overflow-auto py-2">
@@ -117,13 +121,14 @@ export function CodePanel({
             {lines.map((line, i) => {
               const lineNo = i + 1;
               const isActive = highlighted.has(lineNo);
-              const tokens = tokenizeLine(line);
+              const tokens = pyTokens ? pyTokens[i] : tokenizeLine(line);
               const inline = isActive
                 ? resolveInlineValues({
                     lines: [lineNo],
                     source: trace.source,
                     frame: activeFrame,
                     changedIds,
+                    language: trace.language,
                   })
                 : [];
               return (

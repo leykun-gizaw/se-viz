@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { allCatalogTraces } from '../../content/catalog.ts';
 import { addTrace } from '../../content/phase0/addTrace.ts';
 import { diffSteps } from './diff.ts';
 
@@ -82,5 +83,16 @@ describe('diff includes static-segment cells (Phase 24)', () => {
       heap: [],
     };
     expect(diffSteps(prev, withTotal(1, 0)).cellsAdded).toContain('g.total');
+  });
+});
+
+describe('kindsChanged (Phase 30)', () => {
+  it('is always empty on C traces: their cells never change kind', () => {
+    for (const trace of allCatalogTraces().filter((t) => t.language === 'c')) {
+      trace.steps.forEach((step, i) => {
+        const prev = i > 0 ? trace.steps[i - 1] : null;
+        expect(diffSteps(prev, step).kindsChanged, `${trace.id} step ${i}`).toEqual([]);
+      });
+    }
   });
 });
