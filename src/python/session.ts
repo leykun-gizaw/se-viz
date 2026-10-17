@@ -5,12 +5,7 @@
  * @packageDocumentation
  */
 import type { PyodideAPI } from 'pyodide';
-import {
-  resolveLimits,
-  type RecorderStop,
-  type RunRequest,
-  type RunResult,
-} from './protocol.ts';
+import { resolveLimits, type RecorderStop, type RunRequest, type RunResult } from './protocol.ts';
 
 /**
  * Receives snapshots as they are recorded: a JSON array of new snapshots, the count so far, and the

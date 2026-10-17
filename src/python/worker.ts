@@ -58,9 +58,10 @@ const imported = new Set<AllowedPackage>();
 function wantedPackages(pyodide: PyodideAPI, request: WorkerRequest['request']): AllowedPackage[] {
   const wanted = new Set<AllowedPackage>((request.packages ?? []).filter(isAllowed));
   try {
-    const findImports = pyodide.pyimport('pyodide.code').find_imports as (
-      code: string,
-    ) => { toJs(): string[]; destroy(): void };
+    const findImports = pyodide.pyimport('pyodide.code').find_imports as (code: string) => {
+      toJs(): string[];
+      destroy(): void;
+    };
     const found = findImports(request.source);
     for (const name of found.toJs()) if (isAllowed(name)) wanted.add(name);
     found.destroy();
@@ -84,7 +85,9 @@ async function handle(message: WorkerRequest): Promise<void> {
       // matplotlib gets the non-interactive Agg backend: a worker has no display.
       pyodide.runPython(
         [
-          ...(missing.includes('matplotlib') ? ['import os', "os.environ['MPLBACKEND'] = 'Agg'"] : []),
+          ...(missing.includes('matplotlib')
+            ? ['import os', "os.environ['MPLBACKEND'] = 'Agg'"]
+            : []),
           ...missing.map((p) => `import ${p}`),
         ].join('\n'),
       );

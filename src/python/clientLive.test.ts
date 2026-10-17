@@ -148,7 +148,12 @@ describe('PythonRunner (Phase 31)', () => {
           chunk: JSON.stringify([snap(1), snap(2, 'hi\n')]),
           total: 2,
         });
-        self.send({ type: 'steps', id: msg.id, chunk: JSON.stringify([snap(3, 'hi\n')]), total: 3 });
+        self.send({
+          type: 'steps',
+          id: msg.id,
+          chunk: JSON.stringify([snap(3, 'hi\n')]),
+          total: 3,
+        });
       });
     });
     const runner = new PythonRunner({ createWorker });
@@ -191,7 +196,8 @@ describe('PythonRunner (Phase 31)', () => {
 
   it('Stop with nothing in flight on a warm worker keeps it', async () => {
     const { workers, createWorker } = pool((self, msg) => {
-      if (msg.type === 'load') queueMicrotask(() => self.send({ type: 'loaded', ms: 1, version: 'x' }));
+      if (msg.type === 'load')
+        queueMicrotask(() => self.send({ type: 'loaded', ms: 1, version: 'x' }));
     });
     const runner = new PythonRunner({ createWorker });
     await runner.preload();
