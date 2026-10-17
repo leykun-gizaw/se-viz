@@ -13,6 +13,9 @@
  *     baseline is the Phase 26 tip (55168b1) main chunk **plus** the measured size of the two
  *     Phase 27 exemplar slides. Later phases that grow the app for other reasons pass their own
  *     `--baseline` (or `BUNDLE_BASELINE`).
+ *  4. (Phase 29) Pyodide is never in the main chunk: no Pyodide loader, runtime or CDN URL, and no
+ *     Python recorder code in `index-*.js`, and `index.html` doesn't reference Pyodide. Pyodide may
+ *     only live in a worker chunk that the main chunk doesn't import statically.
  */
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -41,6 +44,16 @@ const one = (re, what) => {
   return hits[0];
 };
 const failures = [];
+// Identifiers only Pyodide's loader/runtime, its CDN URL, or our recorder would put in a chunk.
+const PYODIDE_MARKERS = [
+  'loadPyodide',
+  'pyodide.asm',
+  'cdn.jsdelivr.net/pyodide',
+  'python_stdlib.zip',
+  'pyodide-lock.json',
+  'sys.settrace',
+];
+const pyodideChunks = [];
 function fail(msg) {
   failures.push(msg);
 }
@@ -67,6 +80,22 @@ if (mainName) {
   }
   if (/mermaid/i.test(html)) fail('index.html references (preloads) a Mermaid chunk');
 
+  // 4. Pyodide stays out of the main chunk (Phase 29): it loads only inside the Python worker.
+  for (const marker of PYODIDE_MARKERS) {
+    if (main.includes(marker)) fail(`main chunk contains Pyodide code ("${marker}")`);
+  }
+  if (/pyodide/i.test(html)) fail('index.html references (preloads) Pyodide');
+  for (const name of files.filter((f) => f.endsWith('.js') && f !== mainName)) {
+    const text = readFileSync(join(assets, name), 'utf8');
+    if (!text.includes('loadPyodide')) continue;
+    pyodideChunks.push(name);
+    if (
+      new RegExp(`(?:from\\s*|import\\s*)["'][^"']*${name.replace(/[.-]/g, '\\$&')}`).test(main)
+    ) {
+      fail(`main chunk statically imports the Pyodide chunk ${name}`);
+    }
+  }
+
   // 3. Size budget.
   const bytes = Buffer.byteLength(main);
   const delta = bytes - baseline;
@@ -77,7 +106,7 @@ if (mainName) {
   );
   if (delta > budget) fail(`main chunk grew by ${delta} B (> ${budget} B budget)`);
 }
-for (const name of [coreName, runtimeName]) {
+for (const name of [coreName, runtimeName, ...pyodideChunks]) {
   if (name) console.log(`lazy chunk ${name}: ${readFileSync(join(assets, name)).length} B`);
 }
 
@@ -85,4 +114,6 @@ if (failures.length > 0) {
   for (const f of failures) console.error(`✗ ${f}`);
   process.exit(1);
 }
-console.log('✓ Mermaid is code-split and the main chunk is within budget');
+console.log(
+  '✓ Mermaid is code-split, Pyodide is not in the main chunk, and the main chunk is within budget',
+);

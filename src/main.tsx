@@ -21,8 +21,23 @@ if (!rootElement) {
   throw new Error('Root element #root not found');
 }
 
-createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+const root = createRoot(rootElement);
+
+// Phase 29 spike: the Python tracer debug page, at `/?python-debug`, in dev only. `import.meta.env.DEV`
+// is a build-time `false` in production, so this branch (and the page, the worker and Pyodide) is
+// dropped from the production bundle entirely.
+if (import.meta.env.DEV && new URLSearchParams(window.location.search).has('python-debug')) {
+  void import('./python/debug/PythonDebugPage.tsx').then(({ PythonDebugPage }) =>
+    root.render(
+      <StrictMode>
+        <PythonDebugPage />
+      </StrictMode>,
+    ),
+  );
+} else {
+  root.render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  );
+}
