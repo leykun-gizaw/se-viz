@@ -8,7 +8,9 @@
  * - **Python** (`python.ts`): from the recorder's statement facts (`Trace.statements`, `Step.py`)
  *   and the recorded states — an ordered breakdown of what the line did, "What changed" from the
  *   object-level diff, the branch taken, the loop pass, calls and returns, exceptions, and a glossary
- *   concept (`glossary.ts`).
+ *   concept (`glossary.ts`). It is a lazy chunk ({@link loadPythonDeriver}): C-only sessions never
+ *   download it. Until it has loaded, Python steps get no derived sections (the panel shows the
+ *   narration, which for recorded traces is itself derived), and subscribers are told when it lands.
  * - **C** (`c.ts`): what C traces carry — frames pushed / popped and `condition` chips.
  *
  * Two-beat stepping is respected: on `arrive` only what is about to run is described (and the
@@ -18,9 +20,37 @@
  */
 import type { Trace } from '../trace/types.ts';
 import { deriveC } from './c.ts';
-import { derivePython, PROGRAM_END } from './python.ts';
-import { plain } from './text.ts';
 import { emptyDerived, type DerivedExplanation } from './types.ts';
+
+/** A language's deriver: the sections for one beat of one step. */
+export type Deriver = (trace: Trace, stepIndex: number, beat: 'arrive' | 'apply') => DerivedExplanation;
+
+let python: Deriver | null = null;
+let loading: Promise<void> | null = null;
+const listeners = new Set<() => void>();
+
+/** Install the Python deriver (`python.ts` does this when it loads). */
+export function registerPythonDeriver(fn: Deriver): void {
+  python = fn;
+  for (const l of listeners) l();
+}
+
+/** Whether the Python deriver has loaded. */
+export function pythonDeriverReady(): boolean {
+  return python !== null;
+}
+
+/** Be told when a deriver is installed (for `useSyncExternalStore`). Returns the unsubscribe. */
+export function subscribeDerivers(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+/** Load the Python deriver's chunk (once). */
+export function loadPythonDeriver(): Promise<void> {
+  loading ??= import('./python.ts').then(() => undefined);
+  return loading;
+}
 
 /**
  * Derive the explanation panel's sections for one beat of a trace.
@@ -35,27 +65,6 @@ export function deriveExplanation(
   beat: 'arrive' | 'apply',
 ): DerivedExplanation {
   if ((trace.view ?? 'memory') !== 'memory' || !trace.steps[stepIndex]) return emptyDerived();
-  return trace.language === 'python'
-    ? derivePython(trace, stepIndex, beat)
-    : deriveC(trace, stepIndex, beat);
-}
-
-/**
- * A one-line, plain-text summary of what a Python step did (Phase 32), for its narration: the
- * sentence that best names the step — the exception, the branch taken, the loop pass, the call, or
- * the last part of the breakdown (usually what was stored). `null` when nothing can be derived.
- */
-export function summarize(trace: Trace, stepIndex: number): string | null {
-  const step = trace.steps[stepIndex];
-  if (!step?.py || step.py.ending) return null;
-  const d = deriveExplanation(trace, stepIndex, 'apply');
-  const pick =
-    (step.py.event === 'exception' ? d.exceptions[0] : undefined) ??
-    d.branch[0] ??
-    d.loop[0] ??
-    (step.py.event === 'call' ? d.did[0] : undefined) ??
-    // The program's end is said by the player; the line's own last sentence says more.
-    (d.did.length > 1 && d.did[d.did.length - 1] === PROGRAM_END ? d.did[d.did.length - 2] : undefined) ??
-    d.did[d.did.length - 1];
-  return pick === undefined ? null : plain(pick);
+  if (trace.language === 'python') return python ? python(trace, stepIndex, beat) : emptyDerived();
+  return deriveC(trace, stepIndex, beat);
 }

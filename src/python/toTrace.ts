@@ -8,7 +8,7 @@
  *
  * @packageDocumentation
  */
-import { deriveExplanation, summarize } from '../engine/explain/derive.ts';
+import { derivePython, summarize } from '../engine/explain/python.ts';
 import type { Trace } from '../engine/trace/types.ts';
 import { mapA } from './mappings/candidates.ts';
 import { statementTable } from './mappings/plan.ts';
@@ -27,7 +27,7 @@ export interface PythonTraceMeta {
  *
  * Phase 32: the trace carries the recorder's statement facts (`statements`, and `py` on each step),
  * and each step's narration and condition chip are derived from them (`summarize`,
- * `deriveExplanation`), replacing the plain "Line 4 ran." placeholder where a sentence can be
+ * `derivePython`), replacing the plain "Line 4 ran." placeholder where a sentence can be
  * derived.
  */
 export function recordingToTrace(result: RunResult, source: string, meta: PythonTraceMeta): Trace {
@@ -43,7 +43,7 @@ export function recordingToTrace(result: RunResult, source: string, meta: Python
   };
   const derived = steps.map((_, i) => ({
     narration: summarize(trace, i),
-    condition: deriveExplanation(trace, i, 'apply').condition,
+    condition: derivePython(trace, i, 'apply').condition,
   }));
   steps.forEach((step, i) => {
     const { narration, condition } = derived[i];

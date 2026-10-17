@@ -9,7 +9,12 @@
  * by section, else text derived from the trace (Phase 32), else the narration and the diff. On an
  * `arrive` beat the step hasn't run, so its effects are held back until the `apply` beat.
  */
-import { useMemo } from 'react';
+import { useEffect, useMemo, useSyncExternalStore } from 'react';
+import {
+  loadPythonDeriver,
+  pythonDeriverReady,
+  subscribeDerivers,
+} from '../../engine/explain/derive.ts';
 import {
   explainBeat,
   type ChangeKind,
@@ -204,10 +209,18 @@ export interface ExplanationPanelProps {
 
 export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) {
   const { trace, index, beat, effectiveMode } = player;
-  const ex = useMemo(
-    () => explainBeat(trace, index, beat, effectiveMode),
-    [trace, index, beat, effectiveMode],
-  );
+  // Python's derived explanations are a lazy chunk (Phase 32): load it for a Python trace, and
+  // explain again once it is in.
+  const pythonReady = useSyncExternalStore(subscribeDerivers, pythonDeriverReady, pythonDeriverReady);
+  const python = trace.language === 'python';
+  useEffect(() => {
+    if (python && !pythonReady) void loadPythonDeriver();
+  }, [python, pythonReady]);
+  const ex = useMemo(() => {
+    // Read so the memo re-runs when the Python deriver arrives: it changes what is derived.
+    void pythonReady;
+    return explainBeat(trace, index, beat, effectiveMode);
+  }, [trace, index, beat, effectiveMode, pythonReady]);
   const arriving = ex.status === 'about-to-run';
 
   return (

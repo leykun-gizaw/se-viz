@@ -4,6 +4,8 @@
  */
 import { describe, expect, it } from 'vitest';
 import { diffSteps } from '../../engine/trace/diff.ts';
+// Installs the (lazily loaded, in the app) Python deriver the panel uses.
+import '../../engine/explain/python.ts';
 import { explainBeat } from '../../engine/trace/explain.ts';
 import { pointersByTarget } from '../../engine/pointers.ts';
 import type { HeapBlock, Step, Trace } from '../../engine/trace/types.ts';

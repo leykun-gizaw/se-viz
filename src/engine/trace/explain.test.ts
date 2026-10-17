@@ -6,6 +6,8 @@ import { preprocessorTrace } from '../../content/fixtures/preprocessor.ts';
 import { factorialTrace } from '../../content/se200/recursion/factorial.ts';
 import { insertHeadTrace } from '../../content/se201/linked-lists/insertHead.ts';
 import { deriveExplanation } from '../explain/derive.ts';
+// Installs the (lazily loaded, in the app) Python deriver, so Python modules are explained too.
+import '../explain/python.ts';
 import { explainBeat } from './explain.ts';
 import type { HeapBlock, StackFrame, Step, Trace } from './types.ts';
 

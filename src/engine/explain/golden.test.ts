@@ -10,41 +10,11 @@
 import { describe, expect, it } from 'vitest';
 import { controlFlowTrace } from '../../content/se200/variables-control-flow/controlFlow.ts';
 import { sumToTrace } from '../../content/se200/recursion/sumTo.ts';
-import type { RunResult } from '../../python/protocol.ts';
-import { EXTRA_PROGRAMS } from '../../python/testPrograms.ts';
-import { recordingToTrace } from '../../python/toTrace.ts';
 import { explainBeat } from '../trace/explain.ts';
 import { lineTexts } from '../trace/labels.ts';
 import type { Trace } from '../trace/types.ts';
+import { extraTrace, sampleTrace } from './testTraces.ts';
 import type { ChangeRow } from './types.ts';
-
-const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/*.json', {
-  eager: true,
-  import: 'default',
-});
-const RECORDINGS = import.meta.glob<string>('../../python/fixtures/extra-*.json', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-});
-
-const sample = (name: string) => {
-  const t = TRACES[`../../content/fixtures/python/${name}.json`];
-  if (!t) throw new Error(`missing trace ${name}`);
-  return t;
-};
-
-/** A Phase 32 extra program, recorded by `recorder.test.ts` and mapped like any live run. */
-function extra(name: string): Trace {
-  const text = RECORDINGS[`../../python/fixtures/${name}.json`];
-  const program = EXTRA_PROGRAMS.find((p) => p.name === name);
-  if (text === undefined || !program) throw new Error(`missing recording ${name}`);
-  return recordingToTrace(JSON.parse(text) as RunResult, program.request.source, {
-    id: name,
-    title: name,
-    file: `${name}.py`,
-  });
-}
 
 function rowText(row: ChangeRow): string {
   const value =
@@ -54,7 +24,7 @@ function rowText(row: ChangeRow): string {
 }
 
 /** The panel's text for every step of a trace, both beats, as Markdown. */
-export function renderGolden(trace: Trace): string {
+function renderGolden(trace: Trace): string {
   const out: string[] = [];
   const fence = trace.language === 'python' ? 'python' : 'c';
   out.push(`# ${trace.file ?? trace.id}: derived explanations`, '');
@@ -118,11 +88,11 @@ const PYTHON_EXTRAS = ['extra-augassign', 'extra-statements', 'extra-exceptions'
 
 describe('golden derived explanations', () => {
   it.each(PYTHON_SAMPLES)('Phase 29 sample %s', async (name) => {
-    await expect(renderGolden(sample(name))).toMatchFileSnapshot(`golden/${name}.md`);
+    await expect(renderGolden(sampleTrace(name))).toMatchFileSnapshot(`golden/${name}.md`);
   });
 
   it.each(PYTHON_EXTRAS)('Phase 32 program %s', async (name) => {
-    await expect(renderGolden(extra(name))).toMatchFileSnapshot(`golden/${name}.md`);
+    await expect(renderGolden(extraTrace(name))).toMatchFileSnapshot(`golden/${name}.md`);
   });
 
   it.each([

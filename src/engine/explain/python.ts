@@ -44,7 +44,8 @@ import {
   type PyAnalysis,
   type Read,
 } from './pyState.ts';
-import { capitalize, code, count, isAre, lineRange, sentences } from './text.ts';
+import { registerPythonDeriver } from './derive.ts';
+import { capitalize, code, count, isAre, lineRange, plain, sentences } from './text.ts';
 import { emptyDerived, type ChangeRow, type DerivedExplanation } from './types.ts';
 
 /** Everything the templates need about one step. */
@@ -1364,6 +1365,27 @@ function context(trace: Trace, k: number): Ctx {
   return ctx;
 }
 
+/**
+ * A one-line, plain-text summary of what a Python step did, for its narration: the sentence that
+ * best names the step — the exception, the branch taken, the loop pass, the call, or the last part of
+ * the breakdown (usually what was stored). `null` when nothing can be derived.
+ */
+export function summarize(trace: Trace, stepIndex: number): string | null {
+  const step = trace.steps[stepIndex];
+  if (!step?.py || step.py.ending) return null;
+  const d = derivePython(trace, stepIndex, 'apply');
+  const last = d.did[d.did.length - 1];
+  const pick =
+    (step.py.event === 'exception' ? d.exceptions[0] : undefined) ??
+    d.branch[0] ??
+    d.loop[0] ??
+    (step.py.event === 'call' ? d.did[0] : undefined) ??
+    // The program's end is said by the player; the line's own last sentence says more.
+    (d.did.length > 1 && last === PROGRAM_END ? d.did[d.did.length - 2] : undefined) ??
+    last;
+  return pick === undefined ? null : plain(pick);
+}
+
 /** Derive the panel sections for a Python step (see {@link import('./derive.ts').deriveExplanation}). */
 export function derivePython(trace: Trace, k: number, beat: 'arrive' | 'apply'): DerivedExplanation {
   const out = emptyDerived();
@@ -1385,3 +1407,6 @@ export function derivePython(trace: Trace, k: number, beat: 'arrive' | 'apply'):
   out.exceptions = sentences(exceptions(ctx));
   return out;
 }
+
+// Loading this module installs it as the Python deriver (it is loaded lazily, see `derive.ts`).
+registerPythonDeriver(derivePython);
