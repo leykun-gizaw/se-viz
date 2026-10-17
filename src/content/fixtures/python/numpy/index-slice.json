@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "a now refers to a new ndarray.",
+   "narration": "a now refers to a new 1-D ndarray made from the list written in the code: shape (5,), dtype int32.",
    "highlightedLines": [
     3
    ],
@@ -122,7 +122,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Set x to 20.",
+   "narration": "Read the element at index 1 of a: 20.",
    "highlightedLines": [
     4
    ],
@@ -220,7 +220,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Set last to 50.",
+   "narration": "Read the element at index -1 (counted from the end: index 4) of a: 50.",
    "highlightedLines": [
     5
    ],
@@ -325,7 +325,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "part now refers to a new ndarray.",
+   "narration": "a[1:4] picks indices 1, 2 and 3 of a, as a new array part of shape (3,).",
    "highlightedLines": [
     6
    ],
@@ -482,7 +482,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "m now refers to a new ndarray.",
+   "narration": "m now refers to a new 2-D ndarray made from the list of lists written in the code: shape (2, 3), dtype int32.",
    "highlightedLines": [
     7
    ],
@@ -714,7 +714,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Set v to 3.",
+   "narration": "Read the element at row 0, column 2 of m: 3.",
    "highlightedLines": [
     8
    ],
@@ -953,7 +953,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "row now refers to a new ndarray.",
+   "narration": "m[1] picks row 1 of m, as a new array row of shape (3,).",
    "highlightedLines": [
     9
    ],
@@ -1244,7 +1244,7 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "col now refers to a new ndarray.",
+   "narration": "m[:, 1] picks column 1 of m, as a new array col of shape (2,).",
    "highlightedLines": [
     10
    ],

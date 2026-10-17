@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "m now refers to a new ndarray.",
+   "narration": "m now refers to a new 2-D ndarray made from the list of lists written in the code: shape (2, 3), dtype int32.",
    "highlightedLines": [
     3
    ],
@@ -131,7 +131,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Set total to 21.",
+   "narration": "Summed all 6 elements of m: 21.",
    "highlightedLines": [
     4
    ],
@@ -238,7 +238,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "col_sums now refers to a new ndarray.",
+   "narration": "Summed m along axis 0, down each column: one result per column, so shape (2, 3) becomes (3,).",
    "highlightedLines": [
     5
    ],
@@ -397,7 +397,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "row_means now refers to a new ndarray.",
+   "narration": "Averaged m along axis 1, across each row: one result per row, so shape (2, 3) becomes (2,).",
    "highlightedLines": [
     6
    ],
@@ -601,7 +601,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Set biggest to 6.",
+   "narration": "Found the largest of the 6 elements of m: 6.",
    "highlightedLines": [
     7
    ],
@@ -812,7 +812,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "best now refers to a new ndarray.",
+   "narration": "Took the largest value of m along axis 0, down each column: one result per column, so shape (2, 3) becomes (3,).",
    "highlightedLines": [
     8
    ],

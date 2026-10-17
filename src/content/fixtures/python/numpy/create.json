@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "a now refers to a new ndarray.",
+   "narration": "a now refers to a new 1-D ndarray made from the list written in the code: shape (5,), dtype int32.",
    "highlightedLines": [
     3
    ],
@@ -122,7 +122,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "r now refers to a new ndarray.",
+   "narration": "np.arange(6) made 6 evenly spaced numbers, from 0 to 5: shape (6,), dtype int32. r now refers to it.",
    "highlightedLines": [
     4
    ],
@@ -286,7 +286,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "z now refers to a new ndarray.",
+   "narration": "np.zeros((2, 3)) made a 2-D ndarray filled with 0.0: shape (2, 3), dtype float64. z now refers to it.",
    "highlightedLines": [
     5
    ],
@@ -525,7 +525,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "o now refers to a new ndarray.",
+   "narration": "np.ones(4) made a 1-D ndarray filled with 1.0: shape (4,), dtype float64. o now refers to it.",
    "highlightedLines": [
     6
    ],
@@ -823,7 +823,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "t now refers to a new ndarray.",
+   "narration": "np.linspace(0, 1, 5) made 5 evenly spaced numbers from 0.0 to 1.0: shape (5,), dtype float64. t now refers to it.",
    "highlightedLines": [
     7
    ],
@@ -1246,7 +1246,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "m now refers to a new ndarray.",
+   "narration": "m now refers to a new 2-D ndarray made from the list of lists written in the code: shape (2, 3), dtype int32.",
    "highlightedLines": [
     8
    ],
@@ -1744,7 +1744,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "cube now refers to a new ndarray.",
+   "narration": "cube now refers to a new 3-D ndarray made from the list of lists written in the code: shape (3, 2, 2), dtype int32.",
    "highlightedLines": [
     9
    ],

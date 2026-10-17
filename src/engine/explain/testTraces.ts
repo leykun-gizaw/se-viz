@@ -10,7 +10,7 @@ import { EXTRA_PROGRAMS } from '../../python/testPrograms.ts';
 import { recordingToTrace } from '../../python/toTrace.ts';
 import type { Trace } from '../trace/types.ts';
 
-const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/*.json', {
+const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/**/*.json', {
   eager: true,
   import: 'default',
 });

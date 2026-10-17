@@ -13,6 +13,7 @@ import { sumToTrace } from '../../content/se200/recursion/sumTo.ts';
 import { explainBeat } from '../trace/explain.ts';
 import { lineTexts } from '../trace/labels.ts';
 import type { Trace } from '../trace/types.ts';
+import { NUMPY_SAMPLES as NUMPY } from '../../python/samples/numpy/index.ts';
 import { extraTrace, sampleTrace } from './testTraces.ts';
 import type { ChangeRow } from './types.ts';
 
@@ -85,6 +86,8 @@ const PYTHON_SAMPLES = [
   'infinite-loop',
 ];
 const PYTHON_EXTRAS = ['extra-augassign', 'extra-statements', 'extra-exceptions', 'extra-objects'];
+/** Phase 34: the recorded NumPy samples (`src/content/fixtures/python/numpy/`). */
+const NUMPY_SAMPLES = NUMPY.map((s) => s.name);
 
 describe('golden derived explanations', () => {
   it.each(PYTHON_SAMPLES)('Phase 29 sample %s', async (name) => {
@@ -93,6 +96,10 @@ describe('golden derived explanations', () => {
 
   it.each(PYTHON_EXTRAS)('Phase 32 program %s', async (name) => {
     await expect(renderGolden(extraTrace(name))).toMatchFileSnapshot(`golden/${name}.md`);
+  });
+
+  it.each(NUMPY_SAMPLES)('Phase 34 NumPy sample %s', async (name) => {
+    await expect(renderGolden(sampleTrace(`numpy/${name}`))).toMatchFileSnapshot(`golden/numpy-${name}.md`);
   });
 
   it.each([

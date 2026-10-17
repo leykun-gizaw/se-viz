@@ -9,7 +9,7 @@
  *
  * @packageDocumentation
  */
-import { shapeText } from '../trace/ndarray.ts';
+import { isArray, shapeText } from '../trace/ndarray.ts';
 import { diffObjects, type PyEvent } from '../trace/objectDiff.ts';
 import type {
   Cell,
@@ -46,6 +46,7 @@ import {
   type Read,
 } from './pyState.ts';
 import { registerPythonDeriver } from './derive.ts';
+import { numpyStatement, type NumpyDid } from './numpy.ts';
 import { capitalize, code, count, isAre, lineRange, plain, sentences } from './text.ts';
 import { emptyDerived, type ChangeRow, type DerivedExplanation } from './types.ts';
 
@@ -257,7 +258,8 @@ function evaluation(ctx: Ctx, e: PyExpr | undefined, out: string[]): void {
   switch (e.type) {
     case 'name': {
       const r = read(ctx, e);
-      if (r?.cell.kind === 'scalar') out.push(`Looked up ${code(e.id)}: ${valuePhrase(ctx.step, r.cell)}.`);
+      if (r?.cell.kind === 'scalar')
+        out.push(`Looked up ${code(e.id)}: ${valuePhrase(ctx.step, r.cell)}.`);
       return;
     }
     case 'subscript':
@@ -314,7 +316,8 @@ function operand(ctx: Ctx, e: PyExpr): string | null {
   }
   const r = read(ctx, e);
   const t = exprText(e);
-  if (r?.cell.kind === 'scalar' && t !== null) return `${code(t)} (${valuePhrase(ctx.step, r.cell)})`;
+  if (r?.cell.kind === 'scalar' && t !== null)
+    return `${code(t)} (${valuePhrase(ctx.step, r.cell)})`;
   return t === null ? null : code(t);
 }
 
@@ -336,7 +339,9 @@ function operation(ctx: Ctx, e: PyExpr, result: Cell | null): string | null {
     // The verb form ("Added `1`, giving `2`") only when the left operand's value was shown.
     const left = e.left.type === 'const' || read(ctx, e.left)?.cell.kind === 'scalar';
     if (verbs && right && isSimple(e.left) && left && (number || (isText && verbs[1]))) {
-      return isText ? `${verbs[1]} ${right} onto it, giving ${value}.` : `${verbs[0]} ${right}, giving ${value}.`;
+      return isText
+        ? `${verbs[1]} ${right} onto it, giving ${value}.`
+        : `${verbs[0]} ${right}, giving ${value}.`;
     }
   }
   // A negative literal (`-1`) is a value, not a computation.
@@ -381,7 +386,8 @@ function scopeOf(ctx: Ctx, frameId: string): string | undefined {
   return s && topFrame(s)?.id === frameId ? s.py?.call?.scope : undefined;
 }
 
-const isGenerator = (scope: string | undefined) => scope === 'generator' || scope === 'comprehension';
+const isGenerator = (scope: string | undefined) =>
+  scope === 'generator' || scope === 'comprehension';
 
 /** The value a frame returned, from its `return` cell in `step`. */
 function returned(step: Step, frameId: string): Cell | undefined {
@@ -396,7 +402,8 @@ function nameLabel(ctx: Ctx, step: Step, frame: StackFrame, name: string): strin
     return `${yielded ? 'Value yielded by' : 'Return value of'} ${callLabel(ctx.trace, ctx.a, frame.id)}`;
   }
   if (frame.id === topFrame(step)?.id) return code(name);
-  const owner = frame.name === '<module>' ? 'the global frame' : callLabel(ctx.trace, ctx.a, frame.id);
+  const owner =
+    frame.name === '<module>' ? 'the global frame' : callLabel(ctx.trace, ctx.a, frame.id);
   return `${code(name)} in ${owner}`;
 }
 
@@ -448,14 +455,22 @@ function store(ctx: Ctx, t: PyExpr, opts: { aug?: boolean; from?: PyExpr } = {})
       const container = readExpr(step, frame, t.value);
       const block = container ? targetBlock(step, container.cell) : undefined;
       const key = readExpr(step, frame, t.index);
-      if (block?.objectKind === 'dict' && !before && container && key?.cell.kind === 'scalar' && prev) {
+      if (
+        block?.objectKind === 'dict' &&
+        !before &&
+        container &&
+        key?.cell.kind === 'scalar' &&
+        prev
+      ) {
         return `Added the key ${code(String(key.cell.value))} to ${code(container.path)}, with the value ${value}.`;
       }
     } else if (!before && prev) {
       return `Set ${code(path)} to ${value} (a new attribute).`;
     }
     if (t.type === 'attribute') return `Set ${code(path)} to ${value}.`;
-    return opts.aug ? `Stored ${value} back in ${code(path)}.` : `Stored ${value} in ${code(path)}.`;
+    return opts.aug
+      ? `Stored ${value} back in ${code(path)}.`
+      : `Stored ${value} in ${code(path)}.`;
   }
   if (t.type === 'display' && t.items && t.items.every((i) => i.type === 'name')) {
     const parts = t.items.map((i) => {
@@ -493,10 +508,12 @@ function gotBack(ctx: Ctx): string | null {
     return v ? `${capitalize(label)} yielded ${valuePhrase(prev, v)}.` : null;
   }
   if (prev.py?.unwinding) return null;
-  if (isGenerator(scopeOf(ctx, callee.id))) return `${capitalize(label)} finished: it has no more values.`;
+  if (isGenerator(scopeOf(ctx, callee.id)))
+    return `${capitalize(label)} finished: it has no more values.`;
   const v = returned(prev, callee.id);
   // `__init__` always gives back None; the call `Tractor(…)` itself gives back the new object.
-  if (v && callee.name === '__init__') return `${capitalize(label)} finished setting up the new object.`;
+  if (v && callee.name === '__init__')
+    return `${capitalize(label)} finished setting up the new object.`;
   return v ? `Got ${valuePhrase(prev, v)} back from ${label}.` : null;
 }
 
@@ -521,13 +538,16 @@ function resultWords(test: PyExpr, result: boolean): string {
     (test.type === 'compare' && test.ops.every((o) => BOOL_OPS.has(o))) ||
     (test.type === 'unary' && test.op === 'not') ||
     (test.type === 'const' && (test.repr === 'True' || test.repr === 'False'));
-  return isBool ? `is ${code(result ? 'True' : 'False')}` : `counts as ${result ? 'true' : 'false'}`;
+  return isBool
+    ? `is ${code(result ? 'True' : 'False')}`
+    : `counts as ${result ? 'true' : 'false'}`;
 }
 
 /** "`crop in counts` is `False`"; a constant test (`while True:`) is "always" so. */
 function conditionPhrase(test: PyExpr, result: boolean): string {
   if (test.type === 'const') {
-    const truth = test.repr === 'True' || test.repr === 'False' ? code(test.repr) : result ? 'true' : 'false';
+    const truth =
+      test.repr === 'True' || test.repr === 'False' ? code(test.repr) : result ? 'true' : 'false';
     return `the condition ${code(test.repr)} is always ${truth}`;
   }
   return `${codeOf(test) ?? 'the condition'} ${resultWords(test, result)}`;
@@ -546,12 +566,17 @@ function forDid(ctx: Ctx, stmt: Extract<PyStatement, { kind: 'For' }>): string[]
   }
   const which = pass.iteration === 1 ? 'first' : 'next';
   const bound = loopBinding(ctx, stmt.target);
-  return [bound ? `Took the ${which} item from ${from}: ${bound}.` : `Took the ${which} item from ${from}.`];
+  return [
+    bound
+      ? `Took the ${which} item from ${from}: ${bound}.`
+      : `Took the ${which} item from ${from}.`,
+  ];
 }
 
 /** "`crop` is now `'corn'`" (or every name of `for k, v in …`), read after the step. */
 function loopBinding(ctx: Ctx, target: PyExpr): string | null {
-  const names = target.type === 'name' ? [target] : target.type === 'display' ? (target.items ?? []) : [];
+  const names =
+    target.type === 'name' ? [target] : target.type === 'display' ? (target.items ?? []) : [];
   if (names.length === 0) return null;
   const parts: string[] = [];
   for (const n of names) {
@@ -572,8 +597,21 @@ function printed(ctx: Ctx): string[] {
   return after.slice(before.length);
 }
 
+/** The NumPy reading of the step's statement (Phase 34), once per step. */
+const numpyCache = new WeakMap<Step, NumpyDid | null>();
+function numpyFor(ctx: Ctx): NumpyDid | null {
+  let hit = numpyCache.get(ctx.step);
+  if (hit === undefined) {
+    hit = ctx.stmt ? numpyStatement(ctx, ctx.stmt) : null;
+    numpyCache.set(ctx.step, hit);
+  }
+  return hit;
+}
+
 function statementDid(ctx: Ctx, stmt: PyStatement): string[] {
   const out: string[] = [];
+  const np = numpyFor(ctx);
+  if (np) return np.did;
   switch (stmt.kind) {
     case 'Assign': {
       evaluation(ctx, stmt.value, out);
@@ -607,7 +645,11 @@ function statementDid(ctx: Ctx, stmt: PyStatement): string[] {
     case 'AnnAssign':
       if (!stmt.value) {
         const t = codeOf(stmt.target);
-        return [t && stmt.annotation ? `Annotated ${t} as ${code(stmt.annotation)}; no value is stored.` : ''];
+        return [
+          t && stmt.annotation
+            ? `Annotated ${t} as ${code(stmt.annotation)}; no value is stored.`
+            : '',
+        ];
       }
       evaluation(ctx, stmt.value, out);
       out.push(operation(ctx, stmt.value, storedValue(ctx, stmt.target)) ?? '');
@@ -658,7 +700,10 @@ function statementDid(ctx: Ctx, stmt: PyStatement): string[] {
         `Defined the function ${code(`${stmt.name}(${stmt.params.join(', ')})`)}; its body runs only when it is called.`,
       ];
     case 'ClassDef':
-      if (ctx.resumed) return [`Created the class ${code(stmt.name)}: the name ${code(stmt.name)} now refers to it.`];
+      if (ctx.resumed)
+        return [
+          `Created the class ${code(stmt.name)}: the name ${code(stmt.name)} now refers to it.`,
+        ];
       // The class body's own first line event, on the `class` line.
       return inClassBody(ctx, stmt.name) ? [`The body of class ${code(stmt.name)} begins.`] : [];
     case 'Try':
@@ -666,7 +711,10 @@ function statementDid(ctx: Ctx, stmt: PyStatement): string[] {
     case 'Except': {
       const caught = inRange(ctx.step.py?.at ?? 0, stmt.body);
       const what = stmt.type ? code(stmt.type) : null;
-      if (!what) return caught ? [`A bare ${code('except:')} catches any exception, so this handler runs.`] : [];
+      if (!what)
+        return caught
+          ? [`A bare ${code('except:')} catches any exception, so this handler runs.`]
+          : [];
       out.push(
         caught
           ? `Checked whether the exception matches ${what}: it does, so this handler runs.`
@@ -681,19 +729,29 @@ function statementDid(ctx: Ctx, stmt: PyStatement): string[] {
     case 'Pass':
       return [`Did nothing: ${code('pass')} is a placeholder.`];
     case 'Break':
-      return [`${code('break')} left the loop; Python continues at line ${ctx.step.py?.at ?? '?'}.`];
+      return [
+        `${code('break')} left the loop; Python continues at line ${ctx.step.py?.at ?? '?'}.`,
+      ];
     case 'Continue':
-      return [`${code('continue')} skipped the rest of this pass; the loop goes on from line ${ctx.step.py?.at ?? '?'}.`];
+      return [
+        `${code('continue')} skipped the rest of this pass; the loop goes on from line ${ctx.step.py?.at ?? '?'}.`,
+      ];
     case 'With':
       // The `with` line runs twice: entering the block, and again leaving it (its `__exit__`).
       return inRange(ctx.step.py?.at ?? 0, stmt.body)
         ? [`Entered the ${code('with')} block (${lineRange(stmt.body.first, stmt.body.last)}).`]
         : [`Left the ${code('with')} block.`];
     case 'Delete':
-      return stmt.targets.map((t) => (t.type === 'name' && !nameCell(ctx.step, ctx.frame, t.id) ? `Deleted the name ${code(t.id)}.` : ''));
+      return stmt.targets.map((t) =>
+        t.type === 'name' && !nameCell(ctx.step, ctx.frame, t.id)
+          ? `Deleted the name ${code(t.id)}.`
+          : '',
+      );
     case 'Global':
     case 'Nonlocal':
-      return [`Declared ${stmt.names.map(code).join(', ')} as ${stmt.kind === 'Global' ? 'global' : 'nonlocal'} for this function.`];
+      return [
+        `Declared ${stmt.names.map(code).join(', ')} as ${stmt.kind === 'Global' ? 'global' : 'nonlocal'} for this function.`,
+      ];
     case 'Assert': {
       const t = codeOf(stmt.test);
       return [t ? `Checked ${t}: it holds, so nothing happens.` : ''];
@@ -716,7 +774,8 @@ function ending(ctx: Ctx, stmt: PyStatement | null): string[] {
   }
   const v = returned(ctx.step, frame.id);
   if (!v) return [];
-  if (stmt?.kind !== 'Return') return [`${capitalize(label)} reached its end, so it returns ${valuePhrase(ctx.step, v)}.`];
+  if (stmt?.kind !== 'Return')
+    return [`${capitalize(label)} reached its end, so it returns ${valuePhrase(ctx.step, v)}.`];
   return [`${capitalize(label)} returns ${valuePhrase(ctx.step, v)}.`];
 }
 
@@ -729,11 +788,16 @@ function didApply(ctx: Ctx): string[] {
     if (!callee) return [];
     const label = callLabel(ctx.trace, ctx.a, callee.id);
     if (py.call?.scope === 'class') {
-      return [`Line ${ctx.line} starts ${label}: Python runs the class body first, then makes the class.`];
+      return [
+        `Line ${ctx.line} starts ${label}: Python runs the class body first, then makes the class.`,
+      ];
     }
     if (py.call?.resumed) return [`${capitalize(label)} resumes after its last ${code('yield')}.`];
     if (isGenerator(py.call?.scope)) {
-      return [`Started ${label}: it runs until it yields its first value.`, `Line ${ctx.line} waits for that value.`];
+      return [
+        `Started ${label}: it runs until it yields its first value.`,
+        `Line ${ctx.line} waits for that value.`,
+      ];
     }
     return [`Called ${label}.`, `Line ${ctx.line} waits while it runs.`];
   }
@@ -741,7 +805,8 @@ function didApply(ctx: Ctx): string[] {
     const e = py.exception;
     if (!e) return [];
     const what = code(e.message ? `${e.type}: ${e.message}` : e.type);
-    if (ctx.resumed) return [`The exception ${what} came back to line ${ctx.line} from the call it made.`];
+    if (ctx.resumed)
+      return [`The exception ${what} came back to line ${ctx.line} from the call it made.`];
     return [`Line ${ctx.line} raised ${what}.`];
   }
   if (py.event === 'return' && py.unwinding) {
@@ -749,13 +814,17 @@ function didApply(ctx: Ctx): string[] {
     if (!frame) return [];
     return frame.name === '<module>'
       ? ['Nothing caught the exception, so the program stops here.']
-      : [`${capitalize(callLabel(ctx.trace, ctx.a, frame.id))} stops here: the exception passes up to the line that called it.`];
+      : [
+          `${capitalize(callLabel(ctx.trace, ctx.a, frame.id))} stops here: the exception passes up to the line that called it.`,
+        ];
   }
   if (py.event === 'return' && py.yielded) {
     const frame = topFrame(step);
     const v = frame ? returned(step, frame.id) : undefined;
     if (!frame || !v) return [];
-    return [`${capitalize(callLabel(ctx.trace, ctx.a, frame.id))} yields ${valuePhrase(step, v)} and pauses here until the next value is asked for.`];
+    return [
+      `${capitalize(callLabel(ctx.trace, ctx.a, frame.id))} yields ${valuePhrase(step, v)} and pauses here until the next value is asked for.`,
+    ];
   }
   if (afterRaise(ctx.trace, ctx.k)) {
     // Python is leaving the raising line for the handler (or the end of the frame).
@@ -780,7 +849,9 @@ function aboutClause(stmt: PyStatement): string | null {
       const targets = stmt.targets.map(codeOf);
       if (targets.some((t) => t === null)) return null;
       const v = codeOf(stmt.value);
-      return v ? `works out ${v} and stores the result in ${targets.join(' and ')}` : `stores a value in ${targets.join(' and ')}`;
+      return v
+        ? `works out ${v} and stores the result in ${targets.join(' and ')}`
+        : `stores a value in ${targets.join(' and ')}`;
     }
     case 'AugAssign': {
       const t = codeOf(stmt.target);
@@ -803,7 +874,9 @@ function aboutClause(stmt: PyStatement): string | null {
     case 'For': {
       const t = codeOf(stmt.target);
       const from = codeOf(stmt.iter);
-      return t && from ? `moves the loop on: ${t} gets the next item from ${from}, if there is one` : null;
+      return t && from
+        ? `moves the loop on: ${t} gets the next item from ${from}, if there is one`
+        : null;
     }
     case 'Return': {
       const v = codeOf(stmt.value);
@@ -823,7 +896,9 @@ function aboutClause(stmt: PyStatement): string | null {
     case 'Try':
       return `enters a ${code('try')} block`;
     case 'Except':
-      return stmt.type ? `checks whether the exception matches ${code(stmt.type)}` : 'catches the exception';
+      return stmt.type
+        ? `checks whether the exception matches ${code(stmt.type)}`
+        : 'catches the exception';
     case 'Raise':
       return 'raises an exception';
     case 'Pass':
@@ -854,10 +929,13 @@ function about(ctx: Ctx): string[] {
   if (py.event === 'return' && py.unwinding) {
     const frame = topFrame(ctx.step);
     return frame && frame.name !== '<module>'
-      ? [`${capitalize(callLabel(ctx.trace, ctx.a, frame.id))} is about to stop because of the exception.`]
+      ? [
+          `${capitalize(callLabel(ctx.trace, ctx.a, frame.id))} is about to stop because of the exception.`,
+        ]
       : ['The program is about to stop because of the exception.'];
   }
-  if (afterRaise(ctx.trace, ctx.k)) return [`About to leave line ${ctx.line} because of the exception.`];
+  if (afterRaise(ctx.trace, ctx.k))
+    return [`About to leave line ${ctx.line} because of the exception.`];
   if (ctx.resumed) return [`About to continue line ${ctx.line}.`];
   if (!ctx.stmt) return [];
   if (ctx.stmt.kind === 'With') {
@@ -879,7 +957,12 @@ function about(ctx: Ctx): string[] {
 function branch(ctx: Ctx): { text: string[]; condition?: StepCondition } {
   const { stmt, step } = ctx;
   const r = testResult(ctx);
-  if (!stmt || r === null || !step.py || (stmt.kind !== 'If' && stmt.kind !== 'Elif' && stmt.kind !== 'While')) {
+  if (
+    !stmt ||
+    r === null ||
+    !step.py ||
+    (stmt.kind !== 'If' && stmt.kind !== 'Elif' && stmt.kind !== 'While')
+  ) {
     return { text: [] };
   }
   const at = step.py.at;
@@ -925,9 +1008,16 @@ function loop(ctx: Ctx): string[] {
   const name = code(stmt.kind === 'For' ? 'for' : 'while');
   if (pass.entered) {
     const bound = stmt.kind === 'For' ? loopBinding(ctx, stmt.target) : null;
-    return [bound ? `Iteration ${pass.iteration} of the ${name} loop: ${bound}.` : `Iteration ${pass.iteration} of the ${name} loop.`];
+    return [
+      bound
+        ? `Iteration ${pass.iteration} of the ${name} loop: ${bound}.`
+        : `Iteration ${pass.iteration} of the ${name} loop.`,
+    ];
   }
-  const tail = stmt.orelse && inRange(ctx.step.py?.at ?? 0, stmt.orelse) ? `; its ${code('else')} block runs` : '';
+  const tail =
+    stmt.orelse && inRange(ctx.step.py?.at ?? 0, stmt.orelse)
+      ? `; its ${code('else')} block runs`
+      : '';
   if (pass.iteration === 0) return [`The ${name} loop ends without running its body${tail}.`];
   return [`The ${name} loop ends after ${count(pass.iteration, 'iteration')}${tail}.`];
 }
@@ -940,10 +1030,13 @@ function calls(ctx: Ctx): string[] {
     if (ids.has(f.id) || !prev) continue;
     const label = callLabel(trace, a, f.id);
     const v = returned(prev, f.id);
-    if (prev.py?.yielded && v) out.push(`${capitalize(label)} yielded ${valuePhrase(prev, v)} to line ${ctx.line}.`);
+    if (prev.py?.yielded && v)
+      out.push(`${capitalize(label)} yielded ${valuePhrase(prev, v)} to line ${ctx.line}.`);
     else if (prev.py?.unwinding) out.push(`${capitalize(label)} ended because of an exception.`);
-    else if (isGenerator(scopeOf(ctx, f.id))) out.push(`${capitalize(label)} finished: line ${ctx.line} gets no more values from it.`);
-    else if (v) out.push(`${capitalize(label)} returned ${valuePhrase(prev, v)} to line ${ctx.line}.`);
+    else if (isGenerator(scopeOf(ctx, f.id)))
+      out.push(`${capitalize(label)} finished: line ${ctx.line} gets no more values from it.`);
+    else if (v)
+      out.push(`${capitalize(label)} returned ${valuePhrase(prev, v)} to line ${ctx.line}.`);
     else if (f.name !== '<module>') out.push(`${capitalize(label)} finished.`);
   }
   const py = step.py;
@@ -951,7 +1044,8 @@ function calls(ctx: Ctx): string[] {
   if (py?.event === 'call' && top) {
     const label = callLabel(trace, a, top.id);
     if (py.call?.scope === 'class') out.push(`Line ${ctx.line} runs ${label} in a new frame.`);
-    else if (py.call?.resumed) out.push(`${capitalize(label)} resumes (line ${ctx.line} asked for its next value).`);
+    else if (py.call?.resumed)
+      out.push(`${capitalize(label)} resumes (line ${ctx.line} asked for its next value).`);
     else if (isGenerator(py.call?.scope)) out.push(`Started ${label} from line ${ctx.line}.`);
     else out.push(`Called ${label} from line ${ctx.line}.`);
     const caller = step.stack[step.stack.length - 2];
@@ -959,8 +1053,15 @@ function calls(ctx: Ctx): string[] {
       if (p.kind !== 'pointer' || !caller) continue;
       const block = blockIn(step, p.target);
       const same = caller.variables.filter((v) => v.kind === 'pointer' && v.target === p.target);
-      if (block && same.length > 0 && block.objectKind !== 'function' && block.objectKind !== 'class') {
-        out.push(`${code(p.name)} refers to the same ${kindWord(block)} as the caller's ${same.map((s) => code(s.name)).join(' and ')}.`);
+      if (
+        block &&
+        same.length > 0 &&
+        block.objectKind !== 'function' &&
+        block.objectKind !== 'class'
+      ) {
+        out.push(
+          `${code(p.name)} refers to the same ${kindWord(block)} as the caller's ${same.map((s) => code(s.name)).join(' and ')}.`,
+        );
       }
     }
   }
@@ -971,7 +1072,8 @@ function calls(ctx: Ctx): string[] {
 function lastException(trace: Trace, a: PyAnalysis, k: number, frame: string | null) {
   for (let j = k; j >= 0; j--) {
     const s = trace.steps[j];
-    if (s.py?.event === 'exception' && a.ran[j] === frame && s.py.exception) return { j, e: s.py.exception };
+    if (s.py?.event === 'exception' && a.ran[j] === frame && s.py.exception)
+      return { j, e: s.py.exception };
   }
   return null;
 }
@@ -1011,7 +1113,9 @@ function exceptions(ctx: Ctx): string[] {
   if (py.ending === 'uncaught' && py.exception) {
     const e = py.exception;
     const what = code(e.message ? `${e.type}: ${e.message}` : e.type);
-    return [`${what} was not caught, so the program stopped. Python printed the traceback in the output.`];
+    return [
+      `${what} was not caught, so the program stopped. Python printed the traceback in the output.`,
+    ];
   }
   if (py.event === 'exception' && py.exception) {
     const e = py.exception;
@@ -1028,7 +1132,9 @@ function exceptions(ctx: Ctx): string[] {
     const what = code(last.e.type);
     return top.name === '<module>'
       ? [`The ${what} reached the top of the program uncaught.`]
-      : [`${capitalize(callLabel(trace, a, top.id))} ends early: the ${what} goes on to its caller.`];
+      : [
+          `${capitalize(callLabel(trace, a, top.id))} ends early: the ${what} goes on to its caller.`,
+        ];
   }
   if (ctx.stmt?.kind === 'Except' && ctx.complete) {
     const last = lastException(trace, a, ctx.k, ctx.frame);
@@ -1036,7 +1142,9 @@ function exceptions(ctx: Ctx): string[] {
     if (!last) return [];
     const what = code(last.e.type);
     return caught
-      ? [`The ${what} from line ${lineOf(trace.steps[last.j])} is handled here: ${lineRange(ctx.stmt.body.first, ctx.stmt.body.last)} run${ctx.stmt.body.first === ctx.stmt.body.last ? 's' : ''} next.`]
+      ? [
+          `The ${what} from line ${lineOf(trace.steps[last.j])} is handled here: ${lineRange(ctx.stmt.body.first, ctx.stmt.body.last)} run${ctx.stmt.body.first === ctx.stmt.body.last ? 's' : ''} next.`,
+        ]
       : [];
   }
   return [];
@@ -1059,7 +1167,13 @@ function objectName(step: Step, paths: Map<string, string>, id: string): string 
 }
 
 /** The label of a slot inside an object, or of a name in a frame. */
-function slotLabel(ctx: Ctx, step: Step, paths: Map<string, string>, owner: string, cellId: string): string | null {
+function slotLabel(
+  ctx: Ctx,
+  step: Step,
+  paths: Map<string, string>,
+  owner: string,
+  cellId: string,
+): string | null {
   const frame = frameIn(step, owner);
   if (frame) {
     const cell = frame.variables.find((v) => v.id === cellId);
@@ -1085,32 +1199,71 @@ function findCell(step: Step, id: string): Cell | undefined {
   return undefined;
 }
 
-function changeRow(ctx: Ctx, prev: Step, step: Step, e: PyEvent, paths: { prev: Map<string, string>; next: Map<string, string> }): ChangeRow | null {
+function changeRow(
+  ctx: Ctx,
+  prev: Step,
+  step: Step,
+  e: PyEvent,
+  paths: { prev: Map<string, string>; next: Map<string, string> },
+): ChangeRow | null {
   const md = { markdown: true as const };
   switch (e.kind) {
     case 'frame-pushed': {
       const label = callLabel(ctx.trace, ctx.a, e.frameId);
       if (step.py?.call?.resumed && topFrame(step)?.id === e.frameId) {
-        return { kind: 'call', subject: `${capitalize(label)} resumes: its frame is back on the stack`, ...md };
+        return {
+          kind: 'call',
+          subject: `${capitalize(label)} resumes: its frame is back on the stack`,
+          ...md,
+        };
       }
       const scope = scopeOf(ctx, e.frameId);
-      if (scope === 'class') return { kind: 'call', subject: `${capitalize(label)} starts in a new frame`, ...md };
+      if (scope === 'class')
+        return { kind: 'call', subject: `${capitalize(label)} starts in a new frame`, ...md };
       if (isGenerator(scope)) {
-        return { kind: 'call', subject: `${capitalize(label)} starts running: a new frame is pushed`, ...md };
+        return {
+          kind: 'call',
+          subject: `${capitalize(label)} starts running: a new frame is pushed`,
+          ...md,
+        };
       }
       return { kind: 'call', subject: `${capitalize(label)} called: a new frame is pushed`, ...md };
     }
     case 'frame-popped': {
       const label = capitalize(callLabel(ctx.trace, ctx.a, e.frameId));
-      if (prev.py?.yielded) return { kind: 'return', subject: `${label} paused at a ${code('yield')}: its frame leaves the stack until it resumes`, ...md };
-      if (prev.py?.unwinding) return { kind: 'return', subject: `${label} ended by an exception: its frame is popped`, ...md };
+      if (prev.py?.yielded)
+        return {
+          kind: 'return',
+          subject: `${label} paused at a ${code('yield')}: its frame leaves the stack until it resumes`,
+          ...md,
+        };
+      if (prev.py?.unwinding)
+        return {
+          kind: 'return',
+          subject: `${label} ended by an exception: its frame is popped`,
+          ...md,
+        };
       return { kind: 'return', subject: `${label} returned: its frame is popped`, ...md };
     }
     case 'object-created': {
       const block = blockIn(step, e.objectId);
       if (!block) return null;
       const path = paths.next.get(e.objectId);
-      return { kind: 'alloc', subject: `New ${kindWord(block)}${path !== undefined ? ` ${code(path)}` : ` ${block.id}`}`, ...md };
+      const named = `New ${kindWord(block)}${path !== undefined ? ` ${code(path)}` : ` ${block.id}`}`;
+      if (isArray(block)) {
+        // Phase 34: an array's shape, and whose memory it uses.
+        const base = block.ndarray.base;
+        const of =
+          base === null
+            ? ''
+            : `, a view of ${paths.next.has(base) ? code(paths.next.get(base)!) : `ndarray ${base}`}`;
+        return {
+          kind: 'alloc',
+          subject: `${named}, shape ${code(shapeText(block.ndarray.shape))}${of}`,
+          ...md,
+        };
+      }
+      return { kind: 'alloc', subject: named, ...md };
     }
     case 'object-released': {
       const block = blockIn(prev, e.objectId);
@@ -1128,14 +1281,24 @@ function changeRow(ctx: Ctx, prev: Step, step: Step, e: PyEvent, paths: { prev: 
       const frame = frameIn(step, e.frameId);
       const cell = frame?.variables.find((v) => v.id === e.cellId);
       if (!frame || !cell) return null;
-      return { kind: 'declare', subject: nameLabel(ctx, step, frame, cell.name), to: valueText(step, cell), ...md };
+      return {
+        kind: 'declare',
+        subject: nameLabel(ctx, step, frame, cell.name),
+        to: valueText(step, cell),
+        ...md,
+      };
     }
     case 'name-unbound': {
       const frame = frameIn(prev, e.frameId);
       const cell = frame?.variables.find((v) => v.id === e.cellId);
       // A generator's yielded value leaves when it resumes: not a name the program removed.
       if (!frame || !cell || cell.name === 'return') return null;
-      return { kind: 'remove', subject: `${nameLabel(ctx, prev, frame, cell.name)} was removed`, from: valueText(prev, cell), ...md };
+      return {
+        kind: 'remove',
+        subject: `${nameLabel(ctx, prev, frame, cell.name)} was removed`,
+        from: valueText(prev, cell),
+        ...md,
+      };
     }
     case 'item-added':
     case 'item-removed': {
@@ -1151,9 +1314,21 @@ function changeRow(ctx: Ctx, prev: Step, step: Step, e: PyEvent, paths: { prev: 
           : { kind: 'remove', subject: `${v} removed from the set ${obj}`, ...md };
       }
       if (e.kind === 'item-added') {
-        return { kind: 'add', subject: e.atEnd ? `${v} added at the end of ${obj}` : `${v} inserted into ${obj} at index ${e.index}`, ...md };
+        return {
+          kind: 'add',
+          subject: e.atEnd
+            ? `${v} added at the end of ${obj}`
+            : `${v} inserted into ${obj} at index ${e.index}`,
+          ...md,
+        };
       }
-      return { kind: 'remove', subject: e.atEnd ? `${v} removed from the end of ${obj}` : `${v} removed from ${obj} at index ${e.index}`, ...md };
+      return {
+        kind: 'remove',
+        subject: e.atEnd
+          ? `${v} removed from the end of ${obj}`
+          : `${v} removed from ${obj} at index ${e.index}`,
+        ...md,
+      };
     }
     case 'key-added':
     case 'key-removed': {
@@ -1163,8 +1338,18 @@ function changeRow(ctx: Ctx, prev: Step, step: Step, e: PyEvent, paths: { prev: 
       if (!block || !cell) return null;
       const obj = objectName(at, e.kind === 'key-added' ? paths.next : paths.prev, e.objectId);
       return e.kind === 'key-added'
-        ? { kind: 'add', subject: `Key ${code(cell.name)} added to ${obj}`, to: valueText(at, cell), ...md }
-        : { kind: 'remove', subject: `Key ${code(cell.name)} removed from ${obj}`, from: valueText(at, cell), ...md };
+        ? {
+            kind: 'add',
+            subject: `Key ${code(cell.name)} added to ${obj}`,
+            to: valueText(at, cell),
+            ...md,
+          }
+        : {
+            kind: 'remove',
+            subject: `Key ${code(cell.name)} removed from ${obj}`,
+            from: valueText(at, cell),
+            ...md,
+          };
     }
     case 'attribute-set':
     case 'attribute-deleted': {
@@ -1185,8 +1370,18 @@ function changeRow(ctx: Ctx, prev: Step, step: Step, e: PyEvent, paths: { prev: 
       if (!block || !cell) return null;
       const obj = objectName(at, e.kind === 'attribute-set' ? paths.next : paths.prev, e.objectId);
       return e.kind === 'attribute-set'
-        ? { kind: 'add', subject: `Attribute ${code(cell.name)} set on ${obj}`, to: valueText(at, cell), ...md }
-        : { kind: 'remove', subject: `Attribute ${code(cell.name)} removed from ${obj}`, from: valueText(at, cell), ...md };
+        ? {
+            kind: 'add',
+            subject: `Attribute ${code(cell.name)} set on ${obj}`,
+            to: valueText(at, cell),
+            ...md,
+          }
+        : {
+            kind: 'remove',
+            subject: `Attribute ${code(cell.name)} removed from ${obj}`,
+            from: valueText(at, cell),
+            ...md,
+          };
     }
     case 'array-reshaped': {
       const block = blockIn(step, e.objectId);
@@ -1222,9 +1417,27 @@ function changes(ctx: Ctx): ChangeRow[] | null {
   const used = namesIn(ctx.stmt);
   const paths = { prev: objectPaths(prev, used), next: objectPaths(step, used) };
   const rows: ChangeRow[] = [];
-  for (const e of diffObjects(prev, step)) {
+  const events = diffObjects(prev, step);
+  // Phase 34: more than 6 elements of one array changing is one row, not one per element.
+  const perArray = new Map<string, number>();
+  for (const e of events) {
+    if (e.kind === 'value-changed' && isArray(blockIn(step, e.ownerId))) {
+      perArray.set(e.ownerId, (perArray.get(e.ownerId) ?? 0) + 1);
+    }
+  }
+  const collapsed = new Set([...perArray].filter(([, n]) => n > 6).map(([id]) => id));
+  for (const id of collapsed) {
+    rows.push({
+      kind: 'value',
+      subject: `${perArray.get(id)} elements of ${objectName(step, paths.next, id)} changed`,
+      markdown: true,
+    });
+  }
+  for (const e of events) {
+    if (e.kind === 'value-changed' && collapsed.has(e.ownerId)) continue;
     const row = changeRow(ctx, prev, step, e, paths);
-    if (row && !row.subject.includes('\u0000') && !(row.from ?? '').includes('\u0000')) rows.push(row);
+    if (row && !row.subject.includes('\u0000') && !(row.from ?? '').includes('\u0000'))
+      rows.push(row);
   }
   const out = printed(ctx);
   if (out.length > 0) rows.push({ kind: 'output', subject: out.join('\n') });
@@ -1244,7 +1457,11 @@ function conceptKey(ctx: Ctx, applied: boolean): ConceptKey | null {
     if (py.event === 'call') {
       const top = topFrame(step);
       if (py.call?.scope === 'class') return 'class';
-      if (py.call?.scope === 'generator' || py.call?.scope === 'comprehension' || py.call?.resumed) {
+      if (
+        py.call?.scope === 'generator' ||
+        py.call?.scope === 'comprehension' ||
+        py.call?.resumed
+      ) {
         return 'generator';
       }
       if (top && step.stack.slice(0, -1).some((f) => f.name === top.name)) return 'recursion';
@@ -1263,6 +1480,8 @@ function conceptKey(ctx: Ctx, applied: boolean): ConceptKey | null {
     if (py.event === 'return' && py.unwinding) return 'exception';
   }
   if (!stmt || stmt.kind === 'Multiple') return null;
+  const np = applied ? numpyFor(ctx) : null;
+  if (np) return np.concept;
   const state = applied ? step : ctx.prev;
   switch (stmt.kind) {
     case 'Assign': {
@@ -1283,7 +1502,12 @@ function conceptKey(ctx: Ctx, applied: boolean): ConceptKey | null {
         if (b && ['list', 'dict', 'set'].includes(b.objectKind ?? '')) {
           const shared = namesFor(step, b.id).some((n) => n.name !== t.id);
           if (shared && ctx.prev && blockIn(ctx.prev, b.id)) return 'aliasing';
-          if (stmt.value.type === 'display' && stmt.value.of !== 'tuple' && (!ctx.prev || !blockIn(ctx.prev, b.id))) return 'assign-new-object';
+          if (
+            stmt.value.type === 'display' &&
+            stmt.value.of !== 'tuple' &&
+            (!ctx.prev || !blockIn(ctx.prev, b.id))
+          )
+            return 'assign-new-object';
         }
       }
       return 'assign';
@@ -1297,7 +1521,8 @@ function conceptKey(ctx: Ctx, applied: boolean): ConceptKey | null {
         return null;
       }
       const v = state ? readExpr(state, ctx.frame, t) : null;
-      if (v?.cell.kind === 'scalar' && (v.cell.type === 'int' || v.cell.type === 'float')) return 'augassign-number';
+      if (v?.cell.kind === 'scalar' && (v.cell.type === 'int' || v.cell.type === 'float'))
+        return 'augassign-number';
       const b = state && v ? targetBlock(state, v.cell) : undefined;
       if (b?.objectKind === 'list' && b.type === 'list') return 'augassign-list';
       return null;
@@ -1307,7 +1532,12 @@ function conceptKey(ctx: Ctx, applied: boolean): ConceptKey | null {
     case 'If':
     case 'Elif': {
       const t = stmt.test;
-      if (t.type === 'compare' && t.ops.length === 1 && (t.ops[0] === 'in' || t.ops[0] === 'not in') && state) {
+      if (
+        t.type === 'compare' &&
+        t.ops.length === 1 &&
+        (t.ops[0] === 'in' || t.ops[0] === 'not in') &&
+        state
+      ) {
         const c = readExpr(state, ctx.frame, t.comparators[0]);
         const b = c ? targetBlock(state, c.cell) : undefined;
         if (b?.objectKind === 'dict') return 'membership';
@@ -1327,7 +1557,8 @@ function conceptKey(ctx: Ctx, applied: boolean): ConceptKey | null {
       if (v.func.type === 'attribute' && state) {
         const owner = readExpr(state, ctx.frame, v.func.value);
         const b = owner ? targetBlock(state, owner.cell) : undefined;
-        if (v.func.attr === 'append' && b?.objectKind === 'list' && b.type === 'list') return 'append';
+        if (v.func.attr === 'append' && b?.objectKind === 'list' && b.type === 'list')
+          return 'append';
         if (b) return 'method-call';
       }
       return null;
@@ -1390,7 +1621,8 @@ function context(trace: Trace, k: number): Ctx {
   const value = callee && !prev?.py?.unwinding ? returned(prev!, callee.id) : undefined;
   if (ctx.stmt && callee && value) {
     const all = statementExprs(ctx.stmt).flatMap((e) => callsIn(e));
-    if (all.length === 1 && callsFunction(all[0], callee.name)) ctx.callResult = { call: all[0], cell: value };
+    if (all.length === 1 && callsFunction(all[0], callee.name))
+      ctx.callResult = { call: all[0], cell: value };
   }
   return ctx;
 }
@@ -1407,6 +1639,7 @@ export function summarize(trace: Trace, stepIndex: number): string | null {
   const last = d.did[d.did.length - 1];
   const pick =
     (step.py.event === 'exception' ? d.exceptions[0] : undefined) ??
+    numpyFor(context(trace, stepIndex))?.lead ??
     d.branch[0] ??
     d.loop[0] ??
     (step.py.event === 'call' ? d.did[0] : undefined) ??
@@ -1417,7 +1650,11 @@ export function summarize(trace: Trace, stepIndex: number): string | null {
 }
 
 /** Derive the panel sections for a Python step (see {@link import('./derive.ts').deriveExplanation}). */
-export function derivePython(trace: Trace, k: number, beat: 'arrive' | 'apply'): DerivedExplanation {
+export function derivePython(
+  trace: Trace,
+  k: number,
+  beat: 'arrive' | 'apply',
+): DerivedExplanation {
   const out = emptyDerived();
   if (!trace.steps[k]?.py) return out;
   const ctx = context(trace, k);

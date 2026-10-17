@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "flat now refers to a new ndarray.",
+   "narration": "np.arange(6) made 6 evenly spaced numbers, from 0 to 5: shape (6,), dtype int32. flat now refers to it.",
    "highlightedLines": [
     3
    ],
@@ -129,7 +129,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "grid now refers to a new ndarray.",
+   "narration": "Reshaped flat from shape (6,) to (2, 3): the same 6 values in the same order, filled in row by row.",
    "highlightedLines": [
     4
    ],
@@ -302,7 +302,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "turned now refers to a new ndarray.",
+   "narration": "Transposed grid from shape (2, 3) to (3, 2): row i becomes column i.",
    "highlightedLines": [
     5
    ],
@@ -550,7 +550,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Line 6 ran.",
+   "narration": "Changed the shape of flat in place, from (6,) to (3, 2): the same 6 values, still in the same order in memory.",
    "highlightedLines": [
     6
    ],
@@ -800,7 +800,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "back now refers to a new ndarray.",
+   "narration": "Copied turned into a new ndarray back with its own data: shape (3, 2).",
    "highlightedLines": [
     7
    ],

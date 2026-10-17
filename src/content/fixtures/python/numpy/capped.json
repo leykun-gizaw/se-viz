@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "big now refers to a new ndarray.",
+   "narration": "np.arange(500) made 500 evenly spaced numbers: shape (500,), dtype int32. big now refers to it.",
    "highlightedLines": [
     3
    ],
@@ -1494,7 +1494,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 4 ran.",
+   "narration": "Stored -1 in big[0]: index 0 of big (0 → -1).",
    "highlightedLines": [
     4
    ],
@@ -2957,7 +2957,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "grid now refers to a new ndarray.",
+   "narration": "Reshaped big from shape (500,) to (20, 25): the same 500 values in the same order, filled in row by row.",
    "highlightedLines": [
     5
    ],
@@ -5860,7 +5860,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "first now refers to a new ndarray.",
+   "narration": "big[:5] picks indices 0 to 4 of big, as a new array first of shape (5,).",
    "highlightedLines": [
     6
    ],
@@ -8829,7 +8829,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "hyper now refers to a new ndarray.",
+   "narration": "np.zeros((2, 2, 2, 2)) made a 4-D ndarray filled with 0.0: shape (2, 2, 2, 2), dtype float64. hyper now refers to it.",
    "highlightedLines": [
     7
    ],

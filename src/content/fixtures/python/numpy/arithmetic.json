@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "a now refers to a new ndarray.",
+   "narration": "a now refers to a new 1-D ndarray made from the list written in the code: shape (3,), dtype int32.",
    "highlightedLines": [
     3
    ],
@@ -108,7 +108,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "b now refers to a new ndarray.",
+   "narration": "b now refers to a new 1-D ndarray made from the list written in the code: shape (3,), dtype int32.",
    "highlightedLines": [
     4
    ],
@@ -237,7 +237,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "total now refers to a new ndarray.",
+   "narration": "Added a and b element by element: total is a new ndarray of shape (3,).",
    "highlightedLines": [
     5
    ],
@@ -418,7 +418,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "scaled now refers to a new ndarray.",
+   "narration": "Multiplied every element of a by 2: scaled is a new ndarray of shape (3,).",
    "highlightedLines": [
     6
    ],
@@ -651,7 +651,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "m now refers to a new ndarray.",
+   "narration": "m now refers to a new 2-D ndarray made from the list of lists written in the code: shape (2, 3), dtype int32.",
    "highlightedLines": [
     7
    ],
@@ -959,7 +959,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "shifted now refers to a new ndarray.",
+   "narration": "Added m and a element by element: shifted is a new ndarray of shape (2, 3).",
    "highlightedLines": [
     8
    ],
@@ -1342,7 +1342,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "col now refers to a new ndarray.",
+   "narration": "col now refers to a new 2-D ndarray made from the list of lists written in the code: shape (3, 1), dtype int32.",
    "highlightedLines": [
     9
    ],
@@ -1779,7 +1779,7 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "table now refers to a new ndarray.",
+   "narration": "Multiplied col by a element by element: table is a new ndarray of shape (3, 3).",
    "highlightedLines": [
     10
    ],
@@ -2312,7 +2312,7 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "row now refers to a new ndarray.",
+   "narration": "row now refers to a new 2-D ndarray made from the list of lists written in the code: shape (1, 2), dtype int32.",
    "highlightedLines": [
     11
    ],
@@ -2892,7 +2892,7 @@
   {
    "id": "py-10",
    "index": 10,
-   "narration": "outer now refers to a new ndarray.",
+   "narration": "Added col and row element by element: outer is a new ndarray of shape (3, 2).",
    "highlightedLines": [
     12
    ],
@@ -3547,7 +3547,7 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "Changed the ndarray in place: a still refers to the same ndarray.",
+   "narration": "Added 1 to every element of a, in place: a still refers to the same ndarray.",
    "highlightedLines": [
     13
    ],

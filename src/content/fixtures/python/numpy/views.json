@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "base now refers to a new ndarray.",
+   "narration": "np.arange(6) made 6 evenly spaced numbers, from 0 to 5: shape (6,), dtype int32. base now refers to it.",
    "highlightedLines": [
     3
    ],
@@ -129,7 +129,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "view now refers to a new ndarray.",
+   "narration": "base[1:4] picks indices 1, 2 and 3 of base, as a new array view of shape (3,).",
    "highlightedLines": [
     4
    ],
@@ -279,7 +279,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Line 5 ran.",
+   "narration": "Stored 100 in view[0]: index 0 of view (1 → 100).",
    "highlightedLines": [
     5
    ],
@@ -429,7 +429,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "copy now refers to a new ndarray.",
+   "narration": "Copied base into a new ndarray copy with its own data: shape (6,).",
    "highlightedLines": [
     6
    ],
@@ -652,7 +652,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Line 7 ran.",
+   "narration": "Stored -1 in copy[1]: index 1 of copy (100 → -1).",
    "highlightedLines": [
     7
    ],
@@ -875,7 +875,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "grid now refers to a new ndarray.",
+   "narration": "Reshaped base from shape (6,) to (2, 3): the same 6 values in the same order, filled in row by row.",
    "highlightedLines": [
     8
    ],
@@ -1173,7 +1173,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "The program has finished.",
+   "narration": "Stored 7 in grid[1, 2]: the element at [1, 2] of grid (5 → 7).",
    "highlightedLines": [
     9
    ],
