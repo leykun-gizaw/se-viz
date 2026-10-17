@@ -1,0 +1,487 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "fields",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'north'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'south'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "list",
+     "type": "list",
+     "items": []
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "fields",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'north'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'south'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "fields",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "animals",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'north'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'south'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "ref",
+       "id": "o5"
+      },
+      {
+       "kind": "ref",
+       "id": "o6"
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'name'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Daisy'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'kind'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'cow'"
+       }
+      }
+     ]
+    },
+    "o6": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'name'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Lulu'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'kind'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'goat'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "fields",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "animals",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'north'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'south'"
+       },
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "ref",
+       "id": "o5"
+      },
+      {
+       "kind": "ref",
+       "id": "o6"
+      }
+     ]
+    },
+    "o2": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'corn'"
+      },
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'wheat'"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "str",
+       "repr": "'beans'"
+      }
+     ]
+    },
+    "o5": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'name'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Daisy'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'kind'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'cow'"
+       }
+      }
+     ]
+    },
+    "o6": {
+     "kind": "dict",
+     "type": "dict",
+     "entries": [
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'name'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'Lulu'"
+       }
+      },
+      {
+       "key": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'kind'"
+       },
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'sheep'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

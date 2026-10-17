@@ -1,0 +1,344 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "ndarray",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "ndarray",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "ndarray",
+     "line": 2,
+     "vars": []
+    }
+   ],
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "ndarray",
+     "line": 3,
+     "vars": [
+      {
+       "name": "shape",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    },
+    {
+     "id": "f2",
+     "name": "ndarray",
+     "line": 3,
+     "vars": [
+      {
+       "name": "shape",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "dtype",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'float64'"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "tuple",
+     "type": "tuple",
+     "items": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "ndarray",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "ndarray"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "ndarray",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "ndarray"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "ndarray",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "grid",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "ndarray"
+    },
+    "o3": {
+     "kind": "summary",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "float64"
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "ndarray",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "grid",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "rows",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o2": {
+     "kind": "class",
+     "type": "type",
+     "name": "ndarray"
+    },
+    "o3": {
+     "kind": "summary",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      3
+     ],
+     "dtype": "float64"
+    },
+    "o4": {
+     "kind": "list",
+     "type": "list",
+     "items": [
+      {
+       "kind": "ref",
+       "id": "o3"
+      },
+      {
+       "kind": "ref",
+       "id": "o3"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

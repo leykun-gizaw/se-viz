@@ -1,0 +1,11 @@
+{
+ "steps": [],
+ "stdout": "",
+ "error": {
+  "type": "SyntaxError",
+  "message": "'(' was never closed",
+  "line": 1,
+  "offset": 10,
+  "traceback": "  File \"<student>\", line 1\n    def plant(crop:\n             ^\nSyntaxError: '(' was never closed\n"
+ }
+}
