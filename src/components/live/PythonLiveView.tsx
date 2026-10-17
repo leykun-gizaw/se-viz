@@ -350,19 +350,30 @@ export function PythonLiveView({
     saveTimer.current = null;
     setStoredSource(sourceRef.current);
   }, [setStoredSource]);
+  // The syntax-error mark belongs to the text that ran: the first edit after a run (or a Reset)
+  // clears it, so it never lands on a line of different text. One re-render per run at most.
+  const [edited, setEdited] = useState(false);
+  const editedRef = useRef(false);
+  const markEdited = useCallback(() => {
+    if (editedRef.current) return;
+    editedRef.current = true;
+    setEdited(true);
+  }, []);
   const onEdit = useCallback(
     (doc: string) => {
+      markEdited();
       sourceRef.current = doc;
       if (saveTimer.current !== null) clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(saveNow, SAVE_DELAY_MS);
     },
-    [saveNow],
+    [markEdited, saveNow],
   );
   // Reset remounts the editor with the default program.
   const [editorKey, setEditorKey] = useState(0);
   const [editorDoc, setEditorDoc] = useState(initialSource);
   const reset = () => {
     sourceRef.current = DEFAULT_PYTHON_PROGRAM;
+    markEdited();
     saveNow();
     setEditorDoc(DEFAULT_PYTHON_PROGRAM);
     setEditorKey((k) => k + 1);
@@ -398,6 +409,8 @@ export function PythonLiveView({
   const run = useCallback(async () => {
     if (inFlight.current) return;
     inFlight.current = true;
+    editedRef.current = false;
+    setEdited(false);
     saveNow();
     const source = sourceRef.current;
     const usedLimits = limits;
@@ -425,9 +438,11 @@ export function PythonLiveView({
     if (!inFlight.current) dispatch({ type: 'stop' });
   };
 
-  // A syntax error marks its line in the editor until the next run.
+  // A syntax error marks its line in the editor until the text changes.
   const errorLine =
-    status.phase === 'error' && status.error.line !== undefined ? status.error.line : null;
+    !edited && status.phase === 'error' && status.error.line !== undefined
+      ? status.error.line
+      : null;
 
   const split = useDefaultLayout({ id: 'se-viz-live-python-split', storage: localStorage });
   const busy =
