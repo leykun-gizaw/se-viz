@@ -1,4 +1,4 @@
-"""SE-Viz Python recorder (Phase 29 spike).
+"""SE-Viz Python recorder (Phase 29 spike; streaming and the size budget from Phase 31).
 
 Runs a student's program under ``sys.settrace`` and records one JSON snapshot per traced event
 (``call``, ``line``, ``return``, ``exception``) in **user code only**: the source is compiled with
@@ -27,6 +27,10 @@ STDOUT_MAX_CHARS = 64 * 1024
 # The real interpreter recursion limit sits this far above the user-frame cap, so the recorder's own
 # frames (trace callback, snapshot) always have room and the cap below is what the student hits.
 RECURSION_HEADROOM = 100
+# Streaming (Phase 31): snapshots are handed to the host in chunks of at most this many, or after
+# this long, so a run the main thread has to kill still has the steps recorded so far.
+CHUNK_MAX_SNAPSHOTS = 200
+CHUNK_MAX_SECONDS = 0.1
 
 PRIMITIVES = {
     int: "int",
@@ -100,16 +104,24 @@ class _Capture:
 
 
 class _Recorder:
-    def __init__(self, stdin_lines, limits):
+    def __init__(self, stdin_lines, limits, on_chunk=None):
         self.max_steps = int(limits["maxSteps"])
         self.max_depth = int(limits["maxDepth"])
         self.max_items = int(limits["maxContainerItems"])
         self.max_objects = int(limits["maxObjects"])
         self.timeout_s = float(limits["timeoutMs"]) / 1000.0
+        # Total JSON characters of all snapshots (Phase 31); older callers may omit it.
+        self.max_chars = int(limits.get("maxTraceChars", 8_000_000))
         self.stdin = list(stdin_lines)
         self.stdin_pos = 0
         self.out = _Capture(int(limits["maxStdoutLines"]))
-        self.steps = []
+        # Each snapshot is serialized as it is taken: that is what the size budget measures, what is
+        # streamed, and what the final result is joined from (so nothing is serialized twice).
+        self.snaps = []
+        self.chars = 0
+        self.on_chunk = on_chunk
+        self.flushed = 0
+        self.last_flush = 0.0
         self.keep = []  # strong refs to every object and frame seen: id() is never reused
         self.obj_ids = {}  # id(obj) -> "oN"
         self.frame_ids = {}  # id(frame) -> "fN"
@@ -268,13 +280,35 @@ class _Recorder:
 
     # ── snapshots ────────────────────────────────────────────────────────────────────────────
 
+    def _stop(self, reason):
+        """Stop the program: remember why, hand over every snapshot taken so far, and raise."""
+        self.truncated = reason
+        self._flush(True)
+        raise _Abort(reason)
+
+    def _flush(self, final=False):
+        """Hand the not-yet-streamed snapshots to the host (``on_chunk``), if there is one."""
+        if self.on_chunk is None or self.flushed == len(self.snaps):
+            if final and self.on_chunk is not None and self.truncated is not None:
+                self._send("[]", self.truncated)
+            return
+        chunk = "[" + ", ".join(self.snaps[self.flushed :]) + "]"
+        self.flushed = len(self.snaps)
+        self.last_flush = _time.monotonic()
+        self._send(chunk, self.truncated if final else None)
+
+    def _send(self, chunk, reason):
+        try:
+            self.on_chunk(chunk, len(self.snaps), reason)
+        except Exception:  # noqa: BLE001 - a broken host callback must not break the run
+            self.on_chunk = None
+
     def _snapshot(self, frame, event, arg):
-        if len(self.steps) >= self.max_steps:
-            self.truncated = "steps"
-            raise _Abort("steps")
-        if _time.monotonic() > self.deadline:
-            self.truncated = "time"
-            raise _Abort("time")
+        if len(self.snaps) >= self.max_steps:
+            self._stop("steps")
+        now = _time.monotonic()
+        if now > self.deadline:
+            self._stop("time")
 
         chain = []
         f = frame
@@ -328,7 +362,16 @@ class _Recorder:
         if walk.omitted:
             snap["objectsOmitted"] = walk.omitted
         snap["stdout"] = self.out.text
-        self.steps.append(snap)
+        text = _json.dumps(snap, ensure_ascii=False)
+        if self.chars + len(text) > self.max_chars:
+            self._stop("size")
+        self.chars += len(text) + 2  # ", " between snapshots
+        self.snaps.append(text)
+        if self.on_chunk is not None and (
+            len(self.snaps) - self.flushed >= CHUNK_MAX_SNAPSHOTS
+            or now - self.last_flush >= CHUNK_MAX_SECONDS
+        ):
+            self._flush()
 
     def _global(self, frame, event, arg):
         if self.truncated is not None or frame.f_code.co_filename != FILENAME:
@@ -347,8 +390,7 @@ class _Recorder:
                 + " frames)",
                 "line": frame.f_back.f_lineno if frame.f_back is not None else frame.f_lineno,
             }
-            self.truncated = "depth"
-            raise _Abort("depth")
+            self._stop("depth")
         if frame.f_code.co_name != "<module>":
             self._snapshot(frame, "call", arg)
         return self._local
@@ -364,7 +406,9 @@ class _Recorder:
             self.unwinding.discard(self.frame_ids.get(id(frame)))
         elif event == "exception":
             if isinstance(arg[1], _Abort):  # e.g. the stdout cap, raised inside print()
-                self.truncated = self.truncated or arg[1].reason
+                if self.truncated is None:
+                    self.truncated = arg[1].reason
+                    self._flush(True)
                 return None
             self._frame_id(frame)
             self.unwinding.add(self.frame_ids[id(frame)])
@@ -398,10 +442,11 @@ class _Recorder:
     # ── run ──────────────────────────────────────────────────────────────────────────────────
 
     def run(self, source):
+        """Run ``source`` and return the result as JSON text (the shape in PYTHON_TRACE_FORMAT.md)."""
         try:
             code = compile(source, FILENAME, "exec", dont_inherit=True)
         except (SyntaxError, ValueError) as e:
-            return {"steps": [], "stdout": "", "error": _error_info(e)}
+            return _json.dumps({"steps": [], "stdout": "", "error": _error_info(e)}, ensure_ascii=False)
 
         _linecache.cache[FILENAME] = (len(source), None, source.splitlines(True), FILENAME)
         user_globals = {"__name__": "__main__", "__builtins__": self._builtins()}
@@ -415,6 +460,7 @@ class _Recorder:
         _sys.stdout = _sys.stderr = self.out
         _sys.setrecursionlimit(depth_here + self.max_depth + RECURSION_HEADROOM)
         self.deadline = _time.monotonic() + self.timeout_s
+        self.last_flush = _time.monotonic()
         try:
             _sys.settrace(self._global)
             try:
@@ -430,14 +476,16 @@ class _Recorder:
             _sys.setrecursionlimit(old_limit)
             _linecache.cache.pop(FILENAME, None)
 
-        result = {"steps": self.steps, "stdout": self.out.text}
+        rest = {"stdout": self.out.text}
         if self.error is not None:
-            result["error"] = self.error
+            rest["error"] = self.error
         if self.truncated == "depth":
             pass  # reported as a RecursionError above; not a truncation
         elif self.truncated is not None:
-            result["truncated"] = self.truncated
-        return result
+            rest["truncated"] = self.truncated
+        # '{"steps": [<snapshot>, ...], "stdout": ...}', joined from the already-serialized snapshots.
+        tail = _json.dumps(rest, ensure_ascii=False)
+        return '{"steps": [' + ", ".join(self.snaps) + "], " + tail[1:]
 
 
 class _Walk:
@@ -493,7 +541,13 @@ def _error_info(e):
     return info
 
 
-def run_json(source, stdin_json, limits_json):
-    """Entry point for the worker: JSON strings in, a JSON string out (see PYTHON_TRACE_FORMAT.md)."""
-    rec = _Recorder(_json.loads(stdin_json), _json.loads(limits_json))
-    return _json.dumps(rec.run(source), ensure_ascii=False)
+def run_json(source, stdin_json, limits_json, on_chunk=None):
+    """Entry point for the worker: JSON strings in, a JSON string out (see PYTHON_TRACE_FORMAT.md).
+
+    ``on_chunk(chunk_json, total, reason)``, when given, receives the snapshots as they are taken:
+    ``chunk_json`` is a JSON array of new snapshots, ``total`` the number taken so far, and ``reason``
+    the stop reason (``"steps"``, ``"time"``, ``"size"``, ``"stdout"``, ``"depth"``) on the chunk sent
+    when the recorder stops the program, else ``None``. The returned JSON still holds every snapshot.
+    """
+    rec = _Recorder(_json.loads(stdin_json), _json.loads(limits_json), on_chunk)
+    return rec.run(source)
