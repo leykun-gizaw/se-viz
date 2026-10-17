@@ -338,6 +338,8 @@ function operation(ctx: Ctx, e: PyExpr, result: Cell | null): string | null {
       return isText ? `${verbs[1]} ${right} onto it, giving ${value}.` : `${verbs[0]} ${right}, giving ${value}.`;
     }
   }
+  // A negative literal (`-1`) is a value, not a computation.
+  if (e.type === 'unary' && e.operand.type === 'const') return null;
   if (e.type === 'binop' || e.type === 'compare' || e.type === 'boolop' || e.type === 'unary') {
     return e.src ? `Computed ${code(e.src)}: ${value}.` : null;
   }
@@ -521,8 +523,12 @@ function resultWords(test: PyExpr, result: boolean): string {
   return isBool ? `is ${code(result ? 'True' : 'False')}` : `counts as ${result ? 'true' : 'false'}`;
 }
 
-/** "`crop in counts` is `False`". */
+/** "`crop in counts` is `False`"; a constant test (`while True:`) is "always" so. */
 function conditionPhrase(test: PyExpr, result: boolean): string {
+  if (test.type === 'const') {
+    const truth = test.repr === 'True' || test.repr === 'False' ? code(test.repr) : result ? 'true' : 'false';
+    return `the condition ${code(test.repr)} is always ${truth}`;
+  }
   return `${codeOf(test) ?? 'the condition'} ${resultWords(test, result)}`;
 }
 
@@ -612,6 +618,8 @@ function statementDid(ctx: Ctx, stmt: PyStatement): string[] {
       evaluation(ctx, stmt.test, out);
       const r = testResult(ctx);
       const t = codeOf(stmt.test);
+      // A constant test (`while True:`) has nothing to check; "Branch taken" says what it means.
+      if (stmt.test.type === 'const') return out;
       if (t && r !== null) out.push(`Checked ${t}: it ${resultWords(stmt.test, r)}.`);
       else if (t) out.push(`Checked ${t}.`);
       return out;
@@ -676,7 +684,10 @@ function statementDid(ctx: Ctx, stmt: PyStatement): string[] {
     case 'Continue':
       return [`${code('continue')} skipped the rest of this pass; the loop goes on from line ${ctx.step.py?.at ?? '?'}.`];
     case 'With':
-      return [`Entered the ${code('with')} block (${lineRange(stmt.body.first, stmt.body.last)}).`];
+      // The `with` line runs twice: entering the block, and again leaving it (its `__exit__`).
+      return inRange(ctx.step.py?.at ?? 0, stmt.body)
+        ? [`Entered the ${code('with')} block (${lineRange(stmt.body.first, stmt.body.last)}).`]
+        : [`Left the ${code('with')} block.`];
     case 'Delete':
       return stmt.targets.map((t) => (t.type === 'name' && !nameCell(ctx.step, ctx.frame, t.id) ? `Deleted the name ${code(t.id)}.` : ''));
     case 'Global':
@@ -848,6 +859,13 @@ function about(ctx: Ctx): string[] {
   if (afterRaise(ctx.trace, ctx.k)) return [`About to leave line ${ctx.line} because of the exception.`];
   if (ctx.resumed) return [`About to continue line ${ctx.line}.`];
   if (!ctx.stmt) return [];
+  if (ctx.stmt.kind === 'With') {
+    // Coming back from the block's own body: the line runs again to leave the block.
+    const p = ctx.a.prevInFrame[ctx.k];
+    if (p !== null && inRange(lineOf(ctx.trace.steps[p]), ctx.stmt.body)) {
+      return [`About to run line ${ctx.line}: it leaves the ${code('with')} block.`];
+    }
+  }
   if (ctx.stmt.kind === 'ClassDef' && inClassBody(ctx, ctx.stmt.name)) {
     return [`About to start the body of class ${code(ctx.stmt.name)}.`];
   }

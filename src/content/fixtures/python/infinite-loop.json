@@ -39,7 +39,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -105,7 +105,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -171,7 +171,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -237,7 +237,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -303,7 +303,7 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -369,7 +369,7 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -435,7 +435,7 @@
   {
    "id": "py-13",
    "index": 13,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -501,7 +501,7 @@
   {
    "id": "py-15",
    "index": 15,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -567,7 +567,7 @@
   {
    "id": "py-17",
    "index": 17,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -633,7 +633,7 @@
   {
    "id": "py-19",
    "index": 19,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -699,7 +699,7 @@
   {
    "id": "py-21",
    "index": 21,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -765,7 +765,7 @@
   {
    "id": "py-23",
    "index": 23,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -831,7 +831,7 @@
   {
    "id": "py-25",
    "index": 25,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -897,7 +897,7 @@
   {
    "id": "py-27",
    "index": 27,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -963,7 +963,7 @@
   {
    "id": "py-29",
    "index": 29,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -1029,7 +1029,7 @@
   {
    "id": "py-31",
    "index": 31,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -1095,7 +1095,7 @@
   {
    "id": "py-33",
    "index": 33,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -1161,7 +1161,7 @@
   {
    "id": "py-35",
    "index": 35,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
@@ -1227,7 +1227,7 @@
   {
    "id": "py-37",
    "index": 37,
-   "narration": "True is True, so the loop body (line 3) runs.",
+   "narration": "The condition True is always True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
