@@ -682,7 +682,7 @@ interface GroupByInfo {
 - **Rendering** (`components/python/TableView.tsx`, lazy Python canvas chunk): a header row (names
   and a dtype line with the missing count), an index column, zebra rows, "showing 20 of 1,200
   rows" when capped; a Series as a two-column table; a GroupBy as stacked mini tables per group with
-  sizes. Boxes are at most 44rem wide and wide tables scroll inside them. A derived table has a
+  sizes. Boxes are at most 34rem wide and wider tables scroll inside them. A derived table has a
   dashed violet "from" link to its source. Motion: a filtered table first shows its source's rows
   with the dropped ones struck through, which collapse while the kept rows close up, with a "kept 7
   of 20 rows" chip; a sorted copy starts in source order and its rows glide; columns added in place

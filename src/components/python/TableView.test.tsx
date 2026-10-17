@@ -59,8 +59,8 @@ describe('TableView', () => {
     // A missing value shows as NaN, faint and italic; strings without their quotes.
     expect(farm).toMatch(/italic text-ink-faint">NaN</);
     expect(farm).toContain('>Highland<');
-    // Wide tables scroll inside the box, which is at most 44rem wide.
-    expect(farm).toContain('max-w-[44rem]');
+    // Wide tables scroll inside the box, which is at most 34rem wide.
+    expect(farm).toContain('max-w-[34rem]');
     expect(farm).toContain('max-w-full overflow-x-auto');
     expect(farm).toMatchSnapshot();
   });

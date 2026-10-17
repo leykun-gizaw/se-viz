@@ -319,8 +319,15 @@ function ObjectBody({ block }: { block: HeapBlock }) {
   }
 }
 
-/** Kinds whose box may grow to 44rem (arrays, tables); wider content scrolls inside the box. */
-const WIDE = new Set(['ndarray', 'dataframe', 'series', 'groupby']);
+/**
+ * How wide a box may grow: arrays to 44rem (Phase 34); pandas tables to 34rem (Phase 35), so a
+ * typical table fits beside the frames and a wider one scrolls inside its own box.
+ */
+function maxWidth(kind: string | undefined): string {
+  if (kind === 'ndarray') return 'max-w-[44rem]';
+  if (kind === 'dataframe' || kind === 'series' || kind === 'groupby') return 'max-w-[34rem]';
+  return 'max-w-88';
+}
 
 /** One object box: kind, tag, id, and its kind's body. */
 function ObjectBox({ block }: { block: HeapBlock }) {
@@ -332,7 +339,7 @@ function ObjectBox({ block }: { block: HeapBlock }) {
     <div
       ref={ref}
       data-coach-anchor={block.id}
-      className={`w-max min-w-24 ${WIDE.has(block.objectKind ?? '') ? 'max-w-[44rem]' : 'max-w-88'} rounded-lg border bg-surface ${
+      className={`w-max min-w-24 ${maxWidth(block.objectKind)} rounded-lg border bg-surface ${
         active ? 'border-active ring-1 ring-active' : 'border-hairline-strong'
       }`}
     >

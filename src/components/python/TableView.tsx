@@ -6,7 +6,7 @@
  *   column, zebra rows, and a "showing 20 of 1,200 rows" footer when capped. **Series:** the same,
  *   with one value column. **GroupBy:** the keys, then one mini table per group (its label, size and
  *   first rows), stacked.
- * - **Wide tables scroll inside their box** (the box is at most 44rem wide); they never widen the
+ * - **Wide tables scroll inside their box** (the box is at most 34rem wide); they never widen the
  *   page.
  * - **Motion** (from `pyMotion.ts`): a changed value pulses green (the shared value slot); a column
  *   added in place slides in; rows sorted in place glide to their new places, by index label; a
@@ -286,7 +286,8 @@ function TableGrid({ block }: { block: TableBlock }) {
         <div className="flex flex-wrap items-center gap-2 border-t border-hairline px-2.5 py-1">
           {filter ? (
             <span className="rounded-full border border-changed bg-changed-soft px-2 py-px font-sans text-[10px] font-semibold text-changed">
-              kept {thousands(filter.keptCount)} of {thousands(filter.of)} rows
+              kept {thousands(filter.keptCount)} of {thousands(filter.of)}{' '}
+              {series ? 'values' : 'rows'}
             </span>
           ) : null}
           {showing ? <span className="font-sans text-[10px] text-ink-faint">{showing}</span> : null}

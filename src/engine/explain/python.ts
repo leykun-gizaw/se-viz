@@ -1283,7 +1283,7 @@ function changeRow(
           : '';
         const kept =
           d?.relation.kind === 'filter'
-            ? ` (kept ${thousands(d.relation.keptCount)} of ${thousands(d.relation.of)} rows)`
+            ? ` (kept ${thousands(d.relation.keptCount)} of ${thousands(d.relation.of)} ${isTable(block) && block.table.kind === 'series' ? 'values' : 'rows'})`
             : '';
         const facts = isTable(block)
           ? shapeWords(block)
