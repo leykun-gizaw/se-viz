@@ -8,12 +8,16 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 ran.",
+   "narration": "a now refers to a new list.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -58,12 +62,16 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 2 ran.",
+   "narration": "b now refers to the same list as a.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -115,12 +123,17 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "The program finished.",
+   "narration": "Called b.append(3).",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 3,
+    "function": "<module>"
+   },
    "stack": [
     {
      "id": "f1",
@@ -176,5 +189,72 @@
     }
    ]
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "Assign",
+   "line": 1,
+   "end": 1,
+   "targets": [
+    {
+     "type": "name",
+     "id": "a"
+    }
+   ],
+   "value": {
+    "type": "display",
+    "of": "list",
+    "items": [
+     {
+      "type": "const",
+      "repr": "1"
+     },
+     {
+      "type": "const",
+      "repr": "2"
+     }
+    ],
+    "src": "[1, 2]"
+   }
+  },
+  "2": {
+   "kind": "Assign",
+   "line": 2,
+   "end": 2,
+   "targets": [
+    {
+     "type": "name",
+     "id": "b"
+    }
+   ],
+   "value": {
+    "type": "name",
+    "id": "a"
+   }
+  },
+  "3": {
+   "kind": "Expr",
+   "line": 3,
+   "end": 3,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "b"
+     },
+     "attr": "append",
+     "src": "b.append"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "3"
+     }
+    ],
+    "src": "b.append(3)"
+   }
+  }
+ }
 }

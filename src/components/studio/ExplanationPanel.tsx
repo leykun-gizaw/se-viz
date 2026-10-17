@@ -1,11 +1,13 @@
 /**
  * The step explanation panel (Phase 28) — the Studio's right-hand column. A labeled landmark that
- * explains the current beat in five collapsible sections: "What this step did", "What changed",
- * "Previous step" (open by default), and "Coming next" and "Concept" (closed by default).
+ * explains the current beat in collapsible sections: "What this step did", "What changed",
+ * "Previous step" (open by default), "Coming next" and "Concept" (closed by default), and — when
+ * there is something to say (Phase 32) — "Branch taken", "Loop iteration", "Calls and returns" and
+ * "Exceptions" (open by default).
  *
- * All content comes from {@link explainBeat}: authored `explain` data when the step has it, else the
- * narration and the derived diff. On an `arrive` beat the step hasn't run, so its effects are held
- * back until the `apply` beat.
+ * All content comes from {@link explainBeat}: authored `explain` data when the step has it, section
+ * by section, else text derived from the trace (Phase 32), else the narration and the diff. On an
+ * `arrive` beat the step hasn't run, so its effects are held back until the `apply` beat.
  */
 import { useMemo } from 'react';
 import {
@@ -101,6 +103,8 @@ const KIND_META: Record<ChangeKind, [label: string, tone: string]> = {
   leak: ['leak', 'border-danger/50 text-danger'],
   declare: ['new', NEUTRAL],
   output: ['output', NEUTRAL],
+  add: ['added', 'border-changed/50 text-changed'],
+  remove: ['removed', NEUTRAL],
 };
 
 /** A muted note paragraph. */
@@ -145,7 +149,7 @@ function ChangeRowView({ row, python }: { row: ChangeRow; python: boolean }) {
         {label}
       </span>
       <span className="min-w-0 break-words">
-        <span>{rowText(row, python)}</span>
+        <span>{row.markdown ? <InlineMarkdown text={row.subject} /> : rowText(row, python)}</span>
         {row.kind === 'output' ? (
           <code className="se-code mt-0.5 block whitespace-pre-wrap rounded bg-surface-2 px-1.5 py-0.5 text-[12px]">
             {row.subject}
@@ -169,6 +173,26 @@ function ChangeRowView({ row, python }: { row: ChangeRow; python: boolean }) {
         ) : null}
       </span>
     </li>
+  );
+}
+
+/** A derived or authored section: one sentence, or an ordered list of them. */
+function Sentences({ items }: { items: readonly string[] }) {
+  if (items.length === 1) {
+    return (
+      <p>
+        <InlineMarkdown text={items[0]} />
+      </p>
+    );
+  }
+  return (
+    <ul className="list-disc space-y-1 pl-4 marker:text-ink-faint">
+      {items.map((item, i) => (
+        <li key={i}>
+          <InlineMarkdown text={item} />
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -229,6 +253,13 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
               About to run. The highlighted line hasn&rsquo;t run yet; step forward to see what it
               does.
             </Note>
+          ) : arriving ? (
+            <>
+              <p>
+                <InlineMarkdown text={ex.did.items[0]} />
+              </p>
+              <p className="mt-1.5 text-ink-muted">Step forward to see what it does.</p>
+            </>
           ) : ex.did.items.length > 1 ? (
             <ol className="list-decimal space-y-1 pl-4 marker:text-ink-faint">
               {ex.did.items.map((item, i) => (
@@ -238,13 +269,15 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
               ))}
             </ol>
           ) : (
-            <p>{ex.did.authored ? <InlineMarkdown text={ex.did.items[0]} /> : ex.did.items[0]}</p>
+            <p>{ex.did.markdown ? <InlineMarkdown text={ex.did.items[0]} /> : ex.did.items[0]}</p>
           )}
         </Section>
 
         <Section title="What changed">
           {ex.changes === null ? (
             <Note>Nothing yet. The changes appear when this step runs.</Note>
+          ) : ex.changedText ? (
+            <Sentences items={ex.changedText} />
           ) : ex.changesNote ? (
             <Note>{ex.changesNote}</Note>
           ) : ex.changes.length === 0 ? (
@@ -257,6 +290,30 @@ export function ExplanationPanel({ player, onCollapse }: ExplanationPanelProps) 
             </ul>
           )}
         </Section>
+
+        {ex.branch.length > 0 ? (
+          <Section title="Branch taken">
+            <Sentences items={ex.branch} />
+          </Section>
+        ) : null}
+
+        {ex.loop.length > 0 ? (
+          <Section title="Loop iteration">
+            <Sentences items={ex.loop} />
+          </Section>
+        ) : null}
+
+        {ex.calls.length > 0 ? (
+          <Section title="Calls and returns">
+            <Sentences items={ex.calls} />
+          </Section>
+        ) : null}
+
+        {ex.exceptions.length > 0 ? (
+          <Section title="Exceptions">
+            <Sentences items={ex.exceptions} />
+          </Section>
+        ) : null}
 
         <Section title="Previous step">
           {ex.previous ? <StepRefView step={ex.previous} /> : <Note>This is the first step.</Note>}

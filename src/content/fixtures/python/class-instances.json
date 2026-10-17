@@ -8,12 +8,21 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 calls Tractor().",
+   "narration": "Line 1 starts the body of class Tractor: Python runs the class body first, then makes the class.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "call",
+    "at": 1,
+    "call": {
+     "function": "Tractor",
+     "scope": "class",
+     "params": []
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -33,12 +42,16 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 1 ran.",
+   "narration": "The body of class Tractor begins.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -58,12 +71,16 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 2 ran.",
+   "narration": "Defined the function __init__(self, name, fuel); its body runs only when it is called.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
    "stack": [
     {
      "id": "f1",
@@ -83,12 +100,17 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Tractor finishes.",
+   "narration": "The body of class Tractor is done.",
    "highlightedLines": [
     6
    ],
    "stdout": [],
    "activeId": "f2",
+   "py": {
+    "event": "return",
+    "at": 6,
+    "function": "Tractor"
+   },
    "stack": [
     {
      "id": "f1",
@@ -124,12 +146,16 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Back in <module>: line 1 finishes.",
+   "narration": "Created the class Tractor: the name Tractor now refers to it.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 9
+   },
    "stack": [
     {
      "id": "f1",
@@ -159,12 +185,25 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Line 9 calls __init__(self=…, name='Red', fuel=100).",
+   "narration": "Called Tractor.__init__(…, 'Red', 100).",
    "highlightedLines": [
     9
    ],
    "stdout": [],
    "activeId": "f3",
+   "py": {
+    "event": "call",
+    "at": 2,
+    "call": {
+     "function": "Tractor.__init__",
+     "scope": "function",
+     "params": [
+      "self",
+      "name",
+      "fuel"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -229,12 +268,16 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Line 3 ran.",
+   "narration": "Set self.name to 'Red' (a new attribute).",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f3",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -307,12 +350,17 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "__init__ returns None.",
+   "narration": "Tractor.__init__(…, 'Red', 100) reached its end, so it returns None.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f3",
+   "py": {
+    "event": "return",
+    "at": 4,
+    "function": "Tractor.__init__"
+   },
    "stack": [
     {
      "id": "f1",
@@ -399,12 +447,16 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Back in <module>: line 9 finishes.",
+   "narration": "red now refers to a new Tractor object.",
    "highlightedLines": [
     9
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 10
+   },
    "stack": [
     {
      "id": "f1",
@@ -463,12 +515,25 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "Line 10 calls __init__(self=…, name='Blue', fuel=80).",
+   "narration": "Called Tractor.__init__(…, 'Blue', 80).",
    "highlightedLines": [
     10
    ],
    "stdout": [],
    "activeId": "f4",
+   "py": {
+    "event": "call",
+    "at": 2,
+    "call": {
+     "function": "Tractor.__init__",
+     "scope": "function",
+     "params": [
+      "self",
+      "name",
+      "fuel"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -562,12 +627,16 @@
   {
    "id": "py-10",
    "index": 10,
-   "narration": "Line 3 ran.",
+   "narration": "Set self.name to 'Blue' (a new attribute).",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f4",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
    "stack": [
     {
      "id": "f1",
@@ -669,12 +738,17 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "__init__ returns None.",
+   "narration": "Tractor.__init__(…, 'Blue', 80) reached its end, so it returns None.",
    "highlightedLines": [
     4
    ],
    "stdout": [],
    "activeId": "f4",
+   "py": {
+    "event": "return",
+    "at": 4,
+    "function": "Tractor.__init__"
+   },
    "stack": [
     {
      "id": "f1",
@@ -790,12 +864,16 @@
   {
    "id": "py-12",
    "index": 12,
-   "narration": "Back in <module>: line 10 finishes.",
+   "narration": "blue now refers to a new Tractor object.",
    "highlightedLines": [
     10
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 11
+   },
    "stack": [
     {
      "id": "f1",
@@ -883,12 +961,24 @@
   {
    "id": "py-13",
    "index": 13,
-   "narration": "Line 11 calls drive(self=…, hours=3).",
+   "narration": "Called Tractor.drive(red, 3).",
    "highlightedLines": [
     11
    ],
    "stdout": [],
    "activeId": "f5",
+   "py": {
+    "event": "call",
+    "at": 6,
+    "call": {
+     "function": "Tractor.drive",
+     "scope": "function",
+     "params": [
+      "self",
+      "hours"
+     ]
+    }
+   },
    "stack": [
     {
      "id": "f1",
@@ -997,12 +1087,17 @@
   {
    "id": "py-14",
    "index": 14,
-   "narration": "drive returns None.",
+   "narration": "Tractor.drive(red, 3) reached its end, so it returns None.",
    "highlightedLines": [
     7
    ],
    "stdout": [],
    "activeId": "f5",
+   "py": {
+    "event": "return",
+    "at": 7,
+    "function": "Tractor.drive"
+   },
    "stack": [
     {
      "id": "f1",
@@ -1118,12 +1213,17 @@
   {
    "id": "py-15",
    "index": 15,
-   "narration": "The program finished.",
+   "narration": "Got None back from Tractor.drive(red, 3).",
    "highlightedLines": [
     11
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 11,
+    "function": "<module>"
+   },
    "stack": [
     {
      "id": "f1",
@@ -1208,5 +1308,201 @@
     }
    ]
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "ClassDef",
+   "line": 1,
+   "end": 7,
+   "name": "Tractor"
+  },
+  "2": {
+   "kind": "FunctionDef",
+   "line": 2,
+   "end": 4,
+   "name": "__init__",
+   "params": [
+    "self",
+    "name",
+    "fuel"
+   ]
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "self"
+     },
+     "attr": "name",
+     "src": "self.name"
+    }
+   ],
+   "value": {
+    "type": "name",
+    "id": "name"
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "self"
+     },
+     "attr": "fuel",
+     "src": "self.fuel"
+    }
+   ],
+   "value": {
+    "type": "name",
+    "id": "fuel"
+   }
+  },
+  "6": {
+   "kind": "FunctionDef",
+   "line": 6,
+   "end": 7,
+   "name": "drive",
+   "params": [
+    "self",
+    "hours"
+   ]
+  },
+  "7": {
+   "kind": "Assign",
+   "line": 7,
+   "end": 7,
+   "targets": [
+    {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "self"
+     },
+     "attr": "fuel",
+     "src": "self.fuel"
+    }
+   ],
+   "value": {
+    "type": "binop",
+    "op": "-",
+    "left": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "self"
+     },
+     "attr": "fuel",
+     "src": "self.fuel"
+    },
+    "right": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "const",
+      "repr": "10"
+     },
+     "right": {
+      "type": "name",
+      "id": "hours"
+     },
+     "src": "10 * hours"
+    },
+    "src": "self.fuel - 10 * hours"
+   }
+  },
+  "9": {
+   "kind": "Assign",
+   "line": 9,
+   "end": 9,
+   "targets": [
+    {
+     "type": "name",
+     "id": "red"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "Tractor"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Red'",
+      "src": "\"Red\""
+     },
+     {
+      "type": "const",
+      "repr": "100"
+     }
+    ],
+    "src": "Tractor(\"Red\", 100)"
+   }
+  },
+  "10": {
+   "kind": "Assign",
+   "line": 10,
+   "end": 10,
+   "targets": [
+    {
+     "type": "name",
+     "id": "blue"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "name",
+     "id": "Tractor"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "'Blue'",
+      "src": "\"Blue\""
+     },
+     {
+      "type": "const",
+      "repr": "80"
+     }
+    ],
+    "src": "Tractor(\"Blue\", 80)"
+   }
+  },
+  "11": {
+   "kind": "Expr",
+   "line": 11,
+   "end": 11,
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "red"
+     },
+     "attr": "drive",
+     "src": "red.drive"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "3"
+     }
+    ],
+    "src": "red.drive(3)"
+   }
+  }
+ }
 }

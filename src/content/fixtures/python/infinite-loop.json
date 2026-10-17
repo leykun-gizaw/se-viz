@@ -8,12 +8,16 @@
   {
    "id": "py-0",
    "index": 0,
-   "narration": "Line 1 ran.",
+   "narration": "Set day to 0.",
    "highlightedLines": [
     1
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -35,12 +39,16 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -57,17 +65,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 1.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -89,12 +105,16 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -111,17 +131,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 2.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -143,12 +171,16 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -165,17 +197,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 3.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -197,12 +237,16 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -219,17 +263,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 4.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -251,12 +303,16 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -273,17 +329,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-10",
    "index": 10,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 5.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -305,12 +369,16 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -327,17 +395,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-12",
    "index": 12,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 6.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -359,12 +435,16 @@
   {
    "id": "py-13",
    "index": 13,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -381,17 +461,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-14",
    "index": 14,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 7.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -413,12 +501,16 @@
   {
    "id": "py-15",
    "index": 15,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -435,17 +527,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-16",
    "index": 16,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 8.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -467,12 +567,16 @@
   {
    "id": "py-17",
    "index": 17,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -489,17 +593,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-18",
    "index": 18,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 9.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -521,12 +633,16 @@
   {
    "id": "py-19",
    "index": 19,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -543,17 +659,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-20",
    "index": 20,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 10.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -575,12 +699,16 @@
   {
    "id": "py-21",
    "index": 21,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -597,17 +725,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-22",
    "index": 22,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 11.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -629,12 +765,16 @@
   {
    "id": "py-23",
    "index": 23,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -651,17 +791,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-24",
    "index": 24,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 12.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -683,12 +831,16 @@
   {
    "id": "py-25",
    "index": 25,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -705,17 +857,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-26",
    "index": 26,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 13.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -737,12 +897,16 @@
   {
    "id": "py-27",
    "index": 27,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -759,17 +923,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-28",
    "index": 28,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 14.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -791,12 +963,16 @@
   {
    "id": "py-29",
    "index": 29,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -813,17 +989,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-30",
    "index": 30,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 15.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -845,12 +1029,16 @@
   {
    "id": "py-31",
    "index": 31,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -867,17 +1055,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-32",
    "index": 32,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 16.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -899,12 +1095,16 @@
   {
    "id": "py-33",
    "index": 33,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -921,17 +1121,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-34",
    "index": 34,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 17.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -953,12 +1161,16 @@
   {
    "id": "py-35",
    "index": 35,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -975,17 +1187,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-36",
    "index": 36,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 18.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -1007,12 +1227,16 @@
   {
    "id": "py-37",
    "index": 37,
-   "narration": "Line 2 ran.",
+   "narration": "True is True, so the loop body (line 3) runs.",
    "highlightedLines": [
     2
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
    "stack": [
     {
      "id": "f1",
@@ -1029,17 +1253,25 @@
      ]
     }
    ],
-   "heap": []
+   "heap": [],
+   "condition": {
+    "expr": "True",
+    "result": true
+   }
   },
   {
    "id": "py-38",
    "index": 38,
-   "narration": "Line 3 ran.",
+   "narration": "Set day to 19.",
    "highlightedLines": [
     3
    ],
    "stdout": [],
    "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 2
+   },
    "stack": [
     {
      "id": "f1",
@@ -1058,5 +1290,59 @@
    ],
    "heap": []
   }
- ]
+ ],
+ "statements": {
+  "1": {
+   "kind": "Assign",
+   "line": 1,
+   "end": 1,
+   "targets": [
+    {
+     "type": "name",
+     "id": "day"
+    }
+   ],
+   "value": {
+    "type": "const",
+    "repr": "0"
+   }
+  },
+  "2": {
+   "kind": "While",
+   "line": 2,
+   "end": 3,
+   "test": {
+    "type": "const",
+    "repr": "True"
+   },
+   "body": {
+    "first": 3,
+    "last": 3
+   }
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "day"
+    }
+   ],
+   "value": {
+    "type": "binop",
+    "op": "+",
+    "left": {
+     "type": "name",
+     "id": "day"
+    },
+    "right": {
+     "type": "const",
+     "repr": "1"
+    },
+    "src": "day + 1"
+   }
+  }
+ }
 }

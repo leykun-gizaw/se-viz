@@ -207,12 +207,12 @@ describe('criterion 4 — diffSteps gives the right “what changed” for every
       diffAt(steps, i).cellsAdded.filter((id) => id.startsWith('o2[')),
     );
     expect(added).toEqual(["o2['corn']", "o2['wheat']", "o2['beans']"]);
-    // …and the Phase 28 explanation panel already reads it.
+    // …and the explanation panel reads it (Phase 32: named by the path the code uses).
     const at = steps.findIndex((_, i) =>
       diffAt(steps, i).valuesChanged.some((v) => v.id === "o2['corn']"),
     );
     expect(explainBeat(asTrace(A('harvest')), at, 'apply', 'two-beat').changes).toEqual([
-      { kind: 'value', subject: "'corn' in dict", from: '1', to: '2' },
+      { kind: 'value', subject: "`counts['corn']`", from: '1', to: '2', markdown: true },
     ]);
   });
 
