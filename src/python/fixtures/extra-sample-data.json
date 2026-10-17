@@ -1,0 +1,287 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "With",
+    "line": 1,
+    "end": 3,
+    "body": {
+     "first": 2,
+     "last": 3
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "f",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 2,
+    "end": 2,
+    "targets": [
+     {
+      "type": "name",
+      "id": "header"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "call",
+       "func": {
+        "type": "attribute",
+        "value": {
+         "type": "name",
+         "id": "f"
+        },
+        "attr": "readline",
+        "src": "f.readline"
+       },
+       "args": [],
+       "src": "f.readline()"
+      },
+      "attr": "strip",
+      "src": "f.readline().strip"
+     },
+     "args": [],
+     "src": "f.readline().strip()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "instance",
+     "type": "TextIOWrapper",
+     "attrs": [
+      {
+       "name": "mode",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'r'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "f",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "header",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'plot_id,region,crop,rainfall_mm,yield_kg,fertilized'"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "rows"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "name",
+      "id": "len"
+     },
+     "args": [
+      {
+       "type": "call",
+       "func": {
+        "type": "attribute",
+        "value": {
+         "type": "name",
+         "id": "f"
+        },
+        "attr": "readlines",
+        "src": "f.readlines"
+       },
+       "args": [],
+       "src": "f.readlines()"
+      }
+     ],
+     "src": "len(f.readlines())"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "instance",
+     "type": "TextIOWrapper",
+     "attrs": [
+      {
+       "name": "mode",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'r'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": [
+      {
+       "name": "f",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "header",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'plot_id,region,crop,rainfall_mm,yield_kg,fertilized'"
+       }
+      },
+      {
+       "name": "rows",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "instance",
+     "type": "TextIOWrapper",
+     "attrs": [
+      {
+       "name": "mode",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'r'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": [
+      {
+       "name": "f",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "header",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'plot_id,region,crop,rainfall_mm,yield_kg,fertilized'"
+       }
+      },
+      {
+       "name": "rows",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "30"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "instance",
+     "type": "TextIOWrapper",
+     "attrs": [
+      {
+       "name": "mode",
+       "value": {
+        "kind": "prim",
+        "type": "str",
+        "repr": "'r'"
+       }
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

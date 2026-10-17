@@ -14,6 +14,7 @@ import { explainBeat } from '../trace/explain.ts';
 import { lineTexts } from '../trace/labels.ts';
 import type { Trace } from '../trace/types.ts';
 import { NUMPY_SAMPLES as NUMPY } from '../../python/samples/numpy/index.ts';
+import { PANDAS_SAMPLES as PANDAS } from '../../python/samples/pandas/index.ts';
 import { extraTrace, sampleTrace } from './testTraces.ts';
 import type { ChangeRow } from './types.ts';
 
@@ -98,6 +99,8 @@ const PYTHON_SAMPLES = [
 const PYTHON_EXTRAS = ['extra-augassign', 'extra-statements', 'extra-exceptions', 'extra-objects'];
 /** Phase 34: the recorded NumPy samples (`src/content/fixtures/python/numpy/`). */
 const NUMPY_SAMPLES = NUMPY.map((s) => s.name);
+/** Phase 35: the recorded pandas samples (`src/content/fixtures/python/pandas/`). */
+const PANDAS_SAMPLES = PANDAS.map((s) => s.name);
 
 describe('golden derived explanations', () => {
   it.each(PYTHON_SAMPLES)('Phase 29 sample %s', async (name) => {
@@ -111,6 +114,12 @@ describe('golden derived explanations', () => {
   it.each(NUMPY_SAMPLES)('Phase 34 NumPy sample %s', async (name) => {
     await expect(renderGolden(sampleTrace(`numpy/${name}`))).toMatchFileSnapshot(
       `golden/numpy-${name}.md`,
+    );
+  });
+
+  it.each(PANDAS_SAMPLES)('Phase 35 pandas sample %s', async (name) => {
+    await expect(renderGolden(sampleTrace(`pandas/${name}`))).toMatchFileSnapshot(
+      `golden/pandas-${name}.md`,
     );
   });
 

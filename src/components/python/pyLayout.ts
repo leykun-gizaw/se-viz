@@ -10,6 +10,9 @@
  * - Anything left (only reachable through a cycle of inner objects) starts a row of its own.
  * - **NumPy (Phase 34):** a new array made by arithmetic on arrays (`c = a + b`, `mask = a > 2`)
  *   sits next to its first array operand, to its right, instead of starting a row at the bottom.
+ * - **pandas (Phase 35)** objects keep their own rows, in first-appearance order: a table beside its
+ *   source would put every reference arrow to it straight through the source table. The canvas
+ *   joins a table to the one it was made from with a "from" link instead.
  *
  * @packageDocumentation
  */

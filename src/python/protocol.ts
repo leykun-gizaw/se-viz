@@ -194,6 +194,92 @@ export interface PyNdarray extends PyObjectBase {
 /** Values recorded per array (Phase 34); the rest are counted in {@link PyNdarray.omitted}. */
 export const NDARRAY_CAP = 200;
 
+/**
+ * One value in a pandas table (Phase 35), as text: a primitive's (or NumPy scalar's) `repr`, or
+ * the `str` of anything else (`Timestamp`, `NA`), as pandas prints it. At most
+ * {@link TABLE_REPR_CAP} characters (`truncated` when cut, ending in `…`). Missing values read
+ * `nan`, `None`, `<NA>` or `NaT`. A table's cells are never references.
+ */
+export interface PyCell {
+  repr: string;
+  /** The Python type of the value (`int`, `float`, `str`, `bool`, `NoneType`, `Timestamp`, …). */
+  type: string;
+  truncated?: true;
+}
+
+/** A DataFrame column (Phase 35): its label, dtype, and how many values in the whole column are missing. */
+export interface PyTableColumn {
+  label: PyCell;
+  dtype: string;
+  missing: number;
+}
+
+/**
+ * A pandas `DataFrame` (Phase 35): its true shape, and the first {@link TABLE_ROWS} rows of its
+ * first {@link TABLE_COLS} columns. pandas 3 (copy-on-write) keeps no link from a derived frame to
+ * the one it came from, so none is recorded; the trace infers it from the statement.
+ */
+export interface PyDataFrame extends PyObjectBase {
+  kind: 'dataframe';
+  library: 'pandas';
+  /** `[rows, columns]`, the whole frame's. */
+  shape: number[];
+  columns: PyTableColumn[];
+  columnsOmitted?: number;
+  /** Index labels of the captured rows. */
+  index: PyCell[];
+  /** `df.index.name`, when set. */
+  indexName?: string;
+  /** `rows[i][j]`: row `i`, column `j` of the captured part. */
+  rows: PyCell[][];
+  rowsOmitted?: number;
+}
+
+/** A pandas `Series` (Phase 35): its first {@link TABLE_ROWS} values with their index labels. */
+export interface PySeries extends PyObjectBase {
+  kind: 'series';
+  library: 'pandas';
+  length: number;
+  dtype: string;
+  /** `s.name` (a column's label), or `null`. */
+  name: PyCell | null;
+  /** Missing values in the whole Series. */
+  missing: number;
+  index: PyCell[];
+  indexName?: string;
+  values: PyCell[];
+  omitted?: number;
+}
+
+/**
+ * A pandas `DataFrameGroupBy` / `SeriesGroupBy` (Phase 35): what it groups by, and per group (at
+ * most {@link GROUPS_CAP}) its label, size and first {@link GROUP_ROWS} rows. `source` is the
+ * grouped object (`gb.obj`), recorded as a reference.
+ */
+export interface PyGroupBy extends PyObjectBase {
+  kind: 'groupby';
+  library: 'pandas';
+  /** The column names (or key descriptions) it groups by. */
+  keys: string[];
+  ngroups: number;
+  /** Rows in the grouped object. */
+  rowsTotal: number;
+  source: PyValue;
+  /** The grouped object's columns (one, named after the Series, for a `SeriesGroupBy`). */
+  columns: PyTableColumn[];
+  columnsOmitted?: number;
+  groups: { label: PyCell; size: number; index: PyCell[]; rows: PyCell[][] }[];
+  groupsOmitted?: number;
+}
+
+/** pandas caps (Phase 35): rows and columns captured per table, characters per cell. */
+export const TABLE_ROWS = 20;
+export const TABLE_COLS = 12;
+export const TABLE_REPR_CAP = 40;
+/** Groups recorded per GroupBy, and rows shown per group. */
+export const GROUPS_CAP = 20;
+export const GROUP_ROWS = 3;
+
 /** Anything else: its `repr`, capped at 80 characters. */
 export interface PyOther extends PyObjectBase {
   kind: 'other';
@@ -208,6 +294,9 @@ export type PyObject =
   | PyClass
   | PySummary
   | PyNdarray
+  | PyDataFrame
+  | PySeries
+  | PyGroupBy
   | PyOther;
 
 /** One user frame. */

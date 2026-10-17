@@ -1,0 +1,1231 @@
+{
+ "id": "python-pandas-series",
+ "title": "pandas: a Series",
+ "file": "series.py",
+ "language": "python",
+ "source": "import pandas as pd\n\nrain = pd.Series([820, 910, 540, 1010], index=[\"Highland\", \"Lakeside\", \"Valley\", \"Coast\"], name=\"rainfall_mm\")\ndoubled = rain * 2\nwet = rain[rain > 800]\ncoast = rain[\"Coast\"]\nrain[\"Valley\"] = 600\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Imported pd.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "Made a new Series rain of 4 values (dtype int64), named rainfall_mm.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rain",
+       "name": "rain",
+       "type": "Series",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "540"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Worked out rain * 2 for every value at once: doubled is a new Series, 4 values, with the same index labels.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rain",
+       "name": "rain",
+       "type": "Series",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.doubled",
+       "name": "doubled",
+       "type": "Series",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "540"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    },
+    {
+     "id": "o2",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "1640"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "1820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "1080"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "2020"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Kept the values of rain where rain > 800 is True: 3 of 4 values, labelled Highland, Lakeside, Coast.",
+   "highlightedLines": [
+    5
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rain",
+       "name": "rain",
+       "type": "Series",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.doubled",
+       "name": "doubled",
+       "type": "Series",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.wet",
+       "name": "wet",
+       "type": "Series",
+       "target": "o3"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "540"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    },
+    {
+     "id": "o2",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "1640"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "1820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "1080"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "2020"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    },
+    {
+     "id": "o3",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       3
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Read the value labelled Coast in rain: coast is 1010.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rain",
+       "name": "rain",
+       "type": "Series",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.doubled",
+       "name": "doubled",
+       "type": "Series",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.wet",
+       "name": "wet",
+       "type": "Series",
+       "target": "o3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.coast",
+       "name": "coast",
+       "type": "np.int64",
+       "value": "1010"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "540"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    },
+    {
+     "id": "o2",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "1640"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "1820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "1080"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "2020"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    },
+    {
+     "id": "o3",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       3
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "Set the value labelled Valley in rain: 540 → 600.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 7,
+    "function": "<module>"
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.rain",
+       "name": "rain",
+       "type": "Series",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.doubled",
+       "name": "doubled",
+       "type": "Series",
+       "target": "o2"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.wet",
+       "name": "wet",
+       "type": "Series",
+       "target": "o3"
+      },
+      {
+       "kind": "scalar",
+       "id": "f1.coast",
+       "name": "coast",
+       "type": "np.int64",
+       "value": "1010"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "600"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    },
+    {
+     "id": "o2",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "1640"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "1820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Valley']",
+       "name": "'Valley'",
+       "type": "int",
+       "value": "1080"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "2020"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       4
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Valley",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Valley'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    },
+    {
+     "id": "o3",
+     "label": "pandas Series",
+     "type": "Series",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Highland']",
+       "name": "'Highland'",
+       "type": "int",
+       "value": "820"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Lakeside']",
+       "name": "'Lakeside'",
+       "type": "int",
+       "value": "910"
+      },
+      {
+       "kind": "scalar",
+       "id": "o3.loc['Coast']",
+       "name": "'Coast'",
+       "type": "int",
+       "value": "1010"
+      }
+     ],
+     "objectKind": "series",
+     "table": {
+      "kind": "series",
+      "shape": [
+       3
+      ],
+      "columns": [
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "int64",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "Highland",
+       "Lakeside",
+       "Coast"
+      ],
+      "rowKeys": [
+       "'Highland'",
+       "'Lakeside'",
+       "'Coast'"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": "rainfall_mm"
+     }
+    }
+   ]
+  }
+ ],
+ "statements": {
+  "1": {
+   "kind": "Import",
+   "line": 1,
+   "end": 1,
+   "names": [
+    "pd"
+   ]
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "rain"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "pd"
+     },
+     "attr": "Series",
+     "src": "pd.Series"
+    },
+    "args": [
+     {
+      "type": "display",
+      "of": "list",
+      "items": [
+       {
+        "type": "const",
+        "repr": "820"
+       },
+       {
+        "type": "const",
+        "repr": "910"
+       },
+       {
+        "type": "const",
+        "repr": "540"
+       },
+       {
+        "type": "const",
+        "repr": "1010"
+       }
+      ],
+      "src": "[820, 910, 540, 1010]"
+     }
+    ],
+    "keywords": [
+     "index",
+     "name"
+    ],
+    "kwargs": [
+     {
+      "name": "index",
+      "value": {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "'Highland'",
+         "src": "\"Highland\""
+        },
+        {
+         "type": "const",
+         "repr": "'Lakeside'",
+         "src": "\"Lakeside\""
+        },
+        {
+         "type": "const",
+         "repr": "'Valley'",
+         "src": "\"Valley\""
+        },
+        {
+         "type": "const",
+         "repr": "'Coast'",
+         "src": "\"Coast\""
+        }
+       ],
+       "src": "[\"Highland\", \"Lakeside\", \"Valley\", \"Coast\"]"
+      }
+     },
+     {
+      "name": "name",
+      "value": {
+       "type": "const",
+       "repr": "'rainfall_mm'",
+       "src": "\"rainfall_mm\""
+      }
+     }
+    ]
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "name",
+     "id": "doubled"
+    }
+   ],
+   "value": {
+    "type": "binop",
+    "op": "*",
+    "left": {
+     "type": "name",
+     "id": "rain"
+    },
+    "right": {
+     "type": "const",
+     "repr": "2"
+    },
+    "src": "rain * 2"
+   }
+  },
+  "5": {
+   "kind": "Assign",
+   "line": 5,
+   "end": 5,
+   "targets": [
+    {
+     "type": "name",
+     "id": "wet"
+    }
+   ],
+   "value": {
+    "type": "subscript",
+    "value": {
+     "type": "name",
+     "id": "rain"
+    },
+    "index": {
+     "type": "compare",
+     "ops": [
+      ">"
+     ],
+     "left": {
+      "type": "name",
+      "id": "rain"
+     },
+     "comparators": [
+      {
+       "type": "const",
+       "repr": "800"
+      }
+     ],
+     "src": "rain > 800"
+    },
+    "src": "rain[rain > 800]"
+   }
+  },
+  "6": {
+   "kind": "Assign",
+   "line": 6,
+   "end": 6,
+   "targets": [
+    {
+     "type": "name",
+     "id": "coast"
+    }
+   ],
+   "value": {
+    "type": "subscript",
+    "value": {
+     "type": "name",
+     "id": "rain"
+    },
+    "index": {
+     "type": "const",
+     "repr": "'Coast'",
+     "src": "\"Coast\""
+    },
+    "src": "rain[\"Coast\"]"
+   }
+  },
+  "7": {
+   "kind": "Assign",
+   "line": 7,
+   "end": 7,
+   "targets": [
+    {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "rain"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'Valley'",
+      "src": "\"Valley\""
+     },
+     "src": "rain[\"Valley\"]"
+    }
+   ],
+   "value": {
+    "type": "const",
+    "repr": "600"
+   }
+  }
+ }
+}

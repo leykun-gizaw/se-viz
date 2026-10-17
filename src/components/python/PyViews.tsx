@@ -14,6 +14,7 @@ import { useAnchorRef } from '../../engine/anchorContext.ts';
 import type { Cell, HeapBlock, StackFrame } from '../../engine/trace/types.ts';
 import { useMemoryRender } from '../memory/renderContext.ts';
 import { NdarrayBody, NdarrayHeading } from './NdarrayView.tsx';
+import { TableBody, TableHeading } from './TableView.tsx';
 import type { ObjectNode } from './pyLayout.ts';
 import { useMotionCues } from './pyMotion.ts';
 import { SlotValue } from './PySlot.tsx';
@@ -161,6 +162,10 @@ function heading(block: HeapBlock): [label: string, tag: string] {
       return [block.label ?? block.type ?? 'object', 'summary'];
     case 'ndarray':
       return ['ndarray', block.ndarray?.base != null ? 'view' : ''];
+    case 'dataframe':
+    case 'series':
+    case 'groupby':
+      return [block.type ?? block.objectKind, ''];
     case 'function':
     case 'class':
     case 'list':
@@ -296,6 +301,10 @@ function ObjectBody({ block }: { block: HeapBlock }) {
       );
     case 'ndarray':
       return <NdarrayBody block={block} />;
+    case 'dataframe':
+    case 'series':
+    case 'groupby':
+      return <TableBody block={block} />;
     case 'summary':
       return (
         <div>
@@ -310,6 +319,16 @@ function ObjectBody({ block }: { block: HeapBlock }) {
   }
 }
 
+/**
+ * How wide a box may grow: arrays to 44rem (Phase 34); pandas tables to 34rem (Phase 35), so a
+ * typical table fits beside the frames and a wider one scrolls inside its own box.
+ */
+function maxWidth(kind: string | undefined): string {
+  if (kind === 'ndarray') return 'max-w-[44rem]';
+  if (kind === 'dataframe' || kind === 'series' || kind === 'groupby') return 'max-w-[34rem]';
+  return 'max-w-88';
+}
+
 /** One object box: kind, tag, id, and its kind's body. */
 function ObjectBox({ block }: { block: HeapBlock }) {
   const ref = useAnchorRef(block.id);
@@ -320,13 +339,14 @@ function ObjectBox({ block }: { block: HeapBlock }) {
     <div
       ref={ref}
       data-coach-anchor={block.id}
-      className={`w-max min-w-24 ${block.objectKind === 'ndarray' ? 'max-w-[44rem]' : 'max-w-88'} rounded-lg border bg-surface ${
+      className={`w-max min-w-24 ${maxWidth(block.objectKind)} rounded-lg border bg-surface ${
         active ? 'border-active ring-1 ring-active' : 'border-hairline-strong'
       }`}
     >
       <div className="flex items-baseline gap-2 border-b border-hairline px-2.5 py-1">
         <span className="font-mono text-[11px] font-semibold text-heap">{label}</span>
         <NdarrayHeading block={block} />
+        <TableHeading block={block} />
         {tag ? (
           <span className="font-sans text-[9px] font-semibold uppercase tracking-wide text-ink-faint">
             {tag}

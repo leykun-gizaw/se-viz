@@ -108,6 +108,55 @@ export const GLOSSARY = {
     'Transposing (`m.T`) swaps the axes: row i becomes column i. It is a view: no values are copied, only how they are read changes.',
   'np-mask':
     'Comparing an array with a value (`a > 2`) gives a boolean array of the same shape. Indexing with it (`a[mask]`) keeps the elements where it is `True`, as a new array (a copy).',
+  // pandas (Phase 35)
+  'pd-read':
+    '`pd.read_csv` reads a CSV file into a DataFrame: a table with one row per line of data and one column per header name. Each column gets one dtype, and an empty cell becomes a missing value, `NaN`.',
+  'pd-create':
+    'A DataFrame is a table: named columns, each with one dtype, and an index that labels the rows. Most DataFrame methods return a new DataFrame and leave the original unchanged.',
+  'pd-series':
+    'A Series is one column of values with an index: each value has a label, and `s[label]` finds it by that label, not by its position.',
+  'pd-shape':
+    '`df.shape` is a tuple `(rows, columns)`. It counts the whole table, not just the rows on screen.',
+  'pd-head':
+    '`df.head(n)` gives the first `n` rows (5 by default) as a new DataFrame; `df.tail(n)` the last ones. The rows keep their index labels.',
+  'pd-info':
+    '`df.info()` prints a summary of a DataFrame: how many rows, and for each column its name, how many values are not missing, and its dtype. It returns `None`.',
+  'pd-column':
+    '`df["col"]` selects one column as a Series. It has the same index as the DataFrame, so each value still belongs to its row.',
+  'pd-columns':
+    '`df[["a", "b"]]` (a list inside the brackets) selects several columns as a new DataFrame, in the order listed.',
+  'pd-loc':
+    '`df.loc[rows, columns]` selects by label: index labels for rows, column names for columns. A label slice such as `0:3` includes its end label.',
+  'pd-iloc':
+    '`df.iloc[rows, columns]` selects by position, counting from 0 like a list. A position slice such as `:2` leaves out its end position.',
+  'pd-mask':
+    'Comparing a column with a value (`df["x"] > 5`) gives a Series of `True` / `False` values, one per row. Used inside `df[…]`, it keeps the rows where it is `True`.',
+  'pd-filter':
+    '`df[condition]` keeps the rows where the condition is `True` and drops the rest, as a new DataFrame. The kept rows keep their index labels; combine conditions with `&` (and) and `|` (or), each in brackets.',
+  'pd-new-column':
+    'Assigning to a column that does not exist yet (`df["new"] = …`) adds it to the DataFrame in place. A calculation on columns works row by row, matching values by index label.',
+  'pd-change-column':
+    'Assigning to an existing column (`df["x"] = …`) replaces all its values in place. The other columns are not touched.',
+  'pd-set-value':
+    'Assigning to one cell (`df.loc[row, "col"] = v`, `s[label] = v`) changes that value in place. Every name that refers to that DataFrame sees the change.',
+  'pd-assign':
+    '`df.assign(new=…)` returns a new DataFrame with the extra column; the original DataFrame is unchanged.',
+  'pd-sort':
+    '`sort_values("col")` orders the rows by a column, smallest first unless `ascending=False`. Each row keeps its index label, so the labels end up out of order. With `inplace=True` it changes the DataFrame itself and returns `None`.',
+  'pd-groupby':
+    '`df.groupby("col")` splits the rows into groups, one per different value of `col`. It computes nothing yet: an aggregation such as `.sum()` then works on each group.',
+  'pd-split-apply-combine':
+    'A groupby aggregation is split, apply, combine: split the rows into groups by the key, apply the function (sum, mean, …) to each group, and combine the results into one table indexed by the key.',
+  'pd-merge':
+    '`pd.merge(left, right, on="key")` joins two tables row by row where the key matches. `how` decides which rows stay: `inner` only matches, `left` every left row, `right` every right row, `outer` all of them. Missing partners become `NaN`.',
+  'pd-isna':
+    '`df.isna()` is `True` where a value is missing (`NaN`, `None`). Followed by `.sum()`, it counts the missing values in each column, because `True` counts as 1.',
+  'pd-fillna':
+    '`df.fillna(value)` returns a new DataFrame with the missing values replaced; a dict fills each column with its own value. The original keeps its missing values.',
+  'pd-dropna':
+    '`df.dropna()` drops every row that has a missing value (with `subset=[…]`, only a missing value in those columns counts). It returns a new DataFrame unless `inplace=True`.',
+  'pd-series-math':
+    'Arithmetic on a Series works on every value at once and gives a new Series with the same index. Two Series are matched by index label, not by position.',
 } as const;
 
 export type ConceptKey = keyof typeof GLOSSARY;

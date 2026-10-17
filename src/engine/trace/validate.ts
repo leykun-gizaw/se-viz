@@ -265,6 +265,10 @@ export function validateTrace(trace: Trace): TraceIssue[] {
  * - NumPy arrays (Phase 34): a block has `ndarray` facts exactly when its `objectKind` is
  *   `'ndarray'`; it holds at most `size` element cells; and its `base`, when set, is an object of
  *   the same step.
+ * - pandas (Phase 35): a block has `table` facts exactly when it is a `'dataframe'` or `'series'`
+ *   (of that kind), and `groupby` facts exactly when it is a `'groupby'`; a table's row labels and
+ *   keys line up, it holds at most one cell per captured row and column, and it captures no more
+ *   rows or columns than its shape has; a GroupBy's `source`, when set, is an object of the step.
  */
 function validatePython(trace: Trace, issue: (stepIndex: number, message: string) => void): void {
   const kindOf = new Map<string, string>();
@@ -291,6 +295,42 @@ function validatePython(trace: Trace, issue: (stepIndex: number, message: string
         if (base !== null && !blocks.has(base)) {
           issue(i, `array "${block.id}" is a view of "${base}", which is not an object here`);
         }
+      }
+      const tabular = block.objectKind === 'dataframe' || block.objectKind === 'series';
+      if (
+        tabular !== (block.table !== undefined) ||
+        (block.table && block.table.kind !== block.objectKind)
+      ) {
+        issue(
+          i,
+          `object "${block.id}": table facts must go with objectKind 'dataframe' / 'series'`,
+        );
+      } else if (block.table) {
+        const t = block.table;
+        const cols = t.kind === 'series' ? 1 : t.columns.length;
+        if (t.rowKeys.length !== t.rowLabels.length) {
+          issue(
+            i,
+            `table "${block.id}" has ${t.rowKeys.length} row keys but ${t.rowLabels.length} labels`,
+          );
+        }
+        if (block.cells.length > t.rowKeys.length * cols) {
+          issue(i, `table "${block.id}" has more cells than captured rows × columns`);
+        }
+        if (t.rowKeys.length + t.rowsOmitted !== t.shape[0]) {
+          issue(i, `table "${block.id}": captured plus omitted rows is not its row count`);
+        }
+        if (t.kind === 'dataframe' && t.columns.length + t.columnsOmitted !== t.shape[1]) {
+          issue(i, `table "${block.id}": captured plus omitted columns is not its column count`);
+        }
+      }
+      if ((block.objectKind === 'groupby') !== (block.groupby !== undefined)) {
+        issue(i, `object "${block.id}": groupby facts must go with objectKind 'groupby'`);
+      } else if (block.groupby?.source != null && !blocks.has(block.groupby.source)) {
+        issue(
+          i,
+          `groupby "${block.id}" groups "${block.groupby.source}", which is not an object here`,
+        );
       }
     }
 

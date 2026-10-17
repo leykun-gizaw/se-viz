@@ -60,6 +60,21 @@ EXPR_DEPTH = 6  # deeper sub-expressions are summarized as {"type": "other"}
 NDARRAY_CAP = 200
 NDARRAY_KINDS = frozenset("biufU")
 
+# pandas (Phase 35): a DataFrame or Series is captured as its first TABLE_ROWS rows and first
+# TABLE_COLS columns (the true shape is always recorded); each cell's text is capped at
+# TABLE_REPR_CAP characters. A GroupBy records at most GROUPS_CAP groups, GROUP_ROWS rows of each.
+TABLE_ROWS = 20
+TABLE_COLS = 12
+TABLE_REPR_CAP = 40
+GROUPS_CAP = 20
+GROUP_ROWS = 3
+PANDAS_KINDS = {
+    "DataFrame": "dataframe",
+    "Series": "series",
+    "DataFrameGroupBy": "groupby",
+    "SeriesGroupBy": "groupby",
+}
+
 _BINOPS = {
     _ast.Add: "+",
     _ast.Sub: "-",
@@ -574,6 +589,141 @@ class _Recorder:
             out["layout"] = layout
         return out
 
+    # ── pandas (Phase 35) ────────────────────────────────────────────────────────────────────
+
+    def _cell(self, x):
+        """One table value as text: ``{"repr", "type"}`` (``truncated`` when cut to 40 characters).
+
+        A primitive (and a NumPy scalar, through ``.item()``) is its ``repr``; anything else
+        (``Timestamp``, ``NA``, a list in an object column) is its ``str``, as pandas prints it.
+        Cells are text only: an object inside a table is never followed as a reference.
+        """
+        t = type(x)
+        if t not in PRIMITIVES and (getattr(t, "__module__", "") or "").split(".")[0] == "numpy":
+            try:
+                if getattr(x, "ndim", None) == 0:
+                    x = x.item()
+                    t = type(x)
+            except BaseException:  # noqa: BLE001 - keep the NumPy value
+                pass
+        if isinstance(x, tuple):  # a MultiIndex label or a multi-key group: its parts' reprs
+            r = "(" + ", ".join(self._cell(p)["repr"] for p in x) + ("," if len(x) == 1 else "") + ")"
+            tname = "tuple"
+        elif t in PRIMITIVES:
+            tname = PRIMITIVES[t]
+            try:
+                r = repr(x[: TABLE_REPR_CAP + 1]) if t is str else repr(x)
+            except ValueError:  # an int too long for repr
+                r = "<int with " + str(x.bit_length()) + " bits>"
+        else:
+            tname = t.__name__
+            try:
+                r = str(x)
+            except BaseException as e:  # noqa: BLE001 - a broken __str__ must not stop the trace
+                r = "<" + tname + " (str failed: " + type(e).__name__ + ")>"
+        out = {"repr": r, "type": tname}
+        if len(r) > TABLE_REPR_CAP:
+            out["repr"] = r[: TABLE_REPR_CAP - 1] + "…"
+            out["truncated"] = True
+        return out
+
+    def _columns(self, frame):
+        """The first TABLE_COLS columns of a DataFrame: label, dtype and missing count (whole column)."""
+        part = frame.iloc[:, :TABLE_COLS]
+        missing = [int(n) for n in part.isna().sum().tolist()]
+        return [
+            {"label": self._cell(label), "dtype": str(dtype), "missing": missing[j]}
+            for j, (label, dtype) in enumerate(zip(part.columns.tolist(), part.dtypes.tolist()))
+        ]
+
+    def _rows(self, frame):
+        """Rows of a (small) DataFrame as lists of cells, columns capped at TABLE_COLS."""
+        part = frame.iloc[:, :TABLE_COLS]
+        return [[self._cell(x) for x in row] for row in part.itertuples(index=False, name=None)]
+
+    def _pandas(self, kind, v, walk):
+        """A DataFrame, Series or GroupBy (Phase 35); the shape is in PYTHON_TRACE_FORMAT.md."""
+        out = {"kind": kind, "library": "pandas", "type": type(v).__name__}
+        if kind == "dataframe":
+            nrows, ncols = (int(n) for n in v.shape)
+            head = v.iloc[:TABLE_ROWS]
+            out["shape"] = [nrows, ncols]
+            out["columns"] = self._columns(v)
+            if ncols > TABLE_COLS:
+                out["columnsOmitted"] = ncols - TABLE_COLS
+            out["index"] = [self._cell(x) for x in head.index.tolist()]
+            if v.index.name is not None:
+                out["indexName"] = self._cell(v.index.name)["repr"]
+            out["rows"] = self._rows(head)
+            if nrows > TABLE_ROWS:
+                out["rowsOmitted"] = nrows - TABLE_ROWS
+            return out
+        if kind == "series":
+            n = int(len(v))
+            head = v.iloc[:TABLE_ROWS]
+            out["length"] = n
+            out["dtype"] = str(v.dtype)
+            out["name"] = None if v.name is None else self._cell(v.name)
+            out["missing"] = int(v.isna().sum())
+            out["index"] = [self._cell(x) for x in head.index.tolist()]
+            if v.index.name is not None:
+                out["indexName"] = self._cell(v.index.name)["repr"]
+            out["values"] = [self._cell(x) for x in head.tolist()]
+            if n > TABLE_ROWS:
+                out["omitted"] = n - TABLE_ROWS
+            return out
+        # A GroupBy: the keys, each group's label and size, and its first rows (of the grouped
+        # object, `gb.obj`, which is recorded as a reference: the frame the groups come from).
+        obj = v.obj
+        keys = v.keys
+        keys = list(keys) if isinstance(keys, list) else [keys]
+
+        def key_text(k):
+            if isinstance(k, str):
+                return k
+            name = getattr(k, "name", None)  # grouped by a Series (or a Grouper): its name
+            if isinstance(name, str) and not isinstance(k, type):
+                return name
+            return self._cell(k)["repr"]
+
+        out["keys"] = [key_text(k) for k in keys]
+        out["ngroups"] = int(v.ngroups)
+        out["rowsTotal"] = int(len(obj))
+        out["source"] = self._value(obj, walk)
+        is_frame = _pandas_kind(obj) == "dataframe"
+        if is_frame:
+            out["columns"] = self._columns(obj)
+            if obj.shape[1] > TABLE_COLS:
+                out["columnsOmitted"] = int(obj.shape[1]) - TABLE_COLS
+        else:
+            name = obj.name
+            out["columns"] = [
+                {
+                    "label": self._cell(name) if name is not None else {"repr": "None", "type": "NoneType"},
+                    "dtype": str(obj.dtype),
+                    "missing": int(obj.isna().sum()),
+                }
+            ]
+        groups = []
+        for i, (label, positions) in enumerate(v.indices.items()):
+            if i >= GROUPS_CAP:
+                break
+            first = [int(p) for p in positions[:GROUP_ROWS]]
+            part = obj.iloc[first]
+            rows = self._rows(part) if is_frame else [[self._cell(x)] for x in part.tolist()]
+            groups.append(
+                {
+                    "label": self._cell(label),
+                    "size": int(len(positions)),
+                    "index": [self._cell(x) for x in part.index.tolist()],
+                    "rows": rows,
+                }
+            )
+        out["groups"] = groups
+        if out["ngroups"] > len(groups):
+            out["groupsOmitted"] = out["ngroups"] - len(groups)
+        return out
+
     def _describe(self, v, walk):
         t = type(v)
         tname = t.__name__
@@ -593,6 +743,15 @@ class _Recorder:
                 "shape": [int(n) for n in v.shape],
                 "dtype": str(v.dtype),
             }
+        if root == "pandas":
+            kind = _pandas_kind(v)
+            if kind is not None:
+                try:
+                    table = self._pandas(kind, v, walk)
+                except Exception:  # noqa: BLE001 - a frame the recorder can't read stays a summary
+                    table = None
+                if table is not None:
+                    return table
         if root == "pandas" and hasattr(v, "shape"):
             if hasattr(v, "dtypes") and not hasattr(v, "dtype"):  # DataFrame: one dtype per column
                 seen = []
@@ -963,6 +1122,17 @@ def _is_ndarray(v):
         if k.__name__ == "ndarray" and (getattr(k, "__module__", "") or "").split(".")[0] == "numpy":
             return True
     return False
+
+
+def _pandas_kind(v):
+    """``dataframe`` / ``series`` / ``groupby`` for a pandas object of those classes (or a subclass),
+    by class name and module, without importing pandas; else None (other pandas objects stay
+    summaries)."""
+    for k in type(v).__mro__:
+        kind = PANDAS_KINDS.get(k.__name__)
+        if kind is not None and (getattr(k, "__module__", "") or "").split(".")[0] == "pandas":
+            return kind
+    return None
 
 
 def _yielding(frame):

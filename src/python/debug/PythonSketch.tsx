@@ -58,6 +58,12 @@ function Body({ object }: { object: PyObject }) {
       return (
         <span>{`${object.library} ${object.type} shape (${object.shape.join(', ')}) ${object.dtype}`}</span>
       );
+    case 'dataframe':
+      return <span>{`${object.library} ${object.type} shape (${object.shape.join(', ')})`}</span>;
+    case 'series':
+      return <span>{`${object.library} ${object.type} length ${object.length} ${object.dtype}`}</span>;
+    case 'groupby':
+      return <span>{`${object.library} ${object.type} by ${object.keys.join(', ')}`}</span>;
     case 'other':
       return <span>{object.repr}</span>;
   }

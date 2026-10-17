@@ -626,3 +626,72 @@ interface NdarrayInfo {
   `src/engine/explain/golden/numpy-*.md`.
 - **Fixtures:** `src/content/fixtures/python/numpy/*.json` (mapped by `toTrace.test.ts` from the
   recordings in `src/python/fixtures/numpy/`). In dev: `/?python-preview&trace=numpy/views`.
+
+---
+
+## Phase 35 additions — pandas tables (additive; C, NumPy and other Python traces unchanged)
+
+The recorder and mapping rules are in [`PYTHON_TRACE_FORMAT.md`](PYTHON_TRACE_FORMAT.md), "pandas
+tables (Phase 35)". In the trace:
+
+```ts
+// PyObjectKind gains 'dataframe' | 'series' | 'groupby'. 'summary' remains for other pandas objects
+// (an Index, a Categorical, …).
+// on HeapBlock:  table?: TableInfo        (set exactly when objectKind is 'dataframe' / 'series')
+//                groupby?: GroupByInfo    (set exactly when objectKind is 'groupby')
+interface TableColumn { name: string; key: string; dtype: string; missing: number }
+interface TableInfo {
+  kind: 'dataframe' | 'series';
+  shape: number[];          // [rows, columns] / [length]: the whole object's
+  columns: TableColumn[];   // captured columns (≤ 12); a Series has one, named after it
+  columnsOmitted: number;
+  rowLabels: string[];      // captured rows' index labels as shown (≤ 20)
+  rowKeys: string[];        // the same, as cell-id keys (label repr; `3#2` for a repeat)
+  rowsOmitted: number;
+  indexName: string | null;
+  name: string | null;      // a Series' name
+}
+interface GroupByInfo {
+  keys: string[]; ngroups: number; rowsTotal: number;
+  source: BlockId | null;   // gb.obj, the grouped object
+  columns: TableColumn[]; columnsOmitted: number;
+  groups: { label: string; key: string; size: number; rowLabels: string[]; rows: string[][] }[]; // ≤ 20
+  groupsOmitted: number;
+}
+```
+
+- **Cells:** one `scalar` cell per captured value, keyed by row label and column label, not by
+  position: `o3.loc[2, 'yield_kg']` (named `2, 'yield_kg'`) in a DataFrame, `o4.loc['Coast']` in a
+  Series. `type` is the value's Python type (`float`, `str`, `NoneType`, `Timestamp`), `value` its
+  text (at most 40 characters; missing values read `nan`, `None`, `<NA>`, `NaT`). A GroupBy has an
+  `o5.obj` reference to the grouped object and one `o5.groups['Coast']` cell per group (its size).
+- **Validation (Python rules):** `table` facts go with `objectKind` `'dataframe'` / `'series'` of
+  the same kind, `groupby` facts with `'groupby'`; row labels and keys line up; at most one cell per
+  captured row and column; captured plus omitted rows (columns) equal the shape; a GroupBy's
+  `source` is an object of the step.
+- **Where a table came from** (`src/engine/trace/pandas.ts`, `derivedTables`): pandas 3 keeps no
+  link from a derived frame to its source, so it is read from the statement — the name the
+  expression starts from (`farm[…]`, `farm.sort_values(…)`, `pd.merge(farm, …)`) in the step
+  before — and classified from the recorded rows: `filter` (fewer rows, kept in order, values
+  unchanged; with the dropped rows among those shown), `sort`, `columns-added`, `columns-selected`,
+  `values` (same shape, some values changed: `fillna`), or `other`.
+- **Object diff:** `column-added` / `column-removed { objectId, key, index }`, `row-added` /
+  `row-removed { objectId, key, index }` (window-aware: a row sliding into the 20 captured ones is
+  not an addition), `rows-reordered { objectId, from, to }` (in-place sort), and `value-changed`
+  for values. Inverses swap them.
+- **Rendering** (`components/python/TableView.tsx`, lazy Python canvas chunk): a header row (names
+  and a dtype line with the missing count), an index column, zebra rows, "showing 20 of 1,200
+  rows" when capped; a Series as a two-column table; a GroupBy as stacked mini tables per group with
+  sizes. Boxes are at most 34rem wide and wider tables scroll inside them. A derived table has a
+  dashed violet "from" link to its source. Motion: a filtered table first shows its source's rows
+  with the dropped ones struck through, which collapse while the kept rows close up, with a "kept 7
+  of 20 rows" chip; a sorted copy starts in source order and its rows glide; columns added in place
+  slide in; in-place sorts glide by index label; changed and filled values pulse.
+- **Derived explanations** (`src/engine/explain/pandas.ts`): `read_csv`, `head` / `tail`, `info`,
+  `shape`, `df["col"]`, `df[["a", "b"]]`, `loc`, `iloc`, boolean filters (condition, kept count and
+  labels), new and changed columns, single values set, `sort_values` / `sort_index`, `groupby` and
+  aggregations as split / apply / combine (with the group sizes when a GroupBy was recorded),
+  `merge` (keys, how, rows before and after), `isna().sum()`, `fillna`, `dropna`. Goldens:
+  `src/engine/explain/golden/pandas-*.md`.
+- **Fixtures:** `src/content/fixtures/python/pandas/*.json` (mapped from
+  `src/python/fixtures/pandas/`). In dev: `/?python-preview&trace=pandas/filter`.

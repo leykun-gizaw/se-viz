@@ -10,6 +10,7 @@ import { beforeAll, describe, expect, it } from 'vitest';
 import packageJson from '../../package.json?raw';
 import recorderSource from './recorder.py?raw';
 import type { PySnapshot, PyValue, RunResult } from './protocol.ts';
+import { installSampleFiles } from './data/index.ts';
 import { SAMPLES } from './samples/index.ts';
 import { createRecorderSession, type RecorderSession } from './session.ts';
 import { EXTRA_PROGRAMS } from './testPrograms.ts';
@@ -20,6 +21,8 @@ let runtimeVersion = '';
 
 beforeAll(async () => {
   const pyodide = await loadPyodide();
+  // The worker writes the sample data files before every run (Phase 35); so do the tests.
+  installSampleFiles(pyodide);
   runtimeVersion = pyodide.version;
   session = createRecorderSession(pyodide, recorderSource);
 }, 60_000);

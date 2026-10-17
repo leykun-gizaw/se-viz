@@ -1,0 +1,7273 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "pd"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "farm"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "pd"
+      },
+      "attr": "read_csv",
+      "src": "pd.read_csv"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "'farm.csv'",
+       "src": "\"farm.csv\""
+      }
+     ],
+     "src": "pd.read_csv(\"farm.csv\")"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "farm",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "gaps"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "call",
+       "func": {
+        "type": "attribute",
+        "value": {
+         "type": "name",
+         "id": "farm"
+        },
+        "attr": "isna",
+        "src": "farm.isna"
+       },
+       "args": [],
+       "src": "farm.isna()"
+      },
+      "attr": "sum",
+      "src": "farm.isna().sum"
+     },
+     "args": [],
+     "src": "farm.isna().sum()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      30,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 2
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 3
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P09'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "930.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P20'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "2410.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 10
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "farm",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "gaps",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "filled"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "farm"
+      },
+      "attr": "fillna",
+      "src": "farm.fillna"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "dict",
+       "src": "{\"yield_kg\": 0}"
+      }
+     ],
+     "src": "farm.fillna({\"yield_kg\": 0})"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      30,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 2
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 3
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P09'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "930.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P20'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "2410.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 10
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 6,
+     "dtype": "int64",
+     "name": null,
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'plot_id'",
+       "type": "str"
+      },
+      {
+       "repr": "'region'",
+       "type": "str"
+      },
+      {
+       "repr": "'crop'",
+       "type": "str"
+      },
+      {
+       "repr": "'rainfall_mm'",
+       "type": "str"
+      },
+      {
+       "repr": "'yield_kg'",
+       "type": "str"
+      },
+      {
+       "repr": "'fertilized'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "farm",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "gaps",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "filled",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "complete"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "farm"
+      },
+      "attr": "dropna",
+      "src": "farm.dropna"
+     },
+     "args": [],
+     "src": "farm.dropna()"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      30,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 2
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 3
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P09'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "930.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P20'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "2410.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 10
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 6,
+     "dtype": "int64",
+     "name": null,
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'plot_id'",
+       "type": "str"
+      },
+      {
+       "repr": "'region'",
+       "type": "str"
+      },
+      {
+       "repr": "'crop'",
+       "type": "str"
+      },
+      {
+       "repr": "'rainfall_mm'",
+       "type": "str"
+      },
+      {
+       "repr": "'yield_kg'",
+       "type": "str"
+      },
+      {
+       "repr": "'fertilized'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      30,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 2
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P09'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "930.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P20'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "2410.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 10
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "farm",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "gaps",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "filled",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "complete",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Expr",
+    "line": 7,
+    "end": 7,
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "farm"
+      },
+      "attr": "dropna",
+      "src": "farm.dropna"
+     },
+     "args": [],
+     "keywords": [
+      "subset",
+      "inplace"
+     ],
+     "kwargs": [
+      {
+       "name": "subset",
+       "value": {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "const",
+          "repr": "'rainfall_mm'",
+          "src": "\"rainfall_mm\""
+         }
+        ],
+        "src": "[\"rainfall_mm\"]"
+       }
+      },
+      {
+       "name": "inplace",
+       "value": {
+        "type": "const",
+        "repr": "True"
+       }
+      }
+     ],
+     "src": "farm.dropna(subset=[\"rainfall_mm\"], inplace=True)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      30,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 2
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 3
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P09'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "930.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P20'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "2410.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 10
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 6,
+     "dtype": "int64",
+     "name": null,
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'plot_id'",
+       "type": "str"
+      },
+      {
+       "repr": "'region'",
+       "type": "str"
+      },
+      {
+       "repr": "'crop'",
+       "type": "str"
+      },
+      {
+       "repr": "'rainfall_mm'",
+       "type": "str"
+      },
+      {
+       "repr": "'yield_kg'",
+       "type": "str"
+      },
+      {
+       "repr": "'fertilized'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      30,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 2
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P09'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "930.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P20'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "2410.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 10
+    },
+    "o4": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      25,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "20",
+       "type": "int"
+      },
+      {
+       "repr": "21",
+       "type": "int"
+      },
+      {
+       "repr": "23",
+       "type": "int"
+      },
+      {
+       "repr": "24",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P21'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "600.0",
+        "type": "float"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P22'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "770.0",
+        "type": "float"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P24'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "1000.0",
+        "type": "float"
+       },
+       {
+        "repr": "1460.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P25'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "530.0",
+        "type": "float"
+       },
+       {
+        "repr": "390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 5
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "farm",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "gaps",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "filled",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "complete",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      28,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 3
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "20",
+       "type": "int"
+      },
+      {
+       "repr": "21",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P21'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "600.0",
+        "type": "float"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P22'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "770.0",
+        "type": "float"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 8
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 6,
+     "dtype": "int64",
+     "name": null,
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'plot_id'",
+       "type": "str"
+      },
+      {
+       "repr": "'region'",
+       "type": "str"
+      },
+      {
+       "repr": "'crop'",
+       "type": "str"
+      },
+      {
+       "repr": "'rainfall_mm'",
+       "type": "str"
+      },
+      {
+       "repr": "'yield_kg'",
+       "type": "str"
+      },
+      {
+       "repr": "'fertilized'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "0",
+       "type": "int"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      30,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 2
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P06'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P09'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "930.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P15'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "895.0",
+        "type": "float"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P20'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "nan",
+        "type": "float"
+       },
+       {
+        "repr": "2410.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 10
+    },
+    "o4": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      25,
+      6
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_id'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'region'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rainfall_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'yield_kg'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'fertilized'",
+        "type": "str"
+       },
+       "dtype": "bool",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "20",
+       "type": "int"
+      },
+      {
+       "repr": "21",
+       "type": "int"
+      },
+      {
+       "repr": "23",
+       "type": "int"
+      },
+      {
+       "repr": "24",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'P01'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "820.0",
+        "type": "float"
+       },
+       {
+        "repr": "1450.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P02'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "790.0",
+        "type": "float"
+       },
+       {
+        "repr": "610.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P03'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "1720.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P04'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "540.0",
+        "type": "float"
+       },
+       {
+        "repr": "880.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P05'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "2300.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P07'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "870.0",
+        "type": "float"
+       },
+       {
+        "repr": "690.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P08'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "1390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P10'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "510.0",
+        "type": "float"
+       },
+       {
+        "repr": "420.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P11'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "940.0",
+        "type": "float"
+       },
+       {
+        "repr": "2120.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P12'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "990.0",
+        "type": "float"
+       },
+       {
+        "repr": "1010.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P13'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "845.0",
+        "type": "float"
+       },
+       {
+        "repr": "1530.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P14'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "560.0",
+        "type": "float"
+       },
+       {
+        "repr": "1640.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P16'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "1030.0",
+        "type": "float"
+       },
+       {
+        "repr": "740.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P17'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "495.0",
+        "type": "float"
+       },
+       {
+        "repr": "960.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P18'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'cassava'",
+        "type": "str"
+       },
+       {
+        "repr": "805.0",
+        "type": "float"
+       },
+       {
+        "repr": "1980.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P19'",
+        "type": "str"
+       },
+       {
+        "repr": "'Lakeside'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "925.0",
+        "type": "float"
+       },
+       {
+        "repr": "1810.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P21'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'sorghum'",
+        "type": "str"
+       },
+       {
+        "repr": "600.0",
+        "type": "float"
+       },
+       {
+        "repr": "910.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P22'",
+        "type": "str"
+       },
+       {
+        "repr": "'Highland'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "770.0",
+        "type": "float"
+       },
+       {
+        "repr": "580.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P24'",
+        "type": "str"
+       },
+       {
+        "repr": "'Coast'",
+        "type": "str"
+       },
+       {
+        "repr": "'maize'",
+        "type": "str"
+       },
+       {
+        "repr": "1000.0",
+        "type": "float"
+       },
+       {
+        "repr": "1460.0",
+        "type": "float"
+       },
+       {
+        "repr": "True",
+        "type": "bool"
+       }
+      ],
+      [
+       {
+        "repr": "'P25'",
+        "type": "str"
+       },
+       {
+        "repr": "'Valley'",
+        "type": "str"
+       },
+       {
+        "repr": "'beans'",
+        "type": "str"
+       },
+       {
+        "repr": "530.0",
+        "type": "float"
+       },
+       {
+        "repr": "390.0",
+        "type": "float"
+       },
+       {
+        "repr": "False",
+        "type": "bool"
+       }
+      ]
+     ],
+     "rowsOmitted": 5
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

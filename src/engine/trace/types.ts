@@ -153,6 +153,90 @@ export interface HeapBlock {
    * @remarks Added in Phase 34.
    */
   ndarray?: NdarrayInfo;
+  /**
+   * A pandas DataFrame's or Series' facts (Phase 35, additive): set exactly when `objectKind` is
+   * `'dataframe'` or `'series'`. The block's cells are the captured values, row by row: `o3.loc[2,
+   * 'yield_kg']` (named `2, 'yield_kg'`) for a DataFrame, `o4.loc[2]` for a Series, keyed by the
+   * row's index label and the column's label so a value keeps its id when rows are filtered or
+   * sorted.
+   *
+   * @remarks Added in Phase 35.
+   */
+  table?: TableInfo;
+  /**
+   * A pandas GroupBy's facts (Phase 35, additive): set exactly when `objectKind` is `'groupby'`.
+   * Its cells are one per recorded group (`o5.groups['Coast']`, value: the group's size) and a
+   * `o5.obj` reference to the grouped object.
+   *
+   * @remarks Added in Phase 35.
+   */
+  groupby?: GroupByInfo;
+}
+
+/**
+ * A column of a pandas table (Phase 35): the label as shown (`yield_kg`), its key in cell ids (the
+ * label's `repr`, `'yield_kg'`), its dtype, and the missing values in the whole column.
+ */
+export interface TableColumn {
+  name: string;
+  key: string;
+  dtype: string;
+  missing: number;
+}
+
+/**
+ * Shape, columns and index of a pandas DataFrame or Series block (Phase 35). See
+ * `docs/PYTHON_TRACE_FORMAT.md`, "pandas tables". At most 20 rows and 12 columns are captured; the
+ * true shape is always here.
+ *
+ * @remarks Added in Phase 35.
+ */
+export interface TableInfo {
+  kind: 'dataframe' | 'series';
+  /** `[rows, columns]` for a DataFrame, `[length]` for a Series: the whole object's. */
+  shape: number[];
+  /** A DataFrame's captured columns; a Series has one, named after it (`name`) with its dtype. */
+  columns: TableColumn[];
+  /** Columns past the cap (DataFrame only). */
+  columnsOmitted: number;
+  /** The captured rows' index labels as shown (`2`, `Coast`). */
+  rowLabels: string[];
+  /** The same rows' keys in cell ids: the label's `repr`, made unique (`3`, `3#2`) when repeated. */
+  rowKeys: string[];
+  /** Rows past the cap. */
+  rowsOmitted: number;
+  /** `index.name`, shown above the index column, or `null`. */
+  indexName: string | null;
+  /** A Series' name (`yield_kg`), or `null` (and always `null` for a DataFrame). */
+  name: string | null;
+}
+
+/**
+ * What a pandas GroupBy groups (Phase 35): the keys, the number of groups, and per recorded group
+ * its label, size and first rows. `source` is the grouped object's block (`gb.obj`).
+ *
+ * @remarks Added in Phase 35.
+ */
+export interface GroupByInfo {
+  keys: string[];
+  ngroups: number;
+  /** Rows in the grouped object. */
+  rowsTotal: number;
+  source: BlockId | null;
+  /** The grouped object's captured columns (the rows below have one value per column). */
+  columns: TableColumn[];
+  columnsOmitted: number;
+  groups: {
+    /** The group's label as shown (`Coast`, `(Coast, maize)`). */
+    label: string;
+    /** Its key in cell ids (the label's `repr`). */
+    key: string;
+    size: number;
+    /** Index labels and values of the group's first rows (at most 3). */
+    rowLabels: string[];
+    rows: string[][];
+  }[];
+  groupsOmitted: number;
 }
 
 /**
@@ -182,11 +266,12 @@ export interface NdarrayInfo {
 
 /**
  * The kind of Python object a {@link HeapBlock} shows (Phase 30, additive). Present only on Python
- * traces. `summary` is a NumPy / pandas object shown as type, shape and dtype (since Phase 34 only
- * pandas objects and arrays of a dtype without primitive values); `ndarray` (Phase 34) is a NumPy
- * array with its values. `other` is any object shown by its `repr`.
+ * traces. `summary` is a NumPy / pandas object shown as type, shape and dtype (since Phase 35 only
+ * other pandas objects, such as an `Index`, and arrays of a dtype without primitive values); `ndarray` (Phase 34) is a NumPy
+ * array with its values; `dataframe`, `series` and `groupby` (Phase 35) are pandas tables. `other`
+ * is any object shown by its `repr`.
  *
- * @remarks Added in Phase 30; `ndarray` in Phase 34.
+ * @remarks Added in Phase 30; `ndarray` in Phase 34; `dataframe`, `series`, `groupby` in Phase 35.
  */
 export type PyObjectKind =
   | 'list'
@@ -199,6 +284,9 @@ export type PyObjectKind =
   | 'class'
   | 'summary'
   | 'ndarray' // Phase 34: a NumPy array with its values (`HeapBlock.ndarray`)
+  | 'dataframe' // Phase 35: a pandas DataFrame (`HeapBlock.table`)
+  | 'series' // Phase 35: a pandas Series (`HeapBlock.table`)
+  | 'groupby' // Phase 35: a pandas GroupBy (`HeapBlock.groupby`)
   | 'other';
 
 /**

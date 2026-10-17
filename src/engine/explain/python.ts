@@ -10,6 +10,14 @@
  * @packageDocumentation
  */
 import { isArray, shapeText } from '../trace/ndarray.ts';
+import {
+  derivedTables,
+  displayText,
+  isGroupBy,
+  isTable,
+  shapeWords,
+  thousands,
+} from '../trace/pandas.ts';
 import { diffObjects, type PyEvent } from '../trace/objectDiff.ts';
 import type {
   Cell,
@@ -47,6 +55,7 @@ import {
 } from './pyState.ts';
 import { registerPythonDeriver } from './derive.ts';
 import { numpyStatement, type NumpyDid } from './numpy.ts';
+import { pandasStatement } from './pandas.ts';
 import { capitalize, code, count, isAre, lineRange, plain, sentences } from './text.ts';
 import { emptyDerived, type ChangeRow, type DerivedExplanation } from './types.ts';
 
@@ -597,12 +606,15 @@ function printed(ctx: Ctx): string[] {
   return after.slice(before.length);
 }
 
-/** The NumPy reading of the step's statement (Phase 34), once per step. */
+/**
+ * The library reading of the step's statement, once per step: pandas (Phase 35) first, then NumPy
+ * (Phase 34). Each returns null for a line that isn't about its objects.
+ */
 const numpyCache = new WeakMap<Step, NumpyDid | null>();
 function numpyFor(ctx: Ctx): NumpyDid | null {
   let hit = numpyCache.get(ctx.step);
   if (hit === undefined) {
-    hit = ctx.stmt ? numpyStatement(ctx, ctx.stmt) : null;
+    hit = ctx.stmt ? (pandasStatement(ctx, ctx.stmt) ?? numpyStatement(ctx, ctx.stmt)) : null;
     numpyCache.set(ctx.step, hit);
   }
   return hit;
@@ -1263,6 +1275,21 @@ function changeRow(
           ...md,
         };
       }
+      if (isTable(block) || isGroupBy(block)) {
+        // Phase 35: a table's shape, a GroupBy's groups, and the pandas object it was made from.
+        const d = derivedTables(ctx.trace).get(block.id);
+        const from = d
+          ? `, from ${paths.next.has(d.source) ? code(paths.next.get(d.source)!) : `${blockIn(step, d.source)?.type ?? 'object'} ${d.source}`}`
+          : '';
+        const kept =
+          d?.relation.kind === 'filter'
+            ? ` (kept ${thousands(d.relation.keptCount)} of ${thousands(d.relation.of)} ${isTable(block) && block.table.kind === 'series' ? 'values' : 'rows'})`
+            : '';
+        const facts = isTable(block)
+          ? shapeWords(block)
+          : `${block.groupby.ngroups} groups by ${block.groupby.keys.map((k) => code(k)).join(', ')}`;
+        return { kind: 'alloc', subject: `${named}, ${facts}${from}${kept}`, ...md };
+      }
       return { kind: 'alloc', subject: named, ...md };
     }
     case 'object-released': {
@@ -1394,6 +1421,42 @@ function changeRow(
         ...md,
       };
     }
+    case 'column-added':
+    case 'column-removed': {
+      const at = e.kind === 'column-added' ? step : prev;
+      const block = blockIn(at, e.objectId);
+      const col = isTable(block) ? block.table.columns.find((c) => c.key === e.key) : undefined;
+      if (!block || !col) return null;
+      const obj = objectName(at, e.kind === 'column-added' ? paths.next : paths.prev, e.objectId);
+      return e.kind === 'column-added'
+        ? { kind: 'add', subject: `Column ${code(col.name)} added to ${obj}`, to: col.dtype, ...md }
+        : { kind: 'remove', subject: `Column ${code(col.name)} removed from ${obj}`, ...md };
+    }
+    case 'row-added':
+    case 'row-removed': {
+      const at = e.kind === 'row-added' ? step : prev;
+      const block = blockIn(at, e.objectId);
+      if (!isTable(block)) return null;
+      const label = block.table.rowLabels[block.table.rowKeys.indexOf(e.key)] ?? displayText(e.key);
+      const obj = objectName(at, e.kind === 'row-added' ? paths.next : paths.prev, e.objectId);
+      return e.kind === 'row-added'
+        ? { kind: 'add', subject: `Row ${code(label)} added to ${obj}`, ...md }
+        : { kind: 'remove', subject: `Row ${code(label)} removed from ${obj}`, ...md };
+    }
+    case 'rows-reordered': {
+      const before = blockIn(prev, e.objectId);
+      const after = blockIn(step, e.objectId);
+      if (!isTable(before) || !isTable(after)) return null;
+      const order = (labels: readonly string[]) =>
+        labels.length > 8 ? `${labels.slice(0, 8).join(', ')}, …` : labels.join(', ');
+      return {
+        kind: 'value',
+        subject: `Row order of ${objectName(step, paths.next, e.objectId)}`,
+        from: order(before.table.rowLabels),
+        to: order(after.table.rowLabels),
+        ...md,
+      };
+    }
     case 'value-changed':
     case 'reference-retargeted': {
       const subject = slotLabel(ctx, step, paths.next, e.ownerId, e.cellId);
@@ -1418,18 +1481,21 @@ function changes(ctx: Ctx): ChangeRow[] | null {
   const paths = { prev: objectPaths(prev, used), next: objectPaths(step, used) };
   const rows: ChangeRow[] = [];
   const events = diffObjects(prev, step);
-  // Phase 34: more than 6 elements of one array changing is one row, not one per element.
+  // Phase 34: more than 6 elements of one array changing is one row, not one per element (and,
+  // Phase 35, more than 6 values of one table).
   const perArray = new Map<string, number>();
   for (const e of events) {
-    if (e.kind === 'value-changed' && isArray(blockIn(step, e.ownerId))) {
+    const owner = e.kind === 'value-changed' ? blockIn(step, e.ownerId) : undefined;
+    if (e.kind === 'value-changed' && (isArray(owner) || isTable(owner))) {
       perArray.set(e.ownerId, (perArray.get(e.ownerId) ?? 0) + 1);
     }
   }
   const collapsed = new Set([...perArray].filter(([, n]) => n > 6).map(([id]) => id));
   for (const id of collapsed) {
+    const block = blockIn(step, id);
     rows.push({
       kind: 'value',
-      subject: `${perArray.get(id)} elements of ${objectName(step, paths.next, id)} changed`,
+      subject: `${perArray.get(id)} ${isTable(block) ? 'values' : 'elements'} of ${objectName(step, paths.next, id)} changed`,
       markdown: true,
     });
   }
