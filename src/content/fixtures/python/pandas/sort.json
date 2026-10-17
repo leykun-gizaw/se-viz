@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "pd.read_csv(\"farm.csv\").head(8) made a new DataFrame (8 rows × 6 columns): plots now refers to it.",
+   "narration": "Read the CSV file \"farm.csv\" and kept its first 8 rows: plots is a new DataFrame, 8 rows × 6 columns, labelled 0, 1, 2, 3, 4, 5, 6, 7.",
    "highlightedLines": [
     3
    ],

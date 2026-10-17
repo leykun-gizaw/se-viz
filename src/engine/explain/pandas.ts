@@ -1019,6 +1019,25 @@ export function pandasStatement(ctx: NpCtx, stmt: PyStatement | null): Did | nul
         return left ? merged(ctx, left, v.args[1], v, made, prefer) : null;
       }
       if (fn !== null) return created(fn, v, made);
+      // `pd.read_csv("farm.csv").head(6)`: read, then keep the first (or last) rows.
+      if (
+        v.func.type === 'attribute' &&
+        (v.func.attr === 'head' || v.func.attr === 'tail') &&
+        moduleFunction(ctx, v.func.value) === 'read_csv' &&
+        isTable(made.block)
+      ) {
+        const inner = v.func.value as Call;
+        const file = exprText(inner.args[0] ?? { type: 'other' });
+        const lead =
+          `Read the CSV file ${file ? code(file) : 'named'} and kept its ` +
+          `${v.func.attr === 'head' ? 'first' : 'last'} ${count(rowCount(made.block), 'row')}: ` +
+          `${isNew(made)}, ${rowsLabelled(made.block)}.`;
+        return did(
+          lead,
+          [`The whole file was read first; only these rows are kept in ${code(made.target)}.`],
+          'pd-read',
+        );
+      }
       const chain = groupChain(ctx, v);
       if (chain) return aggregated(ctx, chain, made);
       if (v.func.type === 'attribute') {

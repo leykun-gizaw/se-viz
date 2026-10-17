@@ -111,8 +111,10 @@ export function isMissing(cell: Cell | undefined): boolean {
 export function displayText(repr: string): string {
   if (repr === 'nan') return 'NaN';
   const m = /^(['"])(.*)\1$/s.exec(repr);
-  if (!m) return repr;
-  return m[2].replace(/\\(['"\\])/g, '$1');
+  // A string cut at the cell cap has lost its closing quote: `'dry soil, late…`.
+  const cut = m ? null : /^(['"])(.*…)$/s.exec(repr);
+  const inner = m?.[2] ?? cut?.[2];
+  return inner === undefined ? repr : inner.replace(/\\(['"\\])/g, '$1');
 }
 
 /** `1,200`. */
