@@ -15,6 +15,7 @@
  * @packageDocumentation
  */
 import { createContext, useContext } from 'react';
+import { arraysIn, isArray, sharedCells, writeThrough } from '../../engine/trace/ndarray.ts';
 import { diffObjects, type PyEvent } from '../../engine/trace/objectDiff.ts';
 import type { Cell, Step } from '../../engine/trace/types.ts';
 
@@ -22,6 +23,8 @@ import type { Cell, Step } from '../../engine/trace/types.ts';
 export interface MotionState {
   /** The step on screen. */
   shown: Step;
+  /** The step shown before it (itself on the first render). */
+  from: Step;
   /** The index of the step shown before it (equal to `shown.index` on the first render). */
   fromIndex: number;
   /** The events from the previously shown step to {@link shown} (empty after a jump). */
@@ -79,6 +82,7 @@ function itemKeys(
 export function initialMotion(step: Step): MotionState {
   return {
     shown: step,
+    from: step,
     fromIndex: step.index,
     events: [],
     adjacent: false,
@@ -95,7 +99,16 @@ export function advanceMotion(state: MotionState, step: Step): MotionState {
   // After a jump, keys restart from positions (nothing animates, so nothing can be mismatched).
   const { keys, seq } = itemKeys(step, adjacent ? state.keys : {}, events, state.seq);
   const jumps = adjacent ? state.jumps : state.jumps + 1;
-  return { shown: step, fromIndex: state.shown.index, events, adjacent, keys, seq, jumps };
+  return {
+    shown: step,
+    from: state.shown,
+    fromIndex: state.shown.index,
+    events,
+    adjacent,
+    keys,
+    seq,
+    jumps,
+  };
 }
 
 /** The per-element animation cues a render needs, derived from a {@link MotionState}. */
@@ -118,6 +131,52 @@ export interface MotionCues {
   keys: Record<string, string[]>;
   /** Changes whenever arrows should be redrawn without gliding (a jump, or reduced motion). */
   arrowsKey: string;
+  /**
+   * NumPy (Phase 34): array cells written this step together with the same element in another
+   * array that shares the memory (a view and its base). Both are highlighted.
+   */
+  shared: Set<string>;
+  /**
+   * NumPy (Phase 34): for each cell of a new view (a slice, `reshape`, `.T`), the cell of an
+   * existing array holding the same element, which it animates from.
+   */
+  flights: Map<string, string>;
+}
+
+/** `o12` → 12: object ids are numbered in first-seen order. */
+const idNumber = (id: string) => Number(id.replace(/^\D+/, '')) || 0;
+
+/**
+ * Cells of new views that come from an existing array: each new view's cells are matched with the
+ * array it shares the most elements with (the most recently seen one on a tie: `grid.T` comes from
+ * `grid`, not from the array `grid` is a view of).
+ */
+function viewFlights(events: readonly PyEvent[], from: Step, step: Step): Map<string, string> {
+  const flights = new Map<string, string>();
+  const existed = new Set(from.heap.map((b) => b.id));
+  const arrays = arraysIn(step);
+  for (const e of events) {
+    if (e.kind !== 'object-created') continue;
+    const made = step.heap.find((b) => b.id === e.objectId);
+    if (!isArray(made)) continue;
+    let best: Map<string, string> | null = null;
+    let bestId = '';
+    for (const other of arrays) {
+      if (other.id === made.id || !existed.has(other.id)) continue;
+      const shared = sharedCells(step, made, other);
+      if (shared.size === 0) continue;
+      const better =
+        best === null ||
+        shared.size > best.size ||
+        (shared.size === best.size && idNumber(other.id) > idNumber(bestId));
+      if (better) {
+        best = shared;
+        bestId = other.id;
+      }
+    }
+    for (const [mine, theirs] of best ?? []) flights.set(mine, theirs);
+  }
+  return flights;
 }
 
 export function motionCues(state: MotionState, reduce: boolean): MotionCues {
@@ -153,9 +212,21 @@ export function motionCues(state: MotionState, reduce: boolean): MotionCues {
       case 'reference-retargeted':
         retargeted.add(e.cellId);
         break;
+      case 'array-reshaped':
+        restructured.add(e.objectId);
+        break;
       default:
         // Pops, releases, unbinds and removals animate as exits of elements no longer rendered.
         break;
+    }
+  }
+  const shared = new Set<string>();
+  if (state.adjacent) {
+    const written = new Set<string>();
+    for (const id of changed.keys()) written.add(id);
+    for (const [a, b] of writeThrough(state.shown, written)) {
+      shared.add(a);
+      shared.add(b);
     }
   }
   return {
@@ -168,6 +239,8 @@ export function motionCues(state: MotionState, reduce: boolean): MotionCues {
     restructured,
     keys: state.keys,
     arrowsKey: reduce ? `r${state.shown.index}` : `j${state.jumps}`,
+    shared,
+    flights: state.adjacent ? viewFlights(state.events, state.from, state.shown) : new Map(),
   };
 }
 
@@ -182,6 +255,8 @@ export const NO_CUES: MotionCues = {
   restructured: new Set(),
   keys: {},
   arrowsKey: '',
+  shared: new Set(),
+  flights: new Map(),
 };
 
 /** The current render's cues, for the frame, object and value views. */

@@ -50,7 +50,19 @@ function clamp(v: number, lo: number, hi: number): number {
   return Math.min(Math.max(v, lo), Math.max(lo, hi));
 }
 
-export function ArrowOverlay({ step }: { step: Step }) {
+export function ArrowOverlay({
+  step,
+  bandPerTarget = false,
+}: {
+  step: Step;
+  /**
+   * Phase 34 (Python canvas only): a rail's horizontal band sits at its index among the rails into
+   * the **same target**, not among every rail, so with many references (NumPy programs bind a name
+   * per array) the bands stay just above their own target instead of climbing through the boxes
+   * above it. Drop columns stay unique per rail. Off by default: the C canvas is unchanged.
+   */
+  bandPerTarget?: boolean;
+}) {
   const { getAnchor, version } = useAnchors();
   const { retargeted } = useMemoryRender();
 
@@ -178,11 +190,14 @@ export function ArrowOverlay({ step }: { step: Step }) {
     rails.sort(
       (a, b) => center(a.from).cy - center(b.from).cy || center(a.to).cx - center(b.to).cx,
     );
+    const perTarget = new Map<string, number>();
     rails.forEach((r, k) => {
       r.lane = k;
+      const band = bandPerTarget ? (perTarget.get(r.target) ?? 0) : k;
+      perTarget.set(r.target, band + 1);
       r.bandY = r.below
-        ? r.to.y - CHANNEL_GAP - k * CHANNEL_STEP
-        : r.to.y + r.to.height + CHANNEL_GAP + k * CHANNEL_STEP;
+        ? r.to.y - CHANNEL_GAP - band * CHANNEL_STEP
+        : r.to.y + r.to.height + CHANNEL_GAP + band * CHANNEL_STEP;
     });
 
     // Per-pointer hue: stable across steps, distinct within the step (danger arrows stay red).
@@ -236,7 +251,7 @@ export function ArrowOverlay({ step }: { step: Step }) {
     }
 
     return { arrows, nulls, arcs };
-  }, [getAnchor, version, step, retargeted, canvasW]);
+  }, [getAnchor, version, step, retargeted, canvasW, bandPerTarget]);
 
   return (
     <div ref={rootRef} className="pointer-events-none absolute inset-0 z-20">
