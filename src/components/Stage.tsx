@@ -1,8 +1,9 @@
 /**
  * The player surface. For memory traces (default, `view` absent/`'memory'`) it is the three
  * synchronized panels — code (left), memory (right, with the console panel beneath it when the step
- * has output). For the Phase 11 concept views (`pipeline`, `before-after`, `dual-trace`) the main
- * area is replaced by the matching renderer while all surrounding chrome (top bar, transport,
+ * has output). For the Phase 11 concept views (`pipeline`, `before-after`, `dual-trace`) and the
+ * Phase 37 ones (`bars`, `growth`, `distribution`, lazy chunks) the main area is replaced by the
+ * matching renderer while all surrounding chrome (top bar, transport,
  * keyboard, presentation) is unchanged.
  *
  * Studio layout (Phase 28): in the normal view the narration is a card **under the code panel**
@@ -34,6 +35,10 @@ const FigureStrip = lazy(() =>
 const FigureViewer = lazy(() =>
   import('./python/figure/FigureOutput.tsx').then((m) => ({ default: m.FigureViewer })),
 );
+/** The Phase 37 algorithm and statistics views, each its own chunk (loaded when a trace uses it). */
+const BarsView = lazy(() => import('./concept/BarsView.tsx'));
+const GrowthView = lazy(() => import('./concept/GrowthView.tsx'));
+const DistributionView = lazy(() => import('./concept/DistributionView.tsx'));
 
 export function Stage({
   player,
@@ -75,6 +80,14 @@ export function Stage({
   } else if (view === 'dual-trace') {
     // Dual-trace gets two-beat stepping (pre-state on arrive, revealed on apply) via displayStep.
     concept = <DualTraceView trace={trace} step={displayStep} />;
+  } else if (view === 'bars' || view === 'growth' || view === 'distribution') {
+    // Phase 37: single-beat (like pipeline), lazily loaded.
+    const View = view === 'bars' ? BarsView : view === 'growth' ? GrowthView : DistributionView;
+    concept = (
+      <Suspense fallback={<span className="font-mono text-xs text-ink-faint">Loading…</span>}>
+        <View step={displayStep} />
+      </Suspense>
+    );
   }
 
   if (concept) {

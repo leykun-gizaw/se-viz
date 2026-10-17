@@ -295,3 +295,37 @@ body {
   stroke-linejoin: round;
   stroke-linecap: butt;
 }
+
+/*
+ * Algorithm and statistics concept views (Phase 37). State colours are mixed from the theme
+ * tokens: toward --se-bg to dim, toward --se-text to strengthen. That works the same way in both
+ * themes, so the bar states differ in lightness, not only in hue — four tiers, idle < sorted <
+ * compared < swapped in emphasis (dark L*: 18 / 42 / 60 / 82; light: 85 / 71 / 53 / 38). Only
+ * "compared" needs a per-theme mix to land between its neighbours. The five growth
+ * curves are one ordered lightness ramp, about 10 L* apart (dark 38 / 49 / 62 / 70 / 79, light
+ * 68 / 58 / 46 / 37 / 26), each also with its own dash pattern and a direct label. Histogram bars
+ * vs the shaded tail: dark 38 vs 80, light 68 vs 47.
+ */
+:root {
+  --se-cv-idle: color-mix(in srgb, var(--se-text-faint) 35%, var(--se-bg));
+  --se-cv-sorted: color-mix(in srgb, var(--se-heap) 58%, var(--se-bg));
+  --se-cv-compared: color-mix(in srgb, var(--se-active) 88%, var(--se-text));
+  --se-cv-swapped: color-mix(in srgb, var(--se-changed) 55%, var(--se-text));
+  --se-cv-curve-0: color-mix(in srgb, var(--se-pointer) 55%, var(--se-bg));
+  --se-cv-curve-1: color-mix(in srgb, var(--se-pointer) 75%, var(--se-bg));
+  --se-cv-curve-2: var(--se-pointer);
+  --se-cv-curve-3: color-mix(in srgb, var(--se-pointer) 72%, var(--se-text));
+  --se-cv-curve-4: color-mix(in srgb, var(--se-pointer) 42%, var(--se-text));
+  --se-cv-hist: color-mix(in srgb, var(--se-pointer) 55%, var(--se-bg));
+  --se-cv-population: color-mix(in srgb, var(--se-heap) 55%, var(--se-bg));
+  --se-cv-tail: color-mix(in srgb, var(--se-active) 75%, var(--se-text));
+}
+
+:root[data-theme='dark'] {
+  --se-cv-compared: color-mix(in srgb, var(--se-active) 75%, var(--se-bg));
+}
+
+/* Bars slide to their new place on a swap or merge write (reduced motion: the rule above). */
+.se-cv-move {
+  transition: transform 320ms ease;
+}

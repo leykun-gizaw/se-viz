@@ -242,6 +242,7 @@ function dualTraceChanges(prev: Step, next: Step): ChangeRow[] {
 const VIEW_NOTES: Record<string, string> = {
   pipeline: 'The highlighted stage in the pipeline is what this step did.',
   'before-after': 'The highlighted lines in the before and after panels show what changed.',
+  bars: 'The highlighted bars, the pointers and the counters show what this step changed.',
 };
 
 /**

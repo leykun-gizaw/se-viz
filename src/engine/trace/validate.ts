@@ -248,8 +248,11 @@ export function validateTrace(trace: Trace): TraceIssue[] {
           }
         }
       }
+    } else if (view === 'bars' || view === 'growth' || view === 'distribution') {
+      validateConceptStep(trace, i, view, (m) => issue(i, m));
     }
   });
+  if (view === 'bars') validateBarsCounters(trace, issue);
 
   return issues;
 }
@@ -387,4 +390,127 @@ function validatePython(trace: Trace, issue: (stepIndex: number, message: string
 /** Convenience: validate many traces and return all issues flattened. */
 export function validateTraces(traces: readonly Trace[]): TraceIssue[] {
   return traces.flatMap((t) => validateTrace(t));
+}
+
+/* ───────────────────────── Phase 37 concept views ───────────────────────── */
+
+const isCount = (x: unknown) => typeof x === 'number' && Number.isInteger(x) && x >= 0;
+const isIndex = (x: number, n: number) => Number.isInteger(x) && x >= 0 && x < n;
+
+/** Bins are non-empty, ascending, contiguous (`to` of one is `from` of the next), with whole counts. */
+function checkBins(bins: readonly { from: number; to: number; count: number }[], what: string, report: (m: string) => void): number {
+  if (bins.length === 0) {
+    report(`${what} has no bins`);
+    return 0;
+  }
+  let total = 0;
+  bins.forEach((b, k) => {
+    if (!(b.to > b.from)) report(`${what} bin ${k} is empty or reversed (${b.from}..${b.to})`);
+    if (k > 0 && Math.abs(bins[k - 1].to - b.from) > 1e-9) report(`${what} bin ${k} does not start where bin ${k - 1} ends`);
+    if (!isCount(b.count)) report(`${what} bin ${k} count ${b.count} is not a whole number`);
+    total += b.count;
+  });
+  return total;
+}
+
+/**
+ * One step of a Phase 37 view: the payload matching the view is present and self-consistent.
+ * - `bars`: indices in range (pointers may sit one past either end), `keys` unique and as long as
+ *   `values`, a range inside the array, merge segments inside the array;
+ * - `growth`: ascending positive `ns`, one count per `n` on every curve, `n` among the `ns`, the
+ *   compared ids naming curves, a positive `yMax`;
+ * - `distribution`: contiguous bins whose counts add up to `draws`; the population's bins add up to
+ *   its size; a test's `extreme` is at most `draws` and its `pValue` is `extreme / draws`.
+ */
+function validateConceptStep(
+  trace: Trace,
+  i: number,
+  view: 'bars' | 'growth' | 'distribution',
+  report: (message: string) => void,
+): void {
+  const step = trace.steps[i];
+  const payload = view === 'bars' ? step.bars : view === 'growth' ? step.growth : step.distribution;
+  if (!payload) {
+    report(`view '${view}' step is missing its \`${view}\` payload`);
+    return;
+  }
+  if (view === 'bars' && step.bars) {
+    const b = step.bars;
+    const n = b.values.length;
+    if (n === 0) report('bars: values is empty');
+    if (b.values.some((v) => !Number.isFinite(v))) report('bars: a value is not a finite number');
+    if (b.keys && (b.keys.length !== n || new Set(b.keys).size !== n)) {
+      report('bars: keys must be unique and one per value');
+    }
+    for (const [name, list] of [
+      ['compared', b.compared],
+      ['swapped', b.swapped],
+      ['sorted', b.sorted],
+    ] as const) {
+      for (const x of list ?? []) if (!isIndex(x, n)) report(`bars: ${name} index ${x} is outside 0..${n - 1}`);
+    }
+    for (const p of b.pointers ?? []) {
+      if (!Number.isInteger(p.index) || p.index < -1 || p.index > n) {
+        report(`bars: pointer ${p.label} at ${p.index} is outside -1..${n}`);
+      }
+    }
+    if (b.range && !(isIndex(b.range.from, n) && isIndex(b.range.to, n) && b.range.from <= b.range.to)) {
+      report(`bars: range ${b.range.from}..${b.range.to} is not inside the array`);
+    }
+    if (b.found !== undefined && !isIndex(b.found, n)) report(`bars: found index ${b.found} is outside the array`);
+    for (const s of b.segments ?? []) {
+      if (!(isIndex(s.from, n) && isIndex(s.to, n) && s.from <= s.to)) {
+        report(`bars: segment ${s.from}..${s.to} is not inside the array`);
+      }
+    }
+    for (const key of ['comparisons', 'swaps', 'writes'] as const) {
+      const c = b.counters[key];
+      if (c !== undefined && !isCount(c)) report(`bars: counter ${key} is not a whole number`);
+    }
+  } else if (view === 'growth' && step.growth) {
+    const g = step.growth;
+    if (g.ns.length === 0 || g.ns.some((x, k) => !(x > 0) || (k > 0 && x <= g.ns[k - 1]))) {
+      report('growth: ns must be positive and ascending');
+    }
+    if (!g.ns.includes(g.n)) report(`growth: n = ${g.n} is not one of the ns`);
+    if (!(g.yMax > 0)) report('growth: yMax must be positive');
+    const ids = new Set(g.curves.map((c) => c.id));
+    if (ids.size !== g.curves.length) report('growth: duplicate curve id(s)');
+    for (const c of g.curves) {
+      if (c.counts.length !== g.ns.length) report(`growth: curve ${c.id} needs one count per n`);
+      if (c.counts.some((x) => !Number.isFinite(x) || x < 0)) report(`growth: curve ${c.id} has a negative or non-finite count`);
+    }
+    for (const id of g.compare ?? []) if (!ids.has(id)) report(`growth: compared curve ${id} does not exist`);
+  } else if (view === 'distribution' && step.distribution) {
+    const d = step.distribution;
+    const total = checkBins(d.bins, 'distribution', report);
+    if (total !== d.draws) report(`distribution: bin counts add up to ${total}, not draws = ${d.draws}`);
+    if (d.population) {
+      const size = checkBins(d.population.bins, 'population', report);
+      if (size !== d.population.size) report(`population: bin counts add up to ${size}, not size = ${d.population.size}`);
+    }
+    if (d.mode === 'sampling' && !d.population) report('distribution: sampling mode needs a population');
+    if (d.mode === 'hypothesis') {
+      const t = d.test;
+      if (!t) report('distribution: hypothesis mode needs a test');
+      else {
+        if (!isCount(t.extreme) || t.extreme > d.draws) report(`distribution: extreme ${t.extreme} is not in 0..draws`);
+        const p = d.draws === 0 ? 0 : t.extreme / d.draws;
+        if (Math.abs(t.pValue - p) > 1e-12) report(`distribution: pValue ${t.pValue} is not extreme / draws = ${p}`);
+        if (!(t.alpha > 0 && t.alpha < 1)) report('distribution: alpha must be between 0 and 1');
+      }
+    }
+  }
+}
+
+/** Bars counters never go down from one step to the next (they count operations so far). */
+function validateBarsCounters(trace: Trace, issue: (stepIndex: number, message: string) => void): void {
+  for (let i = 1; i < trace.steps.length; i++) {
+    const a = trace.steps[i - 1].bars?.counters;
+    const b = trace.steps[i].bars?.counters;
+    if (!a || !b) continue;
+    for (const key of ['comparisons', 'swaps', 'writes'] as const) {
+      if ((b[key] ?? 0) < (a[key] ?? 0)) issue(i, `bars: counter ${key} went down (${a[key]} → ${b[key]})`);
+    }
+  }
 }
