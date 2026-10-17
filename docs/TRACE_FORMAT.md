@@ -425,8 +425,8 @@ interface StepExplanation {
     pushed / popped (labelled `factorial(3)` when every parameter is a known scalar, see
     `labels.ts`), new variables in an existing frame, heap blocks allocated / freed / leaked, and new
     `stdout` lines. The first step has nothing to compare against and says so. Concept views:
-    pipeline node state changes, dual-trace rows flagged `changed`; before-after points at its
-    panels;
+    dual-trace lists the rows flagged `changed`; pipeline and before-after point at their own
+    highlighted stage / lines;
   - "Previous step" / "Coming next": the neighbouring steps' lines and narration.
 - **Two-beat stepping:** on an `arrive` beat the step hasn't run, so `did`, "What changed" and the
   next step's narration are withheld until `apply`.
