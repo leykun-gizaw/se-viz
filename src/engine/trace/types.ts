@@ -704,6 +704,18 @@ export interface Step {
   /** Dual-trace concept-view payload (debugging). Set only when `trace.view === 'dual-trace'`. */
   dualTrace?: DualTraceStep;
   /**
+   * Phase 37 concept-view payloads (additive), one per step and only the kind matching
+   * {@link Trace.view}: an array as bars for search and sort ({@link BarsStep}), Big O growth curves
+   * ({@link GrowthStep}), and a histogram that builds as samples are drawn ({@link DistributionStep}).
+   *
+   * @remarks Added in Phase 37.
+   */
+  bars?: BarsStep;
+  /** Big O growth payload. Set only when `trace.view === 'growth'`. */
+  growth?: GrowthStep;
+  /** Sampling-distribution / hypothesis-test payload. Set only when `trace.view === 'distribution'`. */
+  distribution?: DistributionStep;
+  /**
    * An optional contextual teaching pop-up for this step (Phase 17). At most one per step; omit on
    * steps that don't add insight. A step without `coach` behaves exactly as before.
    *
@@ -869,7 +881,14 @@ export interface TraceFigure {
  */
 
 /** The renderer a trace selects. `memory` (or absent) is the Phases 0–10 live-memory canvas. */
-export type TraceView = 'memory' | 'pipeline' | 'before-after' | 'dual-trace';
+export type TraceView =
+  | 'memory'
+  | 'pipeline'
+  | 'before-after'
+  | 'dual-trace'
+  | 'bars'
+  | 'growth'
+  | 'distribution';
 
 /**
  * One node in a build-pipeline graph. `artifact` nodes are solid cards (a file: `.c`/`.o`/`.a`/the
@@ -947,4 +966,155 @@ export interface DualTraceStep {
   left: DualColumn;
   right: DualColumn;
   diverged?: boolean;
+}
+
+/* ───────────────────────── Algorithm and statistics views (Phase 37, additive) ─────────────────────────
+ * Three more concept views for DS 210 ideas that are not "watch memory change": search and sort
+ * (`bars`), Big O growth (`growth`) and sampling distributions / hypothesis tests (`distribution`).
+ * Their traces are written by deterministic TypeScript generators (`src/engine/concept/`), not
+ * recorded. Like the Phase 11 views, `stack`/`heap` stay empty and `source` is `''`.
+ */
+
+/** A labelled pointer under one bar, e.g. `low`, `mid`, `high`, `i`, `j`, `min`. */
+export interface BarsPointer {
+  label: string;
+  /** The bar it points at. May be `-1` or `values.length` (just past either end, e.g. `high < low`). */
+  index: number;
+}
+
+/**
+ * One node of a merge sort's split tree: the index range `from..to` (inclusive) at recursion
+ * `depth` (0 = the whole array). `idle`: not reached yet; `split`: divided, waiting for its halves;
+ * `active`: being merged now; `merged`: sorted (a single value counts as merged once reached).
+ */
+export interface BarsSegment {
+  from: number;
+  to: number;
+  depth: number;
+  state: 'idle' | 'split' | 'active' | 'merged';
+}
+
+/** Running operation counts. `swaps` is set by sorts that swap, `writes` by merge sort. */
+export interface BarsCounters {
+  comparisons: number;
+  swaps?: number;
+  writes?: number;
+}
+
+/**
+ * A search or sort snapshot (`view: 'bars'`): the array as bars, plus what this step looked at.
+ * Indices are 0-based. Every step restates the whole state.
+ */
+export interface BarsStep {
+  /** The array at this step. */
+  values: number[];
+  /**
+   * Optional stable identity per element (same length as `values`, unique), so the renderer can
+   * move a bar to its new place instead of changing its height. Keys follow elements across steps.
+   */
+  keys?: string[];
+  /** Indices compared this step (amber). */
+  compared?: number[];
+  /** Indices swapped or written this step (green). Wins over `compared` on the same bar. */
+  swapped?: number[];
+  /** Indices in the sorted region (teal): final places, or insertion sort's sorted prefix. */
+  sorted?: number[];
+  /** The live search or merge range, inclusive; bars outside it are dimmed. */
+  range?: { from: number; to: number };
+  pointers?: BarsPointer[];
+  /** The index where a search found its target. */
+  found?: number;
+  /** The value a search looks for. */
+  target?: number;
+  /** Merge sort: every node of the split tree, with its state this step. */
+  segments?: BarsSegment[];
+  counters: BarsCounters;
+}
+
+/** One growth curve: operation counts `counts[k]` at `GrowthStep.ns[k]`. */
+export interface GrowthCurve {
+  /** Stable id, e.g. `"n2"`. */
+  id: string;
+  /** Display label, e.g. `"O(n²)"`. */
+  label: string;
+  counts: number[];
+}
+
+/**
+ * A Big O snapshot (`view: 'growth'`): every curve on shared axes, the current `n` (a marker on
+ * each curve, and the table row), and the two curves the caption compares.
+ */
+export interface GrowthStep {
+  /** The x samples, ascending and positive. The current `n` is one of them. */
+  ns: number[];
+  /** The curves, in growth order (slowest first). */
+  curves: GrowthCurve[];
+  n: number;
+  /** Top of the y axis. Larger counts are clipped at the top edge (the table shows the true count). */
+  yMax: number;
+  /** Ids of the two curves the caption compares at this `n`. */
+  compare?: [string, string];
+  /** The caption under the chart (inline Markdown). */
+  caption?: string;
+}
+
+/** One histogram bin `[from, to)` and how many values fell in it. */
+export interface DistributionBin {
+  from: number;
+  to: number;
+  count: number;
+}
+
+/**
+ * A statistics snapshot (`view: 'distribution'`): a histogram that builds as values are drawn.
+ *
+ * - `mode: 'sampling'`: the histogram holds sample means drawn from a skewed `population`; a
+ *   `normal` curve (the central limit theorem's prediction) may be overlaid.
+ * - `mode: 'hypothesis'`: the histogram holds statistics simulated under the null hypothesis; `test`
+ *   carries the observed statistic, the tail, and the p-value.
+ */
+export interface DistributionStep {
+  mode: 'sampling' | 'hypothesis';
+  /** Axis label for the histogram, e.g. `"sample mean (minutes)"`. */
+  xLabel: string;
+  /** Contiguous, ascending bins (fixed for the whole trace). */
+  bins: DistributionBin[];
+  /** How many values the histogram holds: the sum of the bin counts. */
+  draws: number;
+  /** The value(s) added this step, when few enough to mark one by one. */
+  latest?: number[];
+  /** Mean, (population) standard deviation and skewness of the values so far (generators set it from 10 draws on). */
+  stats?: { mean: number; sd: number; skewness: number };
+  /** Sampling mode: the population the samples come from. */
+  population?: {
+    xLabel: string;
+    bins: DistributionBin[];
+    size: number;
+    mean: number;
+    sd: number;
+    skewness: number;
+    /** The sample drawn this step (its values are marked on the population). */
+    sample?: number[];
+  };
+  /** Sampling mode: how many values each sample holds. */
+  sampleSize?: number;
+  /** A normal curve to overlay (scaled to the histogram's draws). */
+  normal?: { mean: number; sd: number };
+  /** Hypothesis mode: the observed data, shown as dot strips (one per group). */
+  groups?: { label: string; values: number[]; mean: number }[];
+  /** Hypothesis mode: the test. */
+  test?: {
+    /** The observed statistic (the marker). */
+    observed: number;
+    /** Which side counts as "at least as extreme". */
+    tail: 'left' | 'right' | 'two';
+    /** The null distribution's centre; a two-tailed test reflects the observed value about it. */
+    center: number;
+    /** How many of the `draws` are at least as extreme as `observed`. */
+    extreme: number;
+    /** `extreme / draws` (0 before any draw). */
+    pValue: number;
+    /** The significance level the conclusion compares against, e.g. `0.05`. */
+    alpha: number;
+  };
 }
