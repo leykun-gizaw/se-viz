@@ -518,3 +518,57 @@ by `src/python/toTrace.test.ts`, refreshed with `vitest -u`). The harvest loop i
 module (`src/content/fixtures/pythonHarvest.ts`). In dev, `/?python-preview&trace=<name>` plays any
 of them in the real stage.
 
+---
+
+## Phase 32 additions — derived step explanations (additive; C traces unchanged)
+
+**Authored fields (`StepExplanation`, optional).** Besides `did` and `concept`, a step may author
+`changed`, `branch`, `loop`, `calls` and `exceptions` (each `string[]`, inline Markdown). Each one,
+when present and not empty, replaces that panel section's derived text; the rest stay derived.
+`validateTrace` is unchanged.
+
+**Python facts (present only on `language: 'python'` traces; see `PYTHON_TRACE_FORMAT.md`,
+"Statement facts").**
+
+```ts
+// on Trace:  statements?: Record<string, PyStatement>   // the statement starting on each line that ran
+// on Step:   py?: PyStepInfo                            // the recorder event behind the step
+interface PyStepInfo {
+  event: 'line' | 'call' | 'return' | 'exception';
+  at: number;                         // the line the snapshot was taken at (where execution is now)
+  call?: { function: string; params: string[]; scope: 'function' | 'generator' | 'coroutine' | 'class' | 'lambda' | 'comprehension'; resumed?: true };
+  function?: string;                  // return events
+  unwinding?: true;                   // return events: leaving because of an exception
+  yielded?: true;                     // return events: a generator paused at `yield`
+  exception?: { type: string; message: string };
+  ending?: 'uncaught' | 'stopped';    // the extra final step Python live coding adds
+}
+```
+
+**Derivation (`src/engine/explain/`).** `deriveExplanation(trace, stepIndex, beat)` returns the
+sections; `explainBeat` merges them under authored text.
+
+| Section | Python | C |
+|---------|--------|---|
+| What this step did | ordered breakdown (lookups, reads, the operation, the store), or the call / return / exception / loop step | — (the narration) |
+| What changed | one row per object-diff event (`diffObjects`), named by the code's own paths (`counts['corn']`, `self.crops`) | the Phase 28 rows (`diffSteps`) |
+| Branch taken | `if` / `elif` / `while`: the test's result (from the next line executed) and which lines run or are skipped | the `condition` chip, and the next line when it is in the same frame |
+| Loop iteration | `for` / `while` headers: the pass number (from the loop's latest entry) and the loop variable | the timeline's loop counting on `condition` chips |
+| Calls and returns | called with which arguments, returned / yielded what to which line, shared arguments | frames pushed / popped |
+| Exceptions | type, message, line, and which `except` (if any) catches it | — |
+| Concept | `glossary.ts`, keyed by statement kind and object type | — |
+
+- **Two beats:** on `arrive` only "What this step did" is derived, as "About to run line N: it …",
+  plus the concept; every effect waits for `apply`.
+- **Never guess:** a value is shown only when it was read from a snapshot (a name, `d[k]`,
+  `obj.attr`, a constant, or the value stored / returned). On a line that resumed after a call, a
+  read counts only if it is the same before the line started and after. A line that raised, paused
+  for a call, or is still running (a comprehension) gets no breakdown beyond what is certain. A
+  sentence whose value can't be shown faithfully (a backtick inside a value) is dropped.
+- **Mapping time:** `recordingToTrace` sets each Python step's `narration` to a one-line plain
+  summary and its `condition` chip to the derived test result.
+- **Bundle:** the Python templates, glossary and object diff are a lazy chunk; the panel loads it
+  for a Python trace and re-explains when it arrives. The C deriver is in the main chunk.
+- **Golden snapshots:** `src/engine/explain/golden/*.md` — the panel's text for every step and
+  both beats of each Phase 29 sample, four Phase 32 programs and two C modules.
+
