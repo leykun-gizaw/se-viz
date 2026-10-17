@@ -8,11 +8,12 @@
  * no derived "What this step did" shows its narration, marked `(narration)`.
  */
 import { describe, expect, it } from 'vitest';
+import { allCatalogModules } from '../../content/catalog.ts';
 import { controlFlowTrace } from '../../content/se200/variables-control-flow/controlFlow.ts';
 import { sumToTrace } from '../../content/se200/recursion/sumTo.ts';
 import { explainBeat } from '../trace/explain.ts';
 import { lineTexts } from '../trace/labels.ts';
-import type { Trace } from '../trace/types.ts';
+import type { Step, Trace } from '../trace/types.ts';
 import { NUMPY_SAMPLES as NUMPY } from '../../python/samples/numpy/index.ts';
 import { MATPLOTLIB_SAMPLES as MATPLOTLIB } from '../../python/samples/matplotlib/index.ts';
 import { PANDAS_SAMPLES as PANDAS } from '../../python/samples/pandas/index.ts';
@@ -30,6 +31,51 @@ function rowText(row: ChangeRow): string {
   return `[${row.kind}] ${row.subject}${value}`;
 }
 
+/**
+ * Phase 37: the state of a generated concept-view step, in one line, so a reviewer can check each
+ * sentence against what the view shows. Empty for every other view.
+ */
+function stateLine(step: Step): string | null {
+  const r = (x: number) => String(Math.round(x * 1000) / 1000);
+  if (step.bars) {
+    const b = step.bars;
+    const parts = [`values [${b.values.join(', ')}]`];
+    if (b.compared?.length) parts.push(`compared ${b.compared.join(',')}`);
+    if (b.swapped?.length) parts.push(`swapped/written ${b.swapped.join(',')}`);
+    if (b.sorted?.length) parts.push(`sorted ${b.sorted.join(',')}`);
+    if (b.range) parts.push(`range ${b.range.from}–${b.range.to}`);
+    if (b.pointers?.length)
+      parts.push(`pointers ${b.pointers.map((p) => `${p.label}=${p.index}`).join(' ')}`);
+    if (b.found !== undefined) parts.push(`found ${b.found}`);
+    if (b.segments) {
+      const active = b.segments.filter((s) => s.state === 'active' || s.state === 'split');
+      parts.push(
+        `segments ${active.map((s) => `${s.from}–${s.to}:${s.state}`).join(' ') || '(none open)'}`,
+      );
+    }
+    parts.push(
+      `counters ${Object.entries(b.counters)
+        .map(([k, v]) => `${k}=${v}`)
+        .join(' ')}`,
+    );
+    return parts.join(' · ');
+  }
+  if (step.growth) {
+    const g = step.growth;
+    return `n = ${g.n} · ${g.curves.map((c) => `${c.label}=${r(c.counts[g.n - 1])}`).join(' ')} · compare ${g.compare?.join(' vs ')}`;
+  }
+  if (step.distribution) {
+    const d = step.distribution;
+    const parts = [`draws ${d.draws}`];
+    if (d.latest?.length) parts.push(`latest ${d.latest.map(r).join(', ')}`);
+    if (d.stats)
+      parts.push(`mean ${r(d.stats.mean)} sd ${r(d.stats.sd)} skew ${r(d.stats.skewness)}`);
+    if (d.test) parts.push(`extreme ${d.test.extreme} · p ${r(d.test.pValue)} (${d.test.tail})`);
+    return parts.join(' · ');
+  }
+  return null;
+}
+
 /** The panel's text for every step of a trace, both beats, as Markdown. */
 function renderGolden(trace: Trace): string {
   const out: string[] = [];
@@ -40,15 +86,25 @@ function renderGolden(trace: Trace): string {
       '(`explainBeat`, two-beat mode). Review every sentence against its step.',
     '',
   );
-  out.push('```' + fence);
-  trace.source
-    .replace(/\n$/, '')
-    .split('\n')
-    .forEach((l, i) => out.push(`${String(i + 1).padStart(2)}  ${l}`));
-  out.push('```', '');
+  // A generated concept view (Phase 37) has no source: its state line stands in for it.
+  if (trace.source !== '') {
+    out.push('```' + fence);
+    trace.source
+      .replace(/\n$/, '')
+      .split('\n')
+      .forEach((l, i) => out.push(`${String(i + 1).padStart(2)}  ${l}`));
+    out.push('```', '');
+  }
   trace.steps.forEach((step, i) => {
     const code = lineTexts(trace.source, step.highlightedLines).join(' / ');
-    out.push(`## Step ${i + 1} · line ${step.highlightedLines.join(', ')} · \`${code}\``, '');
+    out.push(
+      trace.source === ''
+        ? `## Step ${i + 1}`
+        : `## Step ${i + 1} · line ${step.highlightedLines.join(', ')} · \`${code}\``,
+      '',
+    );
+    const state = stateLine(step);
+    if (state) out.push(`**State:** ${state}`, '');
     const arrive = explainBeat(trace, i, 'arrive', 'two-beat');
     const apply = explainBeat(trace, i, 'apply', 'two-beat');
     out.push(`**Arrive:** ${arrive.did ? arrive.did.items.join(' ') : '(nothing derived)'}`, '');
@@ -130,6 +186,16 @@ describe('golden derived explanations', () => {
     await expect(renderGolden(sampleTrace(`matplotlib/${name}`))).toMatchFileSnapshot(
       `golden/matplotlib-${name}.md`,
     );
+  });
+
+  // Phase 37: every generated concept-view module (the generator writes the text; review it here).
+  it.each(
+    allCatalogModules()
+      .map((m) => m.trace)
+      .filter((t) => t.id.startsWith('concept-'))
+      .map((t) => [t.id, t] as const),
+  )('Phase 37 generated concept view %s', async (id, trace) => {
+    await expect(renderGolden(trace)).toMatchFileSnapshot(`golden/${id}.md`);
   });
 
   it.each([
