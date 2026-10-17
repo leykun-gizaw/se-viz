@@ -54,6 +54,12 @@ EXPRESSION_SCOPES = frozenset({"<genexpr>", "<listcomp>", "<dictcomp>", "<setcom
 SRC_CAP = 80  # longest source text kept for an expression (longer ones keep no text)
 EXPR_DEPTH = 6  # deeper sub-expressions are summarized as {"type": "other"}
 
+# NumPy arrays (Phase 34): at most this many values are captured per array, flat, in C order; the
+# rest are counted in `omitted`. Only these dtype kinds have primitive values (bool, signed and
+# unsigned int, float, unicode str); arrays of any other dtype stay a summary.
+NDARRAY_CAP = 200
+NDARRAY_KINDS = frozenset("biufU")
+
 _BINOPS = {
     _ast.Add: "+",
     _ast.Sub: "-",
@@ -200,9 +206,16 @@ class _Statements:
             r = repr(node.value)
             return {"type": "const", "repr": r} if len(r) <= SRC_CAP else {"type": "other"}
         if isinstance(node, _ast.Subscript):
-            if isinstance(node.slice, (_ast.Slice, _ast.Tuple)):
-                return {"type": "other"}
+            # Phase 34: a slice (`a[1:4]`) or a tuple of indices (`m[0, 1]`, `m[:, 1]`) is kept too,
+            # for NumPy indexing; it was `other` before.
             return {"type": "subscript", "value": self._expr(node.value, d), "index": self._expr(node.slice, d)}
+        if isinstance(node, _ast.Slice):
+            out = {"type": "slice"}
+            for part in ("lower", "upper", "step"):
+                sub = getattr(node, part)
+                if sub is not None:
+                    out[part] = self._expr(sub, d)
+            return out
         if isinstance(node, _ast.Attribute):
             return {"type": "attribute", "value": self._expr(node.value, d), "attr": node.attr}
         if isinstance(node, _ast.BinOp) and type(node.op) in _BINOPS:
@@ -233,6 +246,8 @@ class _Statements:
             out = {"type": "call", "func": self._expr(node.func, d), "args": [self._expr(a, d) for a in node.args]}
             if node.keywords:
                 out["keywords"] = [k.arg for k in node.keywords]
+                # Phase 34: the keyword values too (`m.sum(axis=0)`).
+                out["kwargs"] = [{"name": k.arg, "value": self._expr(k.value, d)} for k in node.keywords]
             return out
         if type(node) in _DISPLAYS:
             out = {"type": "display", "of": _DISPLAYS[type(node)]}
@@ -477,6 +492,9 @@ class _Recorder:
         t = type(v)
         if t in PRIMITIVES:
             return self._prim(v, t)
+        scalar = self._numpy_scalar(v, t)
+        if scalar is not None:
+            return scalar
         oid = self._obj_id(v)
         walk.visit(oid, v)
         return {"kind": "ref", "id": oid}
@@ -488,10 +506,85 @@ class _Recorder:
             r = "<" + type(v).__name__ + " (repr failed: " + type(e).__name__ + ")>"
         return self._cap(r)[0]
 
+    def _numpy_scalar(self, v, t):
+        """A NumPy scalar (``np.int64(3)``, ``np.float64(2.5)``) as a primitive with its dtype (Phase 34).
+
+        Detected by the type's module root, without importing NumPy. Scalars whose value is not a
+        primitive (complex, datetime, bytes, ...) return None and stay summaries.
+        """
+        if (getattr(t, "__module__", "") or "").split(".")[0] != "numpy" or _is_ndarray(v):
+            return None
+        try:
+            if getattr(v, "ndim", None) != 0 or not hasattr(v, "dtype"):
+                return None
+            item = v.item()
+        except BaseException:  # noqa: BLE001 - an odd object is simply not a scalar
+            return None
+        it = type(item)
+        if it not in PRIMITIVES or it is type(None):
+            return None
+        out = self._prim(item, it)
+        out["dtype"] = str(v.dtype)
+        return out
+
+    def _ndarray(self, v, walk):
+        """A NumPy ndarray (Phase 34): shape, dtype, capped flat values in C order, and its memory.
+
+        Returns None for a dtype whose values aren't primitives (the array stays a summary).
+        ``layout`` places the array's elements in the memory of the array that owns them (its
+        ``base`` chain's end), so two views of the same data can be matched element by element:
+        ``offset`` is bytes from the owner's first byte, ``strides`` and ``itemsize`` are NumPy's.
+        """
+        dtype = v.dtype
+        # Subclasses (masked arrays, matrices) keep the summary: their values mean something else.
+        if type(v).__name__ != "ndarray" or getattr(dtype, "kind", None) not in NDARRAY_KINDS:
+            return None
+        shape = [int(n) for n in v.shape]
+        size = int(v.size)
+        n = min(size, NDARRAY_CAP)
+        values = [self._value(x, walk) for x in v.flat[:n].tolist()] if n else []
+        out = {
+            "kind": "ndarray",
+            "library": "numpy",
+            "type": type(v).__name__,
+            "shape": shape,
+            "dtype": str(dtype),
+            "ndim": int(v.ndim),
+            "values": values,
+        }
+        if size > n:
+            out["omitted"] = size - n
+        out["owndata"] = bool(v.flags.owndata)
+        base = v.base
+        if base is not None:
+            out["base"] = self._value(base, walk)
+        layout = {"offset": 0, "strides": [int(s) for s in v.strides], "itemsize": int(dtype.itemsize)}
+        if base is not None:
+            # Bytes from the owner's data: follow the base chain (NumPy usually collapses it to the
+            # owner already), stopping at anything that isn't an ndarray.
+            try:
+                here = v.__array_interface__["data"][0]
+                owner = base
+                while _is_ndarray(owner) and owner.base is not None and _is_ndarray(owner.base):
+                    owner = owner.base
+                layout["offset"] = int(here - owner.__array_interface__["data"][0]) if _is_ndarray(owner) else None
+            except BaseException:  # noqa: BLE001 - no layout is better than a wrong one
+                layout["offset"] = None
+        if layout["offset"] is not None:
+            out["layout"] = layout
+        return out
+
     def _describe(self, v, walk):
         t = type(v)
         tname = t.__name__
         root = (getattr(t, "__module__", "") or "").split(".")[0]
+        if root == "numpy" and _is_ndarray(v):
+            try:
+                arr = self._ndarray(v, walk)
+            except Exception:  # noqa: BLE001 - an array-like the recorder can't read stays a summary
+                arr = None
+            if arr is not None:
+                return arr
         if root == "numpy" and hasattr(v, "shape") and hasattr(v, "dtype"):
             return {
                 "kind": "summary",
@@ -862,6 +955,14 @@ class _Walk:
             objects[oid] = self.rec._describe(v, self)
             i += 1
         return objects
+
+
+def _is_ndarray(v):
+    """Whether ``v`` is a NumPy ndarray (or subclass), by class name and module, without importing NumPy."""
+    for k in type(v).__mro__:
+        if k.__name__ == "ndarray" and (getattr(k, "__module__", "") or "").split(".")[0] == "numpy":
+            return True
+    return False
 
 
 def _yielding(frame):

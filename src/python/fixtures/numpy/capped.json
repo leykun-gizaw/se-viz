@@ -1,0 +1,8757 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "np"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "big"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "arange",
+      "src": "np.arange"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "500"
+      }
+     ],
+     "src": "np.arange(500)"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "big"
+      },
+      "index": {
+       "type": "const",
+       "repr": "0"
+      },
+      "src": "big[0]"
+     }
+    ],
+    "value": {
+     "type": "unary",
+     "op": "-",
+     "operand": {
+      "type": "const",
+      "repr": "1"
+     },
+     "src": "-1"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      500
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "0"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "grid"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "big"
+      },
+      "attr": "reshape",
+      "src": "big.reshape"
+     },
+     "args": [
+      {
+       "type": "const",
+       "repr": "20"
+      },
+      {
+       "type": "const",
+       "repr": "25"
+      }
+     ],
+     "src": "big.reshape(20, 25)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      500
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "grid",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "first"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "big"
+     },
+     "index": {
+      "type": "slice",
+      "upper": {
+       "type": "const",
+       "repr": "5"
+      },
+      "src": ":5"
+     },
+     "src": "big[:5]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      500
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      20,
+      25
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       100,
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "grid",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "first",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "name",
+      "id": "hyper"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "zeros",
+      "src": "np.zeros"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "tuple",
+       "items": [
+        {
+         "type": "const",
+         "repr": "2"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        },
+        {
+         "type": "const",
+         "repr": "2"
+        }
+       ],
+       "src": "(2, 2, 2, 2)"
+      }
+     ],
+     "src": "np.zeros((2, 2, 2, 2))"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      500
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      20,
+      25
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       100,
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "big",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "grid",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "first",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "hyper",
+       "value": {
+        "kind": "ref",
+        "id": "o4"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      500
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o2": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      20,
+      25
+     ],
+     "dtype": "int32",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "5"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "6"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "7"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "8"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "9"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "10"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "11"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "12"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "13"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "14"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "15"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "16"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "17"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "18"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "19"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "20"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "21"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "22"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "23"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "24"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "25"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "26"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "27"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "28"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "29"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "30"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "31"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "32"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "33"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "34"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "35"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "36"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "37"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "38"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "39"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "40"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "41"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "42"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "43"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "44"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "45"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "46"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "47"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "48"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "49"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "50"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "51"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "52"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "53"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "54"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "55"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "56"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "57"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "58"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "59"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "60"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "61"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "62"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "63"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "64"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "65"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "66"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "67"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "68"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "69"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "70"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "71"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "72"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "73"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "74"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "75"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "76"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "77"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "78"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "79"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "80"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "81"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "82"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "83"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "84"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "85"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "86"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "87"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "88"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "89"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "90"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "91"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "92"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "93"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "94"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "95"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "96"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "97"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "98"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "99"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "100"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "101"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "102"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "103"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "104"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "105"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "106"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "107"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "108"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "109"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "110"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "111"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "112"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "113"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "114"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "115"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "116"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "117"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "118"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "119"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "120"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "121"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "122"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "123"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "124"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "125"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "126"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "127"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "128"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "129"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "130"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "131"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "132"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "133"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "134"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "135"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "136"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "137"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "138"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "139"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "140"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "141"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "142"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "143"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "144"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "145"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "146"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "147"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "148"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "149"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "150"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "151"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "152"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "153"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "154"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "155"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "156"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "157"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "158"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "159"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "160"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "161"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "162"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "163"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "164"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "165"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "166"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "167"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "168"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "169"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "170"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "171"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "172"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "173"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "174"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "175"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "176"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "177"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "178"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "179"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "180"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "181"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "182"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "183"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "184"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "185"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "186"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "187"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "188"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "189"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "190"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "191"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "192"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "193"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "194"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "195"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "196"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "197"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "198"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "199"
+      }
+     ],
+     "omitted": 300,
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       100,
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o3": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      5
+     ],
+     "dtype": "int32",
+     "ndim": 1,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "-1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "1"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "2"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "3"
+      },
+      {
+       "kind": "prim",
+       "type": "int",
+       "repr": "4"
+      }
+     ],
+     "owndata": false,
+     "base": {
+      "kind": "ref",
+      "id": "o1"
+     },
+     "layout": {
+      "offset": 0,
+      "strides": [
+       4
+      ],
+      "itemsize": 4
+     }
+    },
+    "o4": {
+     "kind": "ndarray",
+     "library": "numpy",
+     "type": "ndarray",
+     "shape": [
+      2,
+      2,
+      2,
+      2
+     ],
+     "dtype": "float64",
+     "ndim": 4,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "0.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       64,
+       32,
+       16,
+       8
+      ],
+      "itemsize": 8
+     }
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

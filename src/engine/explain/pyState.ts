@@ -319,6 +319,9 @@ export function slotPath(block: HeapBlock, cell: Cell, base: string): string | n
       return cell.name === '…' ? null : `${base}[${cell.name}]`;
     case 'instance':
       return `${base}.${cell.name}`;
+    case 'ndarray':
+      // An array element (Phase 34): `m[0, 1]`; the `N more` cell has no path.
+      return cell.name === '…' ? null : `${base}[${cell.name}]`;
     default:
       return null;
   }

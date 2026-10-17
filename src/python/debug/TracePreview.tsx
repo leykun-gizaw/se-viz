@@ -2,7 +2,8 @@
  * Dev-only preview of the committed Python traces (Phase 30), at `/?python-preview&trace=<name>`
  * (see `main.tsx`; production builds drop it). Only the harvest loop is a catalog module; this page
  * plays every Phase 29 recording (aliasing, recursion, …) in the real stage and explanation panel,
- * from the plain JSON in `src/content/fixtures/python/`. It never loads Pyodide.
+ * from the plain JSON in `src/content/fixtures/python/` (and, since Phase 34, the NumPy samples in
+ * its `numpy/` folder: `?python-preview&trace=numpy/views`). It never loads Pyodide.
  *
  * Keys as in the app: ← / → step (one beat in two-beat mode), Home / End, Space, `b`.
  */
@@ -13,11 +14,13 @@ import type { Trace } from '../../engine/trace/types.ts';
 import { useTrace } from '../../engine/trace/useTrace.ts';
 import { useKeyboardControls } from '../../hooks/useKeyboardControls.ts';
 
-const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/*.json', {
+const TRACES = import.meta.glob<Trace>('../../content/fixtures/python/**/*.json', {
   eager: true,
   import: 'default',
 });
-const NAMES = Object.keys(TRACES).map((p) => p.replace(/^.*\/|\.json$/g, ''));
+const NAMES = Object.keys(TRACES).map((p) =>
+  p.replace(/^\.\.\/\.\.\/content\/fixtures\/python\/|\.json$/g, ''),
+);
 const traceOf = (name: string) => TRACES[`../../content/fixtures/python/${name}.json`];
 
 function Player({ trace }: { trace: Trace }) {

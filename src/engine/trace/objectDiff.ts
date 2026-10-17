@@ -15,6 +15,7 @@
  *
  * @packageDocumentation
  */
+import { bytePositions, elementCells, isArray } from './ndarray.ts';
 import type { Cell, HeapBlock, PointerTarget, Step } from './types.ts';
 
 /** One thing that happened to the Python state between two steps. */
@@ -43,7 +44,13 @@ export type PyEvent =
       cellId: string;
       from: PointerTarget;
       to: PointerTarget;
-    };
+    }
+  /**
+   * Phase 34: a NumPy array's shape changed in place (`a.shape = (3, 2)`), its elements staying
+   * where they are in memory. Its cells are re-indexed (`o1[3]` is now `o1[1,1]`), so they are not
+   * reported as removed and added; the canvas moves each element to its new place.
+   */
+  | { kind: 'array-reshaped'; objectId: string; from: number[]; to: number[] };
 
 export type PyEventKind = PyEvent['kind'];
 
@@ -231,16 +238,51 @@ function objectEvents(before: HeapBlock, after: HeapBlock): PyEvent[] {
             ? { kind: 'attribute-set', objectId: id, cellId: a.id, from: b, to: a }
             : null,
       );
+    case 'ndarray': {
+      // A shape changed in place, every element where it was: one event, no per-cell churn.
+      if (isArray(before) && isArray(after)) {
+        const a = before.ndarray;
+        const b = after.ndarray;
+        if (a.shape.join() !== b.shape.join()) {
+          const reshaped: PyEvent = { kind: 'array-reshaped', objectId: id, from: a.shape, to: b.shape };
+          if (sameElements(before, after)) return [reshaped];
+          return [reshaped, ...fixedSlots(id, before, after)];
+        }
+      }
+      return fixedSlots(id, before, after);
+    }
     default:
-      // Functions, classes, summaries and `repr` objects: fixed slots that can only change value.
-      return bySlotId(
-        id,
-        before.cells,
-        after.cells,
-        (c, i) => ({ kind: 'item-added', objectId: id, cellId: c.id, index: i, atEnd: true }),
-        (c, i) => ({ kind: 'item-removed', objectId: id, cellId: c.id, index: i, atEnd: true }),
-      );
+      return fixedSlots(id, before, after);
   }
+}
+
+/** Whether two states of one array hold the same values at the same memory (an in-place reshape). */
+function sameElements(before: HeapBlock, after: HeapBlock): boolean {
+  if (!isArray(before) || !isArray(after) || before.ndarray.size !== after.ndarray.size) return false;
+  const pa = bytePositions(before);
+  const pb = bytePositions(after);
+  const ca = elementCells(before);
+  const cb = elementCells(after);
+  if (!pa || !pb || ca.length !== cb.length) return false;
+  const at = new Map(pa.map((p, i) => [p, ca[i]]));
+  return pb.every((p, i) => {
+    const was = at.get(p);
+    return was !== undefined && sig(was) === sig(cb[i]);
+  });
+}
+
+/**
+ * Functions, classes, summaries, `repr` objects and arrays: fixed slots matched by id, which can
+ * only change value (an array's `N more` cell, or its cells after a reshape, come and go).
+ */
+function fixedSlots(id: string, before: HeapBlock, after: HeapBlock): PyEvent[] {
+  return bySlotId(
+    id,
+    before.cells,
+    after.cells,
+    (c, i) => ({ kind: 'item-added', objectId: id, cellId: c.id, index: i, atEnd: true }),
+    (c, i) => ({ kind: 'item-removed', objectId: id, cellId: c.id, index: i, atEnd: true }),
+  );
 }
 
 /**
@@ -322,6 +364,8 @@ export function invertEvent(e: PyEvent): PyEvent {
         from: null,
         to: e.from,
       };
+    case 'array-reshaped':
+      return { ...e, from: e.to, to: e.from };
   }
 }
 

@@ -17,8 +17,15 @@
  *
  * @packageDocumentation
  */
-import type { Cell, HeapBlock, PyObjectKind, StackFrame } from '../../engine/trace/types.ts';
-import type { PyFrame, PyObject, PyValue } from '../protocol.ts';
+import type {
+  Cell,
+  HeapBlock,
+  NdarrayInfo,
+  PyObjectKind,
+  StackFrame,
+} from '../../engine/trace/types.ts';
+import { unravel } from '../../engine/trace/ndarray.ts';
+import type { PyFrame, PyNdarray, PyObject, PyValue } from '../protocol.ts';
 
 // Phase 30: `PyObjectKind` and `HeapBlock.objectKind` live in the shared trace types now. The
 // recorder's object kinds and the trace's must stay the same set; this fails to compile if not.
@@ -57,7 +64,9 @@ export function valueToCell(
   objects: Record<string, PyObject>,
 ): Cell {
   if (value.kind === 'prim') {
-    return { kind: 'scalar', id, name, type: value.type, value: value.repr };
+    // A NumPy scalar (Phase 34) shows as its value, typed by its dtype: `np.int64`.
+    const type = value.dtype !== undefined ? `np.${value.dtype}` : value.type;
+    return { kind: 'scalar', id, name, type, value: value.repr };
   }
   const target = objects[value.id];
   // A reference past `maxObjects` has no object entry: a pointer to nothing, labelled.
@@ -77,6 +86,36 @@ function keyOf(value: PyValue): string {
   return value.kind === 'prim' ? value.repr : `#${value.id}`;
 }
 
+/** An array element's cell id (`o3[0,1]`; `o3[()]` for a 0-d array) and name (`0, 1`). */
+export function elementSlot(owner: string, idx: readonly number[]): { id: string; name: string } {
+  if (idx.length === 0) return { id: `${owner}[()]`, name: '()' };
+  return { id: `${owner}[${idx.join(',')}]`, name: idx.join(', ') };
+}
+
+/** A NumPy array's cells (its captured values, C order) and facts (Phase 34). */
+function ndarrayBlock(
+  id: string,
+  obj: PyNdarray,
+  objects: Record<string, PyObject>,
+): { cells: Cell[]; info: NdarrayInfo } {
+  const cells: Cell[] = obj.values.map((v, i) => {
+    const slot = elementSlot(id, unravel(i, obj.shape));
+    return { kind: 'scalar', id: slot.id, name: slot.name, type: obj.dtype, value: v.repr };
+  });
+  cells.push(...omittedCell(id, obj.omitted));
+  const size = obj.shape.reduce((n, d) => n * d, 1);
+  const info: NdarrayInfo = {
+    shape: obj.shape,
+    dtype: obj.dtype,
+    size,
+    ownsData: obj.owndata,
+    // A base past `maxObjects` has no entry: the view's base can't be shown.
+    base: obj.base?.kind === 'ref' && objects[obj.base.id] ? obj.base.id : null,
+    ...(obj.layout ? { layout: obj.layout } : {}),
+  };
+  return { cells, info };
+}
+
 function blockLabel(obj: PyObject): string {
   switch (obj.kind) {
     case 'function':
@@ -84,6 +123,7 @@ function blockLabel(obj: PyObject): string {
     case 'class':
       return `class ${obj.name}`;
     case 'summary':
+    case 'ndarray':
       return `${obj.library} ${obj.type}`;
     default:
       return obj.type;
@@ -97,6 +137,7 @@ export function objectToBlock(
   objects: Record<string, PyObject>,
 ): HeapBlock {
   let cells: Cell[];
+  let ndarray: NdarrayInfo | undefined;
   switch (obj.kind) {
     case 'list':
     case 'tuple':
@@ -134,6 +175,9 @@ export function objectToBlock(
         { kind: 'scalar', id: `${id}.dtype`, name: 'dtype', type: 'dtype', value: obj.dtype },
       ];
       break;
+    case 'ndarray':
+      ({ cells, info: ndarray } = ndarrayBlock(id, obj, objects));
+      break;
     case 'other':
       cells = [{ kind: 'scalar', id: `${id}.repr`, name: 'repr', type: obj.type, value: obj.repr }];
       break;
@@ -142,7 +186,14 @@ export function objectToBlock(
       cells = [];
       break;
   }
-  return { id, label: blockLabel(obj), type: obj.type, cells, objectKind: obj.kind };
+  return {
+    id,
+    label: blockLabel(obj),
+    type: obj.type,
+    cells,
+    objectKind: obj.kind,
+    ...(ndarray ? { ndarray } : {}),
+  };
 }
 
 /** Frames and objects in the C model: `stack` bottom-first, `heap` in first-reached order. */

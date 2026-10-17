@@ -11,6 +11,14 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "np"
+    ]
+   },
    "objects": {},
    "stdout": ""
   },
@@ -25,6 +33,14 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Import",
+    "line": 2,
+    "end": 2,
+    "names": [
+     "pd"
+    ]
+   },
    "objects": {},
    "stdout": ""
   },
@@ -39,6 +55,77 @@
      "vars": []
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "yields"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "np"
+      },
+      "attr": "array",
+      "src": "np.array"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "const",
+           "repr": "3.0"
+          },
+          {
+           "type": "const",
+           "repr": "4.5"
+          },
+          {
+           "type": "const",
+           "repr": "2.0"
+          }
+         ],
+         "src": "[3.0, 4.5, 2.0]"
+        },
+        {
+         "type": "display",
+         "of": "list",
+         "items": [
+          {
+           "type": "const",
+           "repr": "5.5"
+          },
+          {
+           "type": "const",
+           "repr": "1.0"
+          },
+          {
+           "type": "const",
+           "repr": "4.0"
+          }
+         ],
+         "src": "[5.5, 1.0, 4.0]"
+        }
+       ],
+       "src": "[[3.0, 4.5, 2.0], [5.5, 1.0, 4.0]]"
+      }
+     ],
+     "src": "np.array([[3.0, 4.5, 2.0], [5.5, 1.0, 4.0]])"
+    }
+   },
    "objects": {},
    "stdout": ""
   },
@@ -61,16 +148,83 @@
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "best"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "yields"
+      },
+      "attr": "max",
+      "src": "yields.max"
+     },
+     "args": [],
+     "src": "yields.max()"
+    }
+   },
    "objects": {
     "o1": {
-     "kind": "summary",
+     "kind": "ndarray",
      "library": "numpy",
      "type": "ndarray",
      "shape": [
       2,
       3
      ],
-     "dtype": "float64"
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "5.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
     }
    },
    "stdout": ""
@@ -94,30 +248,98 @@
       {
        "name": "best",
        "value": {
-        "kind": "ref",
-        "id": "o2"
+        "kind": "prim",
+        "type": "float",
+        "repr": "5.5",
+        "dtype": "float64"
        }
       }
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "farm"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "pd"
+      },
+      "attr": "DataFrame",
+      "src": "pd.DataFrame"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "dict",
+       "src": "{\"crop\": [\"corn\", \"wheat\"], \"tons\": [12, 7]}"
+      }
+     ],
+     "src": "pd.DataFrame({\"crop\": [\"corn\", \"wheat\"], \"tons\": [12, 7]})"
+    }
+   },
    "objects": {
     "o1": {
-     "kind": "summary",
+     "kind": "ndarray",
      "library": "numpy",
      "type": "ndarray",
      "shape": [
       2,
       3
      ],
-     "dtype": "float64"
-    },
-    "o2": {
-     "kind": "summary",
-     "library": "numpy",
-     "type": "float64",
-     "shape": [],
-     "dtype": "float64"
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "5.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
     }
    },
    "stdout": ""
@@ -141,39 +363,100 @@
       {
        "name": "best",
        "value": {
-        "kind": "ref",
-        "id": "o2"
+        "kind": "prim",
+        "type": "float",
+        "repr": "5.5",
+        "dtype": "float64"
        }
       },
       {
        "name": "farm",
        "value": {
         "kind": "ref",
-        "id": "o3"
+        "id": "o2"
        }
       }
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "name",
+      "id": "tons"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "farm"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'tons'",
+      "src": "\"tons\""
+     },
+     "src": "farm[\"tons\"]"
+    }
+   },
    "objects": {
     "o1": {
-     "kind": "summary",
+     "kind": "ndarray",
      "library": "numpy",
      "type": "ndarray",
      "shape": [
       2,
       3
      ],
-     "dtype": "float64"
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "5.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
     },
     "o2": {
-     "kind": "summary",
-     "library": "numpy",
-     "type": "float64",
-     "shape": [],
-     "dtype": "float64"
-    },
-    "o3": {
      "kind": "summary",
      "library": "pandas",
      "type": "DataFrame",
@@ -205,46 +488,99 @@
       {
        "name": "best",
        "value": {
-        "kind": "ref",
-        "id": "o2"
+        "kind": "prim",
+        "type": "float",
+        "repr": "5.5",
+        "dtype": "float64"
        }
       },
       {
        "name": "farm",
        "value": {
         "kind": "ref",
-        "id": "o3"
+        "id": "o2"
        }
       },
       {
        "name": "tons",
        "value": {
         "kind": "ref",
-        "id": "o4"
+        "id": "o3"
        }
       }
      ]
     }
    ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 8,
+    "end": 8,
+    "targets": [
+     {
+      "type": "name",
+      "id": "both"
+     }
+    ],
+    "value": {
+     "type": "display",
+     "of": "dict",
+     "src": "{\"grid\": yields, \"table\": farm}"
+    }
+   },
    "objects": {
     "o1": {
-     "kind": "summary",
+     "kind": "ndarray",
      "library": "numpy",
      "type": "ndarray",
      "shape": [
       2,
       3
      ],
-     "dtype": "float64"
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "5.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
     },
     "o2": {
-     "kind": "summary",
-     "library": "numpy",
-     "type": "float64",
-     "shape": [],
-     "dtype": "float64"
-    },
-    "o3": {
      "kind": "summary",
      "library": "pandas",
      "type": "DataFrame",
@@ -254,7 +590,7 @@
      ],
      "dtype": "str, int64"
     },
-    "o4": {
+    "o3": {
      "kind": "summary",
      "library": "pandas",
      "type": "Series",
@@ -285,53 +621,91 @@
       {
        "name": "best",
        "value": {
-        "kind": "ref",
-        "id": "o2"
+        "kind": "prim",
+        "type": "float",
+        "repr": "5.5",
+        "dtype": "float64"
        }
       },
       {
        "name": "farm",
        "value": {
         "kind": "ref",
-        "id": "o3"
+        "id": "o2"
        }
       },
       {
        "name": "tons",
        "value": {
         "kind": "ref",
-        "id": "o4"
+        "id": "o3"
        }
       },
       {
        "name": "both",
        "value": {
         "kind": "ref",
-        "id": "o5"
+        "id": "o4"
        }
       }
      ]
     }
    ],
+   "function": "<module>",
    "objects": {
     "o1": {
-     "kind": "summary",
+     "kind": "ndarray",
      "library": "numpy",
      "type": "ndarray",
      "shape": [
       2,
       3
      ],
-     "dtype": "float64"
+     "dtype": "float64",
+     "ndim": 2,
+     "values": [
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "3.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "2.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "5.5"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "1.0"
+      },
+      {
+       "kind": "prim",
+       "type": "float",
+       "repr": "4.0"
+      }
+     ],
+     "owndata": true,
+     "layout": {
+      "offset": 0,
+      "strides": [
+       24,
+       8
+      ],
+      "itemsize": 8
+     }
     },
     "o2": {
-     "kind": "summary",
-     "library": "numpy",
-     "type": "float64",
-     "shape": [],
-     "dtype": "float64"
-    },
-    "o3": {
      "kind": "summary",
      "library": "pandas",
      "type": "DataFrame",
@@ -341,7 +715,7 @@
      ],
      "dtype": "str, int64"
     },
-    "o4": {
+    "o3": {
      "kind": "summary",
      "library": "pandas",
      "type": "Series",
@@ -350,7 +724,7 @@
      ],
      "dtype": "int64"
     },
-    "o5": {
+    "o4": {
      "kind": "dict",
      "type": "dict",
      "entries": [
@@ -373,7 +747,7 @@
        },
        "value": {
         "kind": "ref",
-        "id": "o3"
+        "id": "o2"
        }
       }
      ]

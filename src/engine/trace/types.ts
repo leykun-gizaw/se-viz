@@ -145,14 +145,48 @@ export interface HeapBlock {
    * @remarks Added in Phase 30.
    */
   objectKind?: PyObjectKind;
+  /**
+   * A NumPy array's facts (Phase 34, additive): set exactly when `objectKind` is `'ndarray'`. The
+   * block's cells are its captured values, flat in C order (`o3[0,1]`, named `0, 1`), at most
+   * {@link NdarrayInfo.size} of them, plus an `o3[…]` cell (`N more`) when the cap cut some off.
+   *
+   * @remarks Added in Phase 34.
+   */
+  ndarray?: NdarrayInfo;
+}
+
+/**
+ * Shape, dtype and memory of a NumPy array block (Phase 34). See `docs/PYTHON_TRACE_FORMAT.md`,
+ * "NumPy arrays".
+ *
+ * @remarks Added in Phase 34.
+ */
+export interface NdarrayInfo {
+  /** `arr.shape`; `ndim` is its length (`[]` for a 0-d array). */
+  shape: number[];
+  /** `str(arr.dtype)`, e.g. `int64`, `float64`, `bool`, `<U5`. */
+  dtype: string;
+  /** Number of elements (the product of `shape`); cells hold the first 200 of them. */
+  size: number;
+  /** `arr.flags.owndata`: false for a view of another array's memory. */
+  ownsData: boolean;
+  /** The block `arr.base` refers to (the array this one is a view of), or `null`. */
+  base: BlockId | null;
+  /**
+   * Where the elements sit in the owning array's memory (the end of the `base` chain), in bytes:
+   * element `(i, j, …)` is at `offset + i·strides[0] + j·strides[1] + …`. Two arrays with the same
+   * owner share exactly the elements at equal positions. Absent when it isn't known.
+   */
+  layout?: { offset: number; strides: number[]; itemsize: number };
 }
 
 /**
  * The kind of Python object a {@link HeapBlock} shows (Phase 30, additive). Present only on Python
- * traces. `summary` is a NumPy / pandas object shown as type, shape and dtype, until Phases 34–35
- * add `'ndarray'` / `'dataframe'` / `'series'`. `other` is any object shown by its `repr`.
+ * traces. `summary` is a NumPy / pandas object shown as type, shape and dtype (since Phase 34 only
+ * pandas objects and arrays of a dtype without primitive values); `ndarray` (Phase 34) is a NumPy
+ * array with its values. `other` is any object shown by its `repr`.
  *
- * @remarks Added in Phase 30.
+ * @remarks Added in Phase 30; `ndarray` in Phase 34.
  */
 export type PyObjectKind =
   | 'list'
@@ -164,6 +198,7 @@ export type PyObjectKind =
   | 'function'
   | 'class'
   | 'summary'
+  | 'ndarray' // Phase 34: a NumPy array with its values (`HeapBlock.ndarray`)
   | 'other';
 
 /**
@@ -358,14 +393,26 @@ export interface StepExplanation {
 export type PyExpr = { src?: string } & (
   | { type: 'name'; id: string }
   | { type: 'const'; repr: string }
+  /** Phase 34: `index` may be a `slice` or a tuple `display` of indices (`m[0, 1]`, `m[:, 1]`). */
   | { type: 'subscript'; value: PyExpr; index: PyExpr }
+  /** Phase 34: `lower:upper:step` inside a subscript; absent parts were left out in the code. */
+  | { type: 'slice'; lower?: PyExpr; upper?: PyExpr; step?: PyExpr }
   | { type: 'attribute'; value: PyExpr; attr: string }
   | { type: 'binop'; op: string; left: PyExpr; right: PyExpr }
   | { type: 'unary'; op: string; operand: PyExpr }
   | { type: 'compare'; ops: string[]; left: PyExpr; comparators: PyExpr[] }
   | { type: 'boolop'; op: 'and' | 'or'; values: PyExpr[] }
-  /** `keywords`: the names of keyword arguments, when there are any. */
-  | { type: 'call'; func: PyExpr; args: PyExpr[]; keywords?: string[] }
+  /**
+   * `keywords`: the names of keyword arguments, when there are any; `kwargs` (Phase 34): the same
+   * arguments with their values (`m.sum(axis=0)`).
+   */
+  | {
+      type: 'call';
+      func: PyExpr;
+      args: PyExpr[];
+      keywords?: string[];
+      kwargs?: { name: string; value: PyExpr }[];
+    }
   /** A tuple / list / set / dict display; `items` for a tuple or list of at most 8 plain items. */
   | { type: 'display'; of: 'tuple' | 'list' | 'set' | 'dict'; items?: PyExpr[] }
   | { type: 'comprehension'; of: 'list' | 'set' | 'dict' | 'generator' }

@@ -9,18 +9,14 @@
  * away fades out (via `AnimatePresence`, instantly after a jump), a changed value cross-fades from
  * old to new with the green pulse, and boxes glide to their new place.
  */
-import {
-  AnimatePresence,
-  motion,
-  PresenceContext,
-  type TargetAndTransition,
-  type Variants,
-} from 'framer-motion';
+import { AnimatePresence, motion, type TargetAndTransition, type Variants } from 'framer-motion';
 import { useAnchorRef } from '../../engine/anchorContext.ts';
 import type { Cell, HeapBlock, StackFrame } from '../../engine/trace/types.ts';
 import { useMemoryRender } from '../memory/renderContext.ts';
+import { NdarrayBody, NdarrayHeading } from './NdarrayView.tsx';
 import type { ObjectNode } from './pyLayout.ts';
 import { useMotionCues } from './pyMotion.ts';
+import { SlotValue } from './PySlot.tsx';
 
 const SPRING = { type: 'spring', stiffness: 360, damping: 30 } as const;
 const FADE = { duration: 0.22, ease: 'easeOut' } as const;
@@ -87,88 +83,6 @@ function Presence({ children }: { children: React.ReactNode }) {
     <AnimatePresence initial={false} custom={animate}>
       {children}
     </AnimatePresence>
-  );
-}
-
-/** A reference: the azure chip its arrow leaves from. */
-function RefChip({ cell, anchored }: { cell: Cell & { kind: 'pointer' }; anchored: boolean }) {
-  const ref = useAnchorRef(cell.id);
-  return (
-    <span
-      ref={anchored ? ref : undefined}
-      data-coach-anchor={anchored ? cell.id : undefined}
-      title={`reference to ${cell.type} ${cell.target ?? ''}`}
-      className="inline-flex h-4 w-6 items-center justify-center rounded-sm border border-pointer bg-pointer-soft align-middle"
-    >
-      <span className="h-1.5 w-1.5 rounded-full bg-pointer" />
-    </span>
-  );
-}
-
-/** A slot's content: a primitive inline, or a reference chip. */
-function ValueContent({ cell, anchored }: { cell: Cell; anchored: boolean }) {
-  if (cell.kind === 'pointer') {
-    if (cell.target === null) {
-      return (
-        <span
-          title="an object past the display limit"
-          className="font-mono text-[13px] text-ink-faint"
-        >
-          {cell.display ?? '…'}
-        </span>
-      );
-    }
-    return <RefChip cell={cell} anchored={anchored} />;
-  }
-  const text =
-    cell.kind === 'scalar' ? (cell.value === null ? '?' : String(cell.value)) : cell.type;
-  return (
-    <span title={cell.type} className="whitespace-pre font-mono text-[13px] font-semibold text-ink">
-      {text}
-    </span>
-  );
-}
-
-/** A slot's value; a changed one cross-fades old → new with the green pulse. */
-function SlotValue({ cell }: { cell: Cell }) {
-  const cues = useMotionCues();
-  const was = cues.changed.get(cell.id);
-  const now = <ValueContent cell={cell} anchored />;
-  if (!was) return now;
-  if (!cues.animate) {
-    // Reduced motion: no fade, but the change is still marked for this step.
-    return <span className="rounded bg-changed-soft px-1 text-changed">{now}</span>;
-  }
-  // Its own presence scope: under an `AnimatePresence initial={false}` (every row is), framer
-  // blocks the initial animation of everything mounted inside the row, so the fade wouldn't play.
-  return (
-    <PresenceContext.Provider value={null}>
-      <span className="inline-grid items-center justify-items-end">
-        <motion.span
-          key={`was:${cues.transition}`}
-          aria-hidden="true"
-          className="px-1 [grid-area:1/1]"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 0 }}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
-        >
-          <ValueContent cell={was} anchored={false} />
-        </motion.span>
-        <motion.span
-          key={`now:${cues.transition}`}
-          className="rounded px-1 [grid-area:1/1]"
-          initial={{
-            opacity: 0,
-            backgroundColor: 'var(--se-changed-soft)',
-            color: 'var(--se-changed)',
-          }}
-          animate={{ opacity: 1, backgroundColor: 'rgba(0,0,0,0)', color: 'var(--se-text)' }}
-          transition={{ opacity: { duration: 0.45 }, default: { duration: 0.9, ease: 'easeOut' } }}
-        >
-          {now}
-        </motion.span>
-      </span>
-    </PresenceContext.Provider>
   );
 }
 
@@ -245,6 +159,8 @@ function heading(block: HeapBlock): [label: string, tag: string] {
       return [block.type ?? 'object', 'instance'];
     case 'summary':
       return [block.label ?? block.type ?? 'object', 'summary'];
+    case 'ndarray':
+      return ['ndarray', block.ndarray?.base != null ? 'view' : ''];
     case 'function':
     case 'class':
     case 'list':
@@ -378,6 +294,8 @@ function ObjectBody({ block }: { block: HeapBlock }) {
           {(block.label ?? '').replace(/^(function|class) /, '')}
         </div>
       );
+    case 'ndarray':
+      return <NdarrayBody block={block} />;
     case 'summary':
       return (
         <div>
@@ -402,12 +320,13 @@ function ObjectBox({ block }: { block: HeapBlock }) {
     <div
       ref={ref}
       data-coach-anchor={block.id}
-      className={`w-max min-w-24 max-w-88 rounded-lg border bg-surface ${
+      className={`w-max min-w-24 ${block.objectKind === 'ndarray' ? 'max-w-[44rem]' : 'max-w-88'} rounded-lg border bg-surface ${
         active ? 'border-active ring-1 ring-active' : 'border-hairline-strong'
       }`}
     >
       <div className="flex items-baseline gap-2 border-b border-hairline px-2.5 py-1">
         <span className="font-mono text-[11px] font-semibold text-heap">{label}</span>
+        <NdarrayHeading block={block} />
         {tag ? (
           <span className="font-sans text-[9px] font-semibold uppercase tracking-wide text-ink-faint">
             {tag}
@@ -449,15 +368,20 @@ export function Region({
   label,
   hint,
   className = '',
+  style,
   children,
 }: {
   label: string;
   hint: string;
   className?: string;
+  style?: React.CSSProperties | undefined;
   children: React.ReactNode;
 }) {
   return (
-    <section className={`rounded-xl border border-hairline bg-surface/25 p-3 ${className}`}>
+    <section
+      style={style}
+      className={`rounded-xl border border-hairline bg-surface/25 p-3 ${className}`}
+    >
       <h3 className="mb-3 flex items-baseline gap-2 px-1">
         <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-muted">
           {label}

@@ -13,12 +13,17 @@ import { sumToTrace } from '../../content/se200/recursion/sumTo.ts';
 import { explainBeat } from '../trace/explain.ts';
 import { lineTexts } from '../trace/labels.ts';
 import type { Trace } from '../trace/types.ts';
+import { NUMPY_SAMPLES as NUMPY } from '../../python/samples/numpy/index.ts';
 import { extraTrace, sampleTrace } from './testTraces.ts';
 import type { ChangeRow } from './types.ts';
 
 function rowText(row: ChangeRow): string {
   const value =
-    row.to !== undefined ? (row.from !== undefined ? `: ${row.from} → ${row.to}` : ` = ${row.to}`) : '';
+    row.to !== undefined
+      ? row.from !== undefined
+        ? `: ${row.from} → ${row.to}`
+        : ` = ${row.to}`
+      : '';
   if (row.kind === 'output') return `[output] ${row.subject.split('\n').join(' ⏎ ')}`;
   return `[${row.kind}] ${row.subject}${value}`;
 }
@@ -48,7 +53,10 @@ function renderGolden(trace: Trace): string {
     if (arrive.concept !== apply.concept && arrive.concept) {
       out.push(`**Arrive concept:** ${arrive.concept}`, '');
     }
-    out.push('**What this step did**' + (apply.did && !apply.did.markdown ? ' (narration)' : ''), '');
+    out.push(
+      '**What this step did**' + (apply.did && !apply.did.markdown ? ' (narration)' : ''),
+      '',
+    );
     (apply.did?.items ?? []).forEach((d, n) => out.push(`${n + 1}. ${d}`));
     out.push('');
     out.push('**What changed**', '');
@@ -68,7 +76,10 @@ function renderGolden(trace: Trace): string {
     if (apply.concept) out.push(`**Concept:** ${apply.concept}`, '');
     out.push(`**Narration:** ${step.narration}`, '');
     if (step.condition) {
-      out.push(`**Condition chip:** \`${step.condition.expr}\` → ${String(step.condition.result)}`, '');
+      out.push(
+        `**Condition chip:** \`${step.condition.expr}\` → ${String(step.condition.result)}`,
+        '',
+      );
     }
   });
   return `${out.join('\n').replace(/\n+$/, '')}\n`;
@@ -85,6 +96,8 @@ const PYTHON_SAMPLES = [
   'infinite-loop',
 ];
 const PYTHON_EXTRAS = ['extra-augassign', 'extra-statements', 'extra-exceptions', 'extra-objects'];
+/** Phase 34: the recorded NumPy samples (`src/content/fixtures/python/numpy/`). */
+const NUMPY_SAMPLES = NUMPY.map((s) => s.name);
 
 describe('golden derived explanations', () => {
   it.each(PYTHON_SAMPLES)('Phase 29 sample %s', async (name) => {
@@ -93,6 +106,12 @@ describe('golden derived explanations', () => {
 
   it.each(PYTHON_EXTRAS)('Phase 32 program %s', async (name) => {
     await expect(renderGolden(extraTrace(name))).toMatchFileSnapshot(`golden/${name}.md`);
+  });
+
+  it.each(NUMPY_SAMPLES)('Phase 34 NumPy sample %s', async (name) => {
+    await expect(renderGolden(sampleTrace(`numpy/${name}`))).toMatchFileSnapshot(
+      `golden/numpy-${name}.md`,
+    );
   });
 
   it.each([

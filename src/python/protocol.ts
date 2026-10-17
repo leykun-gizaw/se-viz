@@ -99,6 +99,11 @@ export interface PyPrim {
   repr: string;
   /** Present when `repr` was cut to 80 characters (ends in `…`). */
   truncated?: true;
+  /**
+   * Phase 34: a NumPy scalar (`np.int64(3)`, `np.float64(2.5)`, an element read from an array) is
+   * a primitive too: `type` / `repr` are its Python value's (`.item()`), and `dtype` its NumPy dtype.
+   */
+  dtype?: string;
 }
 
 /** A reference to an entry of {@link PySnapshot.objects}, by stable id (`o1`, `o2`, ...). */
@@ -159,6 +164,36 @@ export interface PySummary extends PyObjectBase {
   dtype: string;
 }
 
+/**
+ * A NumPy `ndarray` (Phase 34) whose dtype has primitive values (bool, int, uint, float, str);
+ * other dtypes, and subclasses such as masked arrays, stay {@link PySummary | summaries}.
+ */
+export interface PyNdarray extends PyObjectBase {
+  kind: 'ndarray';
+  library: 'numpy';
+  shape: number[];
+  dtype: string;
+  ndim: number;
+  /** The first {@link NDARRAY_CAP} values, flat, in C order (row by row). */
+  values: PyPrim[];
+  /** Values past the cap, not recorded. */
+  omitted?: number;
+  /** `arr.flags.owndata`: false for a view (and for an array made on top of other memory). */
+  owndata: boolean;
+  /** `arr.base`, when it is not `None`: the object whose memory this array uses. */
+  base?: PyValue;
+  /**
+   * Where the elements sit in the memory of the owning array (the end of the `base` chain), in
+   * bytes: element `(i, j, …)` is at `offset + i·strides[0] + j·strides[1] + …`. Two arrays with the
+   * same owner and the same byte position share that element. Absent when it can't be worked out
+   * (a base that isn't an ndarray).
+   */
+  layout?: { offset: number; strides: number[]; itemsize: number };
+}
+
+/** Values recorded per array (Phase 34); the rest are counted in {@link PyNdarray.omitted}. */
+export const NDARRAY_CAP = 200;
+
 /** Anything else: its `repr`, capped at 80 characters. */
 export interface PyOther extends PyObjectBase {
   kind: 'other';
@@ -172,6 +207,7 @@ export type PyObject =
   | PyFunction
   | PyClass
   | PySummary
+  | PyNdarray
   | PyOther;
 
 /** One user frame. */

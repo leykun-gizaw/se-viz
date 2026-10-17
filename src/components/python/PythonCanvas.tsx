@@ -13,8 +13,10 @@
  * - **Diff motion** (`pyMotion.ts`): the canvas animates the object-level events between the step it
  *   showed and the step it shows now — the inverse when stepping back, nothing after a jump, and
  *   nothing with `prefers-reduced-motion`.
+ * - **NumPy arrays** (Phase 34, `NdarrayView.tsx`): grids of cells, and a dashed "view of" link from
+ *   each view to its base; arrays made by arithmetic sit beside their operands.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { AnchorProvider } from '../../engine/anchors.tsx';
 import { useAnchors } from '../../engine/anchorContext.ts';
@@ -22,7 +24,9 @@ import { pointersByTarget } from '../../engine/pointers.ts';
 import type { Step, Trace } from '../../engine/trace/types.ts';
 import { ArrowOverlay } from '../memory/ArrowOverlay.tsx';
 import { MemoryRenderContext, type MemoryRenderState } from '../memory/renderContext.ts';
-import { firstAppearance, layoutObjects } from './pyLayout.ts';
+import { ViewLinks } from './NdarrayView.tsx';
+import { CanvasElementContext } from './ndLayout.ts';
+import { besideOperands, firstAppearance, layoutObjects } from './pyLayout.ts';
 import { advanceMotion, initialMotion, motionCues, MotionCuesContext } from './pyMotion.ts';
 import { FrameView, ObjectTree, Presence, Region } from './PyViews.tsx';
 
@@ -34,40 +38,66 @@ function Body({ trace, step, arrowsKey }: { trace: Trace; step: Step; arrowsKey:
   }, [step.index, pulse]);
 
   const rank = useMemo(() => firstAppearance(trace), [trace]);
-  const rows = useMemo(() => layoutObjects(step, rank), [step, rank]);
+  const beside = useMemo(() => besideOperands(trace), [trace]);
+  const rows = useMemo(() => layoutObjects(step, rank, beside), [step, rank, beside]);
   const blocks = useMemo(() => new Map(step.heap.map((b) => [b.id, b])), [step]);
+  // Room on the right for the "view of" links' channels (NumPy views only).
+  const views = step.heap.some((b) => b.ndarray?.base != null);
+  // Room between frames and objects for every arrow's own drop column (ArrowOverlay gives each one
+  // its own, 11 px apart): NumPy programs bind a name per array. Only on steps showing arrays, so
+  // the Phase 30 layout of other programs is unchanged.
+  const refs = step.stack.reduce(
+    (n, f) => n + f.variables.filter((v) => v.kind === 'pointer' && v.target !== null).length,
+    0,
+  );
+  const arrays = step.heap.some((b) => b.objectKind === 'ndarray');
+  const gutter = arrays ? Math.max(0, 14 + refs * 11 + 8 - 50) : 0;
+
+  const canvas = useRef<HTMLDivElement | null>(null);
+  const setRef = useCallback(
+    (el: HTMLDivElement | null) => {
+      canvas.current = el;
+      setCanvas(el);
+    },
+    [setCanvas],
+  );
 
   return (
-    <div
-      ref={setCanvas}
-      className="relative flex min-h-full w-max min-w-full items-start gap-6 p-1"
-    >
-      <Region label="Frames" hint="in call order" className="shrink-0">
-        <div className="flex flex-col gap-2">
-          <Presence>
-            {step.stack.map((frame) => (
-              <FrameView key={frame.id} frame={frame} />
-            ))}
-          </Presence>
-          {step.stack.length === 0 ? (
-            <span className="px-1 py-2 font-mono text-xs text-ink-faint">no frames</span>
-          ) : null}
-        </div>
-      </Region>
-      <Region label="Objects" hint="references point here" className="min-w-56 flex-1">
-        <div className="flex flex-col items-start gap-10">
-          <Presence>
-            {rows.map((node) => (
-              <ObjectTree key={node.id} node={node} blocks={blocks} />
-            ))}
-          </Presence>
-          {rows.length === 0 ? (
-            <span className="px-1 py-2 font-mono text-xs text-ink-faint">no objects yet</span>
-          ) : null}
-        </div>
-      </Region>
-      <ArrowOverlay key={arrowsKey} step={step} />
-    </div>
+    <CanvasElementContext.Provider value={canvas}>
+      <div ref={setRef} className="relative flex min-h-full w-max min-w-full items-start gap-6 p-1">
+        <Region label="Frames" hint="in call order" className="shrink-0">
+          <div className="flex flex-col gap-2">
+            <Presence>
+              {step.stack.map((frame) => (
+                <FrameView key={frame.id} frame={frame} />
+              ))}
+            </Presence>
+            {step.stack.length === 0 ? (
+              <span className="px-1 py-2 font-mono text-xs text-ink-faint">no frames</span>
+            ) : null}
+          </div>
+        </Region>
+        <Region
+          label="Objects"
+          hint="references point here"
+          className={`min-w-56 flex-1${views ? ' pr-20' : ''}`}
+          style={gutter > 0 ? { marginLeft: gutter } : undefined}
+        >
+          <div className="flex flex-col items-start gap-10">
+            <Presence>
+              {rows.map((node) => (
+                <ObjectTree key={node.id} node={node} blocks={blocks} />
+              ))}
+            </Presence>
+            {rows.length === 0 ? (
+              <span className="px-1 py-2 font-mono text-xs text-ink-faint">no objects yet</span>
+            ) : null}
+          </div>
+        </Region>
+        <ArrowOverlay key={arrowsKey} step={step} bandPerTarget />
+        <ViewLinks step={step} />
+      </div>
+    </CanvasElementContext.Provider>
   );
 }
 
