@@ -457,14 +457,63 @@
      }
     },
     "o2": {
-     "kind": "summary",
+     "kind": "dataframe",
      "library": "pandas",
      "type": "DataFrame",
      "shape": [
       2,
       2
      ],
-     "dtype": "str, int64"
+     "columns": [
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'tons'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'corn'",
+        "type": "str"
+       },
+       {
+        "repr": "12",
+        "type": "int"
+       }
+      ],
+      [
+       {
+        "repr": "'wheat'",
+        "type": "str"
+       },
+       {
+        "repr": "7",
+        "type": "int"
+       }
+      ]
+     ]
     }
    },
    "stdout": ""
@@ -581,23 +630,95 @@
      }
     },
     "o2": {
-     "kind": "summary",
+     "kind": "dataframe",
      "library": "pandas",
      "type": "DataFrame",
      "shape": [
       2,
       2
      ],
-     "dtype": "str, int64"
+     "columns": [
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'tons'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'corn'",
+        "type": "str"
+       },
+       {
+        "repr": "12",
+        "type": "int"
+       }
+      ],
+      [
+       {
+        "repr": "'wheat'",
+        "type": "str"
+       },
+       {
+        "repr": "7",
+        "type": "int"
+       }
+      ]
+     ]
     },
     "o3": {
-     "kind": "summary",
+     "kind": "series",
      "library": "pandas",
      "type": "Series",
-     "shape": [
-      2
+     "length": 2,
+     "dtype": "int64",
+     "name": {
+      "repr": "'tons'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      }
      ],
-     "dtype": "int64"
+     "values": [
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      }
+     ]
     }
    },
    "stdout": ""
@@ -706,23 +827,95 @@
      }
     },
     "o2": {
-     "kind": "summary",
+     "kind": "dataframe",
      "library": "pandas",
      "type": "DataFrame",
      "shape": [
       2,
       2
      ],
-     "dtype": "str, int64"
+     "columns": [
+      {
+       "label": {
+        "repr": "'crop'",
+        "type": "str"
+       },
+       "dtype": "str",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'tons'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "'corn'",
+        "type": "str"
+       },
+       {
+        "repr": "12",
+        "type": "int"
+       }
+      ],
+      [
+       {
+        "repr": "'wheat'",
+        "type": "str"
+       },
+       {
+        "repr": "7",
+        "type": "int"
+       }
+      ]
+     ]
     },
     "o3": {
-     "kind": "summary",
+     "kind": "series",
      "library": "pandas",
      "type": "Series",
-     "shape": [
-      2
+     "length": 2,
+     "dtype": "int64",
+     "name": {
+      "repr": "'tons'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      }
      ],
-     "dtype": "int64"
+     "values": [
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      }
+     ]
     },
     "o4": {
      "kind": "dict",

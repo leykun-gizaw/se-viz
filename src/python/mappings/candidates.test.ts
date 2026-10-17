@@ -313,7 +313,8 @@ describe('criterion 6 — a clear place for ndarray and DataFrame views', () => 
 
   it('A: real NumPy and pandas objects (fixture recorded with the packages) map the same way', () => {
     // Since Phase 34 the array is an `ndarray` block with its values (C order) and the NumPy scalar
-    // `best = yields.max()` is a primitive typed by its dtype; pandas objects are still summaries.
+    // `best = yields.max()` is a primitive typed by its dtype. Since Phase 35 the DataFrame and the
+    // Series are tables, their values keyed by index label (and column label).
     const result = fixture('packages-numpy-pandas');
     expect(result.error).toBeUndefined();
     const last = mapA(result, '\n'.repeat(8), 'packages').steps.at(-1)!;
@@ -323,12 +324,43 @@ describe('criterion 6 — a clear place for ndarray and DataFrame views', () => 
       ...b.cells.map((c) => (c.kind === 'scalar' ? `${c.name}=${c.value}` : c.name)),
     ]);
     expect(rows).toEqual([
-      ['ndarray', 'numpy ndarray', '0, 0=3.0', '0, 1=4.5', '0, 2=2.0', '1, 0=5.5', '1, 1=1.0', '1, 2=4.0'],
-      ['summary', 'pandas DataFrame', 'shape=(2, 2)', 'dtype=str, int64'],
-      ['summary', 'pandas Series', 'shape=(2,)', 'dtype=int64'],
+      [
+        'ndarray',
+        'numpy ndarray',
+        '0, 0=3.0',
+        '0, 1=4.5',
+        '0, 2=2.0',
+        '1, 0=5.5',
+        '1, 1=1.0',
+        '1, 2=4.0',
+      ],
+      [
+        'dataframe',
+        'pandas DataFrame',
+        "0, 'crop'='corn'",
+        "0, 'tons'=12",
+        "1, 'crop'='wheat'",
+        "1, 'tons'=7",
+      ],
+      ['series', 'pandas Series', '0=12', '1=7'],
       ['dict', 'dict', "'grid'", "'table'"],
     ]);
-    expect(last.heap[0].ndarray).toMatchObject({ shape: [2, 3], dtype: 'float64', size: 6, base: null });
+    expect(last.heap[0].ndarray).toMatchObject({
+      shape: [2, 3],
+      dtype: 'float64',
+      size: 6,
+      base: null,
+    });
+    expect(last.heap[1].table).toMatchObject({
+      kind: 'dataframe',
+      shape: [2, 2],
+      rowKeys: ['0', '1'],
+    });
+    expect(last.heap[1].table?.columns.map((c) => [c.name, c.dtype])).toEqual([
+      ['crop', 'str'],
+      ['tons', 'int64'],
+    ]);
+    expect(last.heap[2].table).toMatchObject({ kind: 'series', shape: [2], name: 'tons' });
     const best = last.stack[0].variables.find((v) => v.name === 'best');
     expect(best).toMatchObject({ kind: 'scalar', type: 'np.float64', value: '5.5' });
   });

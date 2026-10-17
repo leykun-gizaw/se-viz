@@ -1,0 +1,976 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "pd"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 3,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 3,
+    "end": 3,
+    "targets": [
+     {
+      "type": "name",
+      "id": "rain"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "pd"
+      },
+      "attr": "Series",
+      "src": "pd.Series"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "list",
+       "items": [
+        {
+         "type": "const",
+         "repr": "820"
+        },
+        {
+         "type": "const",
+         "repr": "910"
+        },
+        {
+         "type": "const",
+         "repr": "540"
+        },
+        {
+         "type": "const",
+         "repr": "1010"
+        }
+       ],
+       "src": "[820, 910, 540, 1010]"
+      }
+     ],
+     "keywords": [
+      "index",
+      "name"
+     ],
+     "kwargs": [
+      {
+       "name": "index",
+       "value": {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "const",
+          "repr": "'Highland'",
+          "src": "\"Highland\""
+         },
+         {
+          "type": "const",
+          "repr": "'Lakeside'",
+          "src": "\"Lakeside\""
+         },
+         {
+          "type": "const",
+          "repr": "'Valley'",
+          "src": "\"Valley\""
+         },
+         {
+          "type": "const",
+          "repr": "'Coast'",
+          "src": "\"Coast\""
+         }
+        ],
+        "src": "[\"Highland\", \"Lakeside\", \"Valley\", \"Coast\"]"
+       }
+      },
+      {
+       "name": "name",
+       "value": {
+        "type": "const",
+        "repr": "'rainfall_mm'",
+        "src": "\"rainfall_mm\""
+       }
+      }
+     ]
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "rain",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "doubled"
+     }
+    ],
+    "value": {
+     "type": "binop",
+     "op": "*",
+     "left": {
+      "type": "name",
+      "id": "rain"
+     },
+     "right": {
+      "type": "const",
+      "repr": "2"
+     },
+     "src": "rain * 2"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "540",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "rain",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "doubled",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "wet"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "rain"
+     },
+     "index": {
+      "type": "compare",
+      "ops": [
+       ">"
+      ],
+      "left": {
+       "type": "name",
+       "id": "rain"
+      },
+      "comparators": [
+       {
+        "type": "const",
+        "repr": "800"
+       }
+      ],
+      "src": "rain > 800"
+     },
+     "src": "rain[rain > 800]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "540",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "1640",
+       "type": "int"
+      },
+      {
+       "repr": "1820",
+       "type": "int"
+      },
+      {
+       "repr": "1080",
+       "type": "int"
+      },
+      {
+       "repr": "2020",
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "rain",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "doubled",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "wet",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "coast"
+     }
+    ],
+    "value": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "rain"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'Coast'",
+      "src": "\"Coast\""
+     },
+     "src": "rain[\"Coast\"]"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "540",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "1640",
+       "type": "int"
+      },
+      {
+       "repr": "1820",
+       "type": "int"
+      },
+      {
+       "repr": "1080",
+       "type": "int"
+      },
+      {
+       "repr": "2020",
+       "type": "int"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 3,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "rain",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "doubled",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "wet",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "coast",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1010",
+        "dtype": "int64"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 7,
+    "end": 7,
+    "targets": [
+     {
+      "type": "subscript",
+      "value": {
+       "type": "name",
+       "id": "rain"
+      },
+      "index": {
+       "type": "const",
+       "repr": "'Valley'",
+       "src": "\"Valley\""
+      },
+      "src": "rain[\"Valley\"]"
+     }
+    ],
+    "value": {
+     "type": "const",
+     "repr": "600"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "540",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "1640",
+       "type": "int"
+      },
+      {
+       "repr": "1820",
+       "type": "int"
+      },
+      {
+       "repr": "1080",
+       "type": "int"
+      },
+      {
+       "repr": "2020",
+       "type": "int"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 3,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "rain",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "doubled",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "wet",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      },
+      {
+       "name": "coast",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1010",
+        "dtype": "int64"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "600",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    },
+    "o2": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 4,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Valley'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "1640",
+       "type": "int"
+      },
+      {
+       "repr": "1820",
+       "type": "int"
+      },
+      {
+       "repr": "1080",
+       "type": "int"
+      },
+      {
+       "repr": "2020",
+       "type": "int"
+      }
+     ]
+    },
+    "o3": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 3,
+     "dtype": "int64",
+     "name": {
+      "repr": "'rainfall_mm'",
+      "type": "str"
+     },
+     "missing": 0,
+     "index": [
+      {
+       "repr": "'Highland'",
+       "type": "str"
+      },
+      {
+       "repr": "'Lakeside'",
+       "type": "str"
+      },
+      {
+       "repr": "'Coast'",
+       "type": "str"
+      }
+     ],
+     "values": [
+      {
+       "repr": "820",
+       "type": "int"
+      },
+      {
+       "repr": "910",
+       "type": "int"
+      },
+      {
+       "repr": "1010",
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

@@ -3,7 +3,10 @@
  * Record the package samples with the real packages, into committed fixtures:
  *
  * - Phase 29: `src/python/samples/packages/numpy-pandas.py` → `src/python/fixtures/packages-numpy-pandas.json`;
- * - Phase 34: every `src/python/samples/numpy/<name>.py` → `src/python/fixtures/numpy/<name>.json`.
+ * - Phase 34: every `src/python/samples/numpy/<name>.py` → `src/python/fixtures/numpy/<name>.json`;
+ * - Phase 35: every `src/python/samples/pandas/<name>.py` → `src/python/fixtures/pandas/<name>.json`,
+ *   with the sample data files (`src/python/data/*.csv`) in the working directory, as the worker
+ *   writes them before every run.
  *
  *   node scripts/record-python-packages-fixture.mjs        (npm run py:record-packages)
  *
@@ -23,22 +26,34 @@ const recorder = readFileSync('src/python/recorder.py', 'utf8');
 
 /** [source file, fixture file] pairs. */
 const jobs = [['src/python/samples/packages/numpy-pandas.py', 'src/python/fixtures/packages-numpy-pandas.json']];
-const numpyDir = 'src/python/samples/numpy';
-mkdirSync('src/python/fixtures/numpy', { recursive: true });
-for (const file of readdirSync(numpyDir).filter((f) => f.endsWith('.py')).sort()) {
-  jobs.push([join(numpyDir, file), `src/python/fixtures/numpy/${file.replace(/\.py$/, '.json')}`]);
+for (const lib of ['numpy', 'pandas']) {
+  const dir = `src/python/samples/${lib}`;
+  mkdirSync(`src/python/fixtures/${lib}`, { recursive: true });
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.py')).sort()) {
+    jobs.push([join(dir, file), `src/python/fixtures/${lib}/${file.replace(/\.py$/, '.json')}`]);
+  }
 }
+/** The sample data files (`installSampleFiles` in `src/python/data/index.ts` does the same). */
+const dataDir = 'src/python/data';
+const dataFiles = readdirSync(dataDir).filter((f) => f.endsWith('.csv'));
 
 const pyodide = await loadPyodide({
-  packageCacheDir: mkdtempSync(join(tmpdir(), 'se-viz-pyodide-')),
+  // A reusable cache dir may be given (`SE_VIZ_PYODIDE_CACHE`); by default a fresh temp dir.
+  packageCacheDir: process.env.SE_VIZ_PYODIDE_CACHE ?? mkdtempSync(join(tmpdir(), 'se-viz-pyodide-')),
 });
 const t0 = performance.now();
 await pyodide.loadPackage(['numpy', 'pandas'], { messageCallback: () => {} });
 const loadMs = performance.now() - t0;
 console.log(`numpy+pandas load ${Math.round(loadMs)} ms (Node ${process.version})`);
+// Imported once, untraced, as the worker does (importing pandas inside the run would count against
+// the program's time limit).
+pyodide.runPython('import numpy\nimport pandas');
 
 for (const [src, out] of jobs) {
   // A fresh recorder namespace per program, as each worker run gets fresh globals.
+  for (const f of dataFiles) {
+    pyodide.FS.writeFile(`${pyodide.FS.cwd()}/${f}`, readFileSync(join(dataDir, f), 'utf8'));
+  }
   const namespace = pyodide.toPy({});
   pyodide.runPython(recorder, { globals: namespace, filename: 'se_viz_recorder.py' });
   const runJson = namespace.get('run_json');

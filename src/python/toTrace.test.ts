@@ -9,6 +9,7 @@ import { validateTrace } from '../engine/trace/validate.ts';
 import type { RunResult } from './protocol.ts';
 import { SAMPLES } from './samples/index.ts';
 import { NUMPY_SAMPLES } from './samples/numpy/index.ts';
+import { PANDAS_SAMPLES } from './samples/pandas/index.ts';
 import { recordingToTrace } from './toTrace.ts';
 
 const RAW = import.meta.glob<string>('./fixtures/**/*.json', {
@@ -69,6 +70,31 @@ describe('Phase 34 NumPy recordings as Python traces', () => {
       expect(validateTrace(trace)).toEqual([]);
       await expect(`${JSON.stringify(trace, null, 1)}\n`).toMatchFileSnapshot(
         `../content/fixtures/python/numpy/${name}.json`,
+      );
+    },
+  );
+});
+
+describe('Phase 35 pandas recordings as Python traces', () => {
+  it.each(PANDAS_SAMPLES.map((s) => [s.name, s] as const))(
+    'pandas/%s maps to a valid trace and matches its committed file',
+    async (name, sample) => {
+      const result = recording(`pandas/${name}`);
+      expect(result.error).toBeUndefined();
+      const trace = recordingToTrace(result, sample.source, {
+        id: `python-pandas-${name}`,
+        title: sample.title,
+        file: `${name}.py`,
+      });
+      expect(trace.steps.length).toBeGreaterThan(0);
+      expect(
+        trace.steps.some((s) =>
+          s.heap.some((b) => ['dataframe', 'series', 'groupby'].includes(b.objectKind ?? '')),
+        ),
+      ).toBe(true);
+      expect(validateTrace(trace)).toEqual([]);
+      await expect(`${JSON.stringify(trace, null, 1)}\n`).toMatchFileSnapshot(
+        `../content/fixtures/python/pandas/${name}.json`,
       );
     },
   );

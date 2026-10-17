@@ -19,13 +19,27 @@
  */
 import type {
   Cell,
+  GroupByInfo,
   HeapBlock,
   NdarrayInfo,
   PyObjectKind,
   StackFrame,
+  TableColumn,
+  TableInfo,
 } from '../../engine/trace/types.ts';
 import { unravel } from '../../engine/trace/ndarray.ts';
-import type { PyFrame, PyNdarray, PyObject, PyValue } from '../protocol.ts';
+import { displayText, tableCellId, tableCellName } from '../../engine/trace/pandas.ts';
+import type {
+  PyCell,
+  PyDataFrame,
+  PyFrame,
+  PyGroupBy,
+  PyNdarray,
+  PyObject,
+  PySeries,
+  PyTableColumn,
+  PyValue,
+} from '../protocol.ts';
 
 // Phase 30: `PyObjectKind` and `HeapBlock.objectKind` live in the shared trace types now. The
 // recorder's object kinds and the trace's must stay the same set; this fails to compile if not.
@@ -116,6 +130,125 @@ function ndarrayBlock(
   return { cells, info };
 }
 
+/** Unique keys for labels (`3`, `3#2` for a repeated `3`): what table cell ids are built from. */
+function uniqueKeys(cells: readonly PyCell[]): string[] {
+  const seen = new Map<string, number>();
+  return cells.map((c) => {
+    const n = (seen.get(c.repr) ?? 0) + 1;
+    seen.set(c.repr, n);
+    return n === 1 ? c.repr : `${c.repr}#${n}`;
+  });
+}
+
+function tableColumns(cols: readonly PyTableColumn[]): TableColumn[] {
+  const keys = uniqueKeys(cols.map((c) => c.label));
+  return cols.map((c, j) => ({
+    name: displayText(c.label.repr),
+    key: keys[j],
+    dtype: c.dtype,
+    missing: c.missing,
+  }));
+}
+
+/** A DataFrame's or Series' cells (row by row, keyed by index label and column label) and facts. */
+function tableBlock(id: string, obj: PyDataFrame | PySeries): { cells: Cell[]; info: TableInfo } {
+  const rowKeys = uniqueKeys(obj.index);
+  const rowLabels = obj.index.map((c) => displayText(c.repr));
+  const indexName = obj.indexName !== undefined ? displayText(obj.indexName) : null;
+  const cells: Cell[] = [];
+  const cell = (rowKey: string, colKey: string | null, v: PyCell): Cell => ({
+    kind: 'scalar',
+    id: tableCellId(id, rowKey, colKey),
+    name: tableCellName(rowKey, colKey),
+    type: v.type,
+    value: v.repr,
+  });
+  if (obj.kind === 'series') {
+    obj.values.forEach((v, i) => cells.push(cell(rowKeys[i], null, v)));
+    const name = obj.name === null ? null : displayText(obj.name.repr);
+    return {
+      cells,
+      info: {
+        kind: 'series',
+        shape: [obj.length],
+        columns: [
+          {
+            name: name ?? '',
+            key: obj.name?.repr ?? 'None',
+            dtype: obj.dtype,
+            missing: obj.missing,
+          },
+        ],
+        columnsOmitted: 0,
+        rowLabels,
+        rowKeys,
+        rowsOmitted: obj.omitted ?? 0,
+        indexName,
+        name,
+      },
+    };
+  }
+  const columns = tableColumns(obj.columns);
+  obj.rows.forEach((row, i) =>
+    row.forEach((v, j) => {
+      if (columns[j]) cells.push(cell(rowKeys[i], columns[j].key, v));
+    }),
+  );
+  return {
+    cells,
+    info: {
+      kind: 'dataframe',
+      shape: obj.shape,
+      columns,
+      columnsOmitted: obj.columnsOmitted ?? 0,
+      rowLabels,
+      rowKeys,
+      rowsOmitted: obj.rowsOmitted ?? 0,
+      indexName,
+      name: null,
+    },
+  };
+}
+
+/** A GroupBy's cells (one per group: its size; and the reference to the grouped object) and facts. */
+function groupByBlock(
+  id: string,
+  obj: PyGroupBy,
+  objects: Record<string, PyObject>,
+): { cells: Cell[]; info: GroupByInfo } {
+  const keys = uniqueKeys(obj.groups.map((g) => g.label));
+  const cells: Cell[] = [valueToCell(`${id}.obj`, 'obj', obj.source, objects)];
+  const groups = obj.groups.map((g, i) => {
+    cells.push({
+      kind: 'scalar',
+      id: `${id}.groups[${keys[i]}]`,
+      name: displayText(g.label.repr),
+      type: 'group size',
+      value: String(g.size),
+    });
+    return {
+      label: displayText(g.label.repr),
+      key: keys[i],
+      size: g.size,
+      rowLabels: g.index.map((c) => displayText(c.repr)),
+      rows: g.rows.map((r) => r.map((c) => c.repr)),
+    };
+  });
+  return {
+    cells,
+    info: {
+      keys: obj.keys,
+      ngroups: obj.ngroups,
+      rowsTotal: obj.rowsTotal,
+      source: obj.source.kind === 'ref' && objects[obj.source.id] ? obj.source.id : null,
+      columns: tableColumns(obj.columns),
+      columnsOmitted: obj.columnsOmitted ?? 0,
+      groups,
+      groupsOmitted: obj.groupsOmitted ?? 0,
+    },
+  };
+}
+
 function blockLabel(obj: PyObject): string {
   switch (obj.kind) {
     case 'function':
@@ -124,6 +257,9 @@ function blockLabel(obj: PyObject): string {
       return `class ${obj.name}`;
     case 'summary':
     case 'ndarray':
+    case 'dataframe':
+    case 'series':
+    case 'groupby':
       return `${obj.library} ${obj.type}`;
     default:
       return obj.type;
@@ -138,6 +274,8 @@ export function objectToBlock(
 ): HeapBlock {
   let cells: Cell[];
   let ndarray: NdarrayInfo | undefined;
+  let table: TableInfo | undefined;
+  let groupby: GroupByInfo | undefined;
   switch (obj.kind) {
     case 'list':
     case 'tuple':
@@ -178,6 +316,13 @@ export function objectToBlock(
     case 'ndarray':
       ({ cells, info: ndarray } = ndarrayBlock(id, obj, objects));
       break;
+    case 'dataframe':
+    case 'series':
+      ({ cells, info: table } = tableBlock(id, obj));
+      break;
+    case 'groupby':
+      ({ cells, info: groupby } = groupByBlock(id, obj, objects));
+      break;
     case 'other':
       cells = [{ kind: 'scalar', id: `${id}.repr`, name: 'repr', type: obj.type, value: obj.repr }];
       break;
@@ -193,6 +338,8 @@ export function objectToBlock(
     cells,
     objectKind: obj.kind,
     ...(ndarray ? { ndarray } : {}),
+    ...(table ? { table } : {}),
+    ...(groupby ? { groupby } : {}),
   };
 }
 

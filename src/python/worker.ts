@@ -12,8 +12,12 @@
  * synchronous Python loop here can't be interrupted without cross-origin isolation. While the
  * program runs, the recorder streams its snapshots out (`steps` messages), so a killed run keeps
  * them.
+ *
+ * Before every run the worker writes the sample data files (`data/`, Phase 35) into the working
+ * directory of Pyodide's virtual file system, so a program can `pd.read_csv("farm.csv")` offline.
  */
 import { loadPyodide, type PyodideAPI } from 'pyodide';
+import { installSampleFiles } from './data/index.ts';
 import recorderSource from './recorder.py?raw';
 import {
   ALLOWED_PACKAGES,
@@ -95,6 +99,8 @@ async function handle(message: WorkerRequest): Promise<void> {
     }
     const packagesMs = performance.now() - p0;
     scope.postMessage({ type: 'running', id, packagesMs, loaded: [...imported] });
+    // The sample data files (Phase 35, `pd.read_csv("farm.csv")`), restored before every run.
+    installSampleFiles(pyodide);
     const r0 = performance.now();
     const result = session.run(request, (chunk, total, stop) =>
       scope.postMessage({ type: 'steps', id, chunk, total, ...(stop ? { stop } : {}) }),

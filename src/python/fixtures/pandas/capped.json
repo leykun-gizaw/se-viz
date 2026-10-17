@@ -1,0 +1,6932 @@
+{
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 1,
+    "end": 1,
+    "names": [
+     "np"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 2,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Import",
+    "line": 2,
+    "end": 2,
+    "names": [
+     "pd"
+    ]
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 4,
+     "vars": []
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 4,
+    "end": 4,
+    "targets": [
+     {
+      "type": "name",
+      "id": "days"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "pd"
+      },
+      "attr": "DataFrame",
+      "src": "pd.DataFrame"
+     },
+     "args": [
+      {
+       "type": "display",
+       "of": "dict",
+       "src": "{\"day\": np.arange(1200), \"rain_mm\": np.arange(1200) % 37 * 1.5}"
+      }
+     ],
+     "src": "pd.DataFrame({\"day\": np.arange(1200), \"rain_mm\": np.arange(1200) % 37 * 1.5})"
+    }
+   },
+   "objects": {},
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 5,
+    "end": 5,
+    "targets": [
+     {
+      "type": "name",
+      "id": "wide"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "pd"
+      },
+      "attr": "DataFrame",
+      "src": "pd.DataFrame"
+     },
+     "args": [
+      {
+       "type": "comprehension",
+       "of": "dict",
+       "src": "{f\"plot_{i}\": [i, i * 2, i * 3] for i in range(15)}"
+      }
+     ],
+     "src": "pd.DataFrame({f\"plot_{i}\": [i, i * 2, i * 3] for i in range(15)})"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "0"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "1"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "2"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "3"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "4"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "5"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "6"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "7"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "8"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "9"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "10"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "11"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "12"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "13"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "i",
+       "value": {
+        "kind": "prim",
+        "type": "int",
+        "repr": "14"
+       }
+      }
+     ]
+    }
+   ],
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "wide",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      }
+     ]
+    }
+   ],
+   "stmt": {
+    "kind": "Assign",
+    "line": 6,
+    "end": 6,
+    "targets": [
+     {
+      "type": "name",
+      "id": "notes"
+     }
+    ],
+    "value": {
+     "type": "call",
+     "func": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "pd"
+      },
+      "attr": "Series",
+      "src": "pd.Series"
+     },
+     "args": [
+      {
+       "type": "binop",
+       "op": "*",
+       "left": {
+        "type": "display",
+        "of": "list",
+        "items": [
+         {
+          "type": "const",
+          "repr": "'dry soil, late planting, weeded twice before the long rains'",
+          "src": "\"dry soil, late planting, weeded twice before the long rains\""
+         }
+        ],
+        "src": "[\"dry soil, late planting, weeded twice before the long rains\"]"
+       },
+       "right": {
+        "type": "const",
+        "repr": "3"
+       },
+       "src": "[\"dry soil, late planting, weeded twice before the long rains\"] * 3"
+      }
+     ],
+     "src": "pd.Series([\"dry soil, late planting, weeded twice before the long rains\"] * 3)"
+    }
+   },
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    },
+    "o2": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      3,
+      15
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_0'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_1'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_2'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_3'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_4'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_5'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_6'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_7'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_8'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_9'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_10'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_11'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      }
+     ],
+     "columnsOmitted": 3,
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "11",
+        "type": "int"
+       }
+      ],
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "20",
+        "type": "int"
+       },
+       {
+        "repr": "22",
+        "type": "int"
+       }
+      ],
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "21",
+        "type": "int"
+       },
+       {
+        "repr": "24",
+        "type": "int"
+       },
+       {
+        "repr": "27",
+        "type": "int"
+       },
+       {
+        "repr": "30",
+        "type": "int"
+       },
+       {
+        "repr": "33",
+        "type": "int"
+       }
+      ]
+     ]
+    }
+   },
+   "stdout": ""
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "days",
+       "value": {
+        "kind": "ref",
+        "id": "o1"
+       }
+      },
+      {
+       "name": "wide",
+       "value": {
+        "kind": "ref",
+        "id": "o2"
+       }
+      },
+      {
+       "name": "notes",
+       "value": {
+        "kind": "ref",
+        "id": "o3"
+       }
+      }
+     ]
+    }
+   ],
+   "function": "<module>",
+   "objects": {
+    "o1": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      1200,
+      2
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'day'",
+        "type": "str"
+       },
+       "dtype": "int32",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'rain_mm'",
+        "type": "str"
+       },
+       "dtype": "float64",
+       "missing": 0
+      }
+     ],
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      },
+      {
+       "repr": "3",
+       "type": "int"
+      },
+      {
+       "repr": "4",
+       "type": "int"
+      },
+      {
+       "repr": "5",
+       "type": "int"
+      },
+      {
+       "repr": "6",
+       "type": "int"
+      },
+      {
+       "repr": "7",
+       "type": "int"
+      },
+      {
+       "repr": "8",
+       "type": "int"
+      },
+      {
+       "repr": "9",
+       "type": "int"
+      },
+      {
+       "repr": "10",
+       "type": "int"
+      },
+      {
+       "repr": "11",
+       "type": "int"
+      },
+      {
+       "repr": "12",
+       "type": "int"
+      },
+      {
+       "repr": "13",
+       "type": "int"
+      },
+      {
+       "repr": "14",
+       "type": "int"
+      },
+      {
+       "repr": "15",
+       "type": "int"
+      },
+      {
+       "repr": "16",
+       "type": "int"
+      },
+      {
+       "repr": "17",
+       "type": "int"
+      },
+      {
+       "repr": "18",
+       "type": "int"
+      },
+      {
+       "repr": "19",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "0.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "1.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "7.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "10.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "12.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "13.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "15.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "11",
+        "type": "int"
+       },
+       {
+        "repr": "16.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "18.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "13",
+        "type": "int"
+       },
+       {
+        "repr": "19.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "21.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "22.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "24.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "17",
+        "type": "int"
+       },
+       {
+        "repr": "25.5",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "27.0",
+        "type": "float"
+       }
+      ],
+      [
+       {
+        "repr": "19",
+        "type": "int"
+       },
+       {
+        "repr": "28.5",
+        "type": "float"
+       }
+      ]
+     ],
+     "rowsOmitted": 1180
+    },
+    "o2": {
+     "kind": "dataframe",
+     "library": "pandas",
+     "type": "DataFrame",
+     "shape": [
+      3,
+      15
+     ],
+     "columns": [
+      {
+       "label": {
+        "repr": "'plot_0'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_1'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_2'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_3'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_4'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_5'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_6'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_7'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_8'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_9'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_10'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      },
+      {
+       "label": {
+        "repr": "'plot_11'",
+        "type": "str"
+       },
+       "dtype": "int64",
+       "missing": 0
+      }
+     ],
+     "columnsOmitted": 3,
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      }
+     ],
+     "rows": [
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "1",
+        "type": "int"
+       },
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "5",
+        "type": "int"
+       },
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "7",
+        "type": "int"
+       },
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "11",
+        "type": "int"
+       }
+      ],
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "2",
+        "type": "int"
+       },
+       {
+        "repr": "4",
+        "type": "int"
+       },
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "8",
+        "type": "int"
+       },
+       {
+        "repr": "10",
+        "type": "int"
+       },
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "14",
+        "type": "int"
+       },
+       {
+        "repr": "16",
+        "type": "int"
+       },
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "20",
+        "type": "int"
+       },
+       {
+        "repr": "22",
+        "type": "int"
+       }
+      ],
+      [
+       {
+        "repr": "0",
+        "type": "int"
+       },
+       {
+        "repr": "3",
+        "type": "int"
+       },
+       {
+        "repr": "6",
+        "type": "int"
+       },
+       {
+        "repr": "9",
+        "type": "int"
+       },
+       {
+        "repr": "12",
+        "type": "int"
+       },
+       {
+        "repr": "15",
+        "type": "int"
+       },
+       {
+        "repr": "18",
+        "type": "int"
+       },
+       {
+        "repr": "21",
+        "type": "int"
+       },
+       {
+        "repr": "24",
+        "type": "int"
+       },
+       {
+        "repr": "27",
+        "type": "int"
+       },
+       {
+        "repr": "30",
+        "type": "int"
+       },
+       {
+        "repr": "33",
+        "type": "int"
+       }
+      ]
+     ]
+    },
+    "o3": {
+     "kind": "series",
+     "library": "pandas",
+     "type": "Series",
+     "length": 3,
+     "dtype": "str",
+     "name": null,
+     "missing": 0,
+     "index": [
+      {
+       "repr": "0",
+       "type": "int"
+      },
+      {
+       "repr": "1",
+       "type": "int"
+      },
+      {
+       "repr": "2",
+       "type": "int"
+      }
+     ],
+     "values": [
+      {
+       "repr": "'dry soil, late planting, weeded twice …",
+       "type": "str",
+       "truncated": true
+      },
+      {
+       "repr": "'dry soil, late planting, weeded twice …",
+       "type": "str",
+       "truncated": true
+      },
+      {
+       "repr": "'dry soil, late planting, weeded twice …",
+       "type": "str",
+       "truncated": true
+      }
+     ]
+    }
+   },
+   "stdout": ""
+  }
+ ],
+ "stdout": ""
+}

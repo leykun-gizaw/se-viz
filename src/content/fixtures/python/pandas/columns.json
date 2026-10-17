@@ -1,0 +1,2683 @@
+{
+ "id": "python-pandas-columns",
+ "title": "pandas: new and changed columns",
+ "file": "columns.py",
+ "language": "python",
+ "source": "import pandas as pd\n\nplots = pd.read_csv(\"farm.csv\").head(6)\nplots[\"yield_per_mm\"] = plots[\"yield_kg\"] / plots[\"rainfall_mm\"]\nplots[\"yield_kg\"] = plots[\"yield_kg\"] * 2\nplots.loc[1, \"crop\"] = \"millet\"\ntons = plots.assign(yield_t=plots[\"yield_kg\"] / 1000)\n",
+ "steps": [
+  {
+   "id": "py-0",
+   "index": 0,
+   "narration": "Imported pd.",
+   "highlightedLines": [
+    1
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 3
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": []
+    }
+   ],
+   "heap": []
+  },
+  {
+   "id": "py-1",
+   "index": 1,
+   "narration": "plots now refers to a new DataFrame.",
+   "highlightedLines": [
+    3
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 4
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.plots",
+       "name": "plots",
+       "type": "DataFrame",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas DataFrame",
+     "type": "DataFrame",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'plot_id']",
+       "name": "0, 'plot_id'",
+       "type": "str",
+       "value": "'P01'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'region']",
+       "name": "0, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'crop']",
+       "name": "0, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'rainfall_mm']",
+       "name": "0, 'rainfall_mm'",
+       "type": "float",
+       "value": "820.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_kg']",
+       "name": "0, 'yield_kg'",
+       "type": "float",
+       "value": "1450.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'fertilized']",
+       "name": "0, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'plot_id']",
+       "name": "1, 'plot_id'",
+       "type": "str",
+       "value": "'P02'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'region']",
+       "name": "1, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'crop']",
+       "name": "1, 'crop'",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'rainfall_mm']",
+       "name": "1, 'rainfall_mm'",
+       "type": "float",
+       "value": "790.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_kg']",
+       "name": "1, 'yield_kg'",
+       "type": "float",
+       "value": "610.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'fertilized']",
+       "name": "1, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'plot_id']",
+       "name": "2, 'plot_id'",
+       "type": "str",
+       "value": "'P03'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'region']",
+       "name": "2, 'region'",
+       "type": "str",
+       "value": "'Lakeside'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'crop']",
+       "name": "2, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'rainfall_mm']",
+       "name": "2, 'rainfall_mm'",
+       "type": "float",
+       "value": "910.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_kg']",
+       "name": "2, 'yield_kg'",
+       "type": "float",
+       "value": "1720.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'fertilized']",
+       "name": "2, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'plot_id']",
+       "name": "3, 'plot_id'",
+       "type": "str",
+       "value": "'P04'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'region']",
+       "name": "3, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'crop']",
+       "name": "3, 'crop'",
+       "type": "str",
+       "value": "'sorghum'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'rainfall_mm']",
+       "name": "3, 'rainfall_mm'",
+       "type": "float",
+       "value": "540.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_kg']",
+       "name": "3, 'yield_kg'",
+       "type": "float",
+       "value": "880.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'fertilized']",
+       "name": "3, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'plot_id']",
+       "name": "4, 'plot_id'",
+       "type": "str",
+       "value": "'P05'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'region']",
+       "name": "4, 'region'",
+       "type": "str",
+       "value": "'Coast'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'crop']",
+       "name": "4, 'crop'",
+       "type": "str",
+       "value": "'cassava'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'rainfall_mm']",
+       "name": "4, 'rainfall_mm'",
+       "type": "float",
+       "value": "1010.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_kg']",
+       "name": "4, 'yield_kg'",
+       "type": "float",
+       "value": "2300.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'fertilized']",
+       "name": "4, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'plot_id']",
+       "name": "5, 'plot_id'",
+       "type": "str",
+       "value": "'P06'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'region']",
+       "name": "5, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'crop']",
+       "name": "5, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'rainfall_mm']",
+       "name": "5, 'rainfall_mm'",
+       "type": "float",
+       "value": "580.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_kg']",
+       "name": "5, 'yield_kg'",
+       "type": "float",
+       "value": "nan"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'fertilized']",
+       "name": "5, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      }
+     ],
+     "objectKind": "dataframe",
+     "table": {
+      "kind": "dataframe",
+      "shape": [
+       6,
+       6
+      ],
+      "columns": [
+       {
+        "name": "plot_id",
+        "key": "'plot_id'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "region",
+        "key": "'region'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "crop",
+        "key": "'crop'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "float64",
+        "missing": 0
+       },
+       {
+        "name": "yield_kg",
+        "key": "'yield_kg'",
+        "dtype": "float64",
+        "missing": 1
+       },
+       {
+        "name": "fertilized",
+        "key": "'fertilized'",
+        "dtype": "bool",
+        "missing": 0
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowKeys": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-2",
+   "index": 2,
+   "narration": "Line 4 ran.",
+   "highlightedLines": [
+    4
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 5
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.plots",
+       "name": "plots",
+       "type": "DataFrame",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas DataFrame",
+     "type": "DataFrame",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'plot_id']",
+       "name": "0, 'plot_id'",
+       "type": "str",
+       "value": "'P01'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'region']",
+       "name": "0, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'crop']",
+       "name": "0, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'rainfall_mm']",
+       "name": "0, 'rainfall_mm'",
+       "type": "float",
+       "value": "820.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_kg']",
+       "name": "0, 'yield_kg'",
+       "type": "float",
+       "value": "1450.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'fertilized']",
+       "name": "0, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_per_mm']",
+       "name": "0, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.7682926829268293"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'plot_id']",
+       "name": "1, 'plot_id'",
+       "type": "str",
+       "value": "'P02'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'region']",
+       "name": "1, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'crop']",
+       "name": "1, 'crop'",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'rainfall_mm']",
+       "name": "1, 'rainfall_mm'",
+       "type": "float",
+       "value": "790.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_kg']",
+       "name": "1, 'yield_kg'",
+       "type": "float",
+       "value": "610.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'fertilized']",
+       "name": "1, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_per_mm']",
+       "name": "1, 'yield_per_mm'",
+       "type": "float",
+       "value": "0.7721518987341772"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'plot_id']",
+       "name": "2, 'plot_id'",
+       "type": "str",
+       "value": "'P03'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'region']",
+       "name": "2, 'region'",
+       "type": "str",
+       "value": "'Lakeside'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'crop']",
+       "name": "2, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'rainfall_mm']",
+       "name": "2, 'rainfall_mm'",
+       "type": "float",
+       "value": "910.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_kg']",
+       "name": "2, 'yield_kg'",
+       "type": "float",
+       "value": "1720.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'fertilized']",
+       "name": "2, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_per_mm']",
+       "name": "2, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.89010989010989"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'plot_id']",
+       "name": "3, 'plot_id'",
+       "type": "str",
+       "value": "'P04'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'region']",
+       "name": "3, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'crop']",
+       "name": "3, 'crop'",
+       "type": "str",
+       "value": "'sorghum'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'rainfall_mm']",
+       "name": "3, 'rainfall_mm'",
+       "type": "float",
+       "value": "540.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_kg']",
+       "name": "3, 'yield_kg'",
+       "type": "float",
+       "value": "880.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'fertilized']",
+       "name": "3, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_per_mm']",
+       "name": "3, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.6296296296296295"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'plot_id']",
+       "name": "4, 'plot_id'",
+       "type": "str",
+       "value": "'P05'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'region']",
+       "name": "4, 'region'",
+       "type": "str",
+       "value": "'Coast'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'crop']",
+       "name": "4, 'crop'",
+       "type": "str",
+       "value": "'cassava'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'rainfall_mm']",
+       "name": "4, 'rainfall_mm'",
+       "type": "float",
+       "value": "1010.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_kg']",
+       "name": "4, 'yield_kg'",
+       "type": "float",
+       "value": "2300.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'fertilized']",
+       "name": "4, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_per_mm']",
+       "name": "4, 'yield_per_mm'",
+       "type": "float",
+       "value": "2.277227722772277"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'plot_id']",
+       "name": "5, 'plot_id'",
+       "type": "str",
+       "value": "'P06'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'region']",
+       "name": "5, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'crop']",
+       "name": "5, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'rainfall_mm']",
+       "name": "5, 'rainfall_mm'",
+       "type": "float",
+       "value": "580.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_kg']",
+       "name": "5, 'yield_kg'",
+       "type": "float",
+       "value": "nan"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'fertilized']",
+       "name": "5, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_per_mm']",
+       "name": "5, 'yield_per_mm'",
+       "type": "float",
+       "value": "nan"
+      }
+     ],
+     "objectKind": "dataframe",
+     "table": {
+      "kind": "dataframe",
+      "shape": [
+       6,
+       7
+      ],
+      "columns": [
+       {
+        "name": "plot_id",
+        "key": "'plot_id'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "region",
+        "key": "'region'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "crop",
+        "key": "'crop'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "float64",
+        "missing": 0
+       },
+       {
+        "name": "yield_kg",
+        "key": "'yield_kg'",
+        "dtype": "float64",
+        "missing": 1
+       },
+       {
+        "name": "fertilized",
+        "key": "'fertilized'",
+        "dtype": "bool",
+        "missing": 0
+       },
+       {
+        "name": "yield_per_mm",
+        "key": "'yield_per_mm'",
+        "dtype": "float64",
+        "missing": 1
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowKeys": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-3",
+   "index": 3,
+   "narration": "Line 5 ran.",
+   "highlightedLines": [
+    5
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 6
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.plots",
+       "name": "plots",
+       "type": "DataFrame",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas DataFrame",
+     "type": "DataFrame",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'plot_id']",
+       "name": "0, 'plot_id'",
+       "type": "str",
+       "value": "'P01'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'region']",
+       "name": "0, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'crop']",
+       "name": "0, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'rainfall_mm']",
+       "name": "0, 'rainfall_mm'",
+       "type": "float",
+       "value": "820.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_kg']",
+       "name": "0, 'yield_kg'",
+       "type": "float",
+       "value": "2900.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'fertilized']",
+       "name": "0, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_per_mm']",
+       "name": "0, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.7682926829268293"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'plot_id']",
+       "name": "1, 'plot_id'",
+       "type": "str",
+       "value": "'P02'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'region']",
+       "name": "1, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'crop']",
+       "name": "1, 'crop'",
+       "type": "str",
+       "value": "'beans'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'rainfall_mm']",
+       "name": "1, 'rainfall_mm'",
+       "type": "float",
+       "value": "790.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_kg']",
+       "name": "1, 'yield_kg'",
+       "type": "float",
+       "value": "1220.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'fertilized']",
+       "name": "1, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_per_mm']",
+       "name": "1, 'yield_per_mm'",
+       "type": "float",
+       "value": "0.7721518987341772"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'plot_id']",
+       "name": "2, 'plot_id'",
+       "type": "str",
+       "value": "'P03'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'region']",
+       "name": "2, 'region'",
+       "type": "str",
+       "value": "'Lakeside'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'crop']",
+       "name": "2, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'rainfall_mm']",
+       "name": "2, 'rainfall_mm'",
+       "type": "float",
+       "value": "910.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_kg']",
+       "name": "2, 'yield_kg'",
+       "type": "float",
+       "value": "3440.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'fertilized']",
+       "name": "2, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_per_mm']",
+       "name": "2, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.89010989010989"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'plot_id']",
+       "name": "3, 'plot_id'",
+       "type": "str",
+       "value": "'P04'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'region']",
+       "name": "3, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'crop']",
+       "name": "3, 'crop'",
+       "type": "str",
+       "value": "'sorghum'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'rainfall_mm']",
+       "name": "3, 'rainfall_mm'",
+       "type": "float",
+       "value": "540.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_kg']",
+       "name": "3, 'yield_kg'",
+       "type": "float",
+       "value": "1760.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'fertilized']",
+       "name": "3, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_per_mm']",
+       "name": "3, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.6296296296296295"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'plot_id']",
+       "name": "4, 'plot_id'",
+       "type": "str",
+       "value": "'P05'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'region']",
+       "name": "4, 'region'",
+       "type": "str",
+       "value": "'Coast'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'crop']",
+       "name": "4, 'crop'",
+       "type": "str",
+       "value": "'cassava'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'rainfall_mm']",
+       "name": "4, 'rainfall_mm'",
+       "type": "float",
+       "value": "1010.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_kg']",
+       "name": "4, 'yield_kg'",
+       "type": "float",
+       "value": "4600.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'fertilized']",
+       "name": "4, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_per_mm']",
+       "name": "4, 'yield_per_mm'",
+       "type": "float",
+       "value": "2.277227722772277"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'plot_id']",
+       "name": "5, 'plot_id'",
+       "type": "str",
+       "value": "'P06'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'region']",
+       "name": "5, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'crop']",
+       "name": "5, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'rainfall_mm']",
+       "name": "5, 'rainfall_mm'",
+       "type": "float",
+       "value": "580.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_kg']",
+       "name": "5, 'yield_kg'",
+       "type": "float",
+       "value": "nan"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'fertilized']",
+       "name": "5, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_per_mm']",
+       "name": "5, 'yield_per_mm'",
+       "type": "float",
+       "value": "nan"
+      }
+     ],
+     "objectKind": "dataframe",
+     "table": {
+      "kind": "dataframe",
+      "shape": [
+       6,
+       7
+      ],
+      "columns": [
+       {
+        "name": "plot_id",
+        "key": "'plot_id'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "region",
+        "key": "'region'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "crop",
+        "key": "'crop'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "float64",
+        "missing": 0
+       },
+       {
+        "name": "yield_kg",
+        "key": "'yield_kg'",
+        "dtype": "float64",
+        "missing": 1
+       },
+       {
+        "name": "fertilized",
+        "key": "'fertilized'",
+        "dtype": "bool",
+        "missing": 0
+       },
+       {
+        "name": "yield_per_mm",
+        "key": "'yield_per_mm'",
+        "dtype": "float64",
+        "missing": 1
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowKeys": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-4",
+   "index": 4,
+   "narration": "Line 6 ran.",
+   "highlightedLines": [
+    6
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "line",
+    "at": 7
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.plots",
+       "name": "plots",
+       "type": "DataFrame",
+       "target": "o1"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas DataFrame",
+     "type": "DataFrame",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'plot_id']",
+       "name": "0, 'plot_id'",
+       "type": "str",
+       "value": "'P01'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'region']",
+       "name": "0, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'crop']",
+       "name": "0, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'rainfall_mm']",
+       "name": "0, 'rainfall_mm'",
+       "type": "float",
+       "value": "820.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_kg']",
+       "name": "0, 'yield_kg'",
+       "type": "float",
+       "value": "2900.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'fertilized']",
+       "name": "0, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_per_mm']",
+       "name": "0, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.7682926829268293"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'plot_id']",
+       "name": "1, 'plot_id'",
+       "type": "str",
+       "value": "'P02'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'region']",
+       "name": "1, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'crop']",
+       "name": "1, 'crop'",
+       "type": "str",
+       "value": "'millet'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'rainfall_mm']",
+       "name": "1, 'rainfall_mm'",
+       "type": "float",
+       "value": "790.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_kg']",
+       "name": "1, 'yield_kg'",
+       "type": "float",
+       "value": "1220.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'fertilized']",
+       "name": "1, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_per_mm']",
+       "name": "1, 'yield_per_mm'",
+       "type": "float",
+       "value": "0.7721518987341772"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'plot_id']",
+       "name": "2, 'plot_id'",
+       "type": "str",
+       "value": "'P03'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'region']",
+       "name": "2, 'region'",
+       "type": "str",
+       "value": "'Lakeside'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'crop']",
+       "name": "2, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'rainfall_mm']",
+       "name": "2, 'rainfall_mm'",
+       "type": "float",
+       "value": "910.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_kg']",
+       "name": "2, 'yield_kg'",
+       "type": "float",
+       "value": "3440.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'fertilized']",
+       "name": "2, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_per_mm']",
+       "name": "2, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.89010989010989"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'plot_id']",
+       "name": "3, 'plot_id'",
+       "type": "str",
+       "value": "'P04'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'region']",
+       "name": "3, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'crop']",
+       "name": "3, 'crop'",
+       "type": "str",
+       "value": "'sorghum'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'rainfall_mm']",
+       "name": "3, 'rainfall_mm'",
+       "type": "float",
+       "value": "540.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_kg']",
+       "name": "3, 'yield_kg'",
+       "type": "float",
+       "value": "1760.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'fertilized']",
+       "name": "3, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_per_mm']",
+       "name": "3, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.6296296296296295"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'plot_id']",
+       "name": "4, 'plot_id'",
+       "type": "str",
+       "value": "'P05'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'region']",
+       "name": "4, 'region'",
+       "type": "str",
+       "value": "'Coast'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'crop']",
+       "name": "4, 'crop'",
+       "type": "str",
+       "value": "'cassava'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'rainfall_mm']",
+       "name": "4, 'rainfall_mm'",
+       "type": "float",
+       "value": "1010.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_kg']",
+       "name": "4, 'yield_kg'",
+       "type": "float",
+       "value": "4600.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'fertilized']",
+       "name": "4, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_per_mm']",
+       "name": "4, 'yield_per_mm'",
+       "type": "float",
+       "value": "2.277227722772277"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'plot_id']",
+       "name": "5, 'plot_id'",
+       "type": "str",
+       "value": "'P06'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'region']",
+       "name": "5, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'crop']",
+       "name": "5, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'rainfall_mm']",
+       "name": "5, 'rainfall_mm'",
+       "type": "float",
+       "value": "580.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_kg']",
+       "name": "5, 'yield_kg'",
+       "type": "float",
+       "value": "nan"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'fertilized']",
+       "name": "5, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_per_mm']",
+       "name": "5, 'yield_per_mm'",
+       "type": "float",
+       "value": "nan"
+      }
+     ],
+     "objectKind": "dataframe",
+     "table": {
+      "kind": "dataframe",
+      "shape": [
+       6,
+       7
+      ],
+      "columns": [
+       {
+        "name": "plot_id",
+        "key": "'plot_id'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "region",
+        "key": "'region'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "crop",
+        "key": "'crop'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "float64",
+        "missing": 0
+       },
+       {
+        "name": "yield_kg",
+        "key": "'yield_kg'",
+        "dtype": "float64",
+        "missing": 1
+       },
+       {
+        "name": "fertilized",
+        "key": "'fertilized'",
+        "dtype": "bool",
+        "missing": 0
+       },
+       {
+        "name": "yield_per_mm",
+        "key": "'yield_per_mm'",
+        "dtype": "float64",
+        "missing": 1
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowKeys": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "py-5",
+   "index": 5,
+   "narration": "tons now refers to a new DataFrame.",
+   "highlightedLines": [
+    7
+   ],
+   "stdout": [],
+   "activeId": "f1",
+   "py": {
+    "event": "return",
+    "at": 7,
+    "function": "<module>"
+   },
+   "stack": [
+    {
+     "id": "f1",
+     "name": "<module>",
+     "callId": 0,
+     "variables": [
+      {
+       "kind": "pointer",
+       "id": "f1.plots",
+       "name": "plots",
+       "type": "DataFrame",
+       "target": "o1"
+      },
+      {
+       "kind": "pointer",
+       "id": "f1.tons",
+       "name": "tons",
+       "type": "DataFrame",
+       "target": "o2"
+      }
+     ]
+    }
+   ],
+   "heap": [
+    {
+     "id": "o1",
+     "label": "pandas DataFrame",
+     "type": "DataFrame",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'plot_id']",
+       "name": "0, 'plot_id'",
+       "type": "str",
+       "value": "'P01'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'region']",
+       "name": "0, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'crop']",
+       "name": "0, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'rainfall_mm']",
+       "name": "0, 'rainfall_mm'",
+       "type": "float",
+       "value": "820.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_kg']",
+       "name": "0, 'yield_kg'",
+       "type": "float",
+       "value": "2900.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'fertilized']",
+       "name": "0, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[0, 'yield_per_mm']",
+       "name": "0, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.7682926829268293"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'plot_id']",
+       "name": "1, 'plot_id'",
+       "type": "str",
+       "value": "'P02'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'region']",
+       "name": "1, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'crop']",
+       "name": "1, 'crop'",
+       "type": "str",
+       "value": "'millet'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'rainfall_mm']",
+       "name": "1, 'rainfall_mm'",
+       "type": "float",
+       "value": "790.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_kg']",
+       "name": "1, 'yield_kg'",
+       "type": "float",
+       "value": "1220.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'fertilized']",
+       "name": "1, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[1, 'yield_per_mm']",
+       "name": "1, 'yield_per_mm'",
+       "type": "float",
+       "value": "0.7721518987341772"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'plot_id']",
+       "name": "2, 'plot_id'",
+       "type": "str",
+       "value": "'P03'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'region']",
+       "name": "2, 'region'",
+       "type": "str",
+       "value": "'Lakeside'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'crop']",
+       "name": "2, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'rainfall_mm']",
+       "name": "2, 'rainfall_mm'",
+       "type": "float",
+       "value": "910.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_kg']",
+       "name": "2, 'yield_kg'",
+       "type": "float",
+       "value": "3440.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'fertilized']",
+       "name": "2, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[2, 'yield_per_mm']",
+       "name": "2, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.89010989010989"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'plot_id']",
+       "name": "3, 'plot_id'",
+       "type": "str",
+       "value": "'P04'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'region']",
+       "name": "3, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'crop']",
+       "name": "3, 'crop'",
+       "type": "str",
+       "value": "'sorghum'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'rainfall_mm']",
+       "name": "3, 'rainfall_mm'",
+       "type": "float",
+       "value": "540.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_kg']",
+       "name": "3, 'yield_kg'",
+       "type": "float",
+       "value": "1760.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'fertilized']",
+       "name": "3, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[3, 'yield_per_mm']",
+       "name": "3, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.6296296296296295"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'plot_id']",
+       "name": "4, 'plot_id'",
+       "type": "str",
+       "value": "'P05'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'region']",
+       "name": "4, 'region'",
+       "type": "str",
+       "value": "'Coast'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'crop']",
+       "name": "4, 'crop'",
+       "type": "str",
+       "value": "'cassava'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'rainfall_mm']",
+       "name": "4, 'rainfall_mm'",
+       "type": "float",
+       "value": "1010.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_kg']",
+       "name": "4, 'yield_kg'",
+       "type": "float",
+       "value": "4600.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'fertilized']",
+       "name": "4, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[4, 'yield_per_mm']",
+       "name": "4, 'yield_per_mm'",
+       "type": "float",
+       "value": "2.277227722772277"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'plot_id']",
+       "name": "5, 'plot_id'",
+       "type": "str",
+       "value": "'P06'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'region']",
+       "name": "5, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'crop']",
+       "name": "5, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'rainfall_mm']",
+       "name": "5, 'rainfall_mm'",
+       "type": "float",
+       "value": "580.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_kg']",
+       "name": "5, 'yield_kg'",
+       "type": "float",
+       "value": "nan"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'fertilized']",
+       "name": "5, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o1.loc[5, 'yield_per_mm']",
+       "name": "5, 'yield_per_mm'",
+       "type": "float",
+       "value": "nan"
+      }
+     ],
+     "objectKind": "dataframe",
+     "table": {
+      "kind": "dataframe",
+      "shape": [
+       6,
+       7
+      ],
+      "columns": [
+       {
+        "name": "plot_id",
+        "key": "'plot_id'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "region",
+        "key": "'region'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "crop",
+        "key": "'crop'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "float64",
+        "missing": 0
+       },
+       {
+        "name": "yield_kg",
+        "key": "'yield_kg'",
+        "dtype": "float64",
+        "missing": 1
+       },
+       {
+        "name": "fertilized",
+        "key": "'fertilized'",
+        "dtype": "bool",
+        "missing": 0
+       },
+       {
+        "name": "yield_per_mm",
+        "key": "'yield_per_mm'",
+        "dtype": "float64",
+        "missing": 1
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowKeys": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": null
+     }
+    },
+    {
+     "id": "o2",
+     "label": "pandas DataFrame",
+     "type": "DataFrame",
+     "cells": [
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'plot_id']",
+       "name": "0, 'plot_id'",
+       "type": "str",
+       "value": "'P01'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'region']",
+       "name": "0, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'crop']",
+       "name": "0, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'rainfall_mm']",
+       "name": "0, 'rainfall_mm'",
+       "type": "float",
+       "value": "820.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'yield_kg']",
+       "name": "0, 'yield_kg'",
+       "type": "float",
+       "value": "2900.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'fertilized']",
+       "name": "0, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'yield_per_mm']",
+       "name": "0, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.7682926829268293"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[0, 'yield_t']",
+       "name": "0, 'yield_t'",
+       "type": "float",
+       "value": "2.9"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'plot_id']",
+       "name": "1, 'plot_id'",
+       "type": "str",
+       "value": "'P02'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'region']",
+       "name": "1, 'region'",
+       "type": "str",
+       "value": "'Highland'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'crop']",
+       "name": "1, 'crop'",
+       "type": "str",
+       "value": "'millet'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'rainfall_mm']",
+       "name": "1, 'rainfall_mm'",
+       "type": "float",
+       "value": "790.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'yield_kg']",
+       "name": "1, 'yield_kg'",
+       "type": "float",
+       "value": "1220.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'fertilized']",
+       "name": "1, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'yield_per_mm']",
+       "name": "1, 'yield_per_mm'",
+       "type": "float",
+       "value": "0.7721518987341772"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[1, 'yield_t']",
+       "name": "1, 'yield_t'",
+       "type": "float",
+       "value": "1.22"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'plot_id']",
+       "name": "2, 'plot_id'",
+       "type": "str",
+       "value": "'P03'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'region']",
+       "name": "2, 'region'",
+       "type": "str",
+       "value": "'Lakeside'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'crop']",
+       "name": "2, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'rainfall_mm']",
+       "name": "2, 'rainfall_mm'",
+       "type": "float",
+       "value": "910.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'yield_kg']",
+       "name": "2, 'yield_kg'",
+       "type": "float",
+       "value": "3440.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'fertilized']",
+       "name": "2, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'yield_per_mm']",
+       "name": "2, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.89010989010989"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[2, 'yield_t']",
+       "name": "2, 'yield_t'",
+       "type": "float",
+       "value": "3.44"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'plot_id']",
+       "name": "3, 'plot_id'",
+       "type": "str",
+       "value": "'P04'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'region']",
+       "name": "3, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'crop']",
+       "name": "3, 'crop'",
+       "type": "str",
+       "value": "'sorghum'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'rainfall_mm']",
+       "name": "3, 'rainfall_mm'",
+       "type": "float",
+       "value": "540.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'yield_kg']",
+       "name": "3, 'yield_kg'",
+       "type": "float",
+       "value": "1760.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'fertilized']",
+       "name": "3, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'yield_per_mm']",
+       "name": "3, 'yield_per_mm'",
+       "type": "float",
+       "value": "1.6296296296296295"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[3, 'yield_t']",
+       "name": "3, 'yield_t'",
+       "type": "float",
+       "value": "1.76"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'plot_id']",
+       "name": "4, 'plot_id'",
+       "type": "str",
+       "value": "'P05'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'region']",
+       "name": "4, 'region'",
+       "type": "str",
+       "value": "'Coast'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'crop']",
+       "name": "4, 'crop'",
+       "type": "str",
+       "value": "'cassava'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'rainfall_mm']",
+       "name": "4, 'rainfall_mm'",
+       "type": "float",
+       "value": "1010.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'yield_kg']",
+       "name": "4, 'yield_kg'",
+       "type": "float",
+       "value": "4600.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'fertilized']",
+       "name": "4, 'fertilized'",
+       "type": "bool",
+       "value": "True"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'yield_per_mm']",
+       "name": "4, 'yield_per_mm'",
+       "type": "float",
+       "value": "2.277227722772277"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[4, 'yield_t']",
+       "name": "4, 'yield_t'",
+       "type": "float",
+       "value": "4.6"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'plot_id']",
+       "name": "5, 'plot_id'",
+       "type": "str",
+       "value": "'P06'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'region']",
+       "name": "5, 'region'",
+       "type": "str",
+       "value": "'Valley'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'crop']",
+       "name": "5, 'crop'",
+       "type": "str",
+       "value": "'maize'"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'rainfall_mm']",
+       "name": "5, 'rainfall_mm'",
+       "type": "float",
+       "value": "580.0"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'yield_kg']",
+       "name": "5, 'yield_kg'",
+       "type": "float",
+       "value": "nan"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'fertilized']",
+       "name": "5, 'fertilized'",
+       "type": "bool",
+       "value": "False"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'yield_per_mm']",
+       "name": "5, 'yield_per_mm'",
+       "type": "float",
+       "value": "nan"
+      },
+      {
+       "kind": "scalar",
+       "id": "o2.loc[5, 'yield_t']",
+       "name": "5, 'yield_t'",
+       "type": "float",
+       "value": "nan"
+      }
+     ],
+     "objectKind": "dataframe",
+     "table": {
+      "kind": "dataframe",
+      "shape": [
+       6,
+       8
+      ],
+      "columns": [
+       {
+        "name": "plot_id",
+        "key": "'plot_id'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "region",
+        "key": "'region'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "crop",
+        "key": "'crop'",
+        "dtype": "str",
+        "missing": 0
+       },
+       {
+        "name": "rainfall_mm",
+        "key": "'rainfall_mm'",
+        "dtype": "float64",
+        "missing": 0
+       },
+       {
+        "name": "yield_kg",
+        "key": "'yield_kg'",
+        "dtype": "float64",
+        "missing": 1
+       },
+       {
+        "name": "fertilized",
+        "key": "'fertilized'",
+        "dtype": "bool",
+        "missing": 0
+       },
+       {
+        "name": "yield_per_mm",
+        "key": "'yield_per_mm'",
+        "dtype": "float64",
+        "missing": 1
+       },
+       {
+        "name": "yield_t",
+        "key": "'yield_t'",
+        "dtype": "float64",
+        "missing": 1
+       }
+      ],
+      "columnsOmitted": 0,
+      "rowLabels": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowKeys": [
+       "0",
+       "1",
+       "2",
+       "3",
+       "4",
+       "5"
+      ],
+      "rowsOmitted": 0,
+      "indexName": null,
+      "name": null
+     }
+    }
+   ]
+  }
+ ],
+ "statements": {
+  "1": {
+   "kind": "Import",
+   "line": 1,
+   "end": 1,
+   "names": [
+    "pd"
+   ]
+  },
+  "3": {
+   "kind": "Assign",
+   "line": 3,
+   "end": 3,
+   "targets": [
+    {
+     "type": "name",
+     "id": "plots"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "call",
+      "func": {
+       "type": "attribute",
+       "value": {
+        "type": "name",
+        "id": "pd"
+       },
+       "attr": "read_csv",
+       "src": "pd.read_csv"
+      },
+      "args": [
+       {
+        "type": "const",
+        "repr": "'farm.csv'",
+        "src": "\"farm.csv\""
+       }
+      ],
+      "src": "pd.read_csv(\"farm.csv\")"
+     },
+     "attr": "head",
+     "src": "pd.read_csv(\"farm.csv\").head"
+    },
+    "args": [
+     {
+      "type": "const",
+      "repr": "6"
+     }
+    ],
+    "src": "pd.read_csv(\"farm.csv\").head(6)"
+   }
+  },
+  "4": {
+   "kind": "Assign",
+   "line": 4,
+   "end": 4,
+   "targets": [
+    {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "plots"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'yield_per_mm'",
+      "src": "\"yield_per_mm\""
+     },
+     "src": "plots[\"yield_per_mm\"]"
+    }
+   ],
+   "value": {
+    "type": "binop",
+    "op": "/",
+    "left": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "plots"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'yield_kg'",
+      "src": "\"yield_kg\""
+     },
+     "src": "plots[\"yield_kg\"]"
+    },
+    "right": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "plots"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'rainfall_mm'",
+      "src": "\"rainfall_mm\""
+     },
+     "src": "plots[\"rainfall_mm\"]"
+    },
+    "src": "plots[\"yield_kg\"] / plots[\"rainfall_mm\"]"
+   }
+  },
+  "5": {
+   "kind": "Assign",
+   "line": 5,
+   "end": 5,
+   "targets": [
+    {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "plots"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'yield_kg'",
+      "src": "\"yield_kg\""
+     },
+     "src": "plots[\"yield_kg\"]"
+    }
+   ],
+   "value": {
+    "type": "binop",
+    "op": "*",
+    "left": {
+     "type": "subscript",
+     "value": {
+      "type": "name",
+      "id": "plots"
+     },
+     "index": {
+      "type": "const",
+      "repr": "'yield_kg'",
+      "src": "\"yield_kg\""
+     },
+     "src": "plots[\"yield_kg\"]"
+    },
+    "right": {
+     "type": "const",
+     "repr": "2"
+    },
+    "src": "plots[\"yield_kg\"] * 2"
+   }
+  },
+  "6": {
+   "kind": "Assign",
+   "line": 6,
+   "end": 6,
+   "targets": [
+    {
+     "type": "subscript",
+     "value": {
+      "type": "attribute",
+      "value": {
+       "type": "name",
+       "id": "plots"
+      },
+      "attr": "loc",
+      "src": "plots.loc"
+     },
+     "index": {
+      "type": "display",
+      "of": "tuple",
+      "items": [
+       {
+        "type": "const",
+        "repr": "1"
+       },
+       {
+        "type": "const",
+        "repr": "'crop'",
+        "src": "\"crop\""
+       }
+      ],
+      "src": "1, \"crop\""
+     },
+     "src": "plots.loc[1, \"crop\"]"
+    }
+   ],
+   "value": {
+    "type": "const",
+    "repr": "'millet'",
+    "src": "\"millet\""
+   }
+  },
+  "7": {
+   "kind": "Assign",
+   "line": 7,
+   "end": 7,
+   "targets": [
+    {
+     "type": "name",
+     "id": "tons"
+    }
+   ],
+   "value": {
+    "type": "call",
+    "func": {
+     "type": "attribute",
+     "value": {
+      "type": "name",
+      "id": "plots"
+     },
+     "attr": "assign",
+     "src": "plots.assign"
+    },
+    "args": [],
+    "keywords": [
+     "yield_t"
+    ],
+    "kwargs": [
+     {
+      "name": "yield_t",
+      "value": {
+       "type": "binop",
+       "op": "/",
+       "left": {
+        "type": "subscript",
+        "value": {
+         "type": "name",
+         "id": "plots"
+        },
+        "index": {
+         "type": "const",
+         "repr": "'yield_kg'",
+         "src": "\"yield_kg\""
+        },
+        "src": "plots[\"yield_kg\"]"
+       },
+       "right": {
+        "type": "const",
+        "repr": "1000"
+       },
+       "src": "plots[\"yield_kg\"] / 1000"
+      }
+     }
+    ],
+    "src": "plots.assign(yield_t=plots[\"yield_kg\"] / 1000)"
+   }
+  }
+ }
+}
