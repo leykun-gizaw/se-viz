@@ -317,11 +317,17 @@ export function figureContent(f: TraceFigure): string {
 function missingWords(f: TraceFigure): string {
   switch (f.reason) {
     case 'cap':
-      return 'at most 6 figures are kept per run, so it is listed without its image';
-    case 'too-large':
-      return 'it is too large to show (over 300 KB as an SVG, and as a PNG at 100 dpi), so it is listed without its image';
+      return 'at most 6 figures are kept per run, so it has no image';
+    case 'too-large': {
+      // The recorder tries no PNG for a canvas over 3000 × 3000 pixels at 100 dpi (9 M pixels).
+      const w = Math.round(f.width * 100);
+      const h = Math.round(f.height * 100);
+      return w * h > 3000 * 3000
+        ? `it is too large to show: over 300 KB as an SVG, and ${w} × ${h} pixels at 100 dpi is too big for a PNG, so it has no image`
+        : 'it is too large to show: over 300 KB both as an SVG and as a PNG at 100 dpi, so it has no image';
+    }
     default:
-      return 'matplotlib could not draw it, so it is listed without its image';
+      return 'matplotlib could not draw it, so it has no image';
   }
 }
 
@@ -329,15 +335,17 @@ function missingWords(f: TraceFigure): string {
 export function figureSentence(f: TraceFigure): string {
   const name = `Figure ${f.id.replace(/^fig/, '')}`;
   const titled = f.title && (f.axes.length !== 1 || f.axes[0]?.title !== f.title);
+  const where = f.format === 'none' ? 'listed in the output' : 'in the output';
   const lead =
     f.trigger === 'end'
-      ? `${name} was still open when the program ended, so it is in the output too`
-      : `${name} is in the output`;
+      ? `${name} was still open when the program ended, so it is ${where} too`
+      : `${name} is ${where}`;
   const content = figureContent(f);
   const body = /^\d+ subplots, /.test(content)
     ? `${lead}${titled ? `, titled ${code(f.title!)}` : ''}. It has ${content.replace(/, \(1\)/, ': (1)')}.`
     : `${lead}${titled ? `, titled ${code(f.title!)}` : ''}: ${content}.`;
-  if (f.format === 'none') return `${body} ${capitalizeFirst(missingWords(f))}.`;
+  if (f.format === 'none')
+    return `${body} ${capitalizeFirst(missingWords(f))}.`;
   if (f.format === 'png')
     return `${body} It is shown as a PNG image: its SVG would be over 300 KB.`;
   return body;
