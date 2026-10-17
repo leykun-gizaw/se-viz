@@ -9,6 +9,7 @@
  *
  * @packageDocumentation
  */
+import { figuresMadeAt } from '../trace/figures.ts';
 import { isArray, shapeText } from '../trace/ndarray.ts';
 import {
   derivedTables,
@@ -54,6 +55,7 @@ import {
   type Read,
 } from './pyState.ts';
 import { registerPythonDeriver } from './derive.ts';
+import { figureRow, figureSentence, matplotlibStatement } from './matplotlib.ts';
 import { numpyStatement, type NumpyDid } from './numpy.ts';
 import { pandasStatement } from './pandas.ts';
 import { capitalize, code, count, isAre, lineRange, plain, sentences } from './text.ts';
@@ -607,14 +609,18 @@ function printed(ctx: Ctx): string[] {
 }
 
 /**
- * The library reading of the step's statement, once per step: pandas (Phase 35) first, then NumPy
- * (Phase 34). Each returns null for a line that isn't about its objects.
+ * The library reading of the step's statement, once per step: matplotlib (Phase 36), then pandas
+ * (Phase 35), then NumPy (Phase 34). Each returns null for a line that isn't about its objects.
  */
 const numpyCache = new WeakMap<Step, NumpyDid | null>();
 function numpyFor(ctx: Ctx): NumpyDid | null {
   let hit = numpyCache.get(ctx.step);
   if (hit === undefined) {
-    hit = ctx.stmt ? (pandasStatement(ctx, ctx.stmt) ?? numpyStatement(ctx, ctx.stmt)) : null;
+    hit = ctx.stmt
+      ? (matplotlibStatement(ctx, ctx.stmt) ??
+        pandasStatement(ctx, ctx.stmt) ??
+        numpyStatement(ctx, ctx.stmt))
+      : null;
     numpyCache.set(ctx.step, hit);
   }
   return hit;
@@ -791,7 +797,23 @@ function ending(ctx: Ctx, stmt: PyStatement | null): string[] {
   return [`${capitalize(label)} returns ${valuePhrase(ctx.step, v)}.`];
 }
 
+/**
+ * "What this step did", plus a sentence per matplotlib figure the step produced (Phase 36): figures
+ * a `plt.show()` drew come before "The program has finished.", figures still open at the end after.
+ */
 function didApply(ctx: Ctx): string[] {
+  const out = didApplyLine(ctx);
+  const made = figuresMadeAt(ctx.trace, ctx.k);
+  if (made.length === 0) return out;
+  const shown = made.filter((f) => f.trigger === 'show').map(figureSentence);
+  const ended = made.filter((f) => f.trigger === 'end').map(figureSentence);
+  const finished = out[out.length - 1] === PROGRAM_END;
+  return finished
+    ? [...out.slice(0, -1), ...shown, PROGRAM_END, ...ended]
+    : [...out, ...shown, ...ended];
+}
+
+function didApplyLine(ctx: Ctx): string[] {
   const { step, stmt } = ctx;
   const py = step.py;
   if (!py || py.ending) return [];
@@ -1507,6 +1529,10 @@ function changes(ctx: Ctx): ChangeRow[] | null {
   }
   const out = printed(ctx);
   if (out.length > 0) rows.push({ kind: 'output', subject: out.join('\n') });
+  // Phase 36: each matplotlib figure this step produced.
+  for (const f of figuresMadeAt(ctx.trace, ctx.k)) {
+    rows.push({ kind: 'figure', subject: figureRow(f), markdown: true });
+  }
   return rows;
 }
 

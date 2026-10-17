@@ -252,7 +252,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Called plt.plot(months, rain_mm, marker=\"o\").",
+   "narration": "Drew a line plot of rain_mm against months on the current axes.",
    "highlightedLines": [
     6
    ],
@@ -391,7 +391,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Called plt.title(\"Rainfall by month\").",
+   "narration": "Set the title of the current axes to \"Rainfall by month\".",
    "highlightedLines": [
     7
    ],
@@ -530,7 +530,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Called plt.xlabel(\"Month\").",
+   "narration": "Set the x-axis label of the current axes to \"Month\".",
    "highlightedLines": [
     8
    ],
@@ -669,7 +669,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Called plt.ylabel(\"Rainfall (mm)\").",
+   "narration": "Set the y-axis label of the current axes to \"Rainfall (mm)\".",
    "highlightedLines": [
     9
    ],
@@ -808,7 +808,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Called plt.show().",
+   "narration": "Figure 1 is in the output: a line plot titled Rainfall by month, with the x axis labelled Month and the y axis Rainfall (mm).",
    "highlightedLines": [
     10
    ],

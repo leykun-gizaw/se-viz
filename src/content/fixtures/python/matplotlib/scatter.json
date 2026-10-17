@@ -294,7 +294,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Unpacked the values: fig is now a Figure, ax is now an Axes.",
+   "narration": "Made a new figure with one set of axes; it is now the current figure.",
    "highlightedLines": [
     6
    ],
@@ -505,7 +505,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Called ax.scatter(rainfall, yield_kg, color=\"tab:green\").",
+   "narration": "Drew a scatter plot of yield_kg against rainfall on ax.",
    "highlightedLines": [
     7
    ],
@@ -716,7 +716,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Called ax.set_title(\"Yield against rainfall\").",
+   "narration": "Set the title of ax to \"Yield against rainfall\".",
    "highlightedLines": [
     8
    ],
@@ -927,7 +927,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Called ax.set_xlabel(\"Rainfall (mm)\").",
+   "narration": "Set the x-axis label of ax to \"Rainfall (mm)\".",
    "highlightedLines": [
     9
    ],
@@ -1138,7 +1138,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Called ax.set_ylabel(\"Yield (kg)\").",
+   "narration": "Set the y-axis label of ax to \"Yield (kg)\".",
    "highlightedLines": [
     10
    ],
@@ -1349,7 +1349,7 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Called plt.show().",
+   "narration": "Figure 1 is in the output: a scatter plot titled Yield against rainfall, with the x axis labelled Rainfall (mm) and the y axis Yield (kg).",
    "highlightedLines": [
     11
    ],

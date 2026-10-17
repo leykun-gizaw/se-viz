@@ -183,7 +183,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Called plt.hist(weights, bins=4, edgecolor=\"black\").",
+   "narration": "Drew a histogram of the values in weights on the current axes, sorted into 4 bins.",
    "highlightedLines": [
     5
    ],
@@ -335,7 +335,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Called plt.title(\"Melon weights, 4 bins\").",
+   "narration": "Set the title of the current axes to \"Melon weights, 4 bins\".",
    "highlightedLines": [
     6
    ],
@@ -487,7 +487,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Called plt.xlabel(\"Weight (kg)\").",
+   "narration": "Set the x-axis label of the current axes to \"Weight (kg)\".",
    "highlightedLines": [
     7
    ],
@@ -639,7 +639,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Called plt.show().",
+   "narration": "Figure 1 is in the output: a histogram titled Melon weights, 4 bins, with the x axis labelled Weight (kg).",
    "highlightedLines": [
     8
    ],
@@ -791,7 +791,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Called plt.hist(weights, bins=8, edgecolor=\"black\", color=\"tab:purple\").",
+   "narration": "Drew a histogram of the values in weights on the current axes, sorted into 8 bins.",
    "highlightedLines": [
     10
    ],
@@ -943,7 +943,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Called plt.title(\"Melon weights, 8 bins\").",
+   "narration": "Set the title of the current axes to \"Melon weights, 8 bins\".",
    "highlightedLines": [
     11
    ],
@@ -1095,7 +1095,7 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Called plt.xlabel(\"Weight (kg)\").",
+   "narration": "Set the x-axis label of the current axes to \"Weight (kg)\".",
    "highlightedLines": [
     12
    ],
@@ -1247,7 +1247,7 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "Called plt.ylabel(\"Melons\").",
+   "narration": "Set the y-axis label of the current axes to \"Melons\".",
    "highlightedLines": [
     13
    ],
@@ -1399,7 +1399,7 @@
   {
    "id": "py-10",
    "index": 10,
-   "narration": "Called plt.show().",
+   "narration": "Figure 2 is in the output: a histogram titled Melon weights, 8 bins, with the x axis labelled Weight (kg) and the y axis Melons.",
    "highlightedLines": [
     14
    ],

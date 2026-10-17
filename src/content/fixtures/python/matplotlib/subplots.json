@@ -462,7 +462,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Called plt.subplots(1, 2, figsize=(9, 3.5)).",
+   "narration": "Made a new figure with 2 sets of axes (subplots) in 1 row of 2, 9 × 3.5 inches; it is now the current figure.",
    "highlightedLines": [
     7
    ],
@@ -717,7 +717,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Called left.plot(days, milk_l, marker=\"o\").",
+   "narration": "Drew a line plot of milk_l against days on left.",
    "highlightedLines": [
     8
    ],
@@ -972,7 +972,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "Called left.set_title(\"Milk per day\").",
+   "narration": "Set the title of left to \"Milk per day\".",
    "highlightedLines": [
     9
    ],
@@ -1227,7 +1227,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Called left.set_xlabel(\"Day\").",
+   "narration": "Set the x-axis label of left to \"Day\".",
    "highlightedLines": [
     10
    ],
@@ -1482,7 +1482,7 @@
   {
    "id": "py-8",
    "index": 8,
-   "narration": "Called left.set_ylabel(\"Litres\").",
+   "narration": "Set the y-axis label of left to \"Litres\".",
    "highlightedLines": [
     11
    ],
@@ -1737,7 +1737,7 @@
   {
    "id": "py-9",
    "index": 9,
-   "narration": "Called right.bar(list(goats), list(goats.values())).",
+   "narration": "Drew a bar chart on right: one bar for each item of list(goats), its height from list(goats.values()).",
    "highlightedLines": [
     12
    ],
@@ -1992,7 +1992,7 @@
   {
    "id": "py-10",
    "index": 10,
-   "narration": "Called right.set_title(\"Milk per goat\").",
+   "narration": "Set the title of right to \"Milk per goat\".",
    "highlightedLines": [
     13
    ],
@@ -2247,7 +2247,7 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "Called fig.suptitle(\"Dairy week\").",
+   "narration": "Set the overall title of fig to \"Dairy week\".",
    "highlightedLines": [
     14
    ],
@@ -2502,7 +2502,7 @@
   {
    "id": "py-12",
    "index": 12,
-   "narration": "Called plt.show().",
+   "narration": "Figure 1 is in the output, titled Dairy week. It has 2 subplots: (1) a line plot titled Milk per day, with the x axis labelled Day and the y axis Litres; (2) a bar chart titled Milk per goat.",
    "highlightedLines": [
     15
    ],

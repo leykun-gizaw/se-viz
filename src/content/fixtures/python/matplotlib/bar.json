@@ -695,7 +695,7 @@
   {
    "id": "py-11",
    "index": 11,
-   "narration": "Called plt.bar(list(harvest), list(harvest.values()), color=\"tab:orange\").",
+   "narration": "Drew a bar chart on the current axes: one bar for each item of list(harvest), its height from list(harvest.values()).",
    "highlightedLines": [
     7
    ],
@@ -777,7 +777,7 @@
   {
    "id": "py-12",
    "index": 12,
-   "narration": "Called plt.title(\"Harvest by crop\").",
+   "narration": "Set the title of the current axes to \"Harvest by crop\".",
    "highlightedLines": [
     8
    ],
@@ -859,7 +859,7 @@
   {
    "id": "py-13",
    "index": 13,
-   "narration": "Called plt.ylabel(\"Harvest (kg)\").",
+   "narration": "Set the y-axis label of the current axes to \"Harvest (kg)\".",
    "highlightedLines": [
     9
    ],
@@ -941,7 +941,7 @@
   {
    "id": "py-14",
    "index": 14,
-   "narration": "Printed Total: 4830 kg.",
+   "narration": "Figure 1 was still open when the program ended, so it is in the output too: a bar chart titled Harvest by crop, with the y axis labelled Harvest (kg).",
    "highlightedLines": [
     10
    ],
