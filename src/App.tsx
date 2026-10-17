@@ -1,15 +1,17 @@
 /**
- * SE-Viz workbench (Phase 2). The content navigator (sidebar) lists modules from the catalog; the
- * right column is the player for the selected module — top bar + breadcrumb, the three synchronized
- * panels, a legend toggle, light/dark toggle, presentation mode, and global keyboard transport.
+ * SE-Viz workbench (Phase 2), in the Studio layout (Phase 28): one resizable panel group of
+ * **course map | stage | step explanation**. The course map lists modules from the catalog; the stage
+ * is the player for the selected module — top bar + breadcrumb, the synchronized panels, the
+ * narration card, the timeline, a legend toggle, light/dark toggle, presentation mode, and global
+ * keyboard transport. The explanation panel follows the player's current beat.
  */
 import { lazy, Suspense, useCallback, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { allCatalogModules, CATALOG, firstModuleOfTopic } from './content/catalog.ts';
 import { THEORY_BY_ID } from './content/theory.ts';
 import type { Trace } from './engine/trace/types.ts';
 import { useTrace } from './engine/trace/useTrace.ts';
 import { useKeyboardControls } from './hooks/useKeyboardControls.ts';
-import { usePersistentState } from './hooks/usePersistentState.ts';
 import { useTheme, type Theme } from './hooks/useTheme.ts';
 import { LIVE_CODING_ID, tracerConfig } from './live/config.ts';
 import { ContentSidebar } from './components/ContentSidebar.tsx';
@@ -18,6 +20,11 @@ import { PresentationMode } from './components/PresentationMode.tsx';
 import { Stage } from './components/Stage.tsx';
 import { TheoryDeck } from './components/TheoryDeck.tsx';
 import { TopBar } from './components/TopBar.tsx';
+import { ExplanationPanel } from './components/studio/ExplanationPanel.tsx';
+import { COURSE_MAP, EXPLANATION } from './components/studio/panelLayout.ts';
+import { StudioLayout } from './components/studio/StudioLayout.tsx';
+import { useCourseMapNav } from './components/studio/useCourseMapNav.ts';
+import { useSidePanel } from './components/studio/useSidePanel.ts';
 
 /**
  * Lazy: Live Coding (and its CodeMirror dependency) loads only when the mode is opened, so the
@@ -32,10 +39,18 @@ function Workbench({
   trace,
   theme,
   onToggleTheme,
+  explanationSlot,
+  onCollapseExplanation,
+  explanationWidth,
 }: {
   trace: Trace;
   theme: Theme;
   onToggleTheme: () => void;
+  /** Where the Studio layout wants the explanation panel (null while it is collapsed). */
+  explanationSlot: HTMLElement | null;
+  onCollapseExplanation: () => void;
+  /** The explanation panel's width, reused when presentation mode shows it. */
+  explanationWidth: number;
 }) {
   const [presenting, setPresenting] = useState(false);
   const [showLegend, setShowLegend] = useState(false);
@@ -57,7 +72,13 @@ function Workbench({
   useKeyboardControls(handlers);
 
   if (presenting) {
-    return <PresentationMode player={player} onExit={() => setPresenting(false)} />;
+    return (
+      <PresentationMode
+        player={player}
+        onExit={() => setPresenting(false)}
+        explanationWidth={explanationWidth}
+      />
+    );
   }
 
   return (
@@ -93,6 +114,13 @@ function Workbench({
           exit
         </span>
       </footer>
+
+      {explanationSlot
+        ? createPortal(
+            <ExplanationPanel player={player} onCollapse={onCollapseExplanation} />,
+            explanationSlot,
+          )
+        : null}
     </div>
   );
 }
@@ -102,10 +130,10 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(modules[0].trace.id);
   const onSelect = useCallback((id: string) => setSelectedId(id), []);
   const { theme, toggle } = useTheme();
-  const [sidebarCollapsed, setSidebarCollapsed] = usePersistentState(
-    'se-viz-sidebar-collapsed',
-    false,
-  );
+  const courseMap = useSidePanel(COURSE_MAP);
+  const courseMapNav = useCourseMapNav(CATALOG, selectedId);
+  const explanation = useSidePanel(EXPLANATION);
+  const [explanationSlot, setExplanationSlot] = useState<HTMLDivElement | null>(null);
 
   // Live Coding (Phase 23) exists only when a tracer backend is configured — production today has
   // none, so the entry (and the whole mode) is hidden there rather than shipping a dead feature.
@@ -118,43 +146,63 @@ export default function App() {
 
   const firstModule = theoryDoc ? firstModuleOfTopic(theoryDoc.course, theoryDoc.topic) : null;
 
+  // Only the player has a step to explain; theory decks and live coding get a two-panel layout.
+  const hasPlayer = !liveCoding && !theoryDoc;
+
   return (
     <div className="flex h-full bg-bg text-ink">
-      <ContentSidebar
-        courses={CATALOG}
-        selectedId={liveCoding ? LIVE_CODING_ID : theoryDoc ? theoryDoc.id : selectedModule.trace.id}
-        onSelect={onSelect}
-        collapsed={sidebarCollapsed}
-        onToggleCollapse={() => setSidebarCollapsed((c) => !c)}
-        liveCodingEnabled={liveCodingEnabled}
-      />
-      {liveCoding ? (
-        <Suspense
-          fallback={
-            <div className="flex flex-1 items-center justify-center font-sans text-sm text-ink-muted">
-              Loading the live editor…
-            </div>
-          }
-        >
-          <LiveCodingView theme={theme} onToggleTheme={toggle} />
-        </Suspense>
-      ) : theoryDoc ? (
-        <TheoryDeck
-          key={theoryDoc.id}
-          doc={theoryDoc}
-          firstModule={firstModule ? { id: firstModule.trace.id, label: firstModule.label } : null}
-          theme={theme}
-          onToggleTheme={toggle}
-          onSelect={onSelect}
-        />
-      ) : (
-        <Workbench
-          key={selectedModule.trace.id}
-          trace={selectedModule.trace}
-          theme={theme}
-          onToggleTheme={toggle}
-        />
-      )}
+      <StudioLayout
+        courseMap={courseMap}
+        explanation={hasPlayer ? explanation : null}
+        onExplanationSlot={setExplanationSlot}
+        sidebar={
+          <ContentSidebar
+            courses={CATALOG}
+            selectedId={
+              liveCoding ? LIVE_CODING_ID : theoryDoc ? theoryDoc.id : selectedModule.trace.id
+            }
+            onSelect={onSelect}
+            collapsed={courseMap.state.collapsed}
+            onCollapse={courseMap.collapse}
+            onExpand={courseMap.expand}
+            liveCodingEnabled={liveCodingEnabled}
+            nav={courseMapNav}
+          />
+        }
+      >
+        {liveCoding ? (
+          <Suspense
+            fallback={
+              <div className="flex flex-1 items-center justify-center font-sans text-sm text-ink-muted">
+                Loading the live editor…
+              </div>
+            }
+          >
+            <LiveCodingView theme={theme} onToggleTheme={toggle} />
+          </Suspense>
+        ) : theoryDoc ? (
+          <TheoryDeck
+            key={theoryDoc.id}
+            doc={theoryDoc}
+            firstModule={
+              firstModule ? { id: firstModule.trace.id, label: firstModule.label } : null
+            }
+            theme={theme}
+            onToggleTheme={toggle}
+            onSelect={onSelect}
+          />
+        ) : (
+          <Workbench
+            key={selectedModule.trace.id}
+            trace={selectedModule.trace}
+            theme={theme}
+            onToggleTheme={toggle}
+            explanationSlot={hasPlayer && !explanation.state.collapsed ? explanationSlot : null}
+            onCollapseExplanation={explanation.collapse}
+            explanationWidth={explanation.state.width}
+          />
+        )}
+      </StudioLayout>
     </div>
   );
 }

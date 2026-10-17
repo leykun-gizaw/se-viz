@@ -161,7 +161,8 @@ function LivePlayer({ trace }: { trace: Trace }) {
         <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-ink-faint">
           Execution
         </span>
-        <Transport player={player} />
+        {/* The stage's timeline is the step bar (Phase 28), so no second scrub here. */}
+        <Transport player={player} showScrub={false} />
       </div>
       <Stage player={player} />
     </div>

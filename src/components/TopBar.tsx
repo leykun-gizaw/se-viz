@@ -84,14 +84,14 @@ export interface TopBarProps {
 
 export function TopBar({ player, theme, onToggleTheme, onEnterPresentation }: TopBarProps) {
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-hairline bg-surface px-4 py-2.5">
-      <div className="flex items-center gap-4">
+    <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-hairline bg-surface px-4 py-2.5">
+      <div className="flex min-w-0 items-center gap-4">
         <Mark />
         <span className="h-4 w-px bg-hairline" />
         <Breadcrumb player={player} />
       </div>
-      <div className="flex items-center gap-3">
-        <Transport player={player} />
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <Transport player={player} showScrub={false} />
         <span className="h-4 w-px bg-hairline" />
         <ThemeToggle theme={theme} onToggle={onToggleTheme} />
         <button

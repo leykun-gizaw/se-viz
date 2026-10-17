@@ -104,6 +104,14 @@ const steps: Step[] = [
   {
     id: 'enter',
     index: 0,
+    explain: {
+      did: [
+        '`insert_head` is called with `head` pointing at the first node (value 7) and `value` set to 2.',
+        'The list is 7 -> 4 -> NULL. Nothing new has been allocated yet.',
+      ],
+      concept:
+        "`head` is a copy of the caller's pointer; changing it here doesn't change the caller's, so the new head is returned.",
+    },
     narration: 'insert_head is called with head pointing at node 7 and value 2 to prepend.',
     highlightedLines: [8],
     stack: [frame('n0', ADDR.n0, null)],
@@ -113,6 +121,14 @@ const steps: Step[] = [
   {
     id: 'malloc',
     index: 1,
+    explain: {
+      did: [
+        '`malloc(sizeof(node_t))` reserves a node-sized block on the heap, at `0x8e0`.',
+        "The local `new` now holds that block's address.",
+        'Its fields are uninitialised (`?`): `malloc` does not clear memory.',
+      ],
+      concept: 'Heap memory outlives the call: the node stays allocated until it is `free`d.',
+    },
     narration: 'new = malloc(sizeof(node_t)) allocates a fresh, uninitialised node at 0x8e0.',
     highlightedLines: [9],
     stack: [frame('n0', ADDR.n0, { target: 'nn', display: ADDR.nn })],
@@ -122,6 +138,11 @@ const steps: Step[] = [
   {
     id: 'set-value',
     index: 2,
+    explain: {
+      did: ['`new->value = value` follows `new` to the node and stores 2 in its `value` field.'],
+      concept:
+        '`p->field` is shorthand for `(*p).field`: follow the pointer, then select the field.',
+    },
     narration: 'new->value = value writes 2 into the new node.',
     highlightedLines: [10],
     stack: [frame('n0', ADDR.n0, { target: 'nn', display: ADDR.nn })],
@@ -137,6 +158,14 @@ const steps: Step[] = [
   {
     id: 'link-next',
     index: 3,
+    explain: {
+      did: [
+        "`new->next = head` copies the address in `head` (the node holding 7) into the new node's `next` field.",
+        'The new node now leads to the old first node, so the rest of the list is reachable from it.',
+      ],
+      concept:
+        'Order matters: link **before** moving `head`, or nothing points at node 7 and the rest of the list is lost.',
+    },
     narration:
       'new->next = head links the new node to the old first node (7) — do this BEFORE moving head, or the rest of the list is lost.',
     highlightedLines: [11],
@@ -153,6 +182,12 @@ const steps: Step[] = [
   {
     id: 'move-head',
     index: 4,
+    explain: {
+      did: [
+        "`head = new` copies the new node's address into `head`.",
+        'Read from `head`, the list is now 2 -> 7 -> 4 -> NULL.',
+      ],
+    },
     narration: 'head = new now retargets head to the new node. The list is 2 -> 7 -> 4 -> NULL.',
     highlightedLines: [12],
     stack: [frame('nn', ADDR.nn, { target: 'nn', display: ADDR.nn })],
@@ -162,6 +197,13 @@ const steps: Step[] = [
   {
     id: 'return',
     index: 5,
+    explain: {
+      did: [
+        "`return head;` hands the new first node's address (`0x8e0`) back to the caller.",
+        'The caller must store it (`list = insert_head(list, 2);`) or the node is unreachable.',
+      ],
+      concept: 'Two pointer assignments, however long the list: insert at head is O(1).',
+    },
     narration: 'insert_head returns the new head (0x8e0) — the caller’s list now starts at node 2.',
     highlightedLines: [13],
     stack: [frame('nn', ADDR.nn, { target: 'nn', display: ADDR.nn })],

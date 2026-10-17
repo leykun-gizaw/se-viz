@@ -139,3 +139,18 @@ one-line narration (the running subtitle stays on every step). Add `coach?: Coac
 - **Predict on arrive, explain on apply.** When two-beat (execute-to-reveal) stepping is active, a
   `predict` note reads best on `arrive` (before the change) and explanations on `apply` (the
   reveal). Set `beat` accordingly; it's ignored when two-beat stepping isn't present.
+
+## Step explanations (Phase 28+)
+
+`Step.explain` feeds the Studio's step explanation panel (see `docs/TRACE_FORMAT.md § Phase 28`).
+It is optional: without it the panel falls back to the narration and the derived diff, which is
+fine for most modules.
+
+- **`did`** — an ordered breakdown of what the step does, 1–3 short sentences, in execution order.
+  Say what the machine did, not what the learner should feel. Use inline code for identifiers and
+  expressions (`` `n <= 1` ``). Don't repeat the "What changed" rows word for word; explain *why*
+  they changed.
+- **`concept`** — one or two sentences naming the idea the step illustrates. Only where it adds
+  something; leave it off on routine steps.
+- Write each step so it still reads correctly when the learner arrives there by scrubbing.
+- Exemplars: `se200/recursion/factorial.ts`, `se201/linked-lists/insertHead.ts`.
