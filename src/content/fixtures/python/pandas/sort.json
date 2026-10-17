@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "plots now refers to a new DataFrame.",
+   "narration": "pd.read_csv(\"farm.csv\").head(8) made a new DataFrame (8 rows × 6 columns): plots now refers to it.",
    "highlightedLines": [
     3
    ],
@@ -476,7 +476,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "ranked now refers to a new DataFrame.",
+   "narration": "Sorted the rows of plots by yield_kg, largest first: ranked is a new DataFrame with the same 8 rows in a new order.",
    "highlightedLines": [
     4
    ],
@@ -1341,7 +1341,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Called plots.sort_values(\"rainfall_mm\", inplace=True).",
+   "narration": "Sorted the rows of plots by rainfall_mm, smallest first, in place: the same DataFrame, its rows in a new order.",
    "highlightedLines": [
     5
    ],
@@ -2206,7 +2206,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "back now refers to a new DataFrame.",
+   "narration": "Sorted the rows of plots by their index labels: back is a new DataFrame with the same 8 rows in a new order.",
    "highlightedLines": [
     6
    ],

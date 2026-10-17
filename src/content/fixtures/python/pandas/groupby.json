@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "farm now refers to a new DataFrame.",
+   "narration": "Read the CSV file \"farm.csv\" into a new DataFrame farm: 30 rows × 6 columns, one row per line of data and one column per header name.",
    "highlightedLines": [
     3
    ],
@@ -1004,7 +1004,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "by_region now refers to a new DataFrameGroupBy.",
+   "narration": "Split the 30 rows of farm into 4 groups by region: Coast (7 rows), Highland (8), Lakeside (7) and Valley (8).",
    "highlightedLines": [
     4
    ],
@@ -2221,7 +2221,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "totals now refers to a new Series.",
+   "narration": "Grouped farm by region: split, apply, combine.",
    "highlightedLines": [
     5
    ],
@@ -3511,7 +3511,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "crop_stats now refers to a new DataFrame.",
+   "narration": "Grouped farm by crop: split, apply, combine.",
    "highlightedLines": [
     6
    ],
@@ -4909,7 +4909,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "counts now refers to a new Series.",
+   "narration": "Grouped farm by crop: split, apply, combine.",
    "highlightedLines": [
     7
    ],

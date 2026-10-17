@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "farm now refers to a new DataFrame.",
+   "narration": "Read the CSV file \"farm.csv\" into a new DataFrame farm: 30 rows × 6 columns, one row per line of data and one column per header name.",
    "highlightedLines": [
     3
    ],
@@ -1004,7 +1004,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "wet now refers to a new Series.",
+   "narration": "Compared every value of farm[\"rainfall_mm\"] with 900 (>): wet is a Series of 30 True / False values, one per row.",
    "highlightedLines": [
     4
    ],
@@ -2194,7 +2194,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "rainy now refers to a new DataFrame.",
+   "narration": "Kept the rows of farm where wet is True: 10 of 30 rows, labelled 2, 4, 7, 10, 11, 15, 18, 23, 26, 27.",
    "highlightedLines": [
     5
    ],
@@ -3892,7 +3892,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "dry_maize now refers to a new DataFrame.",
+   "narration": "Kept the rows of farm where (farm[\"rainfall_mm\"] < 600) & (farm[\"crop\"] == \"maize\") is True: 2 of 30 rows, labelled 5, 16.",
    "highlightedLines": [
     6
    ],
@@ -5746,7 +5746,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "coast now refers to a new DataFrame.",
+   "narration": "Kept the rows of farm where farm[\"region\"] == \"Coast\" is True: 7 of 30 rows, labelled 4, 7, 11, 15, 19, 23, 27.",
    "highlightedLines": [
     7
    ],

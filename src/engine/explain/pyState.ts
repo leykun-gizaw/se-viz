@@ -322,6 +322,13 @@ export function slotPath(block: HeapBlock, cell: Cell, base: string): string | n
     case 'ndarray':
       // An array element (Phase 34): `m[0, 1]`; the `N more` cell has no path.
       return cell.name === '…' ? null : `${base}[${cell.name}]`;
+    case 'dataframe':
+    case 'series':
+      // A table value (Phase 35): `farm.loc[2, 'yield_kg']`, `rain.loc['Coast']`.
+      return `${base}.loc[${cell.name}]`;
+    case 'groupby':
+      // The grouped object (Phase 35); a group's size has no path.
+      return cell.name === 'obj' && cell.kind === 'pointer' ? `${base}.obj` : null;
     default:
       return null;
   }

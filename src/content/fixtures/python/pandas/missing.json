@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "farm now refers to a new DataFrame.",
+   "narration": "Read the CSV file \"farm.csv\" into a new DataFrame farm: 30 rows × 6 columns, one row per line of data and one column per header name.",
    "highlightedLines": [
     3
    ],
@@ -1004,7 +1004,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "gaps now refers to a new Series.",
+   "narration": "Counted the missing values in each column of farm: rainfall_mm 2 and yield_kg 3; the other 4 columns have none.",
    "highlightedLines": [
     4
    ],
@@ -2068,7 +2068,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "filled now refers to a new DataFrame.",
+   "narration": "Filled 3 missing values of farm (yield_kg 3) with {\"yield_kg\": 0}: filled is a new DataFrame.",
    "highlightedLines": [
     5
    ],
@@ -4080,7 +4080,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "complete now refers to a new DataFrame.",
+   "narration": "Dropped the rows of farm with a missing value: 5 of 30 rows dropped, 25 kept in complete, a new DataFrame.",
    "highlightedLines": [
     6
    ],
@@ -7040,7 +7040,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "Called farm.dropna(subset=[\"rainfall_mm\"], inplace=True).",
+   "narration": "Dropped, in place, the rows of farm with a missing value in rainfall_mm: 2 of 30 rows removed, 28 left.",
    "highlightedLines": [
     7
    ],

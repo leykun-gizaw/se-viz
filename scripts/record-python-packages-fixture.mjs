@@ -25,11 +25,15 @@ import { resolveLimits } from '../src/python/protocol.ts';
 const recorder = readFileSync('src/python/recorder.py', 'utf8');
 
 /** [source file, fixture file] pairs. */
-const jobs = [['src/python/samples/packages/numpy-pandas.py', 'src/python/fixtures/packages-numpy-pandas.json']];
+const jobs = [
+  ['src/python/samples/packages/numpy-pandas.py', 'src/python/fixtures/packages-numpy-pandas.json'],
+];
 for (const lib of ['numpy', 'pandas']) {
   const dir = `src/python/samples/${lib}`;
   mkdirSync(`src/python/fixtures/${lib}`, { recursive: true });
-  for (const file of readdirSync(dir).filter((f) => f.endsWith('.py')).sort()) {
+  for (const file of readdirSync(dir)
+    .filter((f) => f.endsWith('.py'))
+    .sort()) {
     jobs.push([join(dir, file), `src/python/fixtures/${lib}/${file.replace(/\.py$/, '.json')}`]);
   }
 }
@@ -39,7 +43,8 @@ const dataFiles = readdirSync(dataDir).filter((f) => f.endsWith('.csv'));
 
 const pyodide = await loadPyodide({
   // A reusable cache dir may be given (`SE_VIZ_PYODIDE_CACHE`); by default a fresh temp dir.
-  packageCacheDir: process.env.SE_VIZ_PYODIDE_CACHE ?? mkdtempSync(join(tmpdir(), 'se-viz-pyodide-')),
+  packageCacheDir:
+    process.env.SE_VIZ_PYODIDE_CACHE ?? mkdtempSync(join(tmpdir(), 'se-viz-pyodide-')),
 });
 const t0 = performance.now();
 await pyodide.loadPackage(['numpy', 'pandas'], { messageCallback: () => {} });

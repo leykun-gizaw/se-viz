@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "plots now refers to a new DataFrame.",
+   "narration": "pd.read_csv(\"farm.csv\").head(6) made a new DataFrame (6 rows × 6 columns): plots now refers to it.",
    "highlightedLines": [
     3
    ],
@@ -388,7 +388,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "Line 4 ran.",
+   "narration": "Added the column yield_per_mm to plots: one value per row, from plots[\"yield_kg\"] / plots[\"rainfall_mm\"] (dtype float64).",
    "highlightedLines": [
     4
    ],
@@ -793,7 +793,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "Line 5 ran.",
+   "narration": "Replaced the column yield_kg of plots with plots[\"yield_kg\"] * 2: 5 of the 6 rows changed value.",
    "highlightedLines": [
     5
    ],
@@ -1198,7 +1198,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Line 6 ran.",
+   "narration": "Set one value of plots with loc: row 1, column crop, beans → millet.",
    "highlightedLines": [
     6
    ],
@@ -1603,7 +1603,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "tons now refers to a new DataFrame.",
+   "narration": "tons is a new DataFrame, 6 rows × 8 columns: plots with the new column yield_t added.",
    "highlightedLines": [
     7
    ],

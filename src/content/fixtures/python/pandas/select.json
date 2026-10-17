@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "farm now refers to a new DataFrame.",
+   "narration": "Read the CSV file \"farm.csv\" into a new DataFrame farm: 30 rows × 6 columns, one row per line of data and one column per header name.",
    "highlightedLines": [
     3
    ],
@@ -1004,7 +1004,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "crops now refers to a new Series.",
+   "narration": "Selected the column crop of farm: crops is a Series of 30 values (dtype str).",
    "highlightedLines": [
     4
    ],
@@ -2194,7 +2194,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "pair now refers to a new DataFrame.",
+   "narration": "Selected the columns region and yield_kg of farm: pair is a new DataFrame with the same 30 rows and only those 2 columns.",
    "highlightedLines": [
     5
    ],
@@ -3748,7 +3748,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "third now refers to a new Series.",
+   "narration": "Selected the row labelled 2 of farm with loc: third is a Series of its 6 values.",
    "highlightedLines": [
     6
    ],
@@ -5393,7 +5393,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "block now refers to a new DataFrame.",
+   "narration": "Selected by label with loc: rows 0:3 and columns [\"crop\", \"rainfall_mm\"] of farm. block is a new DataFrame, 4 rows × 2 columns.",
    "highlightedLines": [
     7
    ],
@@ -7146,7 +7146,7 @@
   {
    "id": "py-6",
    "index": 6,
-   "narration": "corner now refers to a new DataFrame.",
+   "narration": "Selected by position with iloc: rows :2 and columns :3 of farm. corner is a new DataFrame, 2 rows × 3 columns.",
    "highlightedLines": [
     8
    ],
@@ -8995,7 +8995,7 @@
   {
    "id": "py-7",
    "index": 7,
-   "narration": "Set value to 2300.0.",
+   "narration": "Read one value of farm with loc: row 4, column yield_kg. value is 2300.0 (a NumPy float64).",
    "highlightedLines": [
     9
    ],

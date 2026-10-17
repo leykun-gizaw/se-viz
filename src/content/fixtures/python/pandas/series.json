@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "rain now refers to a new Series.",
+   "narration": "Made a new Series rain of 4 values (dtype int64), named rainfall_mm.",
    "highlightedLines": [
     3
    ],
@@ -129,7 +129,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "doubled now refers to a new Series.",
+   "narration": "Worked out rain * 2 for every value at once: doubled is a new Series, 4 values, with the same index labels.",
    "highlightedLines": [
     4
    ],
@@ -300,7 +300,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "wet now refers to a new Series.",
+   "narration": "Kept the values of rain where rain > 800 is True: 3 of 4 values, labelled Highland, Lakeside, Coast.",
    "highlightedLines": [
     5
    ],
@@ -535,7 +535,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "Set coast to 1010.",
+   "narration": "Read the value labelled Coast in rain: coast is 1010.",
    "highlightedLines": [
     6
    ],
@@ -777,7 +777,7 @@
   {
    "id": "py-5",
    "index": 5,
-   "narration": "The program has finished.",
+   "narration": "Set the value labelled Valley in rain: 540 → 600.",
    "highlightedLines": [
     7
    ],

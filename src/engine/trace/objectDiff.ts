@@ -16,6 +16,7 @@
  * @packageDocumentation
  */
 import { bytePositions, elementCells, isArray } from './ndarray.ts';
+import { isTable, type TableBlock } from './pandas.ts';
 import type { Cell, HeapBlock, PointerTarget, Step } from './types.ts';
 
 /** One thing that happened to the Python state between two steps. */
@@ -50,7 +51,21 @@ export type PyEvent =
    * where they are in memory. Its cells are re-indexed (`o1[3]` is now `o1[1,1]`), so they are not
    * reported as removed and added; the canvas moves each element to its new place.
    */
-  | { kind: 'array-reshaped'; objectId: string; from: number[]; to: number[] };
+  | { kind: 'array-reshaped'; objectId: string; from: number[]; to: number[] }
+  /**
+   * Phase 35: a column added to a DataFrame in place (`df["ratio"] = …`), by its key (the label's
+   * `repr`) and position. Its values come with it: they are not listed as separate changes.
+   */
+  | { kind: 'column-added'; objectId: string; key: string; index: number }
+  | { kind: 'column-removed'; objectId: string; key: string; index: number }
+  /** Phase 35: a row added to (or removed from) a DataFrame or Series in place, by index label key. */
+  | { kind: 'row-added'; objectId: string; key: string; index: number }
+  | { kind: 'row-removed'; objectId: string; key: string; index: number }
+  /**
+   * Phase 35: the rows a table keeps were put in a new order in place (`sort_values(inplace=True)`):
+   * the row keys before and after.
+   */
+  | { kind: 'rows-reordered'; objectId: string; from: string[]; to: string[] };
 
 export type PyEventKind = PyEvent['kind'];
 
@@ -244,21 +259,130 @@ function objectEvents(before: HeapBlock, after: HeapBlock): PyEvent[] {
         const a = before.ndarray;
         const b = after.ndarray;
         if (a.shape.join() !== b.shape.join()) {
-          const reshaped: PyEvent = { kind: 'array-reshaped', objectId: id, from: a.shape, to: b.shape };
+          const reshaped: PyEvent = {
+            kind: 'array-reshaped',
+            objectId: id,
+            from: a.shape,
+            to: b.shape,
+          };
           if (sameElements(before, after)) return [reshaped];
           return [reshaped, ...fixedSlots(id, before, after)];
         }
       }
       return fixedSlots(id, before, after);
     }
+    case 'dataframe':
+    case 'series':
+      if (isTable(before) && isTable(after)) return tableEvents(before, after);
+      return fixedSlots(id, before, after);
     default:
       return fixedSlots(id, before, after);
   }
 }
 
+/**
+ * Rows (or columns) added to and removed from a table kept in place, by key, with their positions.
+ * Only the first 20 rows (12 columns) are captured, so a row can enter or leave the captured window
+ * without being added or removed (drop row 8 of 30, and row 20 slides into view). Keys among the
+ * rows both steps show are certain; one past the last shared row, at the edge of a capped window,
+ * counts only as far as the change in the true count needs it.
+ */
+function windowChanges(
+  a: readonly string[],
+  b: readonly string[],
+  cappedA: boolean,
+  cappedB: boolean,
+  delta: number,
+): { added: [string, number][]; removed: [string, number][] } {
+  const inA = new Set(a);
+  const inB = new Set(b);
+  const lastIn = (keys: readonly string[], other: Set<string>) => {
+    for (let i = keys.length - 1; i >= 0; i--) if (other.has(keys[i])) return i;
+    return -1;
+  };
+  const edgeB = lastIn(b, inA);
+  const edgeA = lastIn(a, inB);
+  const split = (keys: readonly string[], other: Set<string>, edge: number, capped: boolean) => {
+    const sure: [string, number][] = [];
+    const edgeKeys: [string, number][] = [];
+    keys.forEach((k, i) => {
+      if (other.has(k)) return;
+      (capped && i > edge ? edgeKeys : sure).push([k, i]);
+    });
+    return { sure, edgeKeys };
+  };
+  const adds = split(b, inA, edgeB, cappedA);
+  const rems = split(a, inB, edgeA, cappedB);
+  const removedNeeded = Math.max(0, adds.sure.length - delta);
+  const removed = [
+    ...rems.sure,
+    ...rems.edgeKeys.slice(0, Math.max(0, removedNeeded - rems.sure.length)),
+  ];
+  const addedNeeded = Math.max(0, delta + removed.length);
+  const added = [
+    ...adds.sure,
+    ...adds.edgeKeys.slice(0, Math.max(0, addedNeeded - adds.sure.length)),
+  ];
+  return { added, removed };
+}
+
+/**
+ * What changed inside a DataFrame or Series kept in place (Phase 35): columns and rows added or
+ * removed (by label, so a value keeps its id), the kept rows reordered, and changed values. The
+ * values of an added or removed row or column come and go with it, unlisted.
+ */
+function tableEvents(before: TableBlock, after: TableBlock): PyEvent[] {
+  const id = after.id;
+  const out: PyEvent[] = [];
+  const [ta, tb] = [before.table, after.table];
+  if (ta.kind === 'dataframe' && tb.kind === 'dataframe') {
+    const cols = windowChanges(
+      ta.columns.map((c) => c.key),
+      tb.columns.map((c) => c.key),
+      ta.columnsOmitted > 0,
+      tb.columnsOmitted > 0,
+      (tb.shape[1] ?? 0) - (ta.shape[1] ?? 0),
+    );
+    for (const [key, index] of cols.added)
+      out.push({ kind: 'column-added', objectId: id, key, index });
+    for (const [key, index] of cols.removed)
+      out.push({ kind: 'column-removed', objectId: id, key, index });
+  }
+  const { added, removed } = windowChanges(
+    ta.rowKeys,
+    tb.rowKeys,
+    ta.rowsOmitted > 0,
+    tb.rowsOmitted > 0,
+    (tb.shape[0] ?? 0) - (ta.shape[0] ?? 0),
+  );
+  for (const [key, index] of added) out.push({ kind: 'row-added', objectId: id, key, index });
+  for (const [key, index] of removed) out.push({ kind: 'row-removed', objectId: id, key, index });
+  const inA = new Set(before.table.rowKeys);
+  const inB = new Set(after.table.rowKeys);
+  const kept = (keys: readonly string[], other: Set<string>) => keys.filter((k) => other.has(k));
+  if (
+    kept(before.table.rowKeys, inB).join('\u0000') !== kept(after.table.rowKeys, inA).join('\u0000')
+  ) {
+    out.push({
+      kind: 'rows-reordered',
+      objectId: id,
+      from: before.table.rowKeys,
+      to: after.table.rowKeys,
+    });
+  }
+  const was = new Map(before.cells.map((c) => [c.id, c]));
+  for (const cell of after.cells) {
+    const prev = was.get(cell.id);
+    const e = prev ? slotChange(id, prev, cell) : null;
+    if (e) out.push(e);
+  }
+  return out;
+}
+
 /** Whether two states of one array hold the same values at the same memory (an in-place reshape). */
 function sameElements(before: HeapBlock, after: HeapBlock): boolean {
-  if (!isArray(before) || !isArray(after) || before.ndarray.size !== after.ndarray.size) return false;
+  if (!isArray(before) || !isArray(after) || before.ndarray.size !== after.ndarray.size)
+    return false;
   const pa = bytePositions(before);
   const pb = bytePositions(after);
   const ca = elementCells(before);
@@ -365,7 +489,16 @@ export function invertEvent(e: PyEvent): PyEvent {
         to: e.from,
       };
     case 'array-reshaped':
-      return { ...e, from: e.to, to: e.from };
+    case 'rows-reordered':
+      return { ...e, from: e.to, to: e.from } as PyEvent;
+    case 'column-added':
+      return { ...e, kind: 'column-removed' };
+    case 'column-removed':
+      return { ...e, kind: 'column-added' };
+    case 'row-added':
+      return { ...e, kind: 'row-removed' };
+    case 'row-removed':
+      return { ...e, kind: 'row-added' };
   }
 }
 

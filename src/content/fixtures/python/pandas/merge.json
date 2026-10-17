@@ -31,7 +31,7 @@
   {
    "id": "py-1",
    "index": 1,
-   "narration": "farm now refers to a new DataFrame.",
+   "narration": "Read the CSV file \"farm.csv\" into a new DataFrame farm: 30 rows × 6 columns, one row per line of data and one column per header name.",
    "highlightedLines": [
     3
    ],
@@ -1004,7 +1004,7 @@
   {
    "id": "py-2",
    "index": 2,
-   "narration": "prices now refers to a new DataFrame.",
+   "narration": "Made a new DataFrame prices: 3 rows × 2 columns, with the columns crop and price_per_kg.",
    "highlightedLines": [
     4
    ],
@@ -2069,7 +2069,7 @@
   {
    "id": "py-3",
    "index": 3,
-   "narration": "priced now refers to a new DataFrame.",
+   "narration": "Merged farm (30 rows) with prices (3 rows) on the key column crop, how=left: priced is a new DataFrame, 30 rows × 7 columns.",
    "highlightedLines": [
     5
    ],
@@ -4228,7 +4228,7 @@
   {
    "id": "py-4",
    "index": 4,
-   "narration": "matched now refers to a new DataFrame.",
+   "narration": "Merged farm (30 rows) with prices (3 rows) on the key column crop, how=inner: matched is a new DataFrame, 24 rows × 7 columns.",
    "highlightedLines": [
     6
    ],

@@ -23,19 +23,19 @@ export type TableBlock = HeapBlock & { objectKind: 'dataframe' | 'series'; table
 /** A GroupBy block with its facts. */
 export type GroupByBlock = HeapBlock & { objectKind: 'groupby'; groupby: GroupByInfo };
 
-export function isTable(block: HeapBlock | undefined): block is TableBlock {
+export function isTable(block: HeapBlock | null | undefined): block is TableBlock {
   return (
     (block?.objectKind === 'dataframe' || block?.objectKind === 'series') &&
     block.table !== undefined
   );
 }
 
-export function isGroupBy(block: HeapBlock | undefined): block is GroupByBlock {
+export function isGroupBy(block: HeapBlock | null | undefined): block is GroupByBlock {
   return block?.objectKind === 'groupby' && block.groupby !== undefined;
 }
 
 /** Whether a block is any pandas table view (DataFrame, Series or GroupBy). */
-export const isPandas = (block: HeapBlock | undefined) => isTable(block) || isGroupBy(block);
+export const isPandas = (block: HeapBlock | null | undefined) => isTable(block) || isGroupBy(block);
 
 /** A table value's cell id: `o3.loc[2, 'yield_kg']` (DataFrame) or `o4.loc[2]` (Series). */
 export function tableCellId(owner: string, rowKey: string, colKey: string | null): string {
