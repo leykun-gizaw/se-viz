@@ -206,3 +206,30 @@ describe('PythonRunner (Phase 31)', () => {
     expect(runner.ready).toBe(true);
   });
 });
+
+describe('progress throttling', () => {
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  it('reports at most every 100 ms, and always the latest count in the end', async () => {
+    const { createWorker } = pool((self, msg) => {
+      if (msg.type !== 'run') return;
+      queueMicrotask(() => {
+        self.send({ type: 'loaded', ms: 1, version: 'x' });
+        self.send({ type: 'running', id: msg.id, packagesMs: 0 });
+        for (let i = 1; i <= 3; i++) {
+          self.send({ type: 'steps', id: msg.id, chunk: JSON.stringify([snap(i)]), total: i });
+        }
+      });
+    });
+    const runner = new PythonRunner({ createWorker });
+    const seen: number[] = [];
+    const pending = runner.run({ source: '…' }, { onProgress: (n) => seen.push(n) });
+    await vi.advanceTimersByTimeAsync(1);
+    expect(seen).toEqual([1]);
+    await vi.advanceTimersByTimeAsync(150);
+    expect(seen).toEqual([1, 3]);
+    runner.stop();
+    expect((await pending).result.steps).toHaveLength(3);
+  });
+});

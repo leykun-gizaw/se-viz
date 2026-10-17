@@ -72,7 +72,7 @@ export function stopSentence(reason: StopReason, limits: LiveLimits, swallowed =
     }
   })();
   return swallowed
-    ? `${why}. The program caught the stop (a bare \`except:\`) and kept running, so it was ended at the time limit`
+    ? `${why}. The program caught the stop (a bare except:) and kept running, so it was ended at the time limit`
     : why;
 }
 

@@ -236,7 +236,7 @@ describe('mapOutcome', () => {
     };
     const run = traceOf(map(killed, 'harvest', { killed: true, recorderStop: 'steps' }));
     expect(run.ending).toEqual({ kind: 'stopped', reason: 'steps', steps: 19, swallowed: true });
-    expect(run.trace.steps[19].narration).toContain('caught the stop (a bare `except:`)');
+    expect(run.trace.steps[19].narration).toContain('caught the stop (a bare except:)');
   });
 
   it('a kill with no steps is an error that says nothing traceable ran', () => {

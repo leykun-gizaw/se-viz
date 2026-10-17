@@ -89,7 +89,7 @@ function StatusCard({ status }: { status: PyRunStatus }) {
     title = 'Running…';
     note =
       status.snapshots > 0
-        ? `${status.snapshots.toLocaleString('en-US')} steps recorded so far. Stop ends the run and keeps them.`
+        ? `${status.snapshots.toLocaleString('en-US')} ${status.snapshots === 1 ? 'step' : 'steps'} recorded so far. Stop ends the run and keeps them.`
         : 'Stop ends the run and keeps the steps recorded so far.';
   }
   return (

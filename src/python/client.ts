@@ -264,14 +264,23 @@ export class PythonRunner {
       let packagesMs: number | null = null;
       const chunks: string[] = [];
       let recorderStop: RecorderStop | undefined;
-      // The recorder streams every snapshot; the progress hook hears about it at most every 100 ms.
+      // The recorder streams every snapshot; the progress hook hears about it at most every 100 ms,
+      // with a trailing call so the last count is never dropped.
       let lastProgress = -Infinity;
+      let latestTotal = 0;
+      let progressTimer: ReturnType<typeof setTimeout> | null = null;
+      const report = () => {
+        progressTimer = null;
+        lastProgress = performance.now();
+        hooks.onProgress?.(latestTotal);
+      };
       const arm = (ms: number, onFire: () => void) => {
         if (timer !== null) clearTimeout(timer);
         timer = setTimeout(onFire, ms);
       };
       const finish = (result: RunResult, runMs: number | null, how: Ending) => {
         if (timer !== null) clearTimeout(timer);
+        if (progressTimer !== null) clearTimeout(progressTimer);
         if (this.active === active) this.active = null;
         const killed = how !== 'result';
         if (killed && this.worker === worker) this.killWorker('Stopped.', how === 'stopped');
@@ -320,11 +329,10 @@ export class PythonRunner {
           } else if (msg.type === 'steps') {
             if (msg.chunk !== '[]') chunks.push(msg.chunk);
             if (msg.stop) recorderStop = msg.stop;
-            const now = performance.now();
-            if (now - lastProgress >= PROGRESS_INTERVAL_MS) {
-              lastProgress = now;
-              hooks.onProgress?.(msg.total);
-            }
+            latestTotal = msg.total;
+            const wait = lastProgress + PROGRESS_INTERVAL_MS - performance.now();
+            if (wait <= 0) report();
+            else progressTimer ??= setTimeout(report, wait);
           } else if (msg.type === 'result') {
             packagesMs = msg.packagesMs;
             finish(msg.result, msg.runMs, 'result');
